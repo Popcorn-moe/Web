@@ -21,7 +21,7 @@ import AnimeList from './anime/AnimeList'
 import Anime from '@/models/Anime'
 
 export default {
-  name: 'hello',
+  name: "index",
   data () {
     const animes = [];
     for (let i = 0; i < 100; i++) {
@@ -42,7 +42,7 @@ export default {
 
 <style lang="stylus">
   @import '../stylus/main'
-  
+
   .anime-list-title {
     margin: 0;
     font-size: 20px;

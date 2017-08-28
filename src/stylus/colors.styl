@@ -1,0 +1,23 @@
+$main-color = #f6416c
+
+color-class(name, $color) {
+  .{name} {
+    background-color: $color !important;
+    border-color: $color !important;
+    color: #fff !important;
+  }
+
+  .{name}--text {
+    color: $color !important;
+  }
+}
+
+color-class('main-color', $main-color)
+color-class('secondary-color', #fddd84)
+color-class('discord-color', #8c9eff)
+color-class('google-color', #b8b8b8)
+color-class('kitsu-color', #f75239)
+color-class('twitter-color', #36a2e4)
+
+
+

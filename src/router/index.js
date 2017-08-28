@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home'
+import Index from '../components/Index'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
 
@@ -10,8 +10,8 @@ export const routes = [
   {
     icon: 'home',
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'index',
+    component: Index
   },
   {
     icon: 'search',
@@ -31,7 +31,7 @@ export const routes = [
   },
   {
     hide: true,
-    name: 'Login',
+    name: 'SignUp',
     path: '/auth/signup',
     component: SignUp
   }

@@ -18,7 +18,7 @@ export default {
     },
     plugins: [
         replace({
-            'process.env.NODE_ENV': "'production'"
+            'process.env.NODE_ENV': "'development'"
         }),
         alias({
             '@': join(__dirname, 'src')

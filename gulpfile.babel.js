@@ -77,7 +77,7 @@ gulp.task('dev', ['static'], () => {
         .pipe(webserver({
             livereload: true,
             fallback: 'index.html',
-            open: true
+            open: false
         }));
 })
 

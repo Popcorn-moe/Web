@@ -1,20 +1,9 @@
 /** Stylus Styles */
 @require '../../node_modules/vuetify/src/stylus/settings/_colors'
-
-$main-color = #f6416c
-
-.main-color {
-    background-color: $main-color !important;
-    border-color: $main-color !important;
-    color: #fff !important;
-}
-
-.main-color--text {
-  color: $main-color !important;
-}
+@require './colors.styl'
 
 $theme := {
-  primary: $blue.darken-2
+  primary: $main-color
   accent: $blue.accent-2
   secondary: $grey.darken-3
   info: $blue.base
