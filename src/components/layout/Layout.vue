@@ -13,12 +13,17 @@
 </template>
 
 <script>
+import { VBtn, VIcon } from '@/vuetify'
+import { VSlideYTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from './Navbar'
 
 export default {
     components: {
-        Navbar
+        Navbar,
+        VBtn,
+        VIcon,
+        VSlideYTransition
     },
     computed: mapGetters({
         drawer: 'drawer',
@@ -33,7 +38,7 @@ export default {
   @import '../../stylus/main'
 
   .button-float {
-    position: absolute !important;
+    position: fixed !important;
     z-index: 1000;
   }
 </style>

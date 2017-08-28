@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 dist/
+dist2/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -10,4 +11,4 @@ yarn-error.log*
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
+.sln

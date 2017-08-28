@@ -21,7 +21,13 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src')
+      '@': resolve('src'),
+      // vuetify
+      '~components': 'vuetify/src/components',
+      '~directives': 'vuetify/src/directives',
+      '~mixins': 'vuetify/src/mixins',
+      '~stylus': 'vuetify/src/stylus',
+      '~util': 'vuetify/src/util'
     }
   },
   module: {
@@ -43,7 +49,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/vuetify/src')]
       },
       {
         test: /\.styl$/,

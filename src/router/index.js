@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
+import Login from '../components/auth/Login'
+import SignUp from '../components/auth/SignUp'
 
 Vue.use(Router)
 
@@ -17,9 +19,21 @@ export const routes = [
     name: 'Search'
   },
   {
-    icon: 'view_week',
+    icon: 'equalizer',
     path: '/news',
     name: 'News'
+  },
+  {
+    hide: true,
+    name: 'Login',
+    path: '/auth/login',
+    component: Login
+  },
+  {
+    hide: true,
+    name: 'Login',
+    path: '/auth/signup',
+    component: SignUp
   }
 ];
 

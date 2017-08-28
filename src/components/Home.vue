@@ -6,23 +6,45 @@
       <v-carousel-item src="https://images4.alphacoders.com/706/thumb-1920-706365.png">News 2</v-carousel-item>
       <v-carousel-item src="https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US">News 3</v-carousel-item>
     </v-carousel>
-    <v-container fluid class="text-xs-center">
-      <h5>Derniers Episodes</h5>
-    </v-container>
+    <div class="text-xs-center">
+      <h3 class="anime-list-title">Derniers Episodes</h3>
+      <anime-list :value="animes"></anime-list>
+      <h3 class="anime-list-title">Derniers trailers</h3>
+      <anime-list :value="animes"></anime-list>
+    </div>
   </div>
 </template>
 
 <script>
+import Carousel from 'vuetify/src/components/carousel'
+import AnimeList from './anime/AnimeList'
+import Anime from '@/models/Anime'
+
 export default {
   name: 'hello',
   data () {
-    return {
-      msg: 'Home'
+    const animes = [];
+    for (let i = 0; i < 100; i++) {
+      animes.push(
+        new Anime('Sword Art Online', { name: 'Genco', link: '' }, new Date(), 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763')
+      )
     }
+    return {
+      animes
+    }
+  },
+  components: {
+    AnimeList,
+    ...Carousel
   }
 }
 </script>
 
-<style>
-
+<style lang="stylus">
+  @import '../stylus/main'
+  
+  .anime-list-title {
+    margin: 0;
+    font-size: 20px;
+  }
 </style>
