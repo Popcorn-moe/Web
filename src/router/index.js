@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../components/Index'
+import AnimePage from '../components/AnimePage'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
 
@@ -22,6 +23,12 @@ export const routes = [
     icon: 'equalizer',
     path: '/news',
     name: 'News'
+  },
+  {
+    hide: true,
+    path: '/anime',
+    name: 'Anime',
+    component: AnimePage
   },
   {
     hide: true,

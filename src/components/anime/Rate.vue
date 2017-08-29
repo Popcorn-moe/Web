@@ -1,7 +1,7 @@
 <template>
   <div class="rate">
-    <v-icon v-for="n in length" 
-        :key="n" 
+    <v-icon v-for="n in length"
+        :key="n"
         :class="{ active: over === -1 ? n <= value : n <= over, star: true }"
         @mouseover="over = n"
         @mouseout="over = -1"
@@ -33,9 +33,10 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main'
+  @import '../../stylus/main.styl';
 
   .rate .star {
+    cursor: default;
       color: $grey.lighten-3;
 
       &.active {
