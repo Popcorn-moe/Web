@@ -41,6 +41,10 @@ const router = new Router({
   routes
 })
 
-router.afterEach((to, from) => router.last = from.fullPath)
+router.afterEach((to, from) => {
+  if (!from.path.startsWith('/auth')) {
+    router.last = from.path
+  }
+})
 
 export default router;

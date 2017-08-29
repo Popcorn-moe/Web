@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="link-container">
-          <router-link to="Login" light>Se connecter</router-link>
+          <router-link replace to="Login" light>Se connecter</router-link>
         </div>
       </v-flex>
     </v-layout>

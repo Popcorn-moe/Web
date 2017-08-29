@@ -5,7 +5,9 @@
         </v-btn>
         <main>
             <div class="auth-root">
-                <router-view class="auth-center"></router-view>
+                <v-fade-transition mode="out-in">
+                    <router-view class="auth-center"></router-view>
+                </v-fade-transition>
             </div>
         </main>
     </div>
@@ -13,11 +15,13 @@
 
 <script>
 import { VBtn, VIcon } from '@/vuetify'
+import { VFadeTransition } from 'vuetify/src/components/transitions'
 
 export default {
   components: {
     VBtn,
-    VIcon
+    VIcon,
+    VFadeTransition
   }
 }
 </script>
