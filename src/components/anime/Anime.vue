@@ -22,7 +22,8 @@ import Anime from '@/models/Anime'
 import { VIcon } from '@/vuetify'
 import Rate from './Rate'
 
-export default {
+export default
+{
   props: {
     value: { type: Anime }
   },

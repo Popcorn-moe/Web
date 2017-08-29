@@ -39,15 +39,6 @@
                   </v-layout>
                 </v-flex>
               </v-layout>
-
-              <!--<v-list-tile avatar value="true">-->
-                <!--<v-list-tile-action>-->
-                  <!--<img v-bind:src="notif.cover" height="50px"></v-list-tile-avatar>-->
-                <!--</v-list-tile-action>-->
-                <!--<v-list-tile-content>-->
-                  <!--<v-list-tile-title>{{ notif.content }}</v-list-tile-title>-->
-                <!--</v-list-tile-content>-->
-              <!--</v-list-tile>-->
             </router-link>
           </v-list>
         </div>
