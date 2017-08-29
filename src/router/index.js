@@ -37,6 +37,10 @@ export const routes = [
   }
 ];
 
-export default new Router({
+const router = new Router({
   routes
 })
+
+router.afterEach((to, from) => router.last = from.fullPath)
+
+export default router;
