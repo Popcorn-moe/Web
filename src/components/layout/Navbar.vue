@@ -6,86 +6,86 @@
       enable-resize-watcher
       class="elevation-2"
     >
+      <v-slide-x-transition mode="out-in">
+        <div v-if="notifications" key="notifications">
+          <v-layout row wrap class="text-xs-center no-margin">
+            <v-flex xs3>
+              <v-btn icon @click.stop="$emit('input', !value)">
+                <v-icon>menu</v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex offset-xs6 xs3>
+              <v-btn icon @click.stop="notifications = !notifications">
+                <v-icon>clear</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-list>
+            <router-link
+              v-for="notif in notifs"
+              :key="notif.id"
+              to="index"
+              class="router-link"
+            >
+              <v-list-tile avatar value="true">
+                <v-list-tile-action>
+                  <img v-bind:src="notif.cover" height="50px"></v-list-tile-avatar>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ notif.content }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </router-link>
+          </v-list>
+        </div>
+        <div v-else key="menu">
+          <v-layout row wrap class="text-xs-center no-margin">
+            <v-flex xs3>
+              <v-btn icon @click.stop="$emit('input', !value)">
+                  <v-icon>menu</v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex xs6>
+              <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
+            </v-flex>
+            <v-flex xs3>
+              <v-btn icon @click.stop="notifications = !notifications">
+                  <v-icon>notifications</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
 
-      <v-layout row wrap class="text-xs-center no-margin" v-if="!notifications">
-        <v-flex xs3>
-          <v-btn icon @click.stop="$emit('input', !value)">
-              <v-icon>menu</v-icon>
-          </v-btn>
-        </v-flex>
-        <v-flex  xs6>
-          <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
-        </v-flex>
-        <v-flex xs3>
-          <v-btn v-on:click="notifications = !notifications" icon>
-              <v-icon>notifications</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap class="text-xs-center no-margin" v-else>
-        <v-flex xs3>
-          <v-btn icon @click.stop="$emit('input', !value)">
-            <v-icon>menu</v-icon>
-          </v-btn>
-        </v-flex>
-        <v-flex offset-xs6 xs3>
-          <v-btn v-on:click="notifications = !notifications" icon>
-            <v-icon v-if="!notifications">notifications</v-icon>
-            <v-icon v-else>clear</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-
-      <div v-if="!notifications">
-        <v-layout row wrap class="text-xs-center no-margin">
-          <v-flex xs6>
-            <v-btn outline small @click.stop="$router.push('auth/login')">
-              Log in
-            </v-btn>
-          </v-flex>
-          <v-flex xs6>
-            <v-btn outline small class="main-color--text" @click.stop="$router.push('auth/signup')">
-              Sign up
-            </v-btn>
-          </v-flex>
-        </v-layout>
-        <v-list>
-          <router-link
-            v-for="(route, i) in routes.filter(r => !r.hide)"
-            :key="i"
-            :to="route.path"
-            class="router-link"
-          >
-            <v-list-tile value="true">
-              <v-list-tile-action>
-                <v-icon v-html="route.icon"></v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                {{ route.name }}
-              </v-list-tile-content>
-            </v-list-tile>
-          </router-link>
-        </v-list>
-      </div>
-      <div v-if="notifications">
-        <v-list>
-          <router-link
-            v-for="notif in notifs"
-            :key="notif.id"
-            to="index"
-            class="router-link"
-          >
-            <v-list-tile avatar value="true">
-              <v-list-tile-avatar>
-                <img v-bind:src="notif.cover" height="50px"></v-list-tile-avatar>
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ notif.content }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </router-link>
-        </v-list>
-      </div>
+          <v-layout row wrap class="text-xs-center no-margin">
+            <v-flex xs6>
+              <v-btn outline small @click.stop="$router.push('auth/login')">
+                Log in
+              </v-btn>
+            </v-flex>
+            <v-flex xs6>
+              <v-btn outline small class="main-color--text" @click.stop="$router.push('auth/signup')">
+                Sign up
+              </v-btn>
+            </v-flex>
+          </v-layout>
+          <v-list>
+            <router-link
+              v-for="(route, i) in routes.filter(r => !r.hide)"
+              :key="i"
+              :to="route.path"
+              class="router-link"
+            >
+              <v-list-tile value="true">
+                <v-list-tile-action>
+                  <v-icon v-html="route.icon"></v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  {{ route.name }}
+                </v-list-tile-content>
+              </v-list-tile>
+            </router-link>
+          </v-list>
+        </div>
+      </v-slide-x-transition>
 
       <div class="bottom">
         <v-divider></v-divider>
@@ -102,6 +102,7 @@
 import { VNavigationDrawer, VBtn, VSwitch, VIcon, VDivider } from '@/vuetify'
 import Grid from 'vuetify/src/components/grid'
 import Lists from 'vuetify/src/components/lists'
+import { VSlideXTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import { routes } from '../../router'
 
@@ -145,6 +146,7 @@ export default {
     VSwitch,
     VIcon,
     VDivider,
+    VSlideXTransition,
     ...Grid,
     ...Lists,
   },
