@@ -21,7 +21,7 @@
               <rate v-model="rate"></rate>
             </div>
           </div>
-          <v-list>
+          <v-list class="media-list">
             <v-list-group v-for="media in medias" :value="media.active" v-bind:key="media.group">
               <v-list-tile slot="item">
                 <v-list-tile-content>
@@ -121,7 +121,7 @@
     background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
   }
 
-  .list {
+  .media-list {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-top: 10px;
@@ -131,6 +131,10 @@
   .application--dark {
     .rate-container {
       background-color: #454545;
+    }
+
+    .media-list {
+      background-color: #454545 !important;
     }
   }
 
