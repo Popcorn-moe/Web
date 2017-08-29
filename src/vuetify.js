@@ -7,6 +7,10 @@ import VIcon from 'vuetify/src/components/icons/VIcon'
 import VDivider from 'vuetify/src/components/dividers/VDivider'
 import VApp from 'vuetify/src/components/app/VApp'
 
+VTextField.components = {
+    VIcon
+}
+
 export {
     VNavigationDrawer,
     VBtn,

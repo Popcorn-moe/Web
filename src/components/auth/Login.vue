@@ -50,6 +50,9 @@
 <script>
   import { VBtn, VTextField, VIcon } from '@/vuetify'
   import Grid from 'vuetify/src/components/grid'
+  import { login } from '../../utils/auth'
+  import { mapActions } from 'vuex'
+  
   export default {
     data() {
         return {
@@ -61,33 +64,20 @@
     components: {
       VBtn,
       VTextField,
-      VIcon,
       ...Grid
     },
     methods: {
+        ...mapActions({
+          setIsAuth: 'setIsAuth'
+        }),
         login(provider) {
             if (provider) {
                 const callback = encodeURIComponent(`${location.origin}/#${this.$router.last}`)
                 window.location.assign(`http://localhost:3031/login/${provider}?callback=${callback}`)
             } else {
-                fetch('http://localhost:3031/login', {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        username: this.username,
-                        password: this.password
-                    }),
-                    credentials: 'include'
-                })
-                .then(res => {
-                    console.log(res.headers)
-                    return res.json()
-                })
-                .then(({ csrf }) => {
-                      localStorage.setItem('csrf', csrf)
-                      this.$router.go(-1)
+                login(this.username, this.password).then(() => {
+                  this.$router.go(-1)
+                  this.setIsAuth(true)
                 })
             }
         }

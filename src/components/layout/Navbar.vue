@@ -59,7 +59,10 @@
             </v-flex>
           </v-layout>
 
-          <v-layout row wrap class="text-xs-center no-margin">
+          <div v-if="isAuth">
+            Auth
+          </div>
+          <v-layout v-else row wrap class="text-xs-center no-margin">
             <v-flex xs6>
               <v-btn outline small @click.stop="$router.push('auth/login')">
                 Log in
@@ -157,6 +160,7 @@ export default {
 
   computed: mapGetters({
     darkTheme: 'darkTheme',
+    isAuth: 'isAuth'
   }),
 
   methods: mapActions({
