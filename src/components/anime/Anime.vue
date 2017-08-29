@@ -6,8 +6,8 @@
         <h3 class="title">{{ value.name }}</h3>
         <div class="infos">
             <div class="details">
-                <address class="author"><a rel="author" :href="value.author">{{ value.author.name }}</a></address> 
-                <span> - </span> 
+                <address class="author"><a rel="author" :href="value.author">{{ value.author.name }}</a></address>
+                <span> - </span>
                 <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ value.date.toISOString().split('T')[0] }}</time>
             </div>
             <rate v-model="rate"></rate>
@@ -93,7 +93,8 @@ export default {
             color: $grey.base;
         }
 
-        .description {
+        .description
+        {
             background-color: $grey.lighten-3;
             color: $main-color;
             display: block;
@@ -107,7 +108,7 @@ export default {
         }
     }
 
-    .application--dark .anime{
+    .application--dark .anime {
         .title {
             color: white;
         }

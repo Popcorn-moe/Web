@@ -27,14 +27,27 @@
               to="index"
               class="router-link"
             >
-              <v-list-tile avatar value="true">
-                <v-list-tile-action>
-                  <img v-bind:src="notif.cover" height="50px"></v-list-tile-avatar>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ notif.content }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+              <v-layout row>
+                <v-flex xs12 class="notif-container">
+                  <v-layout row>
+                    <v-flex xs2>
+                      <img v-bind:src="notif.cover" class="img"></v-list-tile-avatar>
+                    </v-flex>
+                    <v-flex xs10>
+                      <div class="content">{{ notif.content }}</div>
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+
+              <!--<v-list-tile avatar value="true">-->
+                <!--<v-list-tile-action>-->
+                  <!--<img v-bind:src="notif.cover" height="50px"></v-list-tile-avatar>-->
+                <!--</v-list-tile-action>-->
+                <!--<v-list-tile-content>-->
+                  <!--<v-list-tile-title>{{ notif.content }}</v-list-tile-title>-->
+                <!--</v-list-tile-content>-->
+              <!--</v-list-tile>-->
             </router-link>
           </v-list>
         </div>
@@ -119,7 +132,7 @@ export default {
           {
             id: "index",
             cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
-            content: "Tel anime de merde est sorti"
+            content: "Tel anime de merde est sorti zdzqdzq dz dqzd zd qzdzqdqz qzd qzdqzd qzd qzd zqdzqd qzd qzd qzdqzdqzdqzd qdqz dqzd"
           },
           {
             id: "index",
@@ -173,6 +186,33 @@ export default {
     }
     .input-group {
       padding: 9px 0;
+    }
+  }
+
+  .notif-container:hover {
+    background-color: rgba(0,0,0,0.15);
+  }
+
+  .notif-container {
+      padding: 6px !important;
+      .img {
+        padding-left: 10px;
+        width: 50px;
+        height: auto;
+      }
+      .content {
+        text-align: justify;
+        padding-left: 10px;
+        padding-right: 10px;
+        color: #4b4b4b !important;
+      }
+  }
+
+  .application--dark {
+    .notif-container {
+      .content {
+        color: #888888 !important;
+      }
     }
   }
 

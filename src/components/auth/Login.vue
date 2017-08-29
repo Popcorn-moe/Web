@@ -21,25 +21,28 @@
                 </v-btn>
             </v-flex>
             <v-flex class="fields-container" xs8>
-              <div class="text-xs-center">
-                  <object data="/static/logo-animated.svg" type="image/svg+xml" class="auth-logo"></object>
+              <div class="inputs">
+                <div class="text-xs-center">
+                    <object data="/static/logo-animated.svg" type="image/svg+xml" class="auth-logo"></object>
+                </div>
+                <v-text-field name="input-1" label="E-mail / Pseudo" light
+                  v-model="username"
+                ></v-text-field>
+                <v-text-field name="input-2" label="Mot de passe" light
+                  v-model="password"
+                  :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
+                  :append-icon-cb="() => (hidePassword = !hidePassword)"
+                  :type="hidePassword ? 'password' : 'text'"
+                ></v-text-field>
+                <div class="text-xs-right">
+                  <v-btn class="login-button secondary-color black--text" large light @click.stop="() => login()">Se Connecter</v-btn>
+                </div>
               </div>
-              <v-text-field name="input-1" label="E-mail / Pseudo" light
-                v-model="username"
-              ></v-text-field>
-              <v-text-field name="input-2" label="Mot de passe" light
-                v-model="password"
-                :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
-                :append-icon-cb="() => (hidePassword = !hidePassword)"
-                :type="hidePassword ? 'password' : 'text'"
-              ></v-text-field>
-              <div class="text-xs-right">
-                <v-btn class="login-button secondary-color black--text" large light @click.stop="() => login()">Se Connecter</v-btn>
-              </div>
-              <div class="sign-in-container">
+              <div class="link-container">
                 <router-link to="SignUp" light>Se créer un compte</router-link>
               </div>
             </v-flex>
+
         </v-layout>
     </div>
 </template>
@@ -112,20 +115,31 @@
   }
 
   .fields-container {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 50px !important;
-    padding-right: 50px !important;
+
     background-color: rgba(255, 255, 255, 0.71);
+    .inputs{
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-left: 50px !important;
+      padding-right: 50px !important;
+    }
+
+    .link-container {
+      width: 100%;
+      padding: 15px;
+
+      a {
+        text-decoration: none;
+        color: #4b4b4b !important;
+      }
+    }
   }
 
   .login-button {
     margin: 0 !important;
   }
 
-  .sign-in-container {
-    width: 100%;
-  }
+
 
   .auth-logo {
     width: 110px;
