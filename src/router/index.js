@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '../components/Index'
 import Search from '../components/SearchPage'
 import AnimePage from '../components/AnimePage'
+import MediaPage from '../components/MediaPage'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
 
@@ -31,6 +32,12 @@ export const routes = [
     path: '/anime',
     name: 'Anime',
     component: AnimePage
+  },
+  {
+    hide: true,
+    name: 'Media',
+    path: '/media',
+    component: MediaPage
   },
   {
     hide: true,
