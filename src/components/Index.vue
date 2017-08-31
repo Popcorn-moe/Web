@@ -46,5 +46,6 @@ export default {
   .anime-list-title {
     margin: 0;
     font-size: 20px;
+    margin-top: 20px;
   }
 </style>

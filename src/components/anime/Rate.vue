@@ -36,7 +36,7 @@ export default {
   @import '../../stylus/main.styl';
 
   .rate .star {
-    cursor: default;
+    cursor: pointer;
       color: $grey.lighten-3;
 
       &.active {

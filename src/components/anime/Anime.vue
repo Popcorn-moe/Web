@@ -1,8 +1,10 @@
 <template>
     <div class="anime">
-    <a>
-        <img class="poster" :src="value.poster">
-        <v-icon class="arrow">play_arrow</v-icon>
+      <a>
+        <div class="poster-container">
+          <img class="poster" :src="value.poster">
+          <v-icon class="arrow">play_arrow</v-icon>
+        </div>
         <h3 class="title">{{ value.name }}</h3>
         <div class="infos">
             <div class="details">
@@ -13,7 +15,7 @@
             <rate v-model="rate"></rate>
             <a class="description">Description</a>
         </div>
-        </a>
+      </a>
     </div>
 </template>
 
@@ -22,8 +24,7 @@ import Anime from '@/models/Anime'
 import { VIcon } from '@/vuetify'
 import Rate from './Rate'
 
-export default
-{
+export default {
   props: {
     value: { type: Anime }
   },
@@ -52,10 +53,6 @@ export default
         transition: transform .3s ease-out;
 
         &:hover {
-            .poster {
-                background-color: $main-color;
-            }
-
             .infos {
                 opacity: 1;
             }
@@ -67,19 +64,30 @@ export default
         }
 
         .poster {
-            padding: $anime.img-border
-            height: auto;
-            width: $anime.width;
-            height: $anime.img-height;
+          padding: $anime.img-border;
+          height: auto;
+          width: $anime.width;
+          height: $anime.img-height;
+        }
+
+        .poster-container:hover {
+            .poster {
+              background-color: $main-color;
+            }
+
+            .arrow {
+              display: block;
+            }
         }
 
         .arrow {
-            position: absolute;
-            top: $anime.padding + $anime.img-height * 0.5;
-            left: $anime.padding + $anime.width * 0.5;
-            transform: translate(-50%, -50%);
-            font-size: 6rem;
-            color: white !important;
+          display: none;
+          position: absolute;
+          top: $anime.padding + $anime.img-height * 0.5;
+          left: $anime.padding + $anime.width * 0.5;
+          transform: translate(-50%, -50%);
+          font-size: 6rem;
+          color: white !important;
         }
 
         .title {
@@ -88,7 +96,7 @@ export default
         }
 
         .details * {
-            display: inline
+            display: inline;
             font-size: 12px;
             text-decoration: none;
             color: $grey.base;

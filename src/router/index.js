@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../components/Index'
+import Search from '../components/SearchPage'
 import AnimePage from '../components/AnimePage'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
@@ -17,7 +18,8 @@ export const routes = [
   {
     icon: 'search',
     path: '/search',
-    name: 'Search'
+    name: 'Search',
+    component: Search
   },
   {
     icon: 'equalizer',

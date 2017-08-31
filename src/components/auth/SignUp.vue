@@ -60,7 +60,6 @@
     text-align: center;
     color: #212121 !important;
     font-size: 20px;
-    font-weight: bold;
   }
 
   .social-button {
