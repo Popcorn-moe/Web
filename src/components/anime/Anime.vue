@@ -12,7 +12,7 @@
                 <span> - </span>
                 <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ value.date.toISOString().split('T')[0] }}</time>
             </div>
-            <rate v-model="rate"></rate>
+            <rate class="rate" v-model="rate"></rate>
             <a class="description">Description</a>
         </div>
       </a>
@@ -53,6 +53,7 @@ export default {
         transition: transform .3s ease-out;
 
         &:hover {
+            z-index: 100;
             .infos {
                 opacity: 1;
             }
@@ -112,6 +113,10 @@ export default {
             padding: $anime.padding * 0.5;
         }
 
+        .rate {
+            background-color: $material-light.background;
+        }
+
         .infos {
             opacity: 0;
         }
@@ -126,7 +131,7 @@ export default {
             background-color: rgb(45, 45, 45);
         }
 
-        &:hover {
+        &:hover, .rate {
             background-color: #1C1C1C;
         }
     }

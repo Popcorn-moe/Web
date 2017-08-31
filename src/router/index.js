@@ -12,7 +12,7 @@ export const routes = [
   {
     icon: 'home',
     path: '/',
-    name: 'index',
+    name: 'Index',
     component: Index
   },
   {

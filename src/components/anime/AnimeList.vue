@@ -66,6 +66,7 @@ export default {
         position: absolute;
         top: $anime.img-height * 0.5 - $anime.img-border;
         transform: translateX(-50%);
+        z-index: 1000;
 
         &.nav-left {
             left: 28px;

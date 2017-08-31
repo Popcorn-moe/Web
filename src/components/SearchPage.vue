@@ -35,7 +35,7 @@
           </v-flex>
         </v-layout>
       </div>
-      <div class="text-xs-left" xs12>
+      <div class="text-xs-left">
         <anime v-for="result in results" :key="result.name" :value="result"></anime>
       </div>
     </v-container>
