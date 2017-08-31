@@ -16,7 +16,7 @@
 import { VBtn, VIcon } from '@/vuetify'
 import { VSlideYTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
-import Navbar from './Navbar'
+import Navbar from './navbar/Navbar'
 
 export default {
     components: {

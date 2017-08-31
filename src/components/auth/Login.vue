@@ -129,8 +129,6 @@
     margin: 0 !important;
   }
 
-
-
   .auth-logo {
     width: 110px;
   }

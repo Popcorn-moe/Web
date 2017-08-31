@@ -32,3 +32,7 @@ export function login(username, password) {
     .then(res => res.json())
     .then(({ csrf }) => localStorage.setItem('csrf', csrf))
 }
+
+export function logout() {
+    return Promise.resolve()
+}
