@@ -11,7 +11,7 @@
           </div>
         </v-flex>
       </v-layout>
-      <div :class="{ 'search-options-body': true, 'search-options-body-hidden': showMore }">
+      <div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
         <v-layout row wrap>
           <v-flex offset-xs1 xs2>
             <v-select label="Tags" bottom></v-select>
