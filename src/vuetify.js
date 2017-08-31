@@ -7,6 +7,8 @@ import VSwitch from 'vuetify/src/components/selection-controls/VSwitch'
 import VIcon from 'vuetify/src/components/icons/VIcon'
 import VDivider from 'vuetify/src/components/dividers/VDivider'
 import VApp from 'vuetify/src/components/app/VApp'
+import VExpansionPanel from 'vuetify/src/components/expansion-panel/VExpansionPanel'
+import VExpansionPanelContent from 'vuetify/src/components/expansion-panel/VExpansionPanelContent'
 
 VTextField.components = {
     VIcon
@@ -21,5 +23,7 @@ export {
     VSwitch,
     VIcon,
     VDivider,
-    VApp
+    VApp,
+    VExpansionPanel,
+    VExpansionPanelContent
 }

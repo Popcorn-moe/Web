@@ -1,5 +1,5 @@
 <template>
-    <div class="anime">
+    <div class="anime text-xs-center">
       <a>
         <div class="poster-container">
           <img class="poster" :src="value.poster">
