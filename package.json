@@ -1,9 +1,17 @@
 {
   "name": "popcorn.moe-frontend",
   "version": "1.0.0",
-  "description": " ",
-  "author": "Duarte David <deltaduartedavid@gmail.com>",
-  "private": true,
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Popcorn-moe/Popcorn.moe-Frontend.git"
+  },
+  "author": "Popcorn-moe",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Popcorn-moe/Popcorn.moe-Frontend/issues"
+  },
+  "homepage": "https://github.com/Popcorn-moe/Popcorn.moe-Frontend#readme",
   "scripts": {
     "dev": "gulp dev",
     "start": "gulp dev",
