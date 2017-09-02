@@ -25,10 +25,10 @@
                 <div class="text-xs-center">
                     <object data="/static/logo-animated.svg" type="image/svg+xml" class="auth-logo"></object>
                 </div>
-                <v-text-field name="input-1" label="E-mail / Pseudo" light
+                <v-text-field label="E-mail / Pseudo" light
                   v-model="username"
                 ></v-text-field>
-                <v-text-field name="input-2" label="Mot de passe" light
+                <v-text-field label="Mot de passe" light
                   v-model="password"
                   :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
                   :append-icon-cb="() => (hidePassword = !hidePassword)"

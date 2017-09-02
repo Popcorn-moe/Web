@@ -34,5 +34,24 @@ export function login(username, password) {
 }
 
 export function logout() {
+    localStorage.removeItem('csrf')
     return Promise.resolve()
+}
+
+export function signup(login, email, password, newsletter) {
+    return fetch('http://localhost:3031/signup', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            login,
+            email,
+            password,
+            newsletter
+        }),
+        credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(({ csrf }) => localStorage.setItem('csrf', csrf))
 }
