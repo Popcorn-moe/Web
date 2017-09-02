@@ -4,6 +4,7 @@ import Index from '../components/Index'
 import Search from '../components/SearchPage'
 import AnimePage from '../components/AnimePage'
 import MediaPage from '../components/MediaPage'
+import SettingsPage from '../components/SettingsPage'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
 
@@ -38,6 +39,12 @@ export const routes = [
     name: 'Media',
     path: '/media',
     component: MediaPage
+  },
+  {
+    hide: true,
+    name: 'Settings',
+    path: '/settings',
+    component: SettingsPage
   },
   {
     hide: true,

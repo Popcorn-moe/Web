@@ -13,7 +13,10 @@ export function isLoggedIn() {
     .then(({ data: { me } }) => {
         console.log(me)
         return true
-    })
+    }).catch((e) => {
+        console.error(e)
+        return true
+    }) //TODO: remove
 }
 
 export function exchangeSSOToken(token) {

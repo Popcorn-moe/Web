@@ -12,14 +12,16 @@
                     <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
-            <v-list-tile>
-                <v-list-tile-action>
-                    <v-icon></v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>Mon compte</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+            <router-link to="Settings" class="router-link">
+                <v-list-tile>
+                    <v-list-tile-action>
+                        <v-icon></v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Mon compte</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </router-link>
             <v-list-tile>
                 <v-list-tile-action>
                     <v-icon></v-icon>
@@ -69,6 +71,13 @@ export default {
     color: #4b4b4b !important;
     text-decoration: none;
     cursor: pointer;3
+  }
+
+  .router-link {
+    text-decoration: none;
+    &.router-link-exact-active * {
+      color: $main-color;
+    }
   }
 </style>
 

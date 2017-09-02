@@ -9,9 +9,21 @@ import VDivider from 'vuetify/src/components/dividers/VDivider'
 import VApp from 'vuetify/src/components/app/VApp'
 import VExpansionPanel from 'vuetify/src/components/expansion-panel/VExpansionPanel'
 import VExpansionPanelContent from 'vuetify/src/components/expansion-panel/VExpansionPanelContent'
+import VDatePicker from 'vuetify/src/components/pickers/VDatePicker'
+import VMenu from 'vuetify/src/components/menus/VMenu'
+import { VTabReverseTransition, VTabTransition } from 'vuetify/src/components/transitions'
+import Cards from 'vuetify/src/components/cards'
 
 VTextField.components = {
     VIcon
+}
+
+VDatePicker.components = {
+    VTabReverseTransition,
+    VTabTransition,
+    VIcon,
+    VBtn,
+    ...Cards
 }
 
 export {
@@ -25,5 +37,7 @@ export {
     VDivider,
     VApp,
     VExpansionPanel,
-    VExpansionPanelContent
+    VExpansionPanelContent,
+    VDatePicker,
+    VMenu
 }
