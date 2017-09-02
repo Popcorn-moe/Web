@@ -1,6 +1,8 @@
 import VNavigationDrawer from 'vuetify/src/components/navigation-drawer/VNavigationDrawer'
 import VBtn from 'vuetify/src/components/buttons/VBtn'
 import VTextField from 'vuetify/src/components/text-fields/VTextField'
+import VDialog from 'vuetify/src/components/dialogs'
+import VCard from 'vuetify/src/components/cards'
 import VSelect from 'vuetify/src/components/selects/VSelect'
 import VCheckbox from 'vuetify/src/components/selection-controls/VCheckbox'
 import VSwitch from 'vuetify/src/components/selection-controls/VSwitch'
@@ -11,12 +13,17 @@ import VExpansionPanel from 'vuetify/src/components/expansion-panel/VExpansionPa
 import VExpansionPanelContent from 'vuetify/src/components/expansion-panel/VExpansionPanelContent'
 import VDatePicker from 'vuetify/src/components/pickers/VDatePicker'
 import VMenu from 'vuetify/src/components/menus/VMenu'
+import VChip from 'vuetify/src/components/chips/VChip'
 import { VTabReverseTransition, VTabTransition } from 'vuetify/src/components/transitions'
 import VProgressCircular from 'vuetify/src/components/progress/VProgressCircular'
 import Cards from 'vuetify/src/components/cards'
 
 VTextField.components = {
     VIcon
+}
+
+VChip.components = {
+  VIcon
 }
 
 VDatePicker.components = {
@@ -32,17 +39,20 @@ VBtn.components = {
 }
 
 export {
-    VNavigationDrawer,
-    VBtn,
-    VTextField,
-    VSelect,
-    VCheckbox,
-    VSwitch,
-    VIcon,
-    VDivider,
-    VApp,
-    VExpansionPanel,
-    VExpansionPanelContent,
-    VDatePicker,
-    VMenu
+  VNavigationDrawer,
+  VBtn,
+  VTextField,
+  VSelect,
+  VCheckbox,
+  VSwitch,
+  VIcon,
+  VDivider,
+  VApp,
+  VExpansionPanel,
+  VExpansionPanelContent,
+  VDialog,
+  VCard,
+  VDatePicker,
+  VMenu,
+  VChip
 }

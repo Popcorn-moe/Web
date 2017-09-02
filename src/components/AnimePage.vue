@@ -66,7 +66,7 @@
   import Rate from './anime/Rate.vue'
 
   export default {
-    name: "index",
+    name: "anime",
     data ()
     {
       const medias = [];

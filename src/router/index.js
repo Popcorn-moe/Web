@@ -36,8 +36,8 @@ export const routes = [
   },
   {
     hide: true,
-    name: 'Media',
     path: '/media',
+    name: 'Media',
     component: MediaPage
   },
   {

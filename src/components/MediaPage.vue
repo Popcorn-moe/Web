@@ -1,74 +1,39 @@
 <template>
   <div>
-    <div class="media"></div>
-    <v-container class="media-page-container">
+    <div class="banner"></div>
+    <v-container class="page-container">
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
-          <v-layout row wrap>
-            <v-flex xs12>
-              <img class="anime-cover" :src="cover">
-              <h6 class="uppercase">Titre de l'anime</h6>
-              <p class="sub">Saison 2, épisode 812</p>
-              <ul>
-                <li>
-                  <div class="list-name">Auteur :</div>
-                  Jean
-                </li>
-                <li>
-                  <div class="list-name">Auteur :</div>
-                  Jean
-                </li>
-                <li>
-                  <div class="list-name">Auteur :</div>
-                  Jean
-                </li>
-              </ul>
-            </v-flex>
-            <v-flex xs12>
-              <v-divider></v-divider>
-              <comment user="Xx_loucass006_xX"
-                       date="11 Sept."
-                       icon="http://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                       content="On ne peut pas parler de politique administrative scientifique, la concertation politique par rapport aux diplomaties consent à catapulter les revenus dans les camps militaires non-voyants, c’est clair."
-              >
-                <comment user="Xx_loucass006_xX"
-                         date="11 Sept."
-                         icon="http://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                         content="Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui."
-                >
-                  <comment user="Xx_loucass006_xX"
-                           date="11 Sept."
-                           icon="http://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                           content="C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
-                  >
-                  </comment>
-                </comment>
-              </comment>
-
-              <comment user="Xx_loucass006_xX"
-                       date="11 Sept."
-                       icon="http://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                       content="C’est à dire quand on parle de ces rollers, la délégation autour de phylogomènes généralisés suffit à intentionner l'estime du savoir avéré(e)(s), mais oui."
-              >
-                <comment user="Xx_loucass006_xX"
-                         date="11 Sept."
-                         icon="http://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                         content="D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
-                >
-                </comment>
-              </comment>
-            </v-flex>
-          </v-layout>
-
+          <img class="anime-cover" :src="cover">
+          <h6 class="uppercase">Titre de l'anime</h6>
+          <ul>
+            <li>
+              <div class="list-name">Auteur :</div>
+              Jean
+            </li>
+            <li>
+              <div class="list-name">Auteur :</div>
+              Jean
+            </li>
+            <li>
+              <div class="list-name">Auteur :</div>
+              Jean
+            </li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <div class="text-xs-center">
+            <h6 class="uppercase">Trailer :</h6>
+          </div>
         </v-flex>
         <v-flex xs3>
-          <v-btn class="secondary-color" block large light>
-            <!--<v-icon class="white&#45;&#45;text">favorite</&#45;&#45;v-icon>-->
-            Créer une room
+          <v-btn class="main-color" block large light>
+            <v-icon class="white--text">favorite</v-icon>
+            S'ABONNER
           </v-btn>
-          <div class="infos">
+          <div class="rate-container">
             <div class="text-xs-center">
-              <p>20min</p>
+              <h6>Note :</h6>
+              <rate v-model="rate"></rate>
             </div>
           </div>
           <v-list class="media-list">
@@ -95,53 +60,49 @@
 </template>
 
 <script>
-  import { VBtn, VIcon, VDivider } from '@/vuetify';
-  import Lists from 'vuetify/src/components/lists';
-  import Grid from 'vuetify/src/components/grid';
-  import Rate from './anime/Rate.vue';
-  import Comment from './media/Comment.vue';
+  import { VBtn, VIcon } from '@/vuetify'
+  import Lists from 'vuetify/src/components/lists'
+  import Grid from 'vuetify/src/components/grid'
+  import Rate from './anime/Rate.vue'
 
   export default {
-    name      : 'media',
-    data()
+    name: "media",
+    data ()
     {
       const medias = [];
-      for (let i = 0; i < 5; i++)
-      {
+      for (let i = 0; i < 5; i++) {
         medias.push(
           {
             active: i == 0,
-            group : 'Saison ' + (i + 1),
+            group: "Saison " + (i + 1),
             medias: [
               {
-                name: 'Episode 1'
+                name: "Episode 1"
               },
               {
-                name: 'Episode 2'
+                name: "Episode 2"
               },
               {
-                name: 'Episode 3'
+                name: "Episode 3"
               }
             ]
           }
-        );
+        )
       }
       return {
-        rate  : 0,
-        cover : 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763',
-        medias: medias
-      };
+        rate: 0,
+        cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
+        medias : medias
+      }
     },
     components: {
       ...Grid,
       ...Lists,
-      VDivider,
       VBtn,
       VIcon,
-      Rate,
-      Comment
+      Rate
     }
-  };
+  }
 </script>
 
 <style lang="stylus">
@@ -151,17 +112,11 @@
     text-transform: uppercase;
   }
 
-  .media-page-container {
-    padding-top: 30px;
-
-    .divider {
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-
+  .page-container
+  {
+    padding-top:30px;
     .anime-infos {
       text-align: justify;
-
       h6 {
         margin-bottom: 3px;
       }
@@ -181,35 +136,40 @@
 
       }
 
-      .sub {
-        padding-top: 3px;
-        margin-bottom: 15px;
-      }
-
       p {
         padding-top: 30px;
         padding-left: 15px;
         padding-right: 15px;
       }
     }
-
-    .infos {
-      background-color: #dcdcdc;
-      margin-top: 15px;
-      padding: 30px;
-    }
-
-    .anime-cover {
-      margin-right: 18px;
-      margin-bottom: 15px;
-      width: 180px;
-      height: 250px;
-      box-shadow: 0px 2px 12px 0px rgba(16, 16, 17, 0.5);
-      float: left;
-    }
   }
 
-  .media {
+  .anime-cover {
+    margin-right: 18px;
+    margin-bottom: 15px;
+    width: 180px;
+    height: 250px;
+    margin-top: -105px;
+    box-shadow: 0px 2px 12px 0px rgba(16,16,17,0.5);
+    float: left;
+  }
+
+
+
+  .rate .star {
+    color: $grey.lighten-1 !important;
+    &.active {
+       color: $yellow.base !important;
+     }
+  }
+
+  .rate-container {
+    background-color: #dcdcdc;
+    margin-top: 15px;
+    padding: 30px;
+  }
+
+  .banner {
     width: 100%;
     height: 405px;
     background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
