@@ -4,6 +4,7 @@ import Load from 'vuetify/src/util/load'
 import App from './App'
 import router from './router'
 import store from './store'
+import apolloProvider from './graphql'
 
 Vue.config.productionTip = false
 
@@ -20,5 +21,6 @@ window.vue = new Vue({
   el: '#app',
   router,
   store,
+  apolloProvider,
   render: h => h(App)
 })

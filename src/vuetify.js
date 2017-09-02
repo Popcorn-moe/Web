@@ -12,6 +12,7 @@ import VExpansionPanelContent from 'vuetify/src/components/expansion-panel/VExpa
 import VDatePicker from 'vuetify/src/components/pickers/VDatePicker'
 import VMenu from 'vuetify/src/components/menus/VMenu'
 import { VTabReverseTransition, VTabTransition } from 'vuetify/src/components/transitions'
+import VProgressCircular from 'vuetify/src/components/progress/VProgressCircular'
 import Cards from 'vuetify/src/components/cards'
 
 VTextField.components = {
@@ -24,6 +25,10 @@ VDatePicker.components = {
     VIcon,
     VBtn,
     ...Cards
+}
+
+VBtn.components = {
+    VProgressCircular
 }
 
 export {

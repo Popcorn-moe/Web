@@ -10,9 +10,10 @@
                 <div class="settings-image">
                     <img class="settings-image" src="https://www.gravatar.com/avatar/71c4dbbed866e68bcb89661bc5fa3017?s=140">
                     <div class="text-xs-center">
-                        <v-btn small class="main-color setting-avatar-btn">
+                        <v-btn small class="main-color setting-avatar-btn" :loading="uploadingAvatar" :disabled="uploadingAvatar">
                             <v-icon class="white--text">save</v-icon>
                             Changer d'Avatar
+                            <input type="file" @change="changeAvatar">
                         </v-btn>
                     </div>
                 </div>
@@ -69,11 +70,13 @@
 import { VExpansionPanel, VExpansionPanelContent, VBtn, VIcon, VTextField, VDatePicker, VMenu } from '@/vuetify'
 import Grid from 'vuetify/src/components/grid'
 import Cards from 'vuetify/src/components/cards'
+import gql from 'graphql-tag'
 
 export default {
     data() {
         return {
-            born: ''
+            born: '',
+            uploadingAvatar: false
         }
     },
     components: {
@@ -86,6 +89,24 @@ export default {
         VMenu,
         VCardActions: Cards.VCardActions,
         ...Grid
+    },
+    methods: {
+        changeAvatar({ target: { files: [file] }}) {
+            this.uploadingAvatar = true
+            this.$apollo.mutate({
+                mutation: gql`mutation ($file: Upload!) {
+                    setAvatar(file: $file) {
+                        error
+                    }
+                }`,
+                variables: {
+                    file
+                }
+            }).then((data) => {
+                console.log(data)
+            }).catch(e => console.error(e))
+            .then(_ => this.uploadingAvatar = false)
+        }
     }
 }
 </script>
@@ -128,6 +149,17 @@ export default {
           width: 20x;
           height: 20px;
       }
+      input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        outline: none;
+        cursor: inherit;
+        display: block;
+    }
   }
 
   .settings-bio {
