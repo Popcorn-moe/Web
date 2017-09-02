@@ -1,5 +1,19 @@
 export function isLoggedIn() {
-    return Promise.resolve(true)
+    return fetch('http://localhost:3030/graphql', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            query: `{ me { id login email group newsletter } }`
+        }),
+        credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(({ data: { me } }) => {
+        console.log(me)
+        return true
+    })
 }
 
 export function exchangeSSOToken(token) {
