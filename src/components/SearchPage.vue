@@ -5,13 +5,17 @@
         <v-flex offset-xs3 xs6>
           <v-text-field name="search" label="Search" hide-details single-line append-icon="search"></v-text-field>
           <div class="text-xs-center">
+            <transition-group name="fade-transition">
+              <v-chip v-for="(value, tag) in tags" :key="tag" class="main-color" v-if="value" @input="tags[tag] = false" close>
+                {{ tag }}
+              </v-chip>
+            </transition-group>
+          </div>
+          <div class="text-xs-center">
             <a class="search-options-button" @click.stop="showMore = !showMore">
               {{ showMore ? "Moins d'options" : "Plus d'options" }}
             </a>
           </div>
-          <v-chip v-for="tag in Object.keys(tags)" class="main-color" v-if="tags[tag]" @input="tags[tag] = false" close>
-            {{ tag }}
-          </v-chip>
         </v-flex>
       </v-layout>
       <div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
@@ -22,7 +26,7 @@
               <v-card>
                 <v-card-title class="headline">Ajouter des tags</v-card-title>
                 <v-card-text>
-                  <v-chip v-for="tag in Object.keys(tags)" :outline="!tags[tag]" @click.stop="tags[tag] = !tags[tag]">{{ tag }}</v-chip>
+                  <v-chip v-for="tag in Object.keys(tags)" :key="tag" :outline="!tags[tag]" @click.stop="tags[tag] = !tags[tag]">{{ tag }}</v-chip>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
