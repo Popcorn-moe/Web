@@ -19,7 +19,9 @@ export default {
     },
     plugins: [
         replace({
-            'process.env.NODE_ENV': "'development'"
+            'process.env.NODE_ENV': "'development'",
+            'process.env.AUTH_URL': process.env.AUTH_URL ? `'${process.env.AUTH_URL}'` : "'http://localhost:3031'",
+            'process.env.API_URL': process.env.API_URL ? `'${process.env.API_URL}'` : "'http://localhost:3030'"
         }),
         alias({
             '@': join(__dirname, 'src')

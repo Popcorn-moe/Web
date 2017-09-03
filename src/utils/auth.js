@@ -1,5 +1,5 @@
 export function isLoggedIn() {
-    return fetch('http://localhost:3030/graphql', {
+    return fetch(`${process.env.API_URL}/graphql`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -20,7 +20,7 @@ export function isLoggedIn() {
 }
 
 export function exchangeSSOToken(token) {
-    return fetch('http://localhost:3031/ssoExchange', {
+    return fetch(`${process.env.AUTH_URL}/ssoExchange`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -35,7 +35,7 @@ export function exchangeSSOToken(token) {
 }
 
 export function login(username, password) {
-    return fetch('http://localhost:3031/login', {
+    return fetch(`${process.env.AUTH_URL}/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -56,7 +56,7 @@ export function logout() {
 }
 
 export function signup(login, email, password, newsletter) {
-    return fetch('http://localhost:3031/signup', {
+    return fetch(`${process.env.AUTH_URL}/signup`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"

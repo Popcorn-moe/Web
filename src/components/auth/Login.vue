@@ -73,7 +73,7 @@
         login(provider) {
             if (provider) {
                 const callback = encodeURIComponent(`${location.origin}/#${this.$router.last}`)
-                window.location.assign(`http://localhost:3031/login/${provider}?callback=${callback}`)
+                window.location.assign(`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`)
             } else {
                 login(this.username, this.password).then(() => {
                   this.$router.go(-1)
