@@ -1,4 +1,5 @@
 import gulp from 'gulp'
+import runSequence from 'run-sequence'
 import purifycss from 'gulp-purifycss'
 import postcss from 'gulp-postcss'
 import cssnano from 'cssnano'
@@ -17,7 +18,9 @@ const config = {
     static: ['static/**/*', 'index.html']
 }
 
-gulp.task('default', ['static', 'rollup', 'styles']);
+gulp.task('default', (cb) => {
+   runSequence('static', 'rollup', 'styles', cb)
+});
 
 gulp.task('static', () => {
     gulp.src(config.static, {

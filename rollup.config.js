@@ -1,5 +1,6 @@
 import babel from 'rollup-plugin-babel'
 import nodeResolve from 'rollup-plugin-node-resolve-with-alias'
+import commonjs from 'rollup-plugin-commonjs'
 import alias from 'rollup-plugin-alias'
 import vue from 'rollup-plugin-vue'
 import replace from 'rollup-plugin-replace'
@@ -36,6 +37,7 @@ export default {
                 '~util': 'vuetify/src/util'
             }
         }),
+        commonjs(),
         vue({
             compileTemplate: true,
             css: `${DIST_FOLDER}/.tmp/app.css`

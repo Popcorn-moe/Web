@@ -77,8 +77,8 @@ import Grid from 'vuetify/src/components/grid'
 import Lists from 'vuetify/src/components/lists'
 import { VSlideXTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
-import { routes } from '@/router'
-import { logout } from '@/utils/auth'
+import { routes } from '../../../router'
+import { logout } from '../../../utils/auth'
 
 export default {
   props: {
