@@ -21,7 +21,7 @@
       <div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
         <v-layout row wrap>
           <v-flex offset-xs1 xs2>
-            <v-btn primary dark @click.native.stop="dialog_tags = true" small block top flat>Ajouter des Tags</v-btn>
+            <v-btn primary dark @click.native.stop="dialog_tags = true" small block top>Ajouter des Tags</v-btn>
             <v-dialog v-model="dialog_tags" width="50%">
               <v-card>
                 <v-card-title class="headline">Ajouter des tags</v-card-title>
