@@ -76,6 +76,7 @@ export default {
 
   .user-logo {
     height: 35px;
+    border-radius: 50%;
   }
 
   .user-logout {
