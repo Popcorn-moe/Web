@@ -3,10 +3,10 @@
         <v-list-group>
             <v-list-tile slot="item">
                 <v-list-tile-action>
-                    <img class="user-logo" src="https://www.gravatar.com/avatar/71c4dbbed866e68bcb89661bc5fa3017">
+                    <img class="user-logo" :src="me.avatar">
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>DeltaVevo</v-list-tile-title>
+                    <v-list-tile-title>{{ me.login }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                     <v-icon>keyboard_arrow_down</v-icon>
@@ -42,6 +42,7 @@ import Lists from 'vuetify/src/components/lists'
 import { mapGetters, mapActions } from 'vuex'
 import { VIcon } from '@/vuetify'
 import { logout } from '@/utils/auth'
+import gql from 'graphql-tag'
 
 export default {
     components: {
@@ -55,7 +56,13 @@ export default {
         logout() {
             logout().then(() => this.setIsAuth(false))
         }
-    }
+    },
+    apollo: {
+        me: {
+            query: gql`{ me { avatar, login } }`,
+            update: ({ me }) => me
+        }
+    },
 }
 </script>
 

@@ -8,9 +8,9 @@
             <div slot="header">Profile</div>
             <div class="settings-panel-content text-xs-left">
                 <div class="settings-image">
-                    <img class="settings-image" src="https://www.gravatar.com/avatar/71c4dbbed866e68bcb89661bc5fa3017?s=140">
+                    <img class="settings-image" :src="avatar">
                     <div class="text-xs-center">
-                        <v-btn small class="main-color setting-avatar-btn" :loading="uploadingAvatar" :disabled="uploadingAvatar">
+                        <v-btn small class="main-color settings-avatar-btn" :loading="uploadingAvatar" :disabled="uploadingAvatar">
                             <v-icon class="white--text">save</v-icon>
                             Changer d'Avatar
                             <input type="file" @change="changeAvatar">
@@ -104,10 +104,17 @@ export default {
                 }
             }).then((data) => {
                 console.log(data)
+                this.$apollo.queries.avatar.refetch()
             }).catch(e => console.error(e))
             .then(_ => this.uploadingAvatar = false)
         }
-    }
+    },
+    apollo: {
+        avatar: {
+            query: gql`{ me { avatar } }`,
+            update: ({ me: { avatar }}) => avatar
+        }
+    },
 }
 </script>
 
@@ -134,12 +141,12 @@ export default {
       }
   }
 
-  .setting-avatar-btn {
+  .settings-avatar-btn {
       margin: 0;
       margin-bottom: 25px;
 
-      & > btn__content {
-        font-size: 10px;
+      & > .btn__content {
+        font-size: 12px;
         padding: 0 5px;
       }
 
@@ -149,6 +156,7 @@ export default {
           width: 20x;
           height: 20px;
       }
+
       input[type=file] {
         position: absolute;
         top: 0;
