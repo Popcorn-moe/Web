@@ -45,6 +45,11 @@ import { logout } from '@/utils/auth'
 import gql from 'graphql-tag'
 
 export default {
+    data() {
+        return {
+            me: {}
+        }
+    },
     components: {
         ...Lists,
         VIcon
