@@ -6,8 +6,8 @@
           <v-text-field name="search" label="Search" hide-details single-line append-icon="search"></v-text-field>
           <div class="text-xs-center">
             <transition-group name="fade-transition">
-              <v-chip v-for="(value, tag) in tags" :key="tag" class="main-color" v-if="value" @input="tags[tag] = false" close>
-                {{ tag }}
+              <v-chip v-for="tag in tags" :key="tag.id" class="white--text" :style="{ 'background-color': tag.color }" v-if="tag.value" @input="tag.value = false" close>
+                {{ tag.name }}
               </v-chip>
             </transition-group>
           </div>
@@ -26,7 +26,11 @@
               <v-card>
                 <v-card-title class="headline">Ajouter des tags</v-card-title>
                 <v-card-text>
-                  <v-chip v-for="tag in Object.keys(tags)" :key="tag" :outline="!tags[tag]" @click.stop="tags[tag] = !tags[tag]">{{ tag }}</v-chip>
+                  <v-chip v-for="tag in tags" :key="tag.id"
+                    :class="{ 'white--text': tag.value }"
+                    :style="{ 'background-color': tag.value ? tag.color : null }"
+                    @click.stop="tag.value = !tag.value">{{ tag.name }}
+                  </v-chip>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -68,6 +72,7 @@ import { VTextField, VSelect, VBtn, VDialog, VCard, VChip } from '@/vuetify'
 import Grid from 'vuetify/src/components/grid'
 import Anime from './anime/Anime.vue'
 import AnimeModel from '@/models/Anime'
+import gql from 'graphql-tag'
 
 export default {
   name: "search",
@@ -75,17 +80,7 @@ export default {
     return {
       showMore: false,
       dialog_tags: false,
-      tags: {
-        "Ecchi": false,
-        "Hentai": false,
-        "Action": false,
-        "SF": false,
-        "Yuri": false,
-        "Yaoi": false,
-        "Romance": false,
-        "Mecha": false,
-        "Enigmes": false
-      }
+      tags: []
     }
   },
   computed: {
@@ -95,6 +90,12 @@ export default {
         array.push(new AnimeModel('test' + i, { name: 'Test author' }, new Date(), 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763'))
       }
       return array
+    }
+  },
+  apollo: {
+    tags: {
+      query: gql`{ tags { id name desc color } }`,
+      update: ({ tags }) => tags.map(tag => Object.assign({}, tag, { value: false }))
     }
   },
   components: {
@@ -114,6 +115,10 @@ export default {
   @import '../stylus/main'
   .page-container {
     padding-top: 30px;
+
+    .chip:focus {
+      box-shadow: none;
+    }
   }
 
   .search-options-button {
