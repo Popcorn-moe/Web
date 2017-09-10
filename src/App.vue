@@ -9,7 +9,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { VApp } from '@/vuetify'
+  import { VApp } from 'vuetify/src/components'
   import { VSlideXTransition } from 'vuetify/src/components/transitions'
   import Layout from './components/layout/Layout'
   import AuthLayout from './components/layout/AuthLayout'

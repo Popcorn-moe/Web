@@ -48,8 +48,8 @@
 </template>
 
 <script>
-  import { VBtn, VTextField, VCheckbox } from '@/vuetify'
-  import Grid from 'vuetify/src/components/grid'
+  import { VBtn, VTextField, VCheckbox } from 'vuetify/src/components'
+  import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
   import { signup } from '../../utils/auth'
   import { mapActions } from 'vuex'
 
@@ -69,7 +69,9 @@
       VBtn,
       VTextField,
       VCheckbox,
-      ...Grid
+      VContainer,
+      VFlex,
+      VLayout
     },
     methods: {
       ...mapActions({

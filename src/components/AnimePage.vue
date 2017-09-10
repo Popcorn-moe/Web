@@ -60,9 +60,9 @@
 </template>
 
 <script>
-  import { VBtn, VIcon } from '@/vuetify'
-  import Lists from 'vuetify/src/components/lists'
-  import Grid from 'vuetify/src/components/grid'
+  import { VBtn, VIcon } from 'vuetify/src/components'
+  import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
+  import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
   import Rate from './anime/Rate.vue'
 
   export default {
@@ -96,8 +96,15 @@
       }
     },
     components: {
-      ...Grid,
-      ...Lists,
+      VContainer,
+      VFlex,
+      VLayout,
+      VList,
+      VListGroup,
+      VListTile,
+      VListTileAction,
+      VListTileContent,
+      VListTileTitle,
       VBtn,
       VIcon,
       Rate

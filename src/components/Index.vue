@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Carousel from 'vuetify/src/components/carousel'
+import { VCarousel, VCarouselItem } from 'vuetify/src/components/VCarousel'
 import AnimeList from './anime/AnimeList'
 import Anime from '@/models/Anime'
 
@@ -35,7 +35,8 @@ export default {
   },
   components: {
     AnimeList,
-    ...Carousel
+    VCarousel,
+    VCarouselItem
   }
 }
 </script>

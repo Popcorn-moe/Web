@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import { VBtn, VDivider } from '@/vuetify';
-  import Grid from 'vuetify/src/components/grid';
+  import { VBtn, VDivider } from 'vuetify/src/components';
+  import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid';
 
   export default {
     props     : {
@@ -36,7 +36,9 @@
       icon   : String
     },
     components: {
-      ...Grid,
+      VContainer,
+      VFlex,
+      VLayout,
       VDivider,
       VBtn
     }

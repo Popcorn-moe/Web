@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { VIcon } from '@/vuetify'
+import { VIcon } from 'vuetify/src/components'
 
 export default {
   name: 'rate',

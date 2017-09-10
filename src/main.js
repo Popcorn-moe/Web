@@ -1,23 +1,19 @@
 import Vue from 'vue'
-import * as VuetifyDirectives from 'vuetify/src/directives'
-import Load from 'vuetify/src/util/load'
+import { Vuetify, VTextField, VIcon } from 'vuetify/src/components'
 import App from './App'
 import router from './router'
 import store from './store'
 import apolloProvider from './graphql'
 
-Vue.config.productionTip = false
-
-Object.keys(VuetifyDirectives).forEach(key => {
-  Vue.directive(key, VuetifyDirectives[key])
-})
-
-Vue.prototype.$vuetify = {
-  load: Load
+VTextField.components = {
+  VIcon
 }
 
+Vue.config.productionTip = false
+Vue.use(Vuetify)
+
 /* eslint-disable no-new */
-window.vue = new Vue({
+new Vue({
   el: '#app',
   router,
   store,

@@ -25,17 +25,17 @@
             <v-dialog v-model="dialog_tags" width="50%">
               <v-card>
                 <v-card-title class="headline">Ajouter des tags</v-card-title>
-                <v-card-text>
+                <div class="v-card__text">
                   <v-chip v-for="tag in tags" :key="tag.id"
                     :class="{ 'white--text': tag.value }"
                     :style="{ 'background-color': tag.value ? tag.color : null }"
                     @click.stop="tag.value = !tag.value">{{ tag.name }}
                   </v-chip>
-                </v-card-text>
-                <v-card-actions>
+                </div>
+                <div class="v-card__actions">
                   <v-spacer></v-spacer>
                   <v-btn class="green--text darken-1" flat="flat" @click.native="dialog_tags = false">Terminer</v-btn>
-                </v-card-actions>
+                </div>
               </v-card>
             </v-dialog>
           </v-flex>
@@ -68,8 +68,9 @@
 </template>
 
 <script>
-import { VTextField, VSelect, VBtn, VDialog, VCard, VChip } from '@/vuetify'
-import Grid from 'vuetify/src/components/grid'
+import { VTextField, VSelect, VBtn, VDialog, VChip } from 'vuetify/src/components'
+import { VCard, VCardTitle } from 'vuetify/src/components/VCard'
+import { VContainer, VFlex, VLayout, VSpacer } from 'vuetify/src/components/VGrid'
 import Anime from './anime/Anime.vue'
 import AnimeModel from '@/models/Anime'
 import gql from 'graphql-tag'
@@ -99,11 +100,15 @@ export default {
     }
   },
   components: {
-    ...Grid,
+    VContainer,
+    VFlex,
+    VLayout,
+    VSpacer,
     VTextField,
     VSelect,
-    ...VDialog,
-    ...VCard,
+    VDialog,
+    VCard,
+    VCardTitle,
     VBtn,
     Anime,
     VChip

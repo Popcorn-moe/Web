@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import Lists from 'vuetify/src/components/lists'
+import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
 import { mapGetters, mapActions } from 'vuex'
-import { VIcon } from '@/vuetify'
+import { VIcon } from 'vuetify/src/components'
 import { logout } from '@/utils/auth'
 import gql from 'graphql-tag'
 
@@ -51,7 +51,12 @@ export default {
         }
     },
     components: {
-        ...Lists,
+        VList,
+        VListGroup,
+        VListTile,
+        VListTileAction,
+        VListTileContent,
+        VListTileTitle,
         VIcon
     },
     methods: {

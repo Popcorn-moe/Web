@@ -45,7 +45,7 @@
               :to="route.path"
               class="router-link"
             >
-              <v-list-tile value="true">
+              <v-list-tile activeClass="">
                 <v-list-tile-action>
                   <v-icon v-html="route.icon"></v-icon>
                 </v-list-tile-action>
@@ -72,9 +72,9 @@
 <script>
 import Notifications from './Notifications'
 import AuthMenu from './AuthMenu'
-import { VNavigationDrawer, VBtn, VSwitch, VIcon, VDivider } from '@/vuetify'
-import Grid from 'vuetify/src/components/grid'
-import Lists from 'vuetify/src/components/lists'
+import { VNavigationDrawer, VBtn, VSwitch, VIcon, VDivider } from 'vuetify/src/components'
+import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/src/components/VList'
 import { VSlideXTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import { routes } from '../../../router'
@@ -101,8 +101,14 @@ export default {
     VIcon,
     VDivider,
     VSlideXTransition,
-    ...Grid,
-    ...Lists,
+    VContainer,
+    VFlex,
+    VLayout,
+    VList,
+    VListGroup,
+    VListTile,
+    VListTileAction,
+    VListTileContent,
   },
 
   computed: mapGetters({
@@ -142,7 +148,7 @@ export default {
   .router-link {
     text-decoration: none;
     &.router-link-exact-active * {
-      color: $main-color;
+      color: $main-color !important;
     }
   }
 </style>

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from '@/vuetify'
+import { VBtn, VIcon } from 'vuetify/src/components'
 import { VSlideYTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from './navbar/Navbar'

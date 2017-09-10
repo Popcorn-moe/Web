@@ -21,13 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': resolve('src'),
-      // vuetify
-      '~components': 'vuetify/src/components',
-      '~directives': 'vuetify/src/directives',
-      '~mixins': 'vuetify/src/mixins',
-      '~stylus': 'vuetify/src/stylus',
-      '~util': 'vuetify/src/util'
+      '@': resolve('src')
     }
   },
   module: {

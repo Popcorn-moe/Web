@@ -29,15 +29,7 @@ export default {
         nodeResolve({
             jsnext: true,
             browser: true,
-            extensions: [ '.js', '.json', '.vue' ],
-            alias: {
-                // vuetify
-                '~components': 'vuetify/src/components',
-                '~directives': 'vuetify/src/directives',
-                '~mixins': 'vuetify/src/mixins',
-                '~stylus': 'vuetify/src/stylus',
-                '~util': 'vuetify/src/util'
-            }
+            extensions: [ '.js', '.json', '.vue' ]
         }),
         commonjs(),
         vue({
@@ -54,7 +46,8 @@ export default {
                     }
                 }],
                 "stage-2"
-            ]
+            ],
+            plugins: ['external-helpers']
         }),
         uglify()
     ],

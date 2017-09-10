@@ -21,7 +21,7 @@
 
 <script>
 import Anime from '@/models/Anime'
-import { VIcon } from '@/vuetify'
+import { VIcon } from 'vuetify/src/components'
 import Rate from './Rate'
 
 export default {

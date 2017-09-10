@@ -2,6 +2,13 @@
 @require '../../node_modules/vuetify/src/stylus/settings/_colors'
 @require './colors.styl'
 
+// Theme
+// ============================================================
+$body-font-family := 'Roboto', sans-serif
+$font-size-root := 14px
+$line-height-root := 1.5
+$navigation-drawer-width = 280px;
+
 $theme := {
   primary: $main-color
   accent: $blue.accent-2
@@ -12,8 +19,8 @@ $theme := {
   success: $green.base
 }
 
-$navigation-drawer-width = 280px;
-
+// Material Design - https://material.io/guidelines/style/color.html#color-usability
+// ============================================================
 $material-light := {
   status-bar: {
     regular: #E0E0E0,
@@ -24,6 +31,7 @@ $material-light := {
   cards: #F0F0F0,
   dividers: rgba(#000, .12),
   text: {
+    theme: #fff,
     primary: rgba(#000, .87),
     secondary: rgba(#000, .54),
     disabled: rgba(#000, .38)
@@ -37,6 +45,9 @@ $material-light := {
     focused: rgba(#000, .12),
     focused-alt: rgba(#fff, .6),
     pressed: rgba(#999, .4)
+  },
+  expansion-panels: {
+    focus: #EEEEEE
   },
   selection-controls: {
     active: $main-color,
@@ -69,7 +80,9 @@ $material-light := {
     active: $grey.lighten-4
     hover: $grey.lighten-3
   },
-
+  picker: {
+    background: $theme.primary
+  },
   bg-color: #fff
   fg-color: #000
   text-color: #000
@@ -91,6 +104,7 @@ $material-dark := {
   cards: #1C1C1C,
   dividers: rgba(#fff, .12),
   text: {
+    theme: #fff,
     primary: #fff,
     secondary: rgba(#fff, .70),
     disabled: rgba(#fff, .50)
@@ -104,6 +118,9 @@ $material-dark := {
     focused: rgba(#fff, .12),
     focused-alt: rgba(#fff, .1),
     pressed: rgba(#ccc, .25)
+  },
+  expansion-panels: {
+    focus: rgba(#000, .70)
   },
   selection-controls: {
     active: $main-color,
@@ -137,6 +154,9 @@ $material-dark := {
     active: $grey.darken-1
     hover: $grey.darken-2
   },
+  picker: {
+    background: $theme.accent
+  },
 
   bg-color: #303030
   fg-color: #fff
@@ -148,3 +168,18 @@ $material-dark := {
   active-icon-percent: 1
   inactive-icon-percent: .50
 }
+
+// Default Material Theme
+// ============================================================
+$material-theme := $material-light
+$material-twelve-percent-light := rgba($material-dark.fg-color, $material-dark.divider-percent)
+$material-twelve-percent-dark := rgba($material-light.fg-color, $material-light.divider-percent)
+
+
+// Theme
+// ============================================================
+$body-bg-light := $material-light.background
+$body-bg-dark := $material-dark.background
+$body-color-light := rgba($material-dark.text-color, $material-dark.primary-text-percent)
+$body-color-dark := rgba($material-light.text-color, $material-light.primary-text-percent)
+$color-theme := rgba($material-theme.text-color, $material-theme.primary-text-percent)

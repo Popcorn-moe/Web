@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from '@/vuetify'
+import { VBtn, VIcon } from 'vuetify/src/components'
 import Anime from './Anime'
 
 export default {
@@ -66,7 +66,7 @@ export default {
         position: absolute;
         top: $anime.img-height * 0.5 - $anime.img-border;
         transform: translateX(-50%);
-        z-index: 1000;
+        z-index: 3;
 
         &.nav-left {
             left: 28px;

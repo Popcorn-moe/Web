@@ -35,9 +35,12 @@ gulp.task('rollup', () => {
 
 gulp.task('styles', () => {
     return gulp.src(config.cssInput)
-        .pipe(purifycss(['./dist2/app.js']))
         .pipe(postcss([
             autoprefixer({browsers: ['last 1 version']}),
+            cssnano()
+        ]))
+        .pipe(purifycss(['./dist2/app.js']))
+        .pipe(postcss([
             cssnano()
         ]))
         .pipe(gulp.dest('./dist2'))

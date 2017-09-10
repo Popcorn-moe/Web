@@ -39,10 +39,10 @@
                     ></v-text-field>
                     <v-date-picker v-model="born" no-title scrollable actions>
                         <template scope="{ save, cancel }">
-                        <v-card-actions>
+                        <div class="v-card__actions">
                             <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
                             <v-btn flat primary @click.native="save()">Save</v-btn>
-                        </v-card-actions>
+                        </div>
                         </template>
                     </v-date-picker>
                 </v-menu>
@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import { VExpansionPanel, VExpansionPanelContent, VBtn, VIcon, VTextField, VDatePicker, VMenu } from '@/vuetify'
-import Grid from 'vuetify/src/components/grid'
-import Cards from 'vuetify/src/components/cards'
+import { VExpansionPanel, VBtn, VIcon, VTextField, VDatePicker, VMenu } from 'vuetify/src/components'
+import VExpansionPanelContent from 'vuetify/src/components/VExpansionPanel/VExpansionPanelContent'
+import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
 import gql from 'graphql-tag'
 
 export default {
@@ -87,8 +87,9 @@ export default {
         VTextField,
         VDatePicker,
         VMenu,
-        VCardActions: Cards.VCardActions,
-        ...Grid
+        VContainer,
+        VFlex,
+        VLayout
     },
     methods: {
         changeAvatar({ target: { files: [file] }}) {
