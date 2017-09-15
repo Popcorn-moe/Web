@@ -297,7 +297,7 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-autoprefixer@^7.1.3:
+autoprefixer@^7.1.4:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-7.1.4.tgz#960847dbaa4016bc8e8e52ec891cbf8f1257a748"
   dependencies:
@@ -2112,7 +2112,7 @@ eslint-loader@^1.7.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-plugin-html@^3.0.0:
+eslint-plugin-html@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-3.2.1.tgz#4289d38245f3d95134d22c17b1894d78db92c572"
   dependencies:
@@ -5312,7 +5312,7 @@ punycode@^1.2.4, punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-purify-css@^1.0.8, purify-css@^1.2.5:
+purify-css@^1.0.8, purify-css@^1.2.6:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/purify-css/-/purify-css-1.2.6.tgz#56c2b58e4e1134247c6fdc20ba443b51b45e8b2f"
   dependencies:
@@ -5699,9 +5699,15 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.6.0, rimraf@^2.6.1:
+rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
+  dependencies:
+    glob "^7.0.5"
+
+rimraf@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
     glob "^7.0.5"
 
@@ -5724,7 +5730,7 @@ rollup-plugin-babel@^3.0.2:
   dependencies:
     rollup-pluginutils "^1.5.0"
 
-rollup-plugin-commonjs@^8.2.0:
+rollup-plugin-commonjs@^8.2.1:
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/rollup-plugin-commonjs/-/rollup-plugin-commonjs-8.2.1.tgz#5e40c78375eb163c14c76bce69da1750e5905a2e"
   dependencies:
@@ -5752,7 +5758,7 @@ rollup-plugin-node-resolve@^3.0.0:
     is-module "^1.0.0"
     resolve "^1.1.6"
 
-rollup-plugin-replace@^1.1.1:
+rollup-plugin-replace@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-1.2.1.tgz#6307ee15f223aa1fd3207cd3c08052468f180daf"
   dependencies:
@@ -5766,7 +5772,7 @@ rollup-plugin-uglify@^2.0.1:
   dependencies:
     uglify-js "^3.0.9"
 
-rollup-plugin-vue@^2.4.1:
+rollup-plugin-vue@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/rollup-plugin-vue/-/rollup-plugin-vue-2.4.2.tgz#67f0112effe9cfa77ed7a902db185e90c16a7d23"
   dependencies:
@@ -5819,7 +5825,7 @@ rollup-watch@^4.3.1:
     require-relative "0.8.7"
     rollup-pluginutils "^2.0.1"
 
-rollup@^0.49.1:
+rollup@^0.49.3:
   version "0.49.3"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.49.3.tgz#4cce32643dd8cf2154c69ff0e43470067db0adbf"
 
@@ -6727,9 +6733,9 @@ vue@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.2.tgz#a9855261f191c978cc0dc1150531b8d08149b58c"
 
-vuetify@^0.15.0-beta.5:
-  version "0.15.2"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.15.2.tgz#f4978524ca85ada4cc1228fd40e1239f185ae7f2"
+vuetify@^0.15.3:
+  version "0.15.5"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-0.15.5.tgz#3a93ed8592994c46dbd21749b57f733e04e28562"
 
 vuex@^2.3.1:
   version "2.4.0"
@@ -6773,7 +6779,7 @@ webpack-dev-middleware@^1.10.0:
     range-parser "^1.0.3"
     time-stamp "^2.0.0"
 
-webpack-hot-middleware@^2.18.0:
+webpack-hot-middleware@^2.19.1:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.19.1.tgz#5db32c31c955c1ead114d37c7519ea554da0d405"
   dependencies:
