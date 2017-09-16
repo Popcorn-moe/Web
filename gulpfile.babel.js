@@ -81,9 +81,13 @@ gulp.task('dev', ['static'], () => {
 
     gulp.src('dist2')
         .pipe(webserver({
-            livereload: true,
+            livereload: {
+              enable: true,
+              port: process.env.LIVE_RELOAD_PORT || 35729
+            },
             fallback: 'index.html',
-            open: false
+            open: false,
+            port: process.env.PORT || 8000
         }));
 })
 
