@@ -8,7 +8,7 @@
     <div class="video-controls">
       <v-btn primary dark icon @click.stop="togglePlay()"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
       <v-btn primary dark icon @click.stop="toggleMute()"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
-      <v-btn primary dark icon @click.stop="toggleFullScreen()"><v-icon v-html="fullScreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
+      <v-btn primary dark icon @click.stop="toggleFullScreen()"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
     </div>
   </div>
 </template>
@@ -22,8 +22,16 @@
       return {
           paused: true,
           muted: false,
-          fullScreen: false
+          fullscreen: false
       }
+    },
+    created() {
+      document.addEventListener('fullscreenchange', this.onFullscreenEvent)
+      document.addEventListener('fullscreenerror', this.onFullscreenEvent)
+    },
+    beforeDestroy() {
+	    document.removeEventListener('fullscreenchange', this.onFullscreenEvent)
+      document.removeEventListener('fullscreenerror', this.onFullscreenEvent)
     },
     methods: {
       togglePlay()
@@ -41,10 +49,10 @@
         const video = this.$refs.video;
         const elem = this.$el;
 
-        this.fullScreen = !this.fullScreen;
-
-
-        this.fullScreen ? elem.requestFullscreen() : document.exitFullscreen()
+        this.fullscreen ? document.exitFullscreen() : elem.requestFullscreen()
+      },
+      onFullscreenEvent() {
+        this.fullscreen = document.fullscreenElement !== null;
       }
     },
     components:
@@ -60,11 +68,13 @@
 
   .video-player
   {
+    line-height: 0px;
+    position: relative;
+    display: inline-block;
+
     &:fullscreen video {
       width: 100vw;
     }
-    position: relative;
-    display: inline-block;
 
     video {
       height: 100%;
@@ -76,7 +86,6 @@
       position: absolute;
       width: 100%;
       bottom: 0;
-      /*background-color: alpha($main-color, 0.5);*/
     }
   }
 </style>
