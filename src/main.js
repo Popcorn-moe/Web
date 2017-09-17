@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import apolloProvider from './graphql'
+import 'fullscreen-api-polyfill'
 
 VChip.components = {
   VIcon

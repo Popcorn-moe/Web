@@ -63,6 +63,7 @@
       min-height: 120px;
       border-radius: 5px;
       margin-bottom 10px;
+      margin-left: 10px;
       padding: 20px 20px 0 25px;
 
       .username {

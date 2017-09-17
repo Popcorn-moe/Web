@@ -142,32 +142,33 @@ export default {
       }
   }
 
-  .settings-avatar-btn {
-      margin: 0;
-      margin-bottom: 25px;
+  .settings-avatar-btn
+  {
+    margin: 0;
+    margin-bottom: 25px;
 
-      & > .btn__content {
-        font-size: 12px;
-        padding: 0 5px;
-      }
+    & > .btn__content {
+      font-size: 12px;
+      padding: 0 5px;
+    }
 
-      .icon {
-          font-size: 20px;
-          padding-right: 5px;
-          width: 20x;
-          height: 20px;
-      }
+    .icon {
+        font-size: 20px;
+        padding-right: 5px;
+        width: 20px;
+        height: 20px;
+    }
 
-      input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        outline: none;
-        cursor: inherit;
-        display: block;
+    input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      outline: none;
+      cursor: inherit;
+      display: block;
     }
   }
 
