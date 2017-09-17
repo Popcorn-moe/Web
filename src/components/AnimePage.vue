@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="banner"></div>
-    <v-container class="page-container">
+    <div class="anime-page-banner"></div>
+    <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
           <img class="anime-cover" :src="cover">
@@ -119,9 +119,16 @@
     text-transform: uppercase;
   }
 
-  .page-container
-  {
+
+  .anime-page-banner {
+    width: 100%;
+    height: 405px;
+    background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
+  }
+
+  .anime-page-container {
     padding-top:30px;
+
     .anime-infos {
       text-align: justify;
       h6 {
@@ -149,47 +156,32 @@
         padding-right: 15px;
       }
     }
+
+    .anime-cover {
+      margin-right: 18px;
+      margin-bottom: 15px;
+      width: 180px;
+      height: 250px;
+      margin-top: -105px;
+      box-shadow: 0px 2px 12px 0px rgba(16,16,17,0.5);
+      float: left;
+    }
+
+    .rate-container {
+      background-color: #dcdcdc;
+      margin-top: 15px;
+      padding: 30px;
+    }
+
+    .media-list {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 10px;
+      background-color: #dcdcdc !important;
+    }
   }
 
-  .anime-cover {
-    margin-right: 18px;
-    margin-bottom: 15px;
-    width: 180px;
-    height: 250px;
-    margin-top: -105px;
-    box-shadow: 0px 2px 12px 0px rgba(16,16,17,0.5);
-    float: left;
-  }
-
-
-
-  .rate .star {
-    color: $grey.lighten-1 !important;
-    &.active {
-       color: $yellow.base !important;
-     }
-  }
-
-  .rate-container {
-    background-color: #dcdcdc;
-    margin-top: 15px;
-    padding: 30px;
-  }
-
-  .banner {
-    width: 100%;
-    height: 405px;
-    background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
-  }
-
-  .media-list {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    margin-top: 10px;
-    background-color: #dcdcdc !important;
-  }
-
-  .application--dark {
+  .application--dark .anime-page-container {
     .rate-container {
       background-color: #454545;
     }

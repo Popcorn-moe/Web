@@ -80,23 +80,15 @@
       .divider {
         margin: 3px;
       }
-
-      /*&:before {
-        content: '';
-        display: inline-block
-        position: absolute
-        width: 20px;
-        height: 20px;
-        border: 20px solid transparent;
-        vertical-align: middle;
-        border-color: transparent #007bff transparent transparent;
-        left: -60px;
-      }*/
     }
 
     .response {
       padding-left: 45px;
     }
 
+  }
+
+  .application--dark .comment .comment-container {
+    background-color: #1C1C1C;
   }
 </style>

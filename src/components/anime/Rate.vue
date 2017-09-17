@@ -37,10 +37,10 @@ export default {
 
   .rate .star {
     cursor: pointer;
-      color: $grey.lighten-3;
+    color: $grey.lighten-1;
 
-      &.active {
-        color: $yellow.base;
-      }
+    &.active {
+      color: $yellow.base;
+    }
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="media">
-      <video-player></video-player>
+    <div class="media-banner">
+      <video-player class="video-player"></video-player>
     </div>
     <v-container class="media-page-container">
       <v-layout row wrap>
@@ -104,7 +104,7 @@
   import VideoPlayer from './player/Player.vue';
 
   export default {
-    name      : 'media',
+    name: 'media',
     data()
     {
       const medias = [];
@@ -218,26 +218,26 @@
       box-shadow: 0px 2px 12px 0px rgba(16, 16, 17, 0.5);
       float: left;
     }
+
+    .media-list {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 10px;
+      background-color: #dcdcdc !important;
+    }
   }
 
-  .media {
+  .media-banner {
     text-align: center;
     height: 600px;
     background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
     padding-top: 40px;
+
     .video-player:not(:fullscreen)
     {
       height: 500px;
       width: calc(1280/720*500px);
-      /*width: 80%;*/
     }
-  }
-
-  .media-list {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    margin-top: 10px;
-    background-color: #dcdcdc !important;
   }
 
   .application--dark {
