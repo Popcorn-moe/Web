@@ -1,13 +1,20 @@
 <template>
   <div class="video-player">
-    <video ref="video" @pause="paused = true" @play="paused = false" @timeupdate="onTimelineChangeEvent" @waiting="waiting = true" @playing="waiting = false">
+    <video ref="video"
+      @pause="paused = true"
+      @play="paused = false"
+      @timeupdate="onTimelineChangeEvent"
+      @waiting="waiting = true"
+      @canplay="waiting = false"
+      @progress="onProgress"
+    >
       <source src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.mp4" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
     <v-progress-circular indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
     <!-- Video Controls -->
     <div class="video-controls">
-      <v-slider hide-details primary class="timeline" :value="timeline" @input="value => changeTimeline(value)"></v-slider>
+      <player-slider hide-details primary class="timeline" :buffer="buffered" :value="timeline" @input="value => changeTimeline(value)"></player-slider>
       <v-btn primary dark icon @click.stop="togglePlay()"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
       <v-btn primary dark icon @click.stop="toggleMute()"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
       <v-slider hide-details primary class="volume" :max="100" :value="volume" @input="value => changeVolume(value)"></v-slider>
@@ -18,6 +25,7 @@
 
 <script>
   import { VBtn, VIcon, VSlider, VProgressCircular } from 'vuetify/src/components';
+  import PlayerSlider from './PlayerSlider.vue'
 
   export default {
     name: 'video-player',
@@ -27,6 +35,7 @@
         paused: true,
         muted: false,
         fullscreen: false,
+        buffered: [],
         timeline: 0,
         volume: 100
       }
@@ -55,16 +64,29 @@
       },
       onTimelineChangeEvent() {
         const video = this.$refs.video;
-        this.timeline = +((100 / video.duration) * video.currentTime).toFixed(0);
+        if (video)
+          this.timeline = (100 / video.duration) * video.currentTime;
+      },
+      onProgress() {
+        const video = this.$refs.video;
+        if (video) {
+          const buffered = [];
+          for(let i = 0; i < video.buffered.length; i++) {
+            buffered.push([(video.buffered.start(i)/video.duration) * 100, (video.buffered.end(i)/video.duration) * 100])
+          }
+          this.buffered = buffered;
+        }
       },
       changeTimeline(value)
       {
         const video = this.$refs.video;
-        video.currentTime = video.duration * ((this.timeline = value) / 100);
+        if (video)
+          video.currentTime = video.duration * ((this.timeline = value) / 100);
       },
       changeVolume(value)
       {
-        this.$refs.video.volume = (this.volume = value) / 100;
+        if (this.$refs.video)
+          this.$refs.video.volume = (this.volume = value) / 100;
       }
     },
     components:
@@ -72,6 +94,7 @@
       VBtn,
       VIcon,
       VSlider,
+      PlayerSlider,
       VProgressCircular
     }
   }
@@ -100,6 +123,8 @@
       position:absolute;
       left: 50%;
       top: 50%;
+      height: 10% !important;
+      width: 10% !important;
       transform: translate(-50%, -50%);
     }
 
