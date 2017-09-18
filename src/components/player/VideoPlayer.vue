@@ -14,10 +14,10 @@
     <v-progress-circular indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
     <!-- Video Controls -->
     <div class="video-controls">
-      <player-slider hide-details primary class="timeline" :buffer="buffered" :value="timeline" @input="value => changeTimeline(value)"></player-slider>
+      <player-slider hide-details primary class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="value => changeTimeline(value)"></player-slider>
       <v-btn primary dark icon @click.stop="togglePlay()"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
       <v-btn primary dark icon @click.stop="toggleMute()"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
-      <v-slider hide-details primary class="volume" :max="100" :value="volume" @input="value => changeVolume(value)"></v-slider>
+      <v-slider hide-details primary class="floating-cancel volume" :max="100" :value="volume" @input="value => changeVolume(value)"></v-slider>
       <v-btn primary dark icon class="right" @click.stop="toggleFullScreen()"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
     </div>
   </div>

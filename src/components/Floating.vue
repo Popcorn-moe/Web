@@ -48,9 +48,19 @@ export default {
     },
     onMouseMove(e) {
       if (this.dragged && document.fullscreenElement === null) {
+        if (e.path.find(e => e.classList && e.classList.contains('floating-cancel')))
+          return;
+        let x = e.clientX - this.offset.x;
+        let y = e.clientY - this.offset.y;
+        const limitX = window.innerWidth - this.$el.offsetWidth;
+        const limitY = window.innerHeight - this.$el.offsetHeight;
+        if (x > limitX) x = limitX;
+        if (x < 0) x = 0;
+        if (y > limitY) y = limitY;
+        if (y < 0) y = 0;
         this.position = {
-          left: `${e.clientX - this.offset.x}px`,
-          top: `${e.clientY - this.offset.y}px`
+          left: x + 'px',
+          top: y + 'px'
         }
       }
     },

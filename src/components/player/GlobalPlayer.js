@@ -5,7 +5,10 @@ import VideoPlayer from './VideoPlayer'
 Vue.use(Vuetify)
 
 export const videoPlayer = new Vue(VideoPlayer);
-videoPlayer.$mount() //Create dom element
+
+export function mount() {
+  videoPlayer.$mount() //Create dom element  
+}
 
 let paused = true;
 let lock = Promise.resolve()
