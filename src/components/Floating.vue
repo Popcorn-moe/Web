@@ -56,8 +56,8 @@ export default {
       if (this.dragged && document.fullscreenElement === null) {
         let x = e.clientX - this.offset.x;
         let y = e.clientY - this.offset.y;
-        const limitX = window.innerWidth - this.$el.offsetWidth;
-        const limitY = window.innerHeight - this.$el.offsetHeight;
+        const limitX = document.body.clientWidth - this.$el.offsetWidth;
+        const limitY = document.body.clientHeight - this.$el.offsetHeight;
         if (x > limitX) x = limitX;
         if (x < 0) x = 0;
         if (y > limitY) y = limitY;
