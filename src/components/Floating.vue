@@ -40,6 +40,12 @@ export default {
       this.dragged = false;
     },
     onMouseDown(e) {
+      let el = e.target
+      while (el && el != this.$el) {
+        if (el.classList && el.classList.contains('floating-cancel'))
+          return
+        el = el.parentElement
+      }
       this.dragged = true;
       this.offset = {
         x: e.clientX - this.$el.offsetLeft,
@@ -48,8 +54,6 @@ export default {
     },
     onMouseMove(e) {
       if (this.dragged && document.fullscreenElement === null) {
-        if (e.path.find(e => e.classList && e.classList.contains('floating-cancel')))
-          return;
         let x = e.clientX - this.offset.x;
         let y = e.clientY - this.offset.y;
         const limitX = window.innerWidth - this.$el.offsetWidth;
