@@ -101,7 +101,7 @@
   import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
   import Rate from './anime/Rate.vue';
   import Comment from './media/Comment.vue';
-  import VideoPlayer from './player/Player.vue';
+  import VideoPlayer from './player/GlobalPlayer';
 
   export default {
     name: 'media',

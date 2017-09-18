@@ -35,10 +35,11 @@ export const routes = [
     component: AnimePage
   },
   {
-    hide: true,
+    hide: false,
     path: '/media',
     name: 'Media',
-    component: MediaPage
+    component: MediaPage,
+    meta: { hasPlayer: true }
   },
   {
     hide: true,

@@ -26,6 +26,7 @@
 <script>
   import { VBtn, VIcon, VSlider, VProgressCircular } from 'vuetify/src/components';
   import PlayerSlider from './PlayerSlider.vue'
+  import 'fullscreen-api-polyfill'
 
   export default {
     name: 'video-player',
