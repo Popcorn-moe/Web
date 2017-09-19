@@ -11,12 +11,8 @@ export function isLoggedIn() {
     })
     .then(res => res.json())
     .then(({ data: { me } }) => {
-        console.log(me)
-        return true
-    }).catch((e) => {
-        console.error(e)
-        return true
-    }) //TODO: remove
+        return me !== null
+    })
 }
 
 export function exchangeSSOToken(token) {
@@ -46,7 +42,12 @@ export function login(username, password) {
         }),
         credentials: 'include'
     })
-    .then(res => res.json())
+    .then(res => {
+        if (res.status === 200)
+            return res.json()
+        else
+            return res.json().then(alert => Promise.reject({ alert }))
+    })
     .then(({ csrf }) => localStorage.setItem('csrf', csrf))
 }
 

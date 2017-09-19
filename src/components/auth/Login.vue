@@ -25,6 +25,16 @@
                 <div class="text-xs-center">
                     <object data="/static/logo-animated.svg" type="image/svg+xml" class="auth-logo"></object>
                 </div>
+                <v-alert
+                  :info="alert && alert.info"
+                  :error="alert && alert.error"
+                  :success="alert && alert.success"
+                  :warning="alert && alert.warning"
+                  dismissible
+                  :value="alert !== null"
+                  @input="alert = null">
+                  {{ alert && alert.text }}
+                </v-alert>
                 <v-text-field label="E-mail / Pseudo" light
                   v-model="username"
                 ></v-text-field>
@@ -48,7 +58,7 @@
 </template>
 
 <script>
-  import { VBtn, VTextField, VIcon } from 'vuetify/src/components'
+  import { VBtn, VTextField, VIcon, VAlert } from 'vuetify/src/components'
   import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
   import { login } from '../../utils/auth'
   import { mapActions } from 'vuex'
@@ -58,10 +68,12 @@
         return {
             username: '',
             password: '',
-            hidePassword: true
+            hidePassword: true,
+            alert: null
         }
     },
     components: {
+      VAlert,
       VBtn,
       VTextField,
       VContainer,
@@ -80,6 +92,11 @@
                 login(this.username, this.password).then(() => {
                   this.$router.go(-1)
                   this.setIsAuth(true)
+                }).catch(error => {
+                  if (error.alert)
+                    this.alert = error.alert
+                  else
+                    return Promise.reject(error)
                 })
             }
         }
