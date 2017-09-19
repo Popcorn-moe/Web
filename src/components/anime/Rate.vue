@@ -5,7 +5,7 @@
         :class="{ active: over === -1 ? n <= value : n <= over, star: true }"
         @mouseover="over = n"
         @mouseout="over = -1"
-        @click="() => $emit('input', n)"
+        @click="$emit('input', n)"
     >
     star
     </v-icon>

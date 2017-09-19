@@ -3,19 +3,19 @@
     <v-layout row wrap>
       <v-flex xs4 class="white">
         <h1 class="buttons-title">S'inscrire avec :</h1>
-        <v-btn class="social-button google-color" large light @click.stop="() => signup('google')">
+        <v-btn class="social-button google-color" large light @click.stop="signup('google')">
           <img src="/static/icons/google-icon.svg">
           Google
         </v-btn>
-        <v-btn class="social-button discord-color" large light @click.stop="() => signup('discord')">
+        <v-btn class="social-button discord-color" large light @click.stop="signup('discord')">
           <img src="/static/icons/discord-icon.svg">
           Discord
         </v-btn>
-        <v-btn class="social-button twitter-color" large light @click.stop="() => signup('twitter')">
+        <v-btn class="social-button twitter-color" large light @click.stop="signup('twitter')">
           <img src="/static/icons/twitter-icon.svg">
           Twitter
         </v-btn>
-        <v-btn class="social-button kitsu-color" large light @click.stop="() => signup('kitsu')">
+        <v-btn class="social-button kitsu-color" large light @click.stop="signup('kitsu')">
           <img src="/static/icons/kitsu-icon.svg">
           Kitsu
         </v-btn>
@@ -36,7 +36,7 @@
                   :type="hidePasswordConfirm ? 'password' : 'text'"></v-text-field>
           <v-checkbox label="Recevoir les newsletter" v-model="newsletter" light></v-checkbox>
           <div class="text-xs-center">
-            <v-btn class="login-button secondary-color black--text" large light @click.stop="() => signup()">S'inscrire</v-btn>
+            <v-btn class="login-button secondary-color black--text" large light @click.stop="signup()">S'inscrire</v-btn>
           </div>
         </div>
         <div class="link-container">

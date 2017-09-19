@@ -11,7 +11,7 @@
           <v-layout row wrap class="text-xs-center no-margin">
             <v-flex xs3>
               <v-btn icon @click.stop="$emit('input', !value)">
-                  <v-icon>menu</v-icon>
+                <v-icon>menu</v-icon>
               </v-btn>
             </v-flex>
             <v-flex xs6>

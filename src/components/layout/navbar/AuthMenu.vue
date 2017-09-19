@@ -30,7 +30,7 @@
                     <v-list-tile-title>Autres</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <li class="text-xs-right user-logout" @click.stop="() => logout()">
+            <li class="text-xs-right user-logout" @click.stop="logout()">
                 Se deconnecter
             </li>
         </v-list-group>
