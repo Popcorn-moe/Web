@@ -17,7 +17,8 @@ export default {
   data() {
     return {
       position: null,
-      dragged: false
+      dragged: false,
+      moved: false
     }
   },
   props: {
@@ -41,7 +42,9 @@ export default {
   },
   methods: {
     onMouseUp(e) {
-      this.dragged = false;
+      if (this.dragged && this.moved)
+        e.stopPropagation()
+      this.dragged = false
     },
     onMouseDown(e) {
       let el = e.target
@@ -50,7 +53,8 @@ export default {
           return
         el = el.parentElement
       }
-      this.dragged = true;
+      this.dragged = true
+      this.moved = false
       this.offset = {
         x: e.clientX - this.$el.offsetLeft,
         y: e.clientY - this.$el.offsetTop
@@ -69,8 +73,10 @@ export default {
       }
     },
     onMouseMove(e) {
-      if (this.dragged && document.fullscreenElement === null) 
+      if (this.dragged && document.fullscreenElement === null) {
         this.setPosition(e.clientX - this.offset.x,  e.clientY - this.offset.y)
+        this.moved = true
+      }
     },
     onResize() {
       if (this.position)
@@ -82,12 +88,12 @@ export default {
     VIcon
   },
   created() {
-    document.addEventListener('mouseup', this.onMouseUp)
+    document.addEventListener('click', this.onMouseUp, true) //Use click to cancel it
     document.addEventListener('mousemove', this.onMouseMove)
     window.addEventListener('resize', this.onResize)
   },
   destroyed() {
-    document.removeEventListener('mouseup', this.onMouseUp)
+    document.removeEventListener('click', this.onMouseUp, true)
     document.removeEventListener('mousemove', this.onMouseMove)
     window.removeEventListener('resize', this.onResize)
   }

@@ -7,18 +7,20 @@
       @waiting="waiting = true"
       @canplay="waiting = false"
       @progress="onProgress"
+      @click="togglePlay"
     >
       <source src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.mp4" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
-    <v-progress-circular indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
+    <v-progress-circular dark indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
+    <v-icon dark v-if="!hasPlayed" class="video-play">play_arrow</v-icon>
     <!-- Video Controls -->
     <div class="video-controls">
-      <player-slider dark hide-details primary class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="value => changeTimeline(value)"></player-slider>
-      <v-btn primary dark icon @click.stop="togglePlay()"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
-      <v-btn primary dark icon @click.stop="toggleMute()"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
-      <v-slider hide-details primary dark class="floating-cancel volume" :max="100" :value="volume" @input="value => changeVolume(value)"></v-slider>
-      <v-btn primary dark icon class="right" @click.stop="toggleFullScreen()"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
+      <player-slider dark hide-details primary class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
+      <v-btn primary dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
+      <v-btn primary dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
+      <v-slider hide-details primary dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
+      <v-btn primary dark icon class="right" @click.stop="toggleFullScreen"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
     </div>
   </div>
 </template>
@@ -32,6 +34,7 @@
     name: 'video-player',
     data () {
       return {
+        hasPlayed: false,
         waiting: false,
         paused: true,
         muted: false,
@@ -52,6 +55,7 @@
     methods: {
       togglePlay() {
         const video = this.$refs.video;
+        this.hasPlayed = true;
         this.paused ? video.play().catch(() => {}) : video.pause();
       },
       toggleMute() {
@@ -123,12 +127,22 @@
     }
 
     .video-waiting {
-      position:absolute;
+      position: absolute;
       left: 50%;
       top: 50%;
       height: 10% !important;
       width: 10% !important;
       transform: translate(-50%, -50%);
+    }
+
+    .video-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 100px;
+      width: 100px;
+      font-size: 100px;
     }
 
     .video-controls {

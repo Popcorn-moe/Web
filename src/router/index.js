@@ -45,7 +45,7 @@ export const routes = [
   },
   {
     hide: true,
-    path: '/anime/:anime/season/:season/episode/:episode',
+    path: '/anime/:anime/:season/:episode',
     name: 'Episode',
     component: MediaPage,
     meta: { hasPlayer: true },

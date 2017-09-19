@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="media-banner">
-      <video-player class="video-player"></video-player>
+      <video-player owner="media" class="video-player"></video-player>
     </div>
     <v-container class="media-page-container">
       <v-layout row wrap>
