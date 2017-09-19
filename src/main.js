@@ -4,7 +4,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 import apolloProvider from './graphql'
-import { mount } from './components/player/GlobalPlayer'
 
 VChip.components = {
   VIcon
@@ -23,8 +22,5 @@ window.vue = new Vue({
   router,
   store,
   apolloProvider,
-  render: h => h(App),
-  mounted() {
-    mount()
-  }
+  render: h => h(App)
 })

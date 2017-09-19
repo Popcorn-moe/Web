@@ -1,6 +1,6 @@
 <template>
     <div class="anime text-xs-center">
-      <a>
+      <router-link to="/anime/sword-art-online">
         <div class="poster-container">
           <img class="poster" :src="value.poster">
           <v-icon class="arrow">play_arrow</v-icon>
@@ -15,7 +15,7 @@
             <rate class="rate" v-model="rate"></rate>
             <a class="description">Description</a>
         </div>
-      </a>
+      </router-link>
     </div>
 </template>
 
@@ -51,6 +51,10 @@ export default {
         position: relative;
         margin: $anime.margin;
         transition: transform .3s ease-out;
+
+        a {
+            text-decoration: none
+        }
 
         &:hover {
             z-index: 100;

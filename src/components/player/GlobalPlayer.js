@@ -1,35 +1,43 @@
 import Vue from 'vue'
-import { Vuetify } from 'vuetify/src/components'
 import VideoPlayer from './VideoPlayer'
 
-Vue.use(Vuetify)
-
-export const videoPlayer = new Vue(VideoPlayer);
-
-export function mount() {
-  videoPlayer.$mount() //Create dom element  
-}
-
-let paused = true;
-let lock = Promise.resolve()
-let unlock = null;
+export const videoPlayer = {
+  destroyed: true,
+  paused: true,
+  lock: Promise.resolve(),
+  unlock: null,
+  destroy() {
+    this.destroyed = true
+  }
+};
 
 export default {
   render(h) {
     return h('div')
   },
   mounted() {
-    lock.then(() => {
-      this.$el.appendChild(videoPlayer.$el)
-      videoPlayer.paused = videoPlayer.$refs.video.paused; //Resync chrome bug
-      if (paused !== videoPlayer.paused)
-        videoPlayer.togglePlay();
-      lock = new Promise(r => unlock = r)
+    videoPlayer.lock.then(() => {
+      if (!videoPlayer.instance) {
+        videoPlayer.instance = new Vue(VideoPlayer)
+        videoPlayer.instance.$mount()
+        videoPlayer.destroyed = false
+      }
+      
+    this.$el.appendChild(videoPlayer.instance.$el)
+      videoPlayer.instance.paused = videoPlayer.instance.$refs.video.paused; //Resync chrome bug
+      if (videoPlayer.paused !== videoPlayer.instance.paused)
+        videoPlayer.instance.togglePlay()
+      videoPlayer.lock = new Promise(r => videoPlayer.unlock = r)
     })
   },
   beforeDestroy() {
-    paused = videoPlayer.paused;
-    this.$el.removeChild(videoPlayer.$el)
-    unlock();
+    videoPlayer.paused = videoPlayer.instance.paused;
+    this.$el.removeChild(videoPlayer.instance.$el)
+    if (videoPlayer.destroyed) {
+      videoPlayer.instance.$destroy()
+      videoPlayer.instance = null;
+      videoPlayer.paused = true;
+    }
+    videoPlayer.unlock();
   }
 }

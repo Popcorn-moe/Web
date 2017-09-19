@@ -5,7 +5,7 @@
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
           <img class="anime-cover" :src="cover">
-          <h6 class="uppercase">Titre de l'anime</h6>
+          <h6 class="uppercase">{{ anime }}</h6>
           <ul>
             <li>
               <div class="list-name">Auteur :</div>
@@ -36,23 +36,7 @@
               <rate v-model="rate"></rate>
             </div>
           </div>
-          <v-list class="media-list">
-            <v-list-group v-for="media in medias" :value="media.active" v-bind:key="media.group">
-              <v-list-tile slot="item">
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ media.group }}</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-icon>keyboard_arrow_down</v-icon>
-                </v-list-tile-action>
-              </v-list-tile>
-              <v-list-tile v-for="item in media.medias" v-bind:key="item.name">
-                <v-list-tile-title>
-                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list-group>
-          </v-list>
+          <media-list></media-list>
         </v-flex>
       </v-layout>
     </v-container>
@@ -61,53 +45,28 @@
 
 <script>
   import { VBtn, VIcon } from 'vuetify/src/components'
-  import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
   import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
   import Rate from './anime/Rate.vue'
+  import MediaList from './media/MediaList.vue'
 
   export default {
     name: "anime",
+    props: ['anime'],
     data ()
     {
-      const medias = [];
-      for (let i = 0; i < 5; i++) {
-        medias.push(
-          {
-            active: i == 0,
-            group: "Saison " + (i + 1),
-            medias: [
-              {
-                name: "Episode 1"
-              },
-              {
-                name: "Episode 2"
-              },
-              {
-                name: "Episode 3"
-              }
-            ]
-          }
-        )
-      }
       return {
         rate: 0,
-        cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
-        medias : medias
+        cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763"
       }
     },
     components: {
       VContainer,
       VFlex,
       VLayout,
-      VList,
-      VListGroup,
-      VListTile,
-      VListTileAction,
-      VListTileContent,
-      VListTileTitle,
       VBtn,
       VIcon,
-      Rate
+      Rate,
+      MediaList
     }
   }
 </script>
@@ -118,7 +77,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-
 
   .anime-page-banner {
     width: 100%;
@@ -172,22 +130,11 @@
       margin-top: 15px;
       padding: 30px;
     }
-
-    .media-list {
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      margin-top: 10px;
-      background-color: #dcdcdc !important;
-    }
   }
 
   .application--dark .anime-page-container {
     .rate-container {
       background-color: #454545;
-    }
-
-    .media-list {
-      background-color: #454545 !important;
     }
   }
 

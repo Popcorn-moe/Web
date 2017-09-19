@@ -30,16 +30,26 @@ export const routes = [
   },
   {
     hide: true,
-    path: '/anime',
+    path: '/anime/:anime',
     name: 'Anime',
-    component: AnimePage
+    component: AnimePage,
+    props: true
   },
   {
-    hide: false,
-    path: '/media',
+    hide: true,
+    path: '/anime/:anime/:media',
     name: 'Media',
     component: MediaPage,
-    meta: { hasPlayer: true }
+    meta: { hasPlayer: true },
+    props: true
+  },
+  {
+    hide: true,
+    path: '/anime/:anime/season/:season/episode/:episode',
+    name: 'Episode',
+    component: MediaPage,
+    meta: { hasPlayer: true },
+    props: true
   },
   {
     hide: true,
@@ -58,7 +68,17 @@ export const routes = [
     name: 'SignUp',
     path: '/auth/signup',
     component: SignUp
-  }
+  },
+  {
+    hide: true,
+    name: '404',
+    path: '/404'
+  },
+  {
+    hide: true,
+    path: '*',
+    redirect: '/404'
+  },
 ];
 
 const router = new Router({

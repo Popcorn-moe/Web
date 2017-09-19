@@ -3,7 +3,6 @@
       persistent
       :value="value"
       @input="value => $emit('input', value)"
-      enable-resize-watcher
       class="elevation-2"
     >
       <v-slide-x-transition mode="out-in">

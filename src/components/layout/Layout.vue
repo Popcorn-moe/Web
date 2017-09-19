@@ -9,8 +9,13 @@
                 <router-view></router-view>
             </v-slide-y-transition>
         </main>
-        <floating width="400px" :initial="{ 'bottom': '5px', 'right': '5px' }">
-            <video-player v-if="!$route.meta.hasPlayer"></video-player>
+        <floating
+            v-if="!videoPlayer.destroyed && !$route.meta.hasPlayer"
+            width="400px"
+            :initial="{ 'bottom': '5px', 'right': '5px' }"
+            @close="videoPlayer.destroy()"
+        >
+            <video-player></video-player>
         </floating>
     </div>
 </template>
@@ -21,9 +26,14 @@ import { VSlideYTransition } from 'vuetify/src/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from './navbar/Navbar'
 import Floating from '../Floating'
-import VideoPlayer from '../player/GlobalPlayer'
+import VideoPlayer, { videoPlayer } from '../player/GlobalPlayer'
 
 export default {
+    data() {
+        return {
+            videoPlayer
+        }
+    },
     components: {
         Navbar,
         VBtn,
