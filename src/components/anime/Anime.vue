@@ -1,16 +1,16 @@
 <template>
     <div class="anime text-xs-center">
-      <router-link to="/anime/sword-art-online">
-        <div class="poster-container">
-          <img class="poster" :src="value.poster">
+      <router-link :to="{ name: 'Anime', params: { name: value.names[0] }}">
+        <div class="cover-container">
+          <img class="cover" :src="value.cover">
           <v-icon class="arrow">play_arrow</v-icon>
         </div>
-        <h3 class="title">{{ value.name }}</h3>
+        <h3 class="title">{{ value.names[0] }}</h3>
         <div class="infos">
             <div class="details">
-                <address class="author"><a rel="author" :href="value.author">{{ value.author.name }}</a></address>
+                <address class="author"><a rel="author" :href="value.authors">{{ value.authors[0].name }}</a></address>
                 <span> - </span>
-                <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ value.date.toISOString().split('T')[0] }}</time>
+                <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ 'RIP' || value.date.toISOString().split('T')[0] }}</time>
             </div>
             <rate class="rate" v-model="rate"></rate>
             <a class="description">Description</a>
@@ -20,14 +20,11 @@
 </template>
 
 <script>
-import Anime from '@/models/Anime'
 import { VIcon } from 'vuetify/src/components'
 import Rate from './Rate'
 
 export default {
-  props: {
-    value: { type: Anime }
-  },
+  props: ['value'],
   data() {
       return {
           rate: 0
@@ -57,7 +54,7 @@ export default {
         }
 
         &:hover {
-            z-index: 100;
+            z-index: 2;
             .infos {
                 opacity: 1;
             }
@@ -68,15 +65,15 @@ export default {
             @extend .elevation-2
         }
 
-        .poster {
+        .cover {
           padding: $anime.img-border;
           height: auto;
           width: $anime.width;
           height: $anime.img-height;
         }
 
-        .poster-container:hover {
-            .poster {
+        .cover-container:hover {
+            .cover {
               background-color: $main-color;
             }
 

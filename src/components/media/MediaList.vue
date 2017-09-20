@@ -12,7 +12,7 @@
       <router-link
         v-for="(ep, ei) in season.episodes"
         :key="ep.name"
-        :to="{ name: 'Episode', params: { season: si + 1, episode: ei + 1 }}"
+        :to="{ name: 'Episode', params: { name: anime, season: si + 1, episode: ei + 1 }}"
         class="router-link"
       >
         <v-list-tile>
@@ -30,6 +30,7 @@ import { VIcon } from 'vuetify/src/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
 
 export default {
+  props: ['anime'],
   data () {
     const seasons = [];
     for (let i = 0; i < 5; i++) {

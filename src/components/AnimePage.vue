@@ -1,26 +1,18 @@
 <template>
   <div>
-    <div class="anime-page-banner"></div>
+    <div class="anime-page-banner" :style="{ 'background-image': anime.background }"></div>
     <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
-          <img class="anime-cover" :src="cover">
-          <h6 class="uppercase">{{ anime }}</h6>
+          <img class="anime-cover" :src="anime.cover">
+          <h6 class="uppercase">{{ name }}</h6>
           <ul>
-            <li>
+            <li v-for="author in anime.authors" :key="author.id">
               <div class="list-name">Auteur :</div>
-              Jean
-            </li>
-            <li>
-              <div class="list-name">Auteur :</div>
-              Jean
-            </li>
-            <li>
-              <div class="list-name">Auteur :</div>
-              Jean
+              {{ author.name }}
             </li>
           </ul>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>{{ anime.desc }}</p>
           <div class="text-xs-center">
             <h6 class="uppercase">Trailer :</h6>
           </div>
@@ -33,10 +25,10 @@
           <div class="rate-container">
             <div class="text-xs-center">
               <h6>Note :</h6>
-              <rate v-model="rate"></rate>
+              <rate v-model="anime.rate"></rate>
             </div>
           </div>
-          <media-list></media-list>
+          <media-list :anime="name"></media-list>
         </v-flex>
       </v-layout>
     </v-container>
@@ -48,15 +40,44 @@
   import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
   import Rate from './anime/Rate.vue'
   import MediaList from './media/MediaList.vue'
+  import gql from 'graphql-tag'
+  import { client } from '../graphql'
 
   export default {
-    name: "anime",
-    props: ['anime'],
-    data ()
-    {
+    props: ['name'],
+    data () {
+      // Try from cache
+      try { 
+        const anime = client.readFragment({
+          id: this.name,
+          fragment: gql`
+            fragment anime on Anime {
+              names
+              cover
+              background
+              authors { id name }
+            }
+          `,
+        });
+        if (anime)
+          return { anime }
+      } catch (e) { console.log(e) }
+      // Query it
+      client.query({
+        query: gql`query ($name: String!){
+            anime (name: $name) {
+              names
+              cover
+              background
+              authors { id name }
+            }
+          }`,
+        variables: {
+          name: this.name
+        }
+      }).then(({ data: { anime } }) => this.anime = anime)
       return {
-        rate: 0,
-        cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763"
+        anime: {}
       }
     },
     components: {

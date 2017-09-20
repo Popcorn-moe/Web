@@ -72,7 +72,6 @@ import { VTextField, VSelect, VBtn, VDialog, VChip } from 'vuetify/src/component
 import { VCard, VCardTitle } from 'vuetify/src/components/VCard'
 import { VContainer, VFlex, VLayout, VSpacer } from 'vuetify/src/components/VGrid'
 import Anime from './anime/Anime.vue'
-import AnimeModel from '@/models/Anime'
 import gql from 'graphql-tag'
 
 export default {

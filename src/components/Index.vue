@@ -18,25 +18,25 @@
 <script>
 import { VCarousel, VCarouselItem } from 'vuetify/src/components/VCarousel'
 import AnimeList from './anime/AnimeList'
-import Anime from '@/models/Anime'
+import gql from 'graphql-tag'
 
 export default {
   name: "index",
   data () {
-    const animes = [];
-    for (let i = 0; i < 100; i++) {
-      animes.push(
-        new Anime('Sword Art Online', { name: 'Genco', link: '' }, new Date(), 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763')
-      )
-    }
     return {
-      animes
+      animes: []
     }
   },
   components: {
     AnimeList,
     VCarousel,
     VCarouselItem
+  },
+  apollo: {
+    animes: {
+      query: gql`{ animes(limit: 50) { id names authors { id name } cover background } }`,
+      update: ({ animes }) => animes
+    }
   }
 }
 </script>

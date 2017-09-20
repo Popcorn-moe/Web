@@ -3,7 +3,7 @@
         <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
             <anime 
                 v-for="(anime, i) in value" 
-                :key="i" 
+                :key="anime.id" 
                 v-if="i <= maxIndex + elemsPerLine"
                 :value="anime"></anime>
         </div>

@@ -6,10 +6,8 @@ export class UploadHTTPFetchNetworkInterface extends HTTPFetchNetworkInterface {
     options.credentials = 'include'
     
     if (request.variables) {
-      const files = Object.entries(request.variables).filter(([_, value]) => value instanceof File).map(([name, value]) => {
-          delete request.variables[name]
-          return [name, value]
-      })
+      const files = []
+      findFiles(request.variables, files)
 
       if (files.length) {
           const formData = new FormData()
@@ -34,4 +32,15 @@ export class UploadHTTPFetchNetworkInterface extends HTTPFetchNetworkInterface {
 
 export function createNetworkInterface({ uri, opts = {} }) {
   return new UploadHTTPFetchNetworkInterface(uri, opts)
+}
+
+function findFiles(object, array, prefix = '') {
+  const files = Object.entries(object).forEach(([name, value]) => {
+    if (value instanceof File) {
+      delete object[name]
+      array.push([prefix + name, value])
+    } else if (value && typeof value === 'object') {
+      findFiles(value, array, name + '.')
+    }
+  })
 }

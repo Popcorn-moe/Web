@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="media-banner">
+    <div class="media-banner" :style="{ 'background-image': anime.background }">
       <video-player owner="media" class="media-player"></video-player>
     </div>
     <v-container class="media-page-container">
@@ -8,9 +8,9 @@
         <v-flex offset-xs1 xs7 class="anime-infos">
           <v-layout row wrap>
             <v-flex xs12>
-              <img class="anime-cover" :src="cover">
-              <h6 class="uppercase">{{ anime }}</h6>
-              <p class="sub">Saison 2, épisode 812</p>
+              <img class="anime-cover" :src="anime.cover">
+              <h6 class="uppercase">{{ name }}</h6>
+              <p class="sub">Saison {{ season }}, épisode {{ episode }}</p>
               <ul>
                 <li>
                   <div class="list-name">Auteur :</div>
@@ -72,7 +72,7 @@
               <p>20min</p>
             </div>
           </div>
-          <media-list></media-list>
+          <media-list :anime="name"></media-list>
         </v-flex>
       </v-layout>
     </v-container>
@@ -87,16 +87,46 @@
   import Comment from './media/Comment.vue';
   import MediaList from './media/MediaList.vue';
   import VideoPlayer from './player/GlobalPlayer';
+  import gql from 'graphql-tag'
+  import { client } from '../graphql'
 
   export default {
     name: 'media',
-    props: ['anime', 'media'],
-    data()
-    {
+    props: ['name', 'media', 'season', 'episode'],
+    data() {
+      // Try from cache
+      try { 
+        const anime = client.readFragment({
+          id: this.name,
+          fragment: gql`
+            fragment anime on Anime {
+              names
+              cover
+              background
+              authors { id name }
+            }
+          `,
+        });
+        if (anime)
+          return { anime }
+      } catch (e) { console.log(e) }
+      // Query it
+      client.query({
+        query: gql`query ($name: String!){
+            anime (name: $name) {
+              names
+              cover
+              background
+              authors { id name }
+            }
+          }`,
+        variables: {
+          name: this.name
+        }
+      }).then(({ data: { anime } }) => this.anime = anime)
       return {
-        rate  : 0,
-        cover : 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763',
-      };
+        anime: {}
+      }
     },
     components: {
       VContainer,
