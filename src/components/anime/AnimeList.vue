@@ -3,7 +3,7 @@
         <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
             <anime 
                 v-for="(anime, i) in value" 
-                :key="anime.id" 
+                :key="anime.id"
                 v-if="i <= maxIndex + elemsPerLine"
                 :value="anime"></anime>
         </div>
@@ -11,7 +11,7 @@
         <v-btn class="nav-button nav-left main-color--text" v-if="index > 0" fab @click="index--">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" v-if="index < 100" fab @click="++index > maxIndex ? ++maxIndex : 1">
+        <v-btn class="nav-button nav-right main-color--text" v-if="index < value.length" fab @click="++index > maxIndex ? ++maxIndex : 1">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
     </div>
