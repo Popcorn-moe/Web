@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="page-container">
+    <v-container class="page-container" grid-list-md>
       <v-layout row wrap>
         <v-flex offset-xs3 xs6>
           <v-text-field name="search" label="Search" hide-details single-line append-icon="search"></v-text-field>
@@ -59,7 +59,7 @@
         </v-layout>
       </div>
       <div class="text-xs-left">
-        <anime v-for="result in results" :key="result.name" :value="result"></anime>
+        <anime v-for="result in results" :key="result.id" :value="result"></anime>
       </div>
     </v-container>
   </div>
@@ -87,7 +87,12 @@ export default {
     results() {
       const array = [];
       for(let i = 0; i < 50; i++) {
-        array.push(new AnimeModel('test' + i, { name: 'Test author' }, new Date(), 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763'))
+        array.push({
+          id: i,
+          names: ['test' + i],
+          authors: [{ name: 'Test author' }],
+          cover: 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763'
+        })
       }
       return array
     }
