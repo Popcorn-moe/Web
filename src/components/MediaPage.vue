@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="media-banner">
-      <video-player owner="media" class="video-player"></video-player>
+      <video-player owner="media" class="media-player"></video-player>
     </div>
     <v-container class="media-page-container">
       <v-layout row wrap>
@@ -191,8 +191,9 @@
     background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
     padding-top: 40px;
 
-    .video-player:not(:fullscreen)
+    & > .media-player
     {
+      display: inline-block;
       height: 500px;
       width: calc(1280/720*500px);
     }

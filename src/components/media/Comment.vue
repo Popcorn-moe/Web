@@ -29,11 +29,11 @@
   import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid';
 
   export default {
-    props     : {
-      user   : String,
-      date   : String,
+    props: {
+      user: String,
+      date: String,
       content: String,
-      icon   : String
+      icon: String
     },
     components: {
       VContainer,

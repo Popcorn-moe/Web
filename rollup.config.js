@@ -4,12 +4,10 @@ import commonjs from 'rollup-plugin-commonjs'
 import alias from 'rollup-plugin-alias'
 import vue from 'rollup-plugin-vue'
 import replace from 'rollup-plugin-replace'
-import uglify from 'rollup-plugin-uglify';
+import uglify from 'rollup-plugin-uglify'
 import { join } from 'path'
 
 const DIST_FOLDER = 'dist2'
-
-process.env.BABEL_ENV = 'rollup'
 
 export default {
     input: 'src/main.js',
@@ -19,7 +17,7 @@ export default {
     },
     plugins: [
         replace({
-            'process.env.NODE_ENV': "'development'",
+            'process.env.NODE_ENV': process.env.NODE_ENV ? `'${process.env.NODE_ENV}'` : "'development'",
             'process.env.AUTH_URL': process.env.AUTH_URL ? `'${process.env.AUTH_URL}'` : "'http://localhost:3031'",
             'process.env.API_URL': process.env.API_URL ? `'${process.env.API_URL}'` : "'http://localhost:3030'"
         }),
@@ -34,7 +32,7 @@ export default {
         commonjs(),
         vue({
             compileTemplate: true,
-            css: `${DIST_FOLDER}/.tmp/app.css`
+            css: `${DIST_FOLDER}/app.css`
         }),
         babel({
             babelrc: false,
@@ -48,8 +46,10 @@ export default {
                 "stage-2"
             ],
             plugins: ['external-helpers']
-        }),
-        uglify()
-    ],
-    context: 'window'
+        })
+    ].concat(process.env.NODE_ENV === 'production' ? [uglify()] : []),
+    context: 'window',
+    watch: {
+        chokidar: true
+    }
 }

@@ -12,10 +12,12 @@ import chalk from 'chalk'
 import { relative } from 'path'
 import ms from 'pretty-ms'
 import webserver from 'gulp-webserver'
+import { log } from 'gulp-util'
 
 const config = {
-    cssInput: ['dist2/.tmp/app.css'],
-    static: ['static/**/*', 'index.html']
+    cssInput: ['dist2/app.css'],
+    static: ['static/**/*', 'index.html'],
+    dist: 'dist2'
 }
 
 gulp.task('default', (cb) => {
@@ -23,9 +25,9 @@ gulp.task('default', (cb) => {
 });
 
 gulp.task('static', () => {
-    gulp.src(config.static, {
+    return gulp.src(config.static, {
         base: '.'
-    }).pipe(gulp.dest('dist2'))
+    }).pipe(gulp.dest(config.dist))
 })
 
 gulp.task('rollup', () => {
@@ -39,16 +41,24 @@ gulp.task('styles', () => {
             autoprefixer({browsers: ['last 1 version']}),
             cssnano()
         ]))
-        .pipe(purifycss(['./dist2/app.js']))
+        .pipe(purifycss([rollupConfig.output.file]))
         .pipe(postcss([
             cssnano()
         ]))
-        .pipe(gulp.dest('./dist2'))
+        .pipe(gulp.dest(config.dist))
+})
+
+gulp.task('devStyles', () => {
+    return gulp.src(config.cssInput)
+        .pipe(postcss([
+            autoprefixer({browsers: ['last 1 version']}),
+        ]))
+        .pipe(gulp.dest(config.dist))
 })
 
 gulp.task('dev', ['static'], () => {
-  gulp.watch(config.cssInput, ['styles'])
   gulp.watch(config.static, ['static'])
+
   const watcher = rollupWatch(rollupConfig)
   watcher.on('event', event => {
     switch (event.code) {
@@ -61,25 +71,22 @@ gulp.task('dev', ['static'], () => {
             console.error('Error', event.error)
             break;
 
-        case 'START':
-            console.log(chalk.underline(`rollup v${rollupVersion}`))
-            break;
-
         case 'BUNDLE_START':
-            console.log(chalk.cyan(`bundles ${chalk.bold( event.input )} → ${chalk.bold( event.output.map( relativeId ).join( ', ' ) )}...`))
+            log(`Bundles '${chalk.cyan( event.input )}' → '${chalk.cyan( event.output.map( relativeId ).join( ', ' ) )}' ...`)
             break;
 
         case 'BUNDLE_END':
-            console.log(chalk.green(`created ${chalk.bold( event.output.map( relativeId ).join( ', ' ) )} in ${chalk.bold(ms(event.duration))}`))
+            log(`Created '${chalk.green( event.output.map( relativeId ).join( ', ' ) )}' in ${chalk.magenta(ms(event.duration))}`)
+            gulp.start('static')
+            gulp.start('devStyles')
             break;
 
         case 'END':
-            console.log('\nwaiting for changes...')
+            log('Waiting for changes...')
      }
     })
 
-
-    gulp.src('dist2')
+    return gulp.src(config.dist)
         .pipe(webserver({
             livereload: {
               enable: true,
@@ -107,6 +114,6 @@ function rollupStream(config) {
     return stream.pipe(source(config.output.file))
 }
 
-function relativeId ( id ) {
-	return relative( process.cwd(), id );
+function relativeId(id) {
+	return relative(process.cwd(), id);
 }

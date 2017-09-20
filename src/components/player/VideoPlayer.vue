@@ -117,7 +117,7 @@
     height: 100%;
     width: 100%;
 
-    &:fullscreen video {
+    &:fullscreen {
       width: 100vw;
     }
 
