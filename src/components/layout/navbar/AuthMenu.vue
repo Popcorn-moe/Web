@@ -12,24 +12,36 @@
                     <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
-            <router-link to="Settings" class="router-link">
+            <router-link :to="{ name: 'User', params: { page: 'profile' }}" class="router-link">
                 <v-list-tile>
                     <v-list-tile-action>
-                        <v-icon></v-icon>
+                        <v-icon>face</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>Mon compte</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </router-link>
-            <v-list-tile>
+            <router-link :to="{ name: 'User', params: { page: 'library' }}" class="router-link">
+              <v-list-tile>
                 <v-list-tile-action>
-                    <v-icon></v-icon>
+                  <v-icon>local_library</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Autres</v-list-tile-title>
+                  <v-list-tile-title>Librairie</v-list-tile-title>
                 </v-list-tile-content>
-            </v-list-tile>
+              </v-list-tile>
+            </router-link>
+            <router-link :to="{ name: 'User', params: { page: 'settings' }}" class="router-link">
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon>settings</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>Settings</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </router-link>
             <li class="text-xs-right user-logout" @click.stop="logout()">
                 Se deconnecter
             </li>

@@ -1,8 +1,5 @@
 <template>
   <v-container class="settings-container">
-    <div class="text-xs-center">
-        <h2 class="headline">Paramètres</h2>
-    </div>
     <v-expansion-panel class="settings-panel">
         <v-expansion-panel-content value="true">
             <div slot="header">Profile</div>
@@ -120,12 +117,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../stylus/main'
-
-  .settings-container {
-      padding: 40px 100px 75px 100px !important;
-  }
-
+  @import '../../stylus/main.styl'
   .settings-image {
       width: 175px;
 
@@ -136,7 +128,6 @@ export default {
   }
 
   .settings-panel {
-      margin-top: 50px;
       &-content {
           padding: 20px;
       }

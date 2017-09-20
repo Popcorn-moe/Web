@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from 'vuetify/src/components'
+import { VBtn, VIcon, VList } from 'vuetify/src/components'
 import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
 
 export default {
@@ -71,6 +71,7 @@ export default {
         VContainer,
         VFlex,
         VLayout,
+        VList,
         VBtn,
         VIcon
     }

@@ -4,9 +4,9 @@ import Index from '../components/Index'
 import Search from '../components/SearchPage'
 import AnimePage from '../components/AnimePage'
 import MediaPage from '../components/MediaPage'
-import SettingsPage from '../components/SettingsPage'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
+import UserPage from '../components/user/UserPage.vue'
 
 Vue.use(Router)
 
@@ -53,12 +53,6 @@ export const routes = [
   },
   {
     hide: true,
-    name: 'Settings',
-    path: '/settings',
-    component: SettingsPage
-  },
-  {
-    hide: true,
     name: 'Login',
     path: '/auth/login',
     component: Login
@@ -68,6 +62,13 @@ export const routes = [
     name: 'SignUp',
     path: '/auth/signup',
     component: SignUp
+  },
+  {
+    hide: true,
+    name: 'User',
+    path: '/user/:page(profile|library|settings)',
+    component: UserPage,
+    props: true
   },
   {
     hide: true,
