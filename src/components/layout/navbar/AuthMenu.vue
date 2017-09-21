@@ -18,7 +18,7 @@
                         <v-icon>face</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Mon compte</v-list-tile-title>
+                        <v-list-tile-title>Profile</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </router-link>
