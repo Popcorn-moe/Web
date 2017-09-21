@@ -1,5 +1,9 @@
 <template>
-  <div class="video-player">
+  <div class="video-player"
+    @mousemove="onMouseMove"
+    @mouseout="controlsHidden = true"
+    :style="{ 'cursor': controlsHidden ? 'none' : null }"
+  >
     <video ref="video"
       @pause="paused = true"
       @play="paused = false"
@@ -13,9 +17,9 @@
       Your browser does not support HTML5 video.
     </video>
     <v-progress-circular dark indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
-    <v-icon dark v-if="!hasPlayed" class="video-play">play_arrow</v-icon>
+    <v-icon dark @click="togglePlay" v-if="!hasPlayed" class="video-play">play_arrow</v-icon>
     <!-- Video Controls -->
-    <div class="video-controls">
+    <div class="video-controls" v-show="hasPlayed && !controlsHidden">
       <player-slider dark hide-details primary class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
       <v-btn primary dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
       <v-btn primary dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
@@ -41,7 +45,8 @@
         fullscreen: false,
         buffered: [],
         timeline: 0,
-        volume: 100
+        volume: 100,
+        controlsHidden: true
       }
     },
     created() {
@@ -56,6 +61,7 @@
       togglePlay() {
         const video = this.$refs.video;
         this.hasPlayed = true;
+        this.showControls()
         this.paused ? video.play().catch(() => {}) : video.pause();
       },
       toggleMute() {
@@ -82,16 +88,24 @@
           this.buffered = buffered;
         }
       },
-      changeTimeline(value)
-      {
+      changeTimeline(value) {
         const video = this.$refs.video;
         if (video)
           video.currentTime = video.duration * ((this.timeline = value) / 100);
       },
-      changeVolume(value)
-      {
+      changeVolume(value) {
         if (this.$refs.video)
           this.$refs.video.volume = (this.volume = value) / 100;
+      },
+      onMouseMove(e) {
+        if (Math.abs(e.movementX) > 1 || Math.abs(e.movementY) > 1)
+          this.showControls()
+      },
+      showControls() {
+        this.controlsHidden = false
+        if (this.timeoutID)
+          clearTimeout(this.timeoutID)
+        this.timeoutID = setTimeout(() => this.controlsHidden = true, 3000)
       }
     },
     components:
