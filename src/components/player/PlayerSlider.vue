@@ -66,7 +66,7 @@ export default {
   .slider__buffer {
     display: inline-block;
     vertical-align: middle;
-    background-color: $grey.base;
+    background-color: $secondary-color;
     height: 2px;
     position: absolute;
   }

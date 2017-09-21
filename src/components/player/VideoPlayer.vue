@@ -1,7 +1,6 @@
 <template>
   <div class="video-player"
     @mousemove="onMouseMove"
-    @mouseout="controlsHidden = true"
     :style="{ 'cursor': controlsHidden ? 'none' : null }"
   >
     <video ref="video"
@@ -19,18 +18,21 @@
     <v-progress-circular dark indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
     <v-icon dark @click="togglePlay" v-if="!hasPlayed" class="video-play">play_arrow</v-icon>
     <!-- Video Controls -->
-    <div class="video-controls" v-show="hasPlayed && !controlsHidden">
-      <player-slider dark hide-details primary class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
-      <v-btn primary dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
-      <v-btn primary dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
-      <v-slider hide-details primary dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
-      <v-btn primary dark icon class="right" @click.stop="toggleFullScreen"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
-    </div>
+    <v-fade-transition>
+      <div class="video-controls" v-show="hasPlayed && !controlsHidden">
+        <player-slider dark hide-details primary class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
+        <v-btn primary dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
+        <v-btn primary dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
+        <v-slider hide-details primary dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
+        <v-btn primary dark icon class="right" @click.stop="toggleFullScreen"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
+      </div>
+    </v-fade-transition>
   </div>
 </template>
 
 <script>
   import { VBtn, VIcon, VSlider, VProgressCircular } from 'vuetify/src/components';
+  import { VFadeTransition } from 'vuetify/src/components/transitions'
   import PlayerSlider from './PlayerSlider.vue'
   import 'fullscreen-api-polyfill'
 
@@ -114,7 +116,8 @@
       VIcon,
       VSlider,
       PlayerSlider,
-      VProgressCircular
+      VProgressCircular,
+      VFadeTransition
     }
   }
 </script>
