@@ -3,14 +3,14 @@
       <v-layout>
         <v-flex xs3>
           <v-list class="library-list">
-            <template v-for="playlist in playlists.filter(p => p.type !== 'NORMAL')">
+            <template v-for="playlist in me.playlists.filter(p => p.type !== 'NORMAL')">
               <v-list-tile :key="playlist.name" @click="">
                 <v-list-tile-content>
                   <v-list-tile-title v-html="playlist.name"></v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </template>
-            <v-list-group>
+            <v-list-group v-if="me.playlists.filter(p => p.type === 'NORMAL').length > 0">
               <v-list-tile slot="item">
                 <v-list-tile-content>
                   <v-list-tile-title>Playlists</v-list-tile-title>
@@ -19,7 +19,7 @@
                   <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
               </v-list-tile>
-              <v-list-tile v-for="playlist in playlists.filter(p => p.type === 'NORMAL')" :key="playlist.name" @click="">
+              <v-list-tile v-for="playlist in me.playlists.filter(p => p.type === 'NORMAL')" :key="playlist.name" @click="">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ playlist.name }}</v-list-tile-title>
                 </v-list-tile-content>
@@ -47,46 +47,18 @@
     </v-container>
 </template>
 
+
 <script>
 import { VIcon, VBtn } from 'vuetify/src/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
 import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import gql from 'graphql-tag'
+
 export default {
   name: "user_library",
   data() {
     return {
-      playlists: [
-        {
-          name: "Historique",
-          type: "HISTORY",
-          medias: []
-        },
-        {
-          name: "Abonnements",
-          type: "FOLLOWS",
-          medias: []
-        },
-        {
-          name: "Playlist #1",
-          type: "NORMAL",
-          medias: []
-        },
-        {
-          name: "Playlist #2",
-          type: "NORMAL",
-          medias: []
-        },
-        {
-          name: "Playlist #3",
-          type: "NORMAL",
-          medias: []
-        },
-        {
-          name: "Playlist #4",
-          type: "NORMAL",
-          medias: []
-        }
-      ]
+      me: {},
     }
   },
   components:
@@ -102,7 +74,13 @@ export default {
     VListTileTitle,
     VIcon,
     VBtn
-  }
+  },
+  apollo: {
+    me: {
+      query: gql`{ me { playlists {name type} } }`,
+      update: ({ me }) => me
+    }
+  },
 }
 </script>
 

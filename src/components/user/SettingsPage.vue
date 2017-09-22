@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { VExpansionPanel, VBtn, VIcon, VTextField, VDatePicker, VMenu } from 'vuetify/src/components'
+import { VExpansionPanel, VBtn, VIcon, VTextField, VDatePicker, VMenu, VProgressCircular } from 'vuetify/src/components'
 import VExpansionPanelContent from 'vuetify/src/components/VExpansionPanel/VExpansionPanelContent'
 import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
 import gql from 'graphql-tag'
@@ -79,6 +79,7 @@ export default {
     components: {
         VExpansionPanel,
         VExpansionPanelContent,
+        VProgressCircular,
         VBtn,
         VIcon,
         VTextField,
