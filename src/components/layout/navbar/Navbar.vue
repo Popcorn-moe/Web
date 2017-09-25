@@ -27,12 +27,12 @@
           <auth-menu v-if="isAuth"></auth-menu>
           <v-layout v-else row wrap class="text-xs-center no-margin">
             <v-flex xs6>
-              <v-btn outline small @click.stop="$router.push('auth/login')">
+              <v-btn outline small @click.stop="$router.push({ name: 'Login' })">
                 Log in
               </v-btn>
             </v-flex>
             <v-flex xs6>
-              <v-btn outline small class="main-color--text" @click.stop="$router.push('auth/signup')">
+              <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })">
                 Sign up
               </v-btn>
             </v-flex>

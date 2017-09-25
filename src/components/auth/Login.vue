@@ -49,7 +49,7 @@
                 </div>
               </div>
               <div class="link-container">
-                <router-link replace to="SignUp" light>Se créer un compte</router-link>
+                <router-link replace :to="{ name: 'SignUp' }"  light>Se créer un compte</router-link>
               </div>
             </v-flex>
 

@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="link-container">
-          <router-link replace to="Login" light>Se connecter</router-link>
+          <router-link replace :to="{ name: 'Login' }" light>Se connecter</router-link>
         </div>
       </v-flex>
     </v-layout>
