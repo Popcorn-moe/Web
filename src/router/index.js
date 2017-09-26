@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '../components/Index'
 import Search from '../components/SearchPage'
+import NewsList from '../components/news/NewsList.vue'
+import NewsPage from '../components/news/NewsPage.vue'
 import AnimePage from '../components/AnimePage'
 import MediaPage from '../components/MediaPage'
 import Login from '../components/auth/Login'
@@ -26,7 +28,15 @@ export const routes = [
   {
     icon: 'equalizer',
     path: '/news',
-    name: 'News'
+    name: 'News',
+    component: NewsList
+  },
+  {
+    hide: true,
+    path: '/news/:id',
+    name: 'NewsPage',
+    component: NewsPage,
+    props: true
   },
   {
     hide: true,
