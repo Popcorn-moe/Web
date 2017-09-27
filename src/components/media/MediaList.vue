@@ -12,7 +12,7 @@
       <router-link
         v-for="(ep, ei) in season.episodes"
         :key="ep.name"
-        :to="{ name: 'Episode', params: { name: anime, season: si + 1, episode: ei + 1 }}"
+        :to="{ name: 'Episode', params: { id: anime, season: si + 1, episode: ei + 1 }}"
         class="router-link"
       >
         <v-list-tile>

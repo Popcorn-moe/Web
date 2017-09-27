@@ -9,12 +9,7 @@ export const client = new ApolloClient({
   networkInterface: createNetworkInterface({
     uri: `${process.env.API_URL}/graphql`,
   }),
-  dataIdFromObject: data => {
-    if (data.__typename == 'Anime')
-      return data.names[0]
-    else
-      return data.id
-  }
+  dataIdFromObject: ({ id }) => id
 })
 
 export default new VueApollo({

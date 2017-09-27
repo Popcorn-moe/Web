@@ -1,6 +1,6 @@
 <template>
     <div class="anime text-xs-center">
-      <router-link :to="{ name: 'Anime', params: { name: value.names[0] }}">
+      <router-link :to="{ name: 'Anime', params: { id: value.id }}">
         <div class="cover-container">
           <img class="cover" :src="value.cover">
           <v-icon class="arrow">play_arrow</v-icon>
@@ -8,7 +8,7 @@
         <h3 class="title">{{ value.names[0] }}</h3>
         <div class="infos">
             <div class="details">
-                <address class="author"><a rel="author" :href="value.authors">{{ value.authors[0].name }}</a></address>
+                <address class="author"><a rel="author" :href="value.authors">{{ (value.authors[0] || {} ).name }}</a></address>
                 <span> - </span>
                 <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ 'RIP' || value.date.toISOString().split('T')[0] }}</time>
             </div>

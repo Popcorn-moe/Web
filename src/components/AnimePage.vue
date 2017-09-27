@@ -5,7 +5,7 @@
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
           <img class="anime-cover" :src="anime.cover">
-          <h6 class="uppercase">{{ name }}</h6>
+          <h6 class="uppercase">{{ anime.names[0] }}</h6>
           <ul>
             <li v-for="author in anime.authors" :key="author.id">
               <div class="list-name">Auteur :</div>
@@ -28,7 +28,7 @@
               <rate v-model="anime.rate"></rate>
             </div>
           </div>
-          <media-list :anime="name"></media-list>
+          <media-list :anime="id"></media-list>
         </v-flex>
       </v-layout>
     </v-container>
@@ -44,12 +44,12 @@
   import { client } from '../graphql'
 
   export default {
-    props: ['name'],
+    props: ['id'],
     data () {
       // Try from cache
       try { 
         const anime = client.readFragment({
-          id: this.name,
+          id: this.id,
           fragment: gql`
             fragment anime on Anime {
               names
@@ -64,8 +64,8 @@
       } catch (e) { console.log(e) }
       // Query it
       client.query({
-        query: gql`query ($name: String!){
-            anime (name: $name) {
+        query: gql`query ($id: ID!){
+            anime (id: $id) {
               names
               cover
               background
@@ -73,7 +73,7 @@
             }
           }`,
         variables: {
-          name: this.name
+          id: this.id
         }
       }).then(({ data: { anime } }) => this.anime = anime)
       return {
