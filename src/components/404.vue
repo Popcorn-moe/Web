@@ -35,7 +35,7 @@ export default {
         { src: "https://i.imgur.com/1A17LFL.gif", type: "img" },
         { src: "https://cdn.discordapp.com/attachments/349974957998080001/355086450699534336/unknown.png", type: "img" },
         { src: "https://images-ext-1.discordapp.net/external/dlIPdqpVNkz6YgwgmicyLPCE-IMHeg65sOa5P2RhgYI/https/rra.ram.moe/i/r12y82Xex.gif", type: "img" },
-        { src: "http://www.youtube.com/embed/_NXrTujMP50", type: "video" }
+        { src: "https://www.youtube.com/embed/_NXrTujMP50", type: "video" }
       ],
       currGif: null,
     }
