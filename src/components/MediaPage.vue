@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="media-banner" :style="{ 'background-image': anime.background }">
+    <div class="media-banner" :style="{ 'background-image': `url(${anime.background})` }">
       <video-player owner="media" class="media-player"></video-player>
     </div>
     <v-container class="media-page-container">
@@ -217,7 +217,9 @@
   .media-banner {
     text-align: center;
     height: 600px;
-    background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     padding-top: 40px;
 
     & > .media-player

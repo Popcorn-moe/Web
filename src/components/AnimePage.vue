@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="anime-page-banner" :style="{ 'background-image': anime.background }"></div>
+    <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }"></div>
     <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
@@ -102,7 +102,9 @@
   .anime-page-banner {
     width: 100%;
     height: 405px;
-    background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .anime-page-container {
