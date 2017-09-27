@@ -9,6 +9,7 @@ import MediaPage from '../components/MediaPage'
 import Login from '../components/auth/Login'
 import SignUp from '../components/auth/SignUp'
 import UserPage from '../components/user/UserPage.vue'
+import NopPage from '../components/404.vue'
 
 Vue.use(Router)
 
@@ -83,7 +84,8 @@ export const routes = [
   {
     hide: true,
     name: '404',
-    path: '/404'
+    path: '/404',
+    component: NopPage
   },
   {
     hide: true,

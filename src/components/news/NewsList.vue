@@ -25,6 +25,7 @@ import { VCard, VCardTitle, VCardMedia } from 'vuetify/src/components/VCard'
 import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
 
 export default {
+  name: "NewsList",
   data() {
     return {
         news: []

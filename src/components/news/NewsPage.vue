@@ -9,6 +9,7 @@
 <script>
 import gql from 'graphql-tag'
 export default {
+  name: "NewsPage",
   props: ['id'],
   data() {
     return {
