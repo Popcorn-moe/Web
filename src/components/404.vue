@@ -5,7 +5,7 @@
         <div class="vertical-align">
           <v-card>
             <img v-if="(currGif = randomGif()).type === 'img'" :src="currGif.src">
-            <iframe v-else-if="currGif.type === 'video'" v-type="text/html" :src="currGif.src" frameborder="0"/>
+            <iframe v-else-if="currGif.type === 'video'" v-type="text/html" :src="currGif.src" frameborder="0"></iframe>
 
             <v-container fill-height fluid>
               <v-layout fill-height>
