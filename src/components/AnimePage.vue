@@ -47,7 +47,7 @@
     props: ['id'],
     data () {
       // Try from cache
-      try { 
+      try {
         const anime = client.readFragment({
           id: this.id,
           fragment: gql`
@@ -105,6 +105,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #2f2f2f;
   }
 
   .anime-page-container {
