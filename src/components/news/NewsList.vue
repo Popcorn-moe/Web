@@ -3,7 +3,7 @@
       <v-layout>
         <v-flex xs4 v-for="($new, i) in news" :key="i">
           <v-card>
-            <v-card-media src="https://frenchemployerbranding.files.wordpress.com/2015/12/candidat-licorne.png?w=300" height="150px"></v-card-media>
+            <v-card-media :src="$new.cover" height="150px"></v-card-media>
             <v-card-title primary-title>
               <div>
                 <h3 class="headline mb-0" v-html="$new.name"></h3>
@@ -43,7 +43,7 @@ export default {
   },
   apollo: {
     news: {
-      query: gql`{ news { id name author { login } content }}`,
+      query: gql`{ news { id name author { login } content cover }}`,
       update: ({ news }) => news
     }
   }
