@@ -61,8 +61,7 @@ export default {
       me: {},
     }
   },
-  components:
-  {
+  components: {
     VContainer,
     VFlex,
     VLayout,

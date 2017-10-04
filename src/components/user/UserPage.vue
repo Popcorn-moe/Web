@@ -11,6 +11,7 @@
               <v-tabs-bar>
                 <v-tabs-item activeClass="active" href="#profile">Profile</v-tabs-item>
                 <v-tabs-item activeClass="active" href="#library">Library</v-tabs-item>
+                <v-tabs-item activeClass="active" href="#friends">Friends</v-tabs-item>
                 <v-tabs-item activeClass="active" href="#settings" class="right">Settings</v-tabs-item>
               </v-tabs-bar>
             </div>
@@ -24,6 +25,9 @@
             <v-tabs-content lazy id="library">
               <user-library></user-library>
             </v-tabs-content>
+            <v-tabs-content lazy id="friends">
+              <user-friends></user-friends>
+            </v-tabs-content>
             <v-tabs-content lazy id="settings">
               <user-settings></user-settings>
             </v-tabs-content>
@@ -36,6 +40,7 @@
 <script>
 import UserSettings from './SettingsPage.vue'
 import UserLibrary from './LibraryPage.vue'
+import UserFriends from './FriendsPage.vue'
 
 import VTabs from 'vuetify/src/components/VTabs'
 import VTabsBar from 'vuetify/src/components/VTabs/VTabsBar'
@@ -49,7 +54,7 @@ export default
   props: ['page'],
   data() {
       return {
-        me: {},
+        me: {}
       }
   },
   components: {
@@ -61,12 +66,17 @@ export default
     VFlex,
     VLayout,
     UserLibrary,
-    UserSettings
+    UserSettings,
+    UserFriends
   },
   apollo: {
     me: {
       query: gql`{ me { avatar } }`,
-      update: ({ me }) => me
+      update({ me }) {
+        if(!me)
+          this.$router.replace({ name: 'Login' });
+        else return me;
+      }
     }
   },
 }

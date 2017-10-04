@@ -77,7 +77,7 @@ export const routes = [
   {
     hide: true,
     name: 'User',
-    path: '/user/:page(profile|library|settings)',
+    path: '/user/:page(profile|library|friends|settings)',
     component: UserPage,
     props: true
   },
@@ -91,18 +91,18 @@ export const routes = [
     hide: true,
     path: '*',
     redirect: '/404'
-  },
+  }
 ];
 
 const router = new Router({
   routes,
   mode: 'history'
-})
+});
 
 router.afterEach((to, from) => {
   if (!from.path.startsWith('/auth')) {
     router.last = from.path
   }
-})
+});
 
 export default router;
