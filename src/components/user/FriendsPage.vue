@@ -2,10 +2,18 @@
   <v-container grid-list-md>
     <v-layout class="text-xs-center">
       <v-flex offset-xs2 xs8>
-        <v-text-field
+        <!--<v-text-field-->
+          <!--label="Search Friend"-->
+          <!--prepend-icon="search"-->
+        <!--&gt;</v-text-field>-->
+        <v-select
+          :items="searchResults"
+          v-model="selectedUser"
+          :value="selectedUser.login"
+          
           label="Search Friend"
-          prepend-icon="search"
-        ></v-text-field>
+          autocomplete
+        ></v-select>
       </v-flex>
       <v-flex xs1>
         <v-btn fab dark small primary>
@@ -116,7 +124,7 @@
 import VTabs from 'vuetify/src/components/VTabs'
 import VTabsContent from 'vuetify/src/components/VTabs/VTabsContent'
 import VTabsItem from 'vuetify/src/components/VTabs/VTabsItem'
-import { VIcon, VBtn, VTextField, VDataTable } from 'vuetify/src/components'
+import { VIcon, VBtn, VTextField, VDataTable, VSelect } from 'vuetify/src/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
 import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
 import gql from 'graphql-tag'
@@ -127,6 +135,9 @@ export default {
       return {
         me: { relations: [] },
         currTab: "friends",
+        searchResults: [],
+        selectedUser: {},
+        search: "",
         friendsHeader: [
           {
             text: 'Name',
@@ -198,12 +209,17 @@ export default {
     VTabs,
     VTabsContent,
     VTabsItem,
-    VDataTable
+    VDataTable,
+    VSelect
   },
   apollo: {
     me: {
       query: gql`{ me { relations { status to { login } } } }`,
       update: ({ me }) => me
+    },
+    searchResults: {
+      query: gql``,
+      update: ({ searchUser }) => searchUser
     }
   }
 }

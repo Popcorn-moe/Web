@@ -63,7 +63,7 @@ export default {
     .news-page {
       .title {
         display: inline !important;
-        font-size: 35px !important;
+        font-size: 80px !important;
       }
     }
 
