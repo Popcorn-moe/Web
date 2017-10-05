@@ -2,17 +2,20 @@
   <v-container grid-list-md>
     <v-layout class="text-xs-center">
       <v-flex offset-xs2 xs8>
-        <!--<v-text-field-->
-          <!--label="Search Friend"-->
-          <!--prepend-icon="search"-->
-        <!--&gt;</v-text-field>-->
+        {{ selectedUsers }}
         <v-select
-          :items="searchResults"
-          v-model="selectedUser"
-          :value="selectedUser.login"
-          
-          label="Search Friend"
+          label="Search Friends"
           autocomplete
+          dark
+          multiple
+          chips
+          prepend-icon="search"
+          :items="searchResults"
+          item-text="login"
+          item-value="id"
+          :rules="[() => search.length > 0 || 'You must choose at least one']"
+          :search-input.sync="search"
+          v-model="selectedUsers"
         ></v-select>
       </v-flex>
       <v-flex xs1>
@@ -124,7 +127,7 @@
 import VTabs from 'vuetify/src/components/VTabs'
 import VTabsContent from 'vuetify/src/components/VTabs/VTabsContent'
 import VTabsItem from 'vuetify/src/components/VTabs/VTabsItem'
-import { VIcon, VBtn, VTextField, VDataTable, VSelect } from 'vuetify/src/components'
+import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip } from 'vuetify/src/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
 import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
 import gql from 'graphql-tag'
@@ -132,55 +135,55 @@ import gql from 'graphql-tag'
 export default {
   name: "user_friends",
   data() {
-      return {
-        me: { relations: [] },
-        currTab: "friends",
-        searchResults: [],
-        selectedUser: {},
-        search: "",
-        friendsHeader: [
-          {
-            text: 'Name',
-            align: 'left',
-            value: 'name'
-          }, {
-            text: 'Status',
-            align: 'left',
-            value: 'status'
-          }, {
-            text: 'Action',
-            align: 'left'
-          }
-        ],
-        invitesHeader: [
-          {
-            text: 'From',
-            align: 'left',
-            value: 'from'
-          }, {
-            text: 'Date',
-            align: 'left',
-            value: 'date'
-          }, {
-            text: 'Action',
-            align: 'left'
-          }
-        ],
-        pendingHeader: [
-          {
-            text: 'To',
-            align: 'left',
-            value: 'name'
-          }, {
-            text: 'Date',
-            align: 'left',
-            value: 'date'
-          }, {
-            text: 'Action',
-            align: 'left'
-          }
-        ]
-      }
+    return {
+      me: { relations: [] },
+      currTab: "friends",
+      search: "",
+      selectedUsers: [],
+      searchResults: [],
+      friendsHeader: [
+        {
+          text: 'Name',
+          align: 'left',
+          value: 'name'
+        }, {
+          text: 'Status',
+          align: 'left',
+          value: 'status'
+        }, {
+          text: 'Action',
+          align: 'left'
+        }
+      ],
+      invitesHeader: [
+        {
+          text: 'From',
+          align: 'left',
+          value: 'from'
+        }, {
+          text: 'Date',
+          align: 'left',
+          value: 'date'
+        }, {
+          text: 'Action',
+          align: 'left'
+        }
+      ],
+      pendingHeader: [
+        {
+          text: 'To',
+          align: 'left',
+          value: 'name'
+        }, {
+          text: 'Date',
+          align: 'left',
+          value: 'date'
+        }, {
+          text: 'Action',
+          align: 'left'
+        }
+      ],
+    }
   },
   methods: {
     friends() {
@@ -210,7 +213,8 @@ export default {
     VTabsContent,
     VTabsItem,
     VDataTable,
-    VSelect
+    VSelect,
+    VChip
   },
   apollo: {
     me: {
@@ -218,7 +222,16 @@ export default {
       update: ({ me }) => me
     },
     searchResults: {
-      query: gql``,
+      query: gql`query ($name: String!) {
+        searchUser(name: $name) {
+          login id
+        }
+      }`,
+      variables() {
+        return {
+          name: this.search ? this.search : ""
+        }
+      },
       update: ({ searchUser }) => searchUser
     }
   }
