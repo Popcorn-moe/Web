@@ -12,7 +12,7 @@
       @progress="onProgress"
       @click="togglePlay"
     >
-      <source src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.mp4" type="video/mp4">
+      <!--source src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.mp4" type="video/mp4"!-->
       Your browser does not support HTML5 video.
     </video>
     <v-progress-circular dark indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
@@ -35,6 +35,7 @@
   import { VFadeTransition } from 'vuetify/src/components/transitions'
   import PlayerSlider from './PlayerSlider.vue'
   import 'fullscreen-api-polyfill'
+  import MegaMediaSource from '../../mse/MegaMediaSource'
 
   export default {
     name: 'video-player',
@@ -54,6 +55,10 @@
     created() {
       document.addEventListener('fullscreenchange', this.onFullscreenEvent)
       document.addEventListener('fullscreenerror', this.onFullscreenEvent)
+    },
+    mounted() {
+      console.log(this.$refs.video)
+      new MegaMediaSource('https://mega.nz/#!d1sFkIjS!Y3l7aaM0kvUfzEc9O35t-pBXt61y4lsov-Xu6YJ1LuM', this.$refs.video)
     },
     beforeDestroy() {
 	    document.removeEventListener('fullscreenchange', this.onFullscreenEvent)

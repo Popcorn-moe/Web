@@ -124,7 +124,7 @@
         }
       }).then(({ data: { anime } }) => this.anime = anime)
       return {
-        anime: {}
+        anime: { names: []}
       }
     },
     components: {
