@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import { VIcon } from 'vuetify/src/components'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
+import { VIcon } from 'vuetify/es5/components'
+import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
 
 export default {
   props: ['anime'],

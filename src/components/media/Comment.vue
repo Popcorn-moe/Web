@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import { VBtn, VDivider } from 'vuetify/src/components';
-  import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid';
+  import { VBtn, VDivider } from 'vuetify/es5/components';
+  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid';
 
   export default {
     props: {

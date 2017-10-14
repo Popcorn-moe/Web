@@ -19,7 +19,7 @@
         ></v-select>
       </v-flex>
       <v-flex xs1>
-        <v-btn fab dark small primary>
+        <v-btn fab dark small color="primary">
           <v-icon>add</v-icon>
         </v-btn>
       </v-flex>
@@ -56,7 +56,7 @@
                       :items="friends()"
                       hide-actions
                     >
-                      <template slot="items" scope="props">
+                      <template slot="items" slot-scope="props">
                         <td>
                           {{ props.item.to.login }}
                         </td>
@@ -77,7 +77,7 @@
                       :items="invites()"
                       hide-actions
                     >
-                      <template slot="items" scope="props">
+                      <template slot="items" slot-scope="props">
                         <td>
                           {{ props.item.from.name }}
                         </td>
@@ -98,7 +98,7 @@
                       :items="pendingRequests()"
                       hide-actions
                     >
-                      <template slot="items" scope="props">
+                      <template slot="items" slot-scope="props">
                         <td>
                           {{ props.item.name }}
                         </td>
@@ -124,12 +124,12 @@
 </template>
 
 <script>
-import VTabs from 'vuetify/src/components/VTabs'
-import VTabsContent from 'vuetify/src/components/VTabs/VTabsContent'
-import VTabsItem from 'vuetify/src/components/VTabs/VTabsItem'
-import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip } from 'vuetify/src/components'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import VTabs from 'vuetify/es5/components/VTabs'
+import VTabsContent from 'vuetify/es5/components/VTabs/VTabsContent'
+import VTabsItem from 'vuetify/es5/components/VTabs/VTabsItem'
+import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip } from 'vuetify/es5/components'
+import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
 export default {

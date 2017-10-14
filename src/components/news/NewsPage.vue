@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VDivider } from 'vuetify/src/components'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import { VBtn, VIcon, VDivider } from 'vuetify/es5/components'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import marked from 'marked'
 import gql from 'graphql-tag'
 

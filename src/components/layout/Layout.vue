@@ -5,9 +5,11 @@
             <v-icon>menu</v-icon>
         </v-btn>
         <main>
-            <v-slide-y-transition mode="out-in">
-                <router-view></router-view>
-            </v-slide-y-transition>
+            <v-content>
+                <v-slide-y-transition mode="out-in">
+                    <router-view></router-view>
+                </v-slide-y-transition>
+            </v-content>
         </main>
         <floating
             v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
@@ -21,8 +23,9 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from 'vuetify/src/components'
-import { VSlideYTransition } from 'vuetify/src/components/transitions'
+import { VBtn, VIcon } from 'vuetify/es5/components'
+import { VContent, VContainer } from 'vuetify/es5/components/VGrid'
+import { VSlideYTransition } from 'vuetify/es5/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from './navbar/Navbar'
 import Floating from '../Floating'
@@ -38,6 +41,7 @@ export default {
         Navbar,
         VBtn,
         VIcon,
+        VContent,
         VSlideYTransition,
         Floating,
         VideoPlayer

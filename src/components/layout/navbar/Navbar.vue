@@ -4,6 +4,7 @@
       :value="value"
       @input="value => $emit('input', value)"
       class="elevation-2"
+      app
     >
       <v-slide-x-transition mode="out-in">
         <notifications @close="notifications = false" @input="value => $emit('input', value)"  v-if="notifications"></notifications>
@@ -71,10 +72,10 @@
 <script>
 import Notifications from './Notifications'
 import AuthMenu from './AuthMenu'
-import { VNavigationDrawer, VBtn, VSwitch, VIcon, VDivider } from 'vuetify/src/components'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/src/components/VList'
-import { VSlideXTransition } from 'vuetify/src/components/transitions'
+import { VNavigationDrawer, VBtn, VSwitch, VIcon, VDivider } from 'vuetify/es5/components'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
+import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/es5/components/VList'
+import { VSlideXTransition } from 'vuetify/es5/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import { routes } from '../../../router'
 import { logout } from '../../../utils/auth'

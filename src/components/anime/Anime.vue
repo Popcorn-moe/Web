@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { VIcon } from 'vuetify/src/components'
+import { VIcon } from 'vuetify/es5/components'
 import Rate from './Rate'
 
 export default {

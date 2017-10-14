@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { VCarousel, VCarouselItem } from 'vuetify/src/components/VCarousel'
+import { VCarousel, VCarouselItem } from 'vuetify/es5/components/VCarousel'
 import AnimeList from './anime/AnimeList'
 import gql from 'graphql-tag'
 

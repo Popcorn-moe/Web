@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VList } from 'vuetify/src/components'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import { VBtn, VIcon, VList } from 'vuetify/es5/components'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 
 export default {
     data() {

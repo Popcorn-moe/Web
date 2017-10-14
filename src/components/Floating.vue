@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from 'vuetify/src/components'
+import { VBtn, VIcon } from 'vuetify/es5/components'
 export default {
   data() {
     return {

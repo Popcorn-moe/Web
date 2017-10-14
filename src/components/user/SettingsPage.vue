@@ -35,10 +35,10 @@
                         readonly
                     ></v-text-field>
                     <v-date-picker v-model="born" no-title scrollable actions>
-                        <template scope="{ save, cancel }">
+                        <template slot-scope="{ save, cancel }">
                         <div class="v-card__actions">
-                            <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                            <v-btn flat primary @click.native="save()">Save</v-btn>
+                            <v-btn flat color="primary" @click.native="cancel()">Cancel</v-btn>
+                            <v-btn flat color="primary" @click.native="save()">Save</v-btn>
                         </div>
                         </template>
                     </v-date-picker>
@@ -64,9 +64,9 @@
 </template>
 
 <script>
-import { VExpansionPanel, VBtn, VIcon, VTextField, VDatePicker, VMenu, VProgressCircular } from 'vuetify/src/components'
-import VExpansionPanelContent from 'vuetify/src/components/VExpansionPanel/VExpansionPanelContent'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import { VExpansionPanel, VBtn, VIcon, VTextField, VDatePicker, VMenu, VProgressCircular } from 'vuetify/es5/components'
+import VExpansionPanelContent from 'vuetify/es5/components/VExpansionPanel/VExpansionPanelContent'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
 export default {

@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from 'vuetify/src/components'
-import { VFadeTransition } from 'vuetify/src/components/transitions'
+import { VBtn, VIcon } from 'vuetify/es5/components'
+import { VFadeTransition } from 'vuetify/es5/components/transitions'
 
 export default {
   components: {

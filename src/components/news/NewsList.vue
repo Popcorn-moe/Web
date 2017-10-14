@@ -10,7 +10,7 @@
               </div>
             </v-card-title>
             <div class="card__action">
-              <v-btn :to="{ name: 'NewsPage', params: { id: $new.id }}" primary flat>Voir plus</v-btn>
+              <v-btn :to="{ name: 'NewsPage', params: { id: $new.id }}" color="primary" flat>Voir plus</v-btn>
             </div>
           </v-card>
         </v-flex>
@@ -20,9 +20,9 @@
 
 <script>
 import gql from 'graphql-tag'
-import { VBtn, VIcon } from 'vuetify/src/components'
-import { VCard, VCardTitle, VCardMedia } from 'vuetify/src/components/VCard'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import { VBtn, VIcon } from 'vuetify/es5/components'
+import { VCard, VCardTitle, VCardMedia } from 'vuetify/es5/components/VCard'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 
 export default {
   name: "NewsList",

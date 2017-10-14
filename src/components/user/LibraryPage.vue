@@ -49,9 +49,9 @@
 
 
 <script>
-import { VIcon, VBtn } from 'vuetify/src/components'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import { VIcon, VBtn } from 'vuetify/es5/components'
+import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
 export default {

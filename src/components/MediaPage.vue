@@ -80,9 +80,9 @@
 </template>
 
 <script>
-  import { VBtn, VIcon, VDivider } from 'vuetify/src/components'
-  import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/src/components/VList'
-  import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+  import { VBtn, VIcon, VDivider } from 'vuetify/es5/components'
+  import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
+  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
   import Rate from './anime/Rate.vue';
   import Comment from './media/Comment.vue';
   import MediaList from './media/MediaList.vue';

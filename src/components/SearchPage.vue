@@ -21,8 +21,8 @@
       <div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
         <v-layout row wrap>
           <v-flex offset-xs1 xs2>
-            <v-btn primary dark @click.native.stop="dialog_tags = true" small block top>Ajouter des Tags</v-btn>
-            <v-dialog v-model="dialog_tags" width="50%">
+            <v-btn color="primary" dark @click.native.stop="dialog_tags = true" small block top>Ajouter des Tags</v-btn>
+            <v-dialog v-model="dialog_tags" max-width="50%">
               <v-card>
                 <v-card-title class="headline">Ajouter des tags</v-card-title>
                 <div class="v-card__text">
@@ -68,9 +68,9 @@
 </template>
 
 <script>
-import { VTextField, VSelect, VBtn, VDialog, VChip } from 'vuetify/src/components'
-import { VCard, VCardTitle } from 'vuetify/src/components/VCard'
-import { VContainer, VFlex, VLayout, VSpacer } from 'vuetify/src/components/VGrid'
+import { VTextField, VSelect, VBtn, VDialog, VChip } from 'vuetify/es5/components'
+import { VCard, VCardTitle } from 'vuetify/es5/components/VCard'
+import { VContainer, VFlex, VLayout, VSpacer } from 'vuetify/es5/components/VGrid'
 import Anime from './anime/Anime.vue'
 import gql from 'graphql-tag'
 

@@ -36,8 +36,8 @@
 </template>
 
 <script>
-  import { VBtn, VIcon } from 'vuetify/src/components'
-  import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+  import { VBtn, VIcon } from 'vuetify/es5/components'
+  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
   import Rate from './anime/Rate.vue'
   import MediaList from './media/MediaList.vue'
   import gql from 'graphql-tag'

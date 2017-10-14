@@ -42,11 +42,11 @@ import UserSettings from './SettingsPage.vue'
 import UserLibrary from './LibraryPage.vue'
 import UserFriends from './FriendsPage.vue'
 
-import VTabs from 'vuetify/src/components/VTabs'
-import VTabsBar from 'vuetify/src/components/VTabs/VTabsBar'
-import VTabsContent from 'vuetify/src/components/VTabs/VTabsContent'
-import VTabsItem from 'vuetify/src/components/VTabs/VTabsItem'
-import { VContainer, VFlex, VLayout } from 'vuetify/src/components/VGrid'
+import VTabs from 'vuetify/es5/components/VTabs'
+import VTabsBar from 'vuetify/es5/components/VTabs/VTabsBar'
+import VTabsContent from 'vuetify/es5/components/VTabs/VTabsContent'
+import VTabsItem from 'vuetify/es5/components/VTabs/VTabsItem'
+import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
 export default
