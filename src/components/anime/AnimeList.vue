@@ -33,10 +33,16 @@ export default {
         elemsPerLine: 0
     }
   },
-  mounted() {
-    const update = () => this.elemsPerLine = Math.ceil(document.body.offsetWidth / this.animeSize)
-    window.addEventListener('resize', update)
-    update()
+  created() {
+    window.addEventListener('resize', this.update)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.update)
+  },
+  methods: {
+    update() {
+        this.elemsPerLine = Math.ceil(document.body.offsetWidth / this.animeSize)
+    }
   },
   components: {
       VBtn,
