@@ -1,46 +1,84 @@
 <template>
   <div class="comment">
     <v-layout row wrap>
-      <v-flex xs2>
-        <img :src="icon">
+      <v-flex xs1>
+        <img :src="value.icon">
       </v-flex>
-      <v-flex xs10>
+      <v-flex xs11>
         <div class="comment-container">
           <div class="username">
-            {{ user }}
-            <h6>{{ date }}</h6>
+            {{ value.user }}
+            <h6>{{ value.date }}</h6>
           </div>
-          <p v-html="content"></p>
+          <p v-html="value.content"></p>
           <v-divider></v-divider>
-          <div class="text-xs-right">
-            <v-btn small flat class="main-color--text" name="reply">Répondre</v-btn>
+          <div v-if="!response" class="text-xs-right">
+            <v-btn rigth small flat class="main-color--text" name="reply" @click.stop="response = true">Répondre</v-btn>
+          </div>
+          <div v-else>
+            <div v-if="preview" v-html="markdownResponse"></div>
+            <v-text-field
+              v-else
+              v-model="responseText"
+              multi-line
+              auto-grow
+              rows="1"
+              hideDetails
+            >
+            </v-text-field>
+            <v-layout row>
+              <v-flex xs1>
+              <v-btn flat icon :class="{'main-color--text': preview}" @click.stop="preview = !preview">
+                <v-icon v-html="preview ? 'visibility_off' : 'visibility'"></v-icon>
+              </v-btn>
+              </v-flex>
+              <v-flex xs2 offset-xs7>
+                <v-btn small flat class="main-color--text" @click.stop="response = false">Annuler</v-btn>
+              </v-flex>
+              <v-flex xs2>
+                <v-btn small class="main-color">Répondre</v-btn>
+              </v-flex>
+            </v-layout>
           </div>
         </div>
       </v-flex>
     </v-layout>
-    <div class="response">
-      <slot></slot>
+    <div class="response" v-if="value.response">
+      <comment :value="value.response"></comment>
     </div>
   </div>
 </template>
 
 <script>
-  import { VBtn, VDivider } from 'vuetify/es5/components';
+  import { VBtn, VDivider, VTextField, VIcon } from 'vuetify/es5/components';
   import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid';
+  import marked from 'marked';
 
   export default {
+    name: 'comment',
+    data() {
+      return {
+        response: false,
+        responseText: "",
+        preview: false,
+      }
+    },
     props: {
-      user: String,
-      date: String,
-      content: String,
-      icon: String
+      value: Object
+    },
+    computed: {
+      markdownResponse() {
+        return marked(this.responseText, { sanitize: true })
+      }
     },
     components: {
       VContainer,
       VFlex,
       VLayout,
       VDivider,
-      VBtn
+      VBtn,
+      VTextField,
+      VIcon
     }
   };
 

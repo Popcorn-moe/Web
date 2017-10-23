@@ -33,8 +33,9 @@ export default {
         elemsPerLine: 0
     }
   },
-  created() {
+  mounted() {
     window.addEventListener('resize', this.update)
+    this.update()
   },
   destroyed() {
     window.removeEventListener('resize', this.update)

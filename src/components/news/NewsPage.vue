@@ -35,7 +35,7 @@ export default {
     VLayout
   },
   computed: {
-    newsContent: function () {
+    newsContent() {
       return marked(this.news.content, { sanitize: true })
     }
   },

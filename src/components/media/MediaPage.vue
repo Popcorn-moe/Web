@@ -28,37 +28,7 @@
             </v-flex>
             <v-flex xs12>
               <v-divider></v-divider>
-              <comment user="Xx_loucass006_xX"
-                       date="11 Sept."
-                       icon="https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                       content="On ne peut pas parler de politique administrative scientifique, la concertation politique par rapport aux diplomaties consent à catapulter les revenus dans les camps militaires non-voyants, c’est clair."
-              >
-                <comment user="Xx_loucass006_xX"
-                         date="11 Sept."
-                         icon="https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                         content="Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui."
-                >
-                  <comment user="Xx_loucass006_xX"
-                           date="11 Sept."
-                           icon="https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                           content="C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
-                  >
-                  </comment>
-                </comment>
-              </comment>
-
-              <comment user="Xx_loucass006_xX"
-                       date="11 Sept."
-                       icon="https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                       content="C’est à dire quand on parle de ces rollers, la délégation autour de phylogomènes généralisés suffit à intentionner l'estime du savoir avéré(e)(s), mais oui."
-              >
-                <comment user="Xx_loucass006_xX"
-                         date="11 Sept."
-                         icon="https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
-                         content="D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
-                >
-                </comment>
-              </comment>
+              <comment v-for="comment in comments" :value="comment" :key="comment.id"></comment>
             </v-flex>
           </v-layout>
 
@@ -93,6 +63,41 @@
   export default {
     props: ['id', 'media', 'season', 'episode'],
     data() {
+      const icon = "https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg"
+      const comments = [{
+          id: 1,
+          user:"Xx_loucass006_xX",
+          date:"11 Sept.",
+          icon,
+          content:"On ne peut pas parler de politique administrative scientifique, la concertation politique par rapport aux diplomaties consent à catapulter les revenus dans les camps militaires non-voyants, c’est clair.",
+          response: {
+            id: 2,
+            user: "Xx_loucass006_xX",
+            date: "11 Sept.",
+            icon,
+            content: "Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui.",
+            response: {
+              id: 3,
+              user: "Xx_loucass006_xX",
+              date: "11 Sept.",
+              icon,
+              content: "C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
+            }
+          }
+        },{
+          id: 4,
+          user: "Xx_loucass006_xX",
+          date: "11 Sept.",
+          icon,
+          content: "C’est à dire quand on parle de ces rollers, la délégation autour de phylogomènes généralisés suffit à intentionner l'estime du savoir avéré(e)(s), mais oui.",
+          response: {
+            id: 5,
+            user: "Xx_loucass006_xX",
+            date: "11 Sept.",
+            icon,
+            content: "D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
+          }
+        }]
       // Try from cache
       try {
         const anime = client.readFragment({
@@ -107,7 +112,7 @@
           `,
         });
         if (anime)
-          return { anime }
+          return { anime, comments }
       } catch (e) { console.log(e) }
       // Query it
       client.query({
@@ -124,7 +129,8 @@
         }
       }).then(({ data: { anime } }) => this.anime = anime)
       return {
-        anime: { names: []}
+        anime: { names: []},
+        comments
       }
     },
     components: {
