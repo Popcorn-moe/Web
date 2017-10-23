@@ -10,15 +10,15 @@
     <div id="app">
       <style>
         .loader {
-          height: 25%;
-          width: auto;
+          min-height: 15%;
+          min-width: 15%;
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
         }
       </style>
-      <object data="/static/loader.svg" type="image/svg+xml" class="loader"></object>
+      <div class="loader">${require('html-loader!./static/loader.svg')}</div>
       <script>
         if (localStorage.getItem('darkTheme') === 'true')
           document.getElementById('app').style = 'background: #111111;height: 100vh;';

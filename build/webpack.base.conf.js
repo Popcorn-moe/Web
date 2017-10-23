@@ -48,7 +48,7 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -76,6 +76,10 @@ module.exports = {
       {
         test: /\.styl$/,
         loader: ['css-loader', 'stylus-loader']
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
       }
     ]
   }
