@@ -123,7 +123,7 @@ export default {
       fr: {
         search: {
           more_options: 'Plus d\'options',
-          less_options: 'Plus d\'options',
+          less_options: 'Moins d\'options',
           add_tags: 'Ajouter des tags',
           finish: 'Terminer',
           search: 'Rechercher',
