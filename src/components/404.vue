@@ -4,8 +4,8 @@
       <v-flex xs8 offset-xs2>
         <div class="vertical-align">
           <v-card>
-            <img v-if="(currGif = randomGif()).type === 'img'" :src="currGif.src">
-            <iframe v-else-if="currGif.type === 'video'" :src="currGif.src" frameborder="0"></iframe>
+            <img v-if="gif.type === 'img'" :src="gif.src">
+            <iframe v-else-if="gif.type === 'video'" :src="gif.src" frameborder="0"></iframe>
 
             <v-container fill-height fluid>
               <v-layout fill-height>
@@ -27,22 +27,18 @@ import { VBtn, VIcon } from 'vuetify/es5/components'
 import { VCard, VCardTitle, VCardMedia } from 'vuetify/es5/components/VCard'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 
+const GIFS = [
+  { src: "https://i.imgur.com/1A17LFL.gif", type: "img" },
+  { src: "https://cdn.discordapp.com/attachments/349974957998080001/355086450699534336/unknown.png", type: "img" },
+  { src: "https://images-ext-1.discordapp.net/external/dlIPdqpVNkz6YgwgmicyLPCE-IMHeg65sOa5P2RhgYI/https/rra.ram.moe/i/r12y82Xex.gif", type: "img" },
+  { src: "https://www.youtube.com/embed/_NXrTujMP50", type: "video" }
+]
+
 export default {
   name: "NopPage",
   data() {
     return {
-      gifs: [
-        { src: "https://i.imgur.com/1A17LFL.gif", type: "img" },
-        { src: "https://cdn.discordapp.com/attachments/349974957998080001/355086450699534336/unknown.png", type: "img" },
-        { src: "https://images-ext-1.discordapp.net/external/dlIPdqpVNkz6YgwgmicyLPCE-IMHeg65sOa5P2RhgYI/https/rra.ram.moe/i/r12y82Xex.gif", type: "img" },
-        { src: "https://www.youtube.com/embed/_NXrTujMP50", type: "video" }
-      ],
-      currGif: null,
-    }
-  },
-  methods: {
-    randomGif() {
-      return this.gifs[Math.floor(Math.random() * this.gifs.length)]
+      gif: GIFS[Math.floor(Math.random() * GIFS.length)],
     }
   },
   components: {

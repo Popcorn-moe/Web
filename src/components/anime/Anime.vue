@@ -1,10 +1,11 @@
 <template>
     <div class="anime text-xs-center">
-      <router-link :to="{ name: 'Anime', params: { id: value.id }}">
-        <div class="cover-container">
-          <img class="cover" :src="value.cover">
-          <v-icon class="arrow">play_arrow</v-icon>
-        </div>
+        <router-link :to="{ name: 'Anime', params: { id: value.id }}">
+            <div class="cover-container">
+                <img class="cover" :src="value.cover">
+                <v-icon class="arrow">play_arrow</v-icon>
+            </div>
+        </router-link>
         <h3 class="title">{{ value.names[0] }}</h3>
         <div class="infos">
             <div class="details">
@@ -15,7 +16,6 @@
             <rate class="rate" v-model="rate"></rate>
             <a class="description">Description</a>
         </div>
-      </router-link>
     </div>
 </template>
 
@@ -67,7 +67,6 @@ export default {
 
         .cover {
           padding: $anime.img-border;
-          height: auto;
           width: $anime.width;
           height: $anime.img-height;
         }
