@@ -1,10 +1,7 @@
 <template>
   <div>
     <v-carousel class="white--text">
-      <!--v-carousel-item v-for="(item,i) in items" v-bind:src="item.src" :key="i"></v-carousel-item!-->
-      <v-carousel-item src="https://images6.alphacoders.com/505/thumb-1920-505441.jpg">News 1</v-carousel-item>
-      <v-carousel-item src="https://images4.alphacoders.com/706/thumb-1920-706365.png">News 2</v-carousel-item>
-      <v-carousel-item src="https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US">News 3</v-carousel-item>
+      <v-carousel-item v-for="(img,i) in news" :src="img" :key="i">News {{ i }}</v-carousel-item>
     </v-carousel>
     <div class="text-xs-center">
       <h3 class="anime-list-title">Derniers Episodes</h3>
@@ -23,8 +20,16 @@ import gql from 'graphql-tag'
 export default {
   name: "index",
   data () {
+    setTimeout(() => 
+      this.news = [
+        "https://images6.alphacoders.com/505/thumb-1920-505441.jpg",
+        "https://images4.alphacoders.com/706/thumb-1920-706365.png",
+        "https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US"
+      ]
+    , 1000)
     return {
-      animes: []
+      animes: [],
+      news: ['0','0','0']
     }
   },
   components: {
