@@ -1,20 +1,24 @@
 
 <template>
-  <object data="/static/loader.svg" type="image/svg+xml" class="loader"></object>
+  <div v-html="loader"></div>
 </template>
 
 <script>
+
+  import loader from 'html-loader!../../assets/loader.svg'
   export default {
     name: "Loader",
     data() {
-      return {}
+      return {
+        loader
+      }
     }
   }
 </script>
 
 <style lang="stylus">
   @import "../../stylus/main.styl";
-  .loader {
+  #root {
     display: block
     height: 100vh;
     width: 10%;

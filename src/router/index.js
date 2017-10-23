@@ -99,15 +99,21 @@ const router = new Router({
   mode: 'history'
 });
 
+let timeout
+
 router.afterEach((to, from) => {
   if (!from.path.startsWith('/auth')) {
     router.last = from.path
   }
+  if (timeout) clearTimeout(timeout)
   store.commit(IS_LOADING, false)
 });
 
 router.beforeEach((to, from, next) => {
-  store.commit(IS_LOADING, true)
+  timeout = setTimeout(() => {
+    store.commit(IS_LOADING, true)
+    timeout = null
+  }, 500) //Debouce
   next()
 })
 
