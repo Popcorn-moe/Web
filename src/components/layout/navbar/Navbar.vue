@@ -32,10 +32,10 @@
           <auth-menu v-if="isAuth"></auth-menu>
           <v-layout v-else row wrap class="text-xs-center no-margin">
             <v-flex xs6>
-              <v-btn outline small @click.stop="$router.push({ name: 'Login' })" v-t="'login'"></v-btn>
+              <v-btn outline small @click.stop="$router.push({ name: 'Login' })" v-t="'navbar.login'"></v-btn>
             </v-flex>
             <v-flex xs6>
-              <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })" v-t="'signup'"></v-btn>
+              <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })" v-t="'navbar.signup'"></v-btn>
             </v-flex>
           </v-layout>
           <v-list>
@@ -126,12 +126,16 @@ export default {
   i18n: {
     messages: {
       fr: {
-        login: 'Connexion',
-        signup: 'Inscription'
+        navbar: {
+          login: 'Connexion',
+          signup: 'Inscription'
+        }
       },
       en: {
-        login: 'Log In',
-        signup: 'Sign Up'
+        navbar: {
+          login: 'Log In',
+          signup: 'Sign Up'
+        }
       }
     }
   }

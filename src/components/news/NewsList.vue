@@ -10,7 +10,7 @@
               </div>
             </v-card-title>
             <div class="card__action">
-              <v-btn :to="{ name: 'NewsPage', params: { id: $new.id }}" color="primary" flat>Voir plus</v-btn>
+              <v-btn :to="{ name: 'NewsPage', params: { id: $new.id }}" color="primary" flat v-t="'news.see_more'"></v-btn>
             </div>
           </v-card>
         </v-flex>
@@ -45,6 +45,20 @@ export default {
     news: {
       query: gql`{ news { id name author { login } content cover }}`,
       update: ({ news }) => news
+    }
+  },
+  i18n: {
+    messages: {
+      fr: {
+        news: {
+          see_more: 'Voir plus'
+        }
+      },
+      en: {
+        news: {
+          see_more: 'See More'
+        }
+      }
     }
   }
 }

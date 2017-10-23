@@ -4,8 +4,7 @@ import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-  locale: navigator.languages ? navigator.languages[0] : navigator.language,
-  fallbackLocale: 'en',
+  locale: localStorage.getItem('locale') || (navigator.languages ? navigator.languages[0] : navigator.language),
   messages: {
     en: {
       route: {
@@ -21,7 +20,8 @@ const i18n = new VueI18n({
         news: 'Nouveautés'
       }
     }
-  }
+  },
+  fallbackLocale: 'en'
 })
 
 export default i18n
@@ -34,7 +34,7 @@ function _translate(messages, locale, fallback, key, host, interpolateMode, args
   let res = this._interpolate(locale, messages[locale], key, host, interpolateMode, args)
   if (!isNull(res)) return res
 
-  if (locale.indexOf('-') !== -1)
+  if (locale.indexOf('-') !== -1) 
     return this._translate(messages, locale.split('-', 1)[0], fallback, key, host, interpolateMode, args)
 
   res = this._interpolate(fallback, messages[fallback], key, host, interpolateMode, args)

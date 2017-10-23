@@ -4,7 +4,7 @@
     <v-container>
       <div class="news-page">
         <h1 class="uppercase title" v-html="news.name"></h1>
-        <p>by {{ news.author.login }} on {{ news.posted_date.slice(0, 10) }}</p>
+        <p v-t="{ path: 'news.by_author_on_date', args: { author: news.author.login, date: news.author.login }}"></p>
         <v-divider></v-divider>
         <div v-html="newsContent"></div>
       </div>
@@ -52,6 +52,20 @@ export default {
           }
       },
       update: ({ _news }) => _news
+    }
+  },
+  i18n: {
+    messages: {
+      fr: {
+        news: {
+          by_author_on_date: 'Publié par { author } le { date }'
+        }
+      },
+      en: {
+        news: {
+          by_author_on_date: 'By { author } on { date }'
+        }
+      }
     }
   }
 }

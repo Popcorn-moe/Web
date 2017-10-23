@@ -4,9 +4,9 @@
       <v-carousel-item v-for="(img,i) in news" :src="img" :key="i">News {{ i }}</v-carousel-item>
     </v-carousel>
     <div class="text-xs-center animes">
-      <h3 class="anime-list-title" v-t="'last_episodes'"></h3>
+      <h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>
       <anime-list :value="animes"></anime-list>
-      <h3 class="anime-list-title" v-t="'last_trailers'"></h3>
+      <h3 class="anime-list-title" v-t="'index.last_trailers'"></h3>
       <anime-list :value="animes"></anime-list>
     </div>
   </div>
@@ -46,12 +46,16 @@ export default {
   i18n: {
     messages: {
       fr: {
-        last_episodes: 'Derniers Episodes',
-        last_trailers: 'Derniers trailers'
+        index: {
+          last_episodes: 'Derniers Episodes',
+          last_trailers: 'Derniers trailers'
+        }
       },
       en: {
-        last_episodes: 'Last Episodes',
-        last_trailers: 'Last trailers'
+        index: {
+          last_episodes: 'Last Episodes',
+          last_trailers: 'Last trailers'
+        }
       }
     }
   }

@@ -33,7 +33,6 @@ const MAP = {
 export default {
   name: 'LanguageSelect',
   data() {
-    console.log(this)
     return {
       MAP,
       i18n
@@ -42,6 +41,7 @@ export default {
   methods: {
     setLocale(locale) {
       i18n.locale = locale
+      localStorage.setItem('locale', locale)
       const update = elem => {
         elem.$forceUpdate();
         elem.$children.forEach(update)
