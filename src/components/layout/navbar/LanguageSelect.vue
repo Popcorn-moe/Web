@@ -13,7 +13,7 @@
     </template>
     <template slot="item" slot-scope="data">
       <v-list-tile-avatar>
-        <img :src="`https://cdn.rawgit.com/lipis/flag-icon-css/fe79c175/flags/1x1/${MAP[data.item] || data.item }.svg`"/>
+        <img class="language-flag" :src="`https://cdn.rawgit.com/lipis/flag-icon-css/fe79c175/flags/1x1/${MAP[data.item] || data.item }.svg`"/>
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title v-html="data.item"></v-list-tile-title>
@@ -60,5 +60,8 @@ export default {
 </script>
 
 <style>
-
+  .language-flag {
+    width: 35px !important;
+    height: 35px !important;
+  }
 </style>

@@ -5,12 +5,14 @@
             <v-icon>menu</v-icon>
         </v-btn>
         <main>
-          <v-slide-y-transition mode="out-in">
             <v-content>
-              <loader v-show="isLoading"></loader>
-              <router-view v-show="!isLoading"></router-view>
+                <loader v-show="isLoading"></loader>
+                <div v-show="!isLoading">
+                    <v-slide-y-transition mode="out-in">
+                        <router-view></router-view>
+                    </v-slide-y-transition>
+                </div>
             </v-content>
-          </v-slide-y-transition>
         </main>
         <floating
             v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
