@@ -59,12 +59,10 @@
       <div class="bottom">
         <v-divider></v-divider>
         <v-layout row>
-          <v-flex xs4 offset-xs4>
+          <v-flex xs4 offset-xs1>
             <language-select></language-select>
           </v-flex>
-        </v-layout>
-        <v-layout row>
-          <v-flex xs4 offset-xs4>
+          <v-flex xs4 offset-xs2>
             <v-switch label="Dark" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
           </v-flex>
         </v-layout>

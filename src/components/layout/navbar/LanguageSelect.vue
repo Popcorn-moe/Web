@@ -9,7 +9,7 @@
       <v-avatar size="25px">
         <img :src="`https://cdn.rawgit.com/lipis/flag-icon-css/fe79c175/flags/1x1/${MAP[data.item] || data.item }.svg`"/>
       </v-avatar>
-      <span class="white--text" style="margin-left: 10px">{{ data.item }}</span>
+      <span style="margin-left: 10px">{{ data.item }}</span>
     </template>
     <template slot="item" slot-scope="data">
       <v-list-tile-avatar>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     setLocale(locale) {
-      i18n.locale = locale;
+      i18n.locale = locale
       const update = elem => {
         elem.$forceUpdate();
         elem.$children.forEach(update)
