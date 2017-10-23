@@ -4,6 +4,7 @@
       :value="value"
       @input="value => $emit('input', value)"
       class="elevation-2"
+      disable-route-watcher
       app
     >
       <v-slide-x-transition mode="out-in">
