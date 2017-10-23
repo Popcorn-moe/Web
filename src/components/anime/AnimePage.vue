@@ -38,10 +38,10 @@
 <script>
   import { VBtn, VIcon } from 'vuetify/es5/components'
   import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-  import Rate from './anime/Rate.vue'
-  import MediaList from './media/MediaList.vue'
+  import Rate from './Rate.vue'
+  import MediaList from '../media/MediaList.vue'
   import gql from 'graphql-tag'
-  import { client } from '../graphql'
+  import { client } from '../../graphql'
 
   export default {
     props: ['id'],
@@ -93,7 +93,7 @@
 </script>
 
 <style lang="stylus">
-  @import '../stylus/main.styl';
+  @import '../../stylus/main.styl';
 
   .uppercase {
     text-transform: uppercase;

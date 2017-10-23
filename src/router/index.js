@@ -34,14 +34,14 @@ export const routes = [
     hide: true,
     path: '/anime/:id',
     name: 'Anime',
-    component: () => import('../components/AnimePage'),
+    component: () => import('../components/anime/AnimePage'),
     props: true
   },
   {
     hide: true,
     path: '/anime/:id/:media',
     name: 'Media',
-    component: () => import('../components/MediaPage'),
+    component: () => import('../components/media/MediaPage'),
     meta: { hasPlayer: true },
     props: true
   },
@@ -49,7 +49,7 @@ export const routes = [
     hide: true,
     path: '/anime/:id/:season/:episode',
     name: 'Episode',
-    component: () => import('../components/MediaPage'),
+    component: () => import('../components/media/MediaPage'),
     meta: { hasPlayer: true },
     props: true
   },

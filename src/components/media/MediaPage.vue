@@ -83,12 +83,12 @@
   import { VBtn, VIcon, VDivider } from 'vuetify/es5/components'
   import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
   import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-  import Rate from './anime/Rate.vue';
-  import Comment from './media/Comment.vue';
-  import MediaList from './media/MediaList.vue';
-  import VideoPlayer from './player/GlobalPlayer';
+  import Rate from '../anime/Rate.vue';
+  import Comment from './Comment.vue';
+  import MediaList from './MediaList.vue';
+  import VideoPlayer from '../player/GlobalPlayer';
   import gql from 'graphql-tag'
-  import { client } from '../graphql'
+  import { client } from '../../graphql'
 
   export default {
     props: ['id', 'media', 'season', 'episode'],
@@ -149,7 +149,7 @@
 </script>
 
 <style lang="stylus">
-  @import '../stylus/main.styl';
+  @import '../../stylus/main.styl';
 
   .uppercase {
     text-transform: uppercase;
