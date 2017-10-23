@@ -32,14 +32,10 @@
           <auth-menu v-if="isAuth"></auth-menu>
           <v-layout v-else row wrap class="text-xs-center no-margin">
             <v-flex xs6>
-              <v-btn outline small @click.stop="$router.push({ name: 'Login' })">
-                Log in
-              </v-btn>
+              <v-btn outline small @click.stop="$router.push({ name: 'Login' })" v-t="'login'"></v-btn>
             </v-flex>
             <v-flex xs6>
-              <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })">
-                Sign up
-              </v-btn>
+              <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })" v-t="'signup'"></v-btn>
             </v-flex>
           </v-layout>
           <v-list>
@@ -53,9 +49,7 @@
                 <v-list-tile-action>
                   <v-icon v-html="route.icon"></v-icon>
                 </v-list-tile-action>
-                <v-list-tile-content>
-                  {{ route.name }}
-                </v-list-tile-content>
+                <v-list-tile-content v-t="route.t"></v-list-tile-content>
               </v-list-tile>
             </router-link>
           </v-list>
@@ -64,6 +58,11 @@
 
       <div class="bottom">
         <v-divider></v-divider>
+        <v-layout row>
+          <v-flex xs4 offset-xs4>
+            <language-select></language-select>
+          </v-flex>
+        </v-layout>
         <v-layout row>
           <v-flex xs4 offset-xs4>
             <v-switch label="Dark" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
@@ -76,6 +75,7 @@
 <script>
 import Notifications from './Notifications'
 import AuthMenu from './AuthMenu'
+import LanguageSelect from './LanguageSelect'
 import { VNavigationDrawer, VBtn, VSwitch, VIcon, VBadge, VDivider } from 'vuetify/es5/components'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/es5/components/VList'
@@ -99,6 +99,7 @@ export default {
   components: {
     Notifications,
     AuthMenu,
+    LanguageSelect,
     VNavigationDrawer,
     VBtn,
     VSwitch,
@@ -123,7 +124,19 @@ export default {
 
   methods: mapActions({
     setDarkTheme: 'setDarkTheme'
-  })
+  }),
+  i18n: {
+    messages: {
+      fr: {
+        login: 'Connexion',
+        signup: 'Inscription'
+      },
+      en: {
+        login: 'Log In',
+        signup: 'Sign Up'
+      }
+    }
+  }
 }
 </script>
 

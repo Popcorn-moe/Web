@@ -27,6 +27,7 @@
     "node-fetch": "^1.7.3",
     "vue": "^2.5.2",
     "vue-apollo": "^2.1.0-rc.5",
+    "vue-i18n": "^7.3.2",
     "vue-router": "^2.8.1",
     "vue-simplemde": "^0.4.4",
     "vuetify": "^0.16.6",

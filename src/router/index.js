@@ -9,18 +9,21 @@ export const routes = [
     icon: 'home',
     path: '/',
     name: 'Index',
+    t: 'route.index',
     component: () => import('../components/Index')
   },
   {
     icon: 'search',
     path: '/search',
     name: 'Search',
+    t: 'route.search',
     component: () => import('../components/SearchPage')
   },
   {
     icon: 'equalizer',
     path: '/news',
     name: 'News',
+    t: 'route.news',
     component: () => import('../components/news/NewsList.vue')
   },
   {

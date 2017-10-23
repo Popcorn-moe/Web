@@ -4,9 +4,9 @@
       <v-carousel-item v-for="(img,i) in news" :src="img" :key="i">News {{ i }}</v-carousel-item>
     </v-carousel>
     <div class="text-xs-center animes">
-      <h3 class="anime-list-title">Derniers Episodes</h3>
+      <h3 class="anime-list-title" v-t="'last_episodes'"></h3>
       <anime-list :value="animes"></anime-list>
-      <h3 class="anime-list-title">Derniers trailers</h3>
+      <h3 class="anime-list-title" v-t="'last_trailers'"></h3>
       <anime-list :value="animes"></anime-list>
     </div>
   </div>
@@ -41,6 +41,18 @@ export default {
     animes: {
       query: gql`{ animes(limit: 50) { id names authors { id name } cover background } }`,
       update: ({ animes }) => animes
+    }
+  },
+  i18n: {
+    messages: {
+      fr: {
+        last_episodes: 'Derniers Episodes',
+        last_trailers: 'Derniers trailers'
+      },
+      en: {
+        last_episodes: 'Last Episodes',
+        last_trailers: 'Last trailers'
+      }
     }
   }
 }
