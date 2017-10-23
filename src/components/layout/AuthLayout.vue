@@ -36,7 +36,7 @@ export default {
   .auth-root {
       width: 100vw;
       height: 100vh;
-      background: url(https://cdn.discordapp.com/attachments/349931957078982658/351334821907398666/slider.jpg) no-repeat;
+      background: url(/static/auth-background.jpg) no-repeat;
       background-size: cover;
   }
   .auth-center {
