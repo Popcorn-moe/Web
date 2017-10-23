@@ -3,12 +3,13 @@ import { exchangeSSOToken , isLoggedIn } from '../utils/auth'
 
 export const SET_DARK_THEME = 'DARK_THEME'
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER'
-export const TOGGLE_WITHOUT_ANIMATION = 'TOGGLE_WITHOUT_ANIMATION'
 export const IS_AUTH = 'IS_AUTH'
+export const IS_LOADING = 'IS_LOADING'
 
 const state = {
   darkTheme: localStorage.getItem('darkTheme') === 'true',
   drawer: localStorage.getItem('drawer') === 'true',
+  isLoading: true,
   isAuth: null
 }
 
@@ -41,6 +42,9 @@ const mutations = {
   },
   [IS_AUTH] (state, isAuth) {
       state.isAuth = isAuth
+  },
+  [IS_LOADING] (state, isLoading) {
+    state.isLoading = isLoading
   }
 }
 
@@ -61,7 +65,8 @@ const actions = {
 const getters = {
     darkTheme: ({ darkTheme }) => darkTheme,
     drawer: ({ drawer }) => drawer,
-    isAuth: ({ isAuth }) => isAuth
+    isAuth: ({ isAuth }) => isAuth,
+    isLoading: ({ isLoading }) => isLoading
 }
 
 export default {

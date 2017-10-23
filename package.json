@@ -24,6 +24,7 @@
     "graphql-tag": "^2.4.2",
     "marked": "^0.3.6",
     "megajs": "^0.12.3",
+    "node-fetch": "^1.7.3",
     "vue": "^2.5.2",
     "vue-apollo": "^2.1.0-rc.5",
     "vue-router": "^2.8.1",

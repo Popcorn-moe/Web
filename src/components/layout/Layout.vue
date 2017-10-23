@@ -5,11 +5,12 @@
             <v-icon>menu</v-icon>
         </v-btn>
         <main>
+          <v-slide-y-transition mode="out-in">
             <v-content>
-                <v-slide-y-transition mode="out-in">
-                    <router-view></router-view>
-                </v-slide-y-transition>
+              <loader v-show="isLoading"></loader>
+              <router-view v-show="!isLoading"></router-view>
             </v-content>
+          </v-slide-y-transition>
         </main>
         <floating
             v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
@@ -23,6 +24,8 @@
 </template>
 
 <script>
+import Loader from './Loader'
+
 import { VBtn, VIcon } from 'vuetify/es5/components'
 import { VContent, VContainer } from 'vuetify/es5/components/VGrid'
 import { VSlideYTransition } from 'vuetify/es5/components/transitions'
@@ -38,6 +41,7 @@ export default {
         }
     },
     components: {
+        Loader,
         Navbar,
         VBtn,
         VIcon,
@@ -48,6 +52,7 @@ export default {
     },
     computed: mapGetters({
         drawer: 'drawer',
+        isLoading: 'isLoading'
     }),
     methods: mapActions({
         toggleDrawer: 'toggleDrawer'

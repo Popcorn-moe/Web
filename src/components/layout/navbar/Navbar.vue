@@ -19,8 +19,11 @@
               <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
             </v-flex>
             <v-flex xs3>
-              <v-btn icon @click.stop="notifications = !notifications">
-                  <v-icon>notifications</v-icon>
+              <v-btn icon @click.stop="notifications = !notifications" v-if="isAuth">
+                  <v-badge overlay>
+                    <span slot="badge">6</span>
+                    <v-icon>notifications</v-icon>
+                  </v-badge>
               </v-btn>
             </v-flex>
           </v-layout>
@@ -72,7 +75,7 @@
 <script>
 import Notifications from './Notifications'
 import AuthMenu from './AuthMenu'
-import { VNavigationDrawer, VBtn, VSwitch, VIcon, VDivider } from 'vuetify/es5/components'
+import { VNavigationDrawer, VBtn, VSwitch, VIcon, VBadge, VDivider } from 'vuetify/es5/components'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/es5/components/VList'
 import { VSlideXTransition } from 'vuetify/es5/components/transitions'
@@ -109,6 +112,7 @@ export default {
     VListTile,
     VListTileAction,
     VListTileContent,
+    VBadge
   },
 
   computed: mapGetters({
@@ -125,9 +129,17 @@ export default {
 <style lang="stylus">
   @import '../../../stylus/main.styl';
 
+  .badge__badge {
+    right: -10px !important;
+    top: -7px
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+
   .bottom {
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     width: 100%;
     .input-group__details {
       min-height: 0px;

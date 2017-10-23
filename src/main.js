@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 
 /* eslint-disable no-new */
-window.vue = new Vue({
+new Vue({
   el: '#app',
   router,
   store,

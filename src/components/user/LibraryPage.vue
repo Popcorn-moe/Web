@@ -3,14 +3,17 @@
       <v-layout>
         <v-flex xs3>
           <v-list class="library-list">
-            <template v-for="playlist in me.playlists.filter(p => p.type !== 'NORMAL')">
-              <v-list-tile :key="playlist.name" @click="">
-                <v-list-tile-content>
-                  <v-list-tile-title v-html="playlist.name"></v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </template>
-            <v-list-group v-if="me.playlists.filter(p => p.type === 'NORMAL').length > 0">
+            <v-list-tile @click.stop="">
+              <v-list-tile-content>
+                <v-list-tile-title>Historique</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile @click.stop="">
+              <v-list-tile-content>
+                <v-list-tile-title>Follows</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-group>
               <v-list-tile slot="item">
                 <v-list-tile-content>
                   <v-list-tile-title>Playlists</v-list-tile-title>
@@ -19,7 +22,7 @@
                   <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
               </v-list-tile>
-              <v-list-tile v-for="playlist in me.playlists.filter(p => p.type === 'NORMAL')" :key="playlist.name" @click="">
+              <v-list-tile v-for="playlist in playlists" :key="playlist.name" @click="selectPlaylist(playlist.id)">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ playlist.name }}</v-list-tile-title>
                 </v-list-tile-content>
@@ -42,6 +45,10 @@
               <v-icon>playlist_add_check</v-icon>
             </v-btn>
           </div>
+          <div class="playlist-content">
+            <p class="text-xs-center" v-if="currentPlaylist.medias.length <= 0">La playlist est vide</p>
+            {{ currentPlaylist.medias }}
+          </div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -59,6 +66,8 @@ export default {
   data() {
     return {
       me: {},
+      playlists: [],
+      currentPlaylist: { medias: [] },
     }
   },
   components: {
@@ -74,10 +83,35 @@ export default {
     VIcon,
     VBtn
   },
+  methods: {
+    selectPlaylist(id) {
+      this.currentPlaylist = this.playlists.filter(p => p.id === id)[0]
+    }
+  },
   apollo: {
     me: {
-      query: gql`{ me { playlists {name type} } }`,
-      update: ({ me }) => me
+      query: gql`{
+        me {
+          playlists {
+            id
+            name
+            medias {
+              ... on PlaylistMediaElem {
+                media { id, type }
+              }
+              ... on PlaylistAnimeElem {
+                anime { id , names }
+              }
+            }
+          }
+        }
+      }`,
+      update: function({ me }) {
+        console.log(me);
+        this.playlists = me.playlists;
+        this.currentPlaylist = this.playlists[0];
+        return me
+      }
     }
   },
 }

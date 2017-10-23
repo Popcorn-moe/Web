@@ -23,10 +23,18 @@
             <v-flex xs12 class="notif-container">
                 <v-layout row>
                 <v-flex xs2>
-                    <img v-bind:src="notif.cover" class="img"></v-list-tile-avatar>
+                  <div v-if="notif.type === 'MESSAGE'"><v-icon>messages</v-icon></div>
+                  <div v-if="notif.type === 'FOLLOW'"><v-icon>equalizer</v-icon></div>
+                  <div v-if="notif.type === 'FRIEND_REQUEST'"><v-icon>face</v-icon></div>
                 </v-flex>
                 <v-flex xs10>
-                    <div class="content">{{ notif.content }}</div>
+                    <div class="content">
+                      <div v-if="notif.type === 'MESSAGE'">{{ notif.message }}</div>
+                      <div v-else-if="notif.type === 'FOLLOW'">{{ notif.anime.id }}</div>
+                      <div v-else-if="notif.type === 'FRIEND_REQUEST'">
+
+                      </div>
+                    </div>
                 </v-flex>
                 </v-layout>
             </v-flex>
@@ -39,32 +47,12 @@
 <script>
 import { VBtn, VIcon, VList } from 'vuetify/es5/components'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
+import gql from 'graphql-tag'
 
 export default {
     data() {
         return {
-            notifs : [
-                {
-                    id: "index",
-                    cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
-                    content: "Tel anime de merde est sorti zdzqdzq dz dqzd zd qzdzqdqz qzd qzdqzd qzd qzd zqdzqd qzd qzd qzdqzdqzdqzd qdqz dqzd"
-                },
-                {
-                    id: "index",
-                    cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
-                    content: "Tel anime de merde est sorti"
-                },
-                {
-                    id: "index",
-                    cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
-                    content: "Tel anime de merde est sorti"
-                },
-                {
-                    id: "index",
-                    cover: "https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763",
-                    content: "Tel anime de merde est sorti"
-                }
-            ]
+            notifs : []
         }
     },
     components: {
@@ -74,6 +62,31 @@ export default {
         VList,
         VBtn,
         VIcon
+    },
+    apollo: {
+      notifs: {
+        query: gql`{
+                      me {
+                        notifications {
+                          id
+                          type
+                          ... on NotifMessageContent { message }
+                          ... on NotifFriendRequestContent { _from { id } }
+                          ... on NotifFollowContent { anime { id } }
+                        }
+                      }
+                   }`,
+        update: (data) => {
+          console.log(data);
+          return data.me.notifications
+        },
+        result(result) {
+          console.log('Results', result)
+        },
+        error(result) {
+          console.log('Error', result)
+        }
+      }
     }
 }
 </script>
