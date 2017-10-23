@@ -58,9 +58,12 @@
           </v-flex>
         </v-layout>
       </div>
-      <div class="text-xs-left">
-        <anime v-for="result in results" :key="result.id" :value="result"></anime>
-      </div>
+      <v-layout row wrap>
+        <v-flex v-for="result in results" :key="result.id">
+          <anime :value="result"></anime>
+        </v-flex>
+        <v-flex class="filler" v-for="i in 24" :key="i"></v-flex>
+      </v-layout>
     </v-container>
   </div>
 
@@ -143,5 +146,9 @@ export default {
       max-height: 0;
       overflow: hidden;
     }
+  }
+
+  .filler {
+    width: $anime.width + $anime.padding * 2;
   }
 </style>
