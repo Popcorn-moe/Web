@@ -6,15 +6,14 @@
 
 <script>
 import { routes } from '../router'
-import Layout from './layout/Layout'
-import AuthLayout from './layout/AuthLayout'
+import App from '../App'
 
 export default {
   name: 'Translations',
   data() {
     Promise.all(routes.filter(r => r.component).map(r => r.component()))
       .then(components => {
-        const messages = []
+        const messages = [this.$i18n.messages]
         const collectMessages = (elem) => {
           if (elem.i18n)
             messages.push(elem.i18n.messages)
@@ -22,8 +21,7 @@ export default {
             Object.values(elem.components).forEach(collectMessages)
         }
         components.map(e => e.default).forEach(collectMessages)
-        collectMessages(Layout)
-        collectMessages(AuthLayout)
+        collectMessages(App)
         this.messages = mergeDeep({}, ...messages)
       })
     return {
