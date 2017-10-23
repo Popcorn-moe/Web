@@ -77,6 +77,12 @@ export const routes = [
   },
   {
     hide: true,
+    name: 'Translations',
+    path: '/translations',
+    component: () => import('../components/Translations')
+  },
+  {
+    hide: true,
     name: '404',
     path: '/404',
     component: () => import('../components/404')
