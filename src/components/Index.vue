@@ -3,7 +3,7 @@
     <v-carousel class="white--text">
       <v-carousel-item v-for="(img,i) in news" :src="img" :key="i">News {{ i }}</v-carousel-item>
     </v-carousel>
-    <div class="text-xs-center">
+    <div class="text-xs-center animes">
       <h3 class="anime-list-title">Derniers Episodes</h3>
       <anime-list :value="animes"></anime-list>
       <h3 class="anime-list-title">Derniers trailers</h3>
@@ -49,9 +49,13 @@ export default {
 <style lang="stylus">
   @import '../stylus/main'
 
-  .anime-list-title {
-    margin: 0;
-    font-size: 20px;
-    margin-top: 20px;
+  .animes {
+    padding-bottom: 20px;
+
+    .anime-list-title {
+      margin: 0;
+      font-size: 20px;
+      margin-top: 20px;
+    } 
   }
 </style>
