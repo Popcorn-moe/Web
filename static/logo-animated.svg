@@ -5,6 +5,7 @@
             #perso {
                 transition: transform .8s ease-in-out;
                 transform-origin: center;
+                transform-box: fill-box;
             }
             #root:hover #perso {
                 transform: rotate(360deg);

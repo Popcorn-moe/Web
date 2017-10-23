@@ -13,6 +13,7 @@
             #perso {
                 animation: rotate 2s linear infinite;
                 transform-origin: center;
+                transform-box: fill-box;
             }
         </style>
     </defs>
