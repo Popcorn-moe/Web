@@ -13,3 +13,6 @@ yarn-error.log*
 *.njsproj
 .sln
 *.iml
+
+#custom env run file
+run.sh

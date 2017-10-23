@@ -22,7 +22,7 @@
             <v-flex xs3>
               <v-btn icon @click.stop="notifications = !notifications" v-if="isAuth">
                   <v-badge overlay>
-                    <span slot="badge">6</span>
+                    <span slot="badge">7</span>
                     <v-icon>notifications</v-icon>
                   </v-badge>
               </v-btn>
