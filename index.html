@@ -6,7 +6,7 @@
     <title>Popcorn.moe</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
   </head>
-  <body>
+  <body style="margin: 0">
     <div id="app">
       <style>
         .loader {
@@ -19,6 +19,10 @@
         }
       </style>
       <object data="/static/loader.svg" type="image/svg+xml" class="loader"></object>
+      <script>
+        if (localStorage.getItem('darkTheme') === 'true')
+          document.getElementById('app').style = 'background: #111111;height: 100vh;';
+      </script>
     </div>
   </body>
 </html>
