@@ -9,16 +9,16 @@
   <body style="margin: 0">
     <div id="app">
       <style>
-        .loader {
-          min-height: 15%;
-          min-width: 15%;
+        #root {
+          height: 25%;
+          width: 25%;
           position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
         }
       </style>
-      <div class="loader">${require('html-loader!./static/loader.svg')}</div>
+      ${require('html-loader!./static/loader.svg')}
       <script>
         if (localStorage.getItem('darkTheme') === 'true')
           document.getElementById('app').style = 'background: #111111;height: 100vh;';
