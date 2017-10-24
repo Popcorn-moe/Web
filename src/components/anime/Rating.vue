@@ -1,5 +1,5 @@
 <template>
-  <div class="rate">
+  <div class="rating">
     <v-icon v-for="n in length"
         :key="n"
         :class="{ active: over === -1 ? n <= value : n <= over, star: true }"
@@ -16,7 +16,7 @@
 import { VIcon } from 'vuetify/es5/components'
 
 export default {
-  name: 'rate',
+  name: 'Rating',
   props: {
     value: { type: Number },
     length: { type: Number, default: 5 },
@@ -35,7 +35,7 @@ export default {
 <style lang="stylus">
   @import '../../stylus/main.styl';
 
-  .rate .star {
+  .rating .star {
     cursor: pointer;
     color: $grey.lighten-1;
 

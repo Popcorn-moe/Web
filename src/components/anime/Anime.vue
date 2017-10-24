@@ -13,7 +13,7 @@
                 <span> - </span>
                 <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ 'RIP' || value.date.toISOString().split('T')[0] }}</time>
             </div>
-            <rate class="rate" v-model="rate"></rate>
+            <rating class="rate" v-model="rate"></rating>
             <a class="description">Description</a>
         </div>
     </div>
@@ -21,7 +21,7 @@
 
 <script>
 import { VIcon } from 'vuetify/es5/components'
-import Rate from './Rate'
+import Rating from './Rating'
 
 export default {
   props: ['value'],
@@ -32,7 +32,7 @@ export default {
   },
   components: {
       VIcon,
-      Rate
+      Rating
   }
 }
 

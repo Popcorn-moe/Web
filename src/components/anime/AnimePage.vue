@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <loader v-if="loading"></loader>
+  <div v-else>
     <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }"></div>
     <v-container class="anime-page-container">
       <v-layout row wrap>
@@ -8,24 +9,24 @@
           <h6 class="uppercase">{{ anime.names[0] }}</h6>
           <ul>
             <li v-for="author in anime.authors" :key="author.id">
-              <div class="list-name">Auteur :</div>
+              <div class="list-name" v-t="'anime.author'"></div>
               {{ author.name }}
             </li>
           </ul>
           <p>{{ anime.desc }}</p>
           <div class="text-xs-center">
-            <h6 class="uppercase">Trailer :</h6>
+            <h6 class="uppercase" v-t="'anime.trailer'"></h6>
           </div>
         </v-flex>
         <v-flex xs3>
           <v-btn class="main-color" block large light>
             <v-icon class="white--text">favorite</v-icon>
-            S'ABONNER
+            {{ $t('anime.subscribe') }}
           </v-btn>
           <div class="rate-container">
             <div class="text-xs-center">
-              <h6>Note :</h6>
-              <rate v-model="anime.rate"></rate>
+              <h6 v-t="'anime.rating'"></h6>
+              <rating v-model="anime.rating"></rating>
             </div>
           </div>
           <media-list :anime="id"></media-list>
@@ -36,10 +37,11 @@
 </template>
 
 <script>
+  import Loader from '../layout/Loader'
   import { VBtn, VIcon } from 'vuetify/es5/components'
   import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-  import Rate from './Rate.vue'
-  import MediaList from '../media/MediaList.vue'
+  import Rating from './Rating'
+  import MediaList from '../media/MediaList'
   import gql from 'graphql-tag'
   import { client } from '../../graphql'
 
@@ -60,7 +62,7 @@
           `,
         });
         if (anime)
-          return { anime }
+          return { anime, loading: false }
       } catch (e) { console.log(e) }
       // Query it
       client.query({
@@ -75,20 +77,48 @@
         variables: {
           id: this.id
         }
-      }).then(({ data: { anime } }) => this.anime = anime)
+      }).then(({ data: { anime } }) => {
+        if (anime) {
+          this.anime = anime
+          this.loading = false
+        } else
+          this.$router.replace({ name: '404' })
+      })
       return {
-        anime: {}
+        anime: null,
+        loading: true
       }
     },
     components: {
+      Loader,
       VContainer,
       VFlex,
       VLayout,
       VBtn,
       VIcon,
-      Rate,
+      Rating,
       MediaList
+    },
+    i18n: {
+    messages: {
+      fr: {
+        anime: {
+          subscribe: 'S\'abonner',
+          author: 'Auteur :',
+          trailer: 'Trailer :',
+          rating: 'Note :'
+        }
+      },
+      en: {
+        anime: {
+          subscribe: 'Subscribe',
+          author: 'Author :',
+          trailer: 'Trailer :',
+          rating: 'Rating :'
+        }
+      }
     }
+  }
   }
 </script>
 
