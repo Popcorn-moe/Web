@@ -102,7 +102,7 @@ const router = new Router({
       return savedPosition
     } else if (to.hash) {
       return { selector: to.hash }
-    } else {
+    } else if (from.name != to.name){
       return new Promise(r => setTimeout(() => r({ x: 0, y: 0 }), 300)) // 300 ms = slide transition time
     }
   }
