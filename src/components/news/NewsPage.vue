@@ -58,12 +58,12 @@ export default {
     messages: {
       fr: {
         news: {
-          by_author_on_date: 'Publié par { author } le { date }'
+          by_author_on_date: 'Publié par {author} le {date}'
         }
       },
       en: {
         news: {
-          by_author_on_date: 'By { author } on { date }'
+          by_author_on_date: 'By {author} on {date}'
         }
       }
     }

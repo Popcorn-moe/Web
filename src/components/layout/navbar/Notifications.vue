@@ -3,49 +3,60 @@
         <v-layout row wrap class="text-xs-center no-margin">
         <v-flex xs3>
             <v-btn icon @click.stop="$emit('input', false)">
-            <v-icon>menu</v-icon>
+              <v-icon>menu</v-icon>
             </v-btn>
         </v-flex>
         <v-flex offset-xs6 xs3>
             <v-btn icon @click.stop="$emit('close')">
-            <v-icon>clear</v-icon>
+              <v-icon>clear</v-icon>
             </v-btn>
         </v-flex>
         </v-layout>
         <v-list>
-        <router-link
-            v-for="notif in notifs"
-            :key="notif.id"
-            to="index"
-            class="router-link"
-        >
-          <v-layout row>
-            <v-flex xs12 class="notif-container">
+          <div
+              v-for="notif in notifs"
+              :key="notif.id"
+              to="index"
+          >
+            <v-layout row>
+              <v-flex xs12 class="notif-container">
                 <v-layout row>
-                <v-flex xs2>
-                  <div v-if="notif.type === 'MESSAGE'"><v-icon>messages</v-icon></div>
-                  <div v-if="notif.type === 'FOLLOW'"><v-icon>equalizer</v-icon></div>
-                  <div v-if="notif.type === 'FRIEND_REQUEST'"><v-icon>face</v-icon></div>
-                </v-flex>
-                <v-flex xs10>
+                  <v-flex xs2>
+                    <div v-if="notif.type === 'MESSAGE'"><v-icon>messages</v-icon></div>
+                    <div v-if="notif.type === 'FOLLOW'">
+                      <v-avatar size="40px" class="notif-img">
+                        <img :src="notif.anime.cover" :alt="notif.anime.id">
+                      </v-avatar>
+                    </div>
+                    <div v-if="notif.type === 'FRIEND_REQUEST'">
+                      <v-avatar size="40px" class="notif-img">
+                        <img :src="notif._from.avatar" :alt="notif._from.login">
+                      </v-avatar>
+                    </div>
+                  </v-flex>
+                  <v-flex xs10>
                     <div class="content">
                       <div v-if="notif.type === 'MESSAGE'">{{ notif.message }}</div>
-                      <div v-else-if="notif.type === 'FOLLOW'">{{ notif.anime.id }}</div>
+                      <div v-else-if="notif.type === 'FOLLOW'">
+                        <div class="content" v-t="{ path: 'notifications.follow', args: { episode: 1, saison: 1, anime: anime.names[0] }}"></div>
+                      </div>
                       <div v-else-if="notif.type === 'FRIEND_REQUEST'">
-
+                        <div class="content" v-t="{ path: 'notifications.friends.friend_request', args: { from: notif._from.login }}"></div>
+                        <v-btn inline small primary v-t="'notifications.friends.accept'">Accepter</v-btn>
+                        <v-btn inline small v-t="'notifications.friends.refuse'">Refuser</v-btn>
                       </div>
                     </div>
-                </v-flex>
+                  </v-flex>
                 </v-layout>
-            </v-flex>
-          </v-layout>
-        </router-link>
+              </v-flex>
+            </v-layout>
+          </div>
         </v-list>
     </div>
 </template>
 
 <script>
-import { VBtn, VIcon, VList } from 'vuetify/es5/components'
+import { VBtn, VIcon, VList, VAvatar } from 'vuetify/es5/components'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
@@ -61,7 +72,8 @@ export default {
         VLayout,
         VList,
         VBtn,
-        VIcon
+        VIcon,
+        VAvatar
     },
     apollo: {
       notifs: {
@@ -71,20 +83,35 @@ export default {
                           id
                           type
                           ... on NotifMessageContent { message }
-                          ... on NotifFriendRequestContent { _from { id } }
-                          ... on NotifFollowContent { anime { id } }
+                          ... on NotifFriendRequestContent { _from { id login avatar } }
+                          ... on NotifFollowContent { anime { id names} }
                         }
                       }
                    }`,
-        update: (data) => {
-          console.log(data);
-          return data.me.notifications
+        update: ({ me }) => me.notifications
+      }
+    },
+    i18n: {
+      messages: {
+        fr: {
+          notifications: {
+            friends: {
+              friend_request: "Vous avez reçu une demande d'amis de {from}",
+              accept: "Accepter",
+              refuse: "Refuser"
+            },
+            follow: "L'episode {episode} de la saison {saison} de {anime} viens d'arriver!"
+          }
         },
-        result(result) {
-          console.log('Results', result)
-        },
-        error(result) {
-          console.log('Error', result)
+        en: {
+          notifications: {
+            friends: {
+              friend_request: "You have received a friend request from {from}",
+              accept: "Accept",
+              refuse: "Refuse"
+            },
+            follow: "Episode {episode} of {season} season {anime} just arrived!"
+          }
         }
       }
     }
@@ -100,11 +127,12 @@ export default {
 
   .notif-container {
       padding: 6px !important;
-      .img {
+      .notif-img {
         padding-left: 10px;
         width: 50px;
         height: auto;
       }
+
       .content {
         text-align: justify;
         padding-left: 10px;
