@@ -12,36 +12,30 @@
                     <v-icon>keyboard_arrow_down</v-icon>
                 </v-list-tile-action>
             </v-list-tile>
-            <router-link :to="{ name: 'User', params: { page: 'profile' }}" class="router-link">
-                <v-list-tile>
-                    <v-list-tile-action>
-                        <v-icon>face</v-icon>
-                    </v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Profile</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </router-link>
-            <router-link :to="{ name: 'User', params: { page: 'library' }}" class="router-link">
-              <v-list-tile>
+            <v-list-tile :to="{ name: 'User', params: { page: 'profile' }}">
                 <v-list-tile-action>
-                  <v-icon>local_library</v-icon>
+                    <v-icon>face</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>Librairie</v-list-tile-title>
+                    <v-list-tile-title>Profile</v-list-tile-title>
                 </v-list-tile-content>
-              </v-list-tile>
-            </router-link>
-            <router-link :to="{ name: 'User', params: { page: 'settings' }}" class="router-link">
-              <v-list-tile>
+            </v-list-tile>
+            <v-list-tile :to="{ name: 'User', params: { page: 'library' }}">
                 <v-list-tile-action>
-                  <v-icon>settings</v-icon>
+                    <v-icon>local_library</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>Settings</v-list-tile-title>
+                    <v-list-tile-title>Librairie</v-list-tile-title>
                 </v-list-tile-content>
-              </v-list-tile>
-            </router-link>
+            </v-list-tile>
+            <v-list-tile :to="{ name: 'User', params: { page: 'settings' }}">
+                <v-list-tile-action>
+                    <v-icon>settings</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                    <v-list-tile-title>Settings</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
             <li class="text-xs-right user-logout" @click.stop="logout()">
                 Se deconnecter
             </li>
@@ -101,13 +95,6 @@ export default {
     color: #4b4b4b !important;
     text-decoration: none;
     cursor: pointer;3
-  }
-
-  .router-link {
-    text-decoration: none;
-    &.router-link-exact-active * {
-      color: $main-color;
-    }
   }
 </style>
 

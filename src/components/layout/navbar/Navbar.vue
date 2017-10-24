@@ -39,19 +39,16 @@
             </v-flex>
           </v-layout>
           <v-list>
-            <router-link
+            <v-list-tile
               v-for="(route, i) in routes.filter(r => !r.hide)"
               :key="i"
               :to="route.path"
-              class="router-link"
             >
-              <v-list-tile activeClass="">
-                <v-list-tile-action>
-                  <v-icon v-html="route.icon"></v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content v-t="route.t"></v-list-tile-content>
-              </v-list-tile>
-            </router-link>
+              <v-list-tile-action>
+                <v-icon v-html="route.icon"></v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content v-t="route.t"></v-list-tile-content>
+            </v-list-tile>
           </v-list>
         </div>
       </v-slide-x-transition>
@@ -170,13 +167,6 @@ export default {
       .content {
         color: #888888 !important;
       }
-    }
-  }
-
-  .router-link {
-    text-decoration: none;
-    &.router-link-exact-active * {
-      color: $main-color !important;
     }
   }
 </style>

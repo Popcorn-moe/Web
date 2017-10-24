@@ -9,18 +9,15 @@
           <v-icon>keyboard_arrow_down</v-icon>
         </v-list-tile-action>
       </v-list-tile>
-      <router-link
+      <v-list-tile
         v-for="(ep, ei) in season.episodes"
         :key="ep.name"
         :to="{ name: 'Episode', params: { id: anime, season: si + 1, episode: ei + 1 }}"
-        class="router-link"
       >
-        <v-list-tile>
-          <v-list-tile-title>
-            <v-list-tile-title>{{ ep.name }}</v-list-tile-title>
-          </v-list-tile-title>
-        </v-list-tile>
-      </router-link>
+        <v-list-tile-title>
+          <v-list-tile-title>{{ ep.name }}</v-list-tile-title>
+        </v-list-tile-title>
+      </v-list-tile>
     </v-list-group>
   </v-list>
 </template>
@@ -82,9 +79,5 @@ export default {
     .media-list {
       background-color: #454545 !important;
     }
-  }
-
-  .router-link {
-    text-decoration: none;
   }
 </style>

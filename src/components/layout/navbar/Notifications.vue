@@ -19,7 +19,7 @@
             to="index"
             class="router-link"
         >
-            <v-layout row>
+          <v-layout row>
             <v-flex xs12 class="notif-container">
                 <v-layout row>
                 <v-flex xs2>
@@ -38,7 +38,7 @@
                 </v-flex>
                 </v-layout>
             </v-flex>
-            </v-layout>
+          </v-layout>
         </router-link>
         </v-list>
     </div>
