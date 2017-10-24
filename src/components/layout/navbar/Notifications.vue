@@ -38,12 +38,12 @@
                     <div class="content">
                       <div v-if="notif.type === 'MESSAGE'">{{ notif.message }}</div>
                       <div v-else-if="notif.type === 'FOLLOW'">
-                        <div class="content" v-t="{ path: 'notifications.follow', args: { episode: 1, saison: 1, anime: anime.names[0] }}"></div>
+                        <div class="content" v-t="{ path: 'notifications.follow', args: { episode: 1, saison: 1, anime: anime.names[0] } }"></div>
                       </div>
                       <div v-else-if="notif.type === 'FRIEND_REQUEST'">
-                        <div class="content" v-t="{ path: 'notifications.friends.friend_request', args: { from: notif._from.login }}"></div>
-                        <v-btn inline small primary v-t="'notifications.friends.accept'">Accepter</v-btn>
-                        <v-btn inline small v-t="'notifications.friends.refuse'">Refuser</v-btn>
+                        <div class="content" v-t="{ path: 'notifications.friends.friend_request', args: { from: notif._from.login } }"></div>
+                        <v-btn inline small primary v-t="'notifications.friends.accept'" @click.stop="acceptFriendRequest(notif.id)"></v-btn>
+                        <v-btn inline small v-t="'notifications.friends.refuse'" @click.stop="refuseFriendRequest(notif.id)"></v-btn>
                       </div>
                     </div>
                   </v-flex>
@@ -89,6 +89,42 @@ export default {
                       }
                    }`,
         update: ({ me }) => me.notifications
+      }
+    },
+    methods: {
+      acceptFriendRequest(id) {
+        this.$apollo.mutate({
+          mutation: gql`
+            mutation acceptFriendRequest($notif: ID!) {
+                acceptFriendRequest(notif: $notif) {
+                    error
+                }
+            }
+          `,
+          variables: {
+            notif: id
+          }
+        }).then((data) => {
+          console.log(data)
+          this.$apollo.queries.notifs.refetch()
+        });
+      },
+      refuseFriendRequest(id) {
+        this.$apollo.mutate({
+          mutation: gql`
+            mutation refuseFriendRequest($notif: ID!) {
+                refuseFriendRequest(notif: $notif) {
+                    error
+                }
+            }
+          `,
+          variables: {
+            notif: id
+          }
+        }).then((data) => {
+          console.log(data)
+          this.$apollo.queries.notifs.refetch()
+        });
       }
     },
     i18n: {
