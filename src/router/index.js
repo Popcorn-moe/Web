@@ -96,8 +96,17 @@ export const routes = [
 
 const router = new Router({
   routes,
-  mode: 'history'
-});
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else if (to.hash) {
+      return { selector: to.hash }
+    } else {
+      return new Promise(r => setTimeout(() => r({ x: 0, y: 0 }), 300)) // 300 ms = slide transition time
+    }
+  }
+})
 
 let timeout
 
