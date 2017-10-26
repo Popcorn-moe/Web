@@ -2,7 +2,6 @@
   <v-container grid-list-md>
     <v-layout class="text-xs-center">
       <v-flex offset-xs2 xs8>
-        {{ selectedUsers }}
         <v-select
           label="Search Friends"
           autocomplete
@@ -10,12 +9,6 @@
           multiple
           chips
           prepend-icon="search"
-          :items="searchResults"
-          item-text="login"
-          item-value="id"
-          :rules="[() => search.length > 0 || 'You must choose at least one']"
-          :search-input.sync="search"
-          v-model="selectedUsers"
         ></v-select>
       </v-flex>
       <v-flex xs1>
@@ -27,7 +20,7 @@
     <v-tabs class="friends-tabs">
       <v-layout>
         <v-flex xs3>
-          <v-list class="friends-tabs-list">
+          <v-list class="friends-tabs-list elevation-3">
             <v-list-tile @click.stop="currTab = 'friends'" :class="{'active': currTab === 'friends'}">
               <v-list-tile-content>
                 <v-list-tile-title>Friends List</v-list-tile-title>
@@ -51,67 +44,38 @@
               <v-tabs class="friends-tabs" :value="currTab">
                 <div class="tabs__items">
                   <v-tabs-content lazy id="friends">
-                    <v-data-table
-                      :headers="friendsHeader"
-                      :items="friends()"
-                      hide-actions
-                    >
-                      <template slot="items" slot-scope="props">
-                        <td>
-                          {{ props.item.to.login }}
-                        </td>
-                        <td>
-                          {{ "NOT YET" }}
-                        </td>
-                        <td align="right">
-                          <v-btn icon @click.stop="">
-                            <v-icon>close</v-icon>
-                          </v-btn>
-                        </td>
-                      </template>
-                    </v-data-table>
+                    <!--{{ me.friends }}-->
+                    <v-layout row wrap>
+                      <!--<v-flex v-for="friend in me.friends" :key="friend.id" xs3 class="friend text-xs-center">-->
+                        <!--<v-avatar size="120px" class="notif-img">-->
+                          <!--<img :src="friend.avatar" :alt="friend.login">-->
+                        <!--</v-avatar>-->
+                        <!--<div class="login">{{ friend.login }}</div>-->
+                      <!--</v-flex>-->
+                      <v-flex v-for="friend in me.friends" :key="friend.id" xs6>
+                        <div class="friend elevation-3">
+                          <v-layout>
+                            <v-flex xs3>
+                              <v-avatar size="75px" class="avatar">
+                                <img :src="friend.avatar" :alt="friend.login">
+                              </v-avatar>
+                            </v-flex>
+                            <v-flex xs9 class="text">
+                              <v-btn small icon style="float: right; margin: 0 !important;"><v-icon>clear</v-icon></v-btn>
+                              <h6>{{ friend.login }}</h6>
+                              <p>{{ "STATUS" }}</p>
+
+                            </v-flex>
+                          </v-layout>
+                        </div>
+                      </v-flex>
+                    </v-layout>
                   </v-tabs-content>
                   <v-tabs-content lazy id="invites">
-                    <v-data-table
-                      :headers="invitesHeader"
-                      :items="invites()"
-                      hide-actions
-                    >
-                      <template slot="items" slot-scope="props">
-                        <td>
-                          {{ props.item.from.name }}
-                        </td>
-                        <td>
-                          {{ props.item.date }}
-                        </td>
-                        <td align="right">
-                          <v-btn icon @click.stop="">
-                            <v-icon>close</v-icon>
-                          </v-btn>
-                        </td>
-                      </template>
-                    </v-data-table>
+
                   </v-tabs-content>
                   <v-tabs-content lazy id="pending">
-                    <v-data-table
-                      :headers="pendingHeader"
-                      :items="pendingRequests()"
-                      hide-actions
-                    >
-                      <template slot="items" slot-scope="props">
-                        <td>
-                          {{ props.item.name }}
-                        </td>
-                        <td>
-                          {{ props.item.date }}
-                        </td>
-                        <td align="right">
-                          <v-btn icon @click.stop="">
-                            <v-icon>close</v-icon>
-                          </v-btn>
-                        </td>
-                      </template>
-                    </v-data-table>
+
                   </v-tabs-content>
                 </div>
               </v-tabs>
@@ -127,7 +91,7 @@
 import VTabs from 'vuetify/es5/components/VTabs'
 import VTabsContent from 'vuetify/es5/components/VTabs/VTabsContent'
 import VTabsItem from 'vuetify/es5/components/VTabs/VTabsItem'
-import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip } from 'vuetify/es5/components'
+import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip, VAvatar } from 'vuetify/es5/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
@@ -136,67 +100,14 @@ export default {
   name: "user_friends",
   data() {
     return {
-      me: { relations: [] },
       currTab: "friends",
-      search: "",
-      selectedUsers: [],
-      searchResults: [],
-      friendsHeader: [
-        {
-          text: 'Name',
-          align: 'left',
-          value: 'name'
-        }, {
-          text: 'Status',
-          align: 'left',
-          value: 'status'
-        }, {
-          text: 'Action',
-          align: 'left'
-        }
-      ],
-      invitesHeader: [
-        {
-          text: 'From',
-          align: 'left',
-          value: 'from'
-        }, {
-          text: 'Date',
-          align: 'left',
-          value: 'date'
-        }, {
-          text: 'Action',
-          align: 'left'
-        }
-      ],
-      pendingHeader: [
-        {
-          text: 'To',
-          align: 'left',
-          value: 'name'
-        }, {
-          text: 'Date',
-          align: 'left',
-          value: 'date'
-        }, {
-          text: 'Action',
-          align: 'left'
-        }
-      ],
+      me: { friends: [] },
     }
   },
   methods: {
-    friends() {
-      return this.me.relations.filter(r => r.status === "FRIEND");
-    },
-    pendingRequests() {
-      return this.me.relations.filter(r => r.status === "SEND_INVITE");
-    },
-    invites() {
-      return this.me.relations.filter(r => r.status === "RECEIVE_INVITE");
-    }
   },
   components: {
+    VAvatar,
     VContainer,
     VFlex,
     VLayout,
@@ -218,7 +129,7 @@ export default {
   },
   apollo: {
     me: {
-      query: gql`{ me { relations { status to { login } } } }`,
+      query: gql`{ me { friends { id login avatar } } }`,
       update: ({ me }) => me
     },
     searchResults: {
@@ -255,8 +166,26 @@ export default {
   }
 
   .friends-tabs {
-    .table {
-      background-color: #dcdcdc !important;
+    .tabs__items {
+      padding 5px;
+    }
+
+    .friend {
+      padding: 10px;
+      .avatar {
+        background-color: #454545;
+        border: 1px solid #595959 !important;
+      }
+      .text {
+        padding-left 10px !important;
+        h6 { padding-top: 2px !important; }
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
+        }
+      }
     }
   }
 
@@ -273,8 +202,8 @@ export default {
     }
 
     .friends-tabs {
-      .table {
-        background-color: #454545 !important;
+      .friend {
+        background-color: #454545;
       }
     }
   }
