@@ -90,8 +90,8 @@
                 window.location.assign(`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`)
             } else {
                 login(this.username, this.password).then(() => {
-                  this.$router.go(-1)
                   this.setIsAuth(true)
+                  this.$router.go(-1)
                 }).catch(error => {
                   if (error.alert)
                     this.alert = error.alert
