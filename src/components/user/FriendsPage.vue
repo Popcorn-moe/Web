@@ -14,7 +14,7 @@
           item-value="id"
           return-object
           v-model="selectedFriends"
-          no-data-text="Type something to start search"
+          no-data-text="Nothing found"
         ></v-select>
       </v-flex>
       <v-flex xs1>
@@ -50,14 +50,7 @@
               <v-tabs class="friends-tabs" :value="currTab">
                 <div class="tabs__items">
                   <v-tabs-content lazy id="friends">
-                    <!--{{ me.friends }}-->
                     <v-layout row wrap>
-                      <!--<v-flex v-for="friend in me.friends" :key="friend.id" xs3 class="friend text-xs-center">-->
-                        <!--<v-avatar size="120px" class="notif-img">-->
-                          <!--<img :src="friend.avatar" :alt="friend.login">-->
-                        <!--</v-avatar>-->
-                        <!--<div class="login">{{ friend.login }}</div>-->
-                      <!--</v-flex>-->
                       <v-flex v-for="friend in me.friends" :key="friend.id" xs6>
                         <div class="friend elevation-3">
                           <v-layout>
@@ -67,10 +60,9 @@
                               </v-avatar>
                             </v-flex>
                             <v-flex xs9 class="text">
-                              <v-btn small icon style="float: right; margin: 0 !important;"><v-icon>clear</v-icon></v-btn>
+                              <v-btn small icon style="float: right; margin: 0 !important;"><v-icon>delete</v-icon></v-btn>
                               <h6>{{ friend.login }}</h6>
-                              <p>{{ "STATUS" }}</p>
-
+                              <div>{{ "STATUS" }}</div>
                             </v-flex>
                           </v-layout>
                         </div>
@@ -78,10 +70,47 @@
                     </v-layout>
                   </v-tabs-content>
                   <v-tabs-content lazy id="invites">
-
+                    <v-layout row wrap>
+                      <v-flex v-for="friend in friendRequests" :key="friend.id" xs6>
+                        <div class="friend elevation-3">
+                          <v-layout>
+                            <v-flex xs3>
+                              <v-avatar size="75px" class="avatar">
+                                <img :src="friend.avatar" :alt="friend.login">
+                              </v-avatar>
+                            </v-flex>
+                            <v-flex xs9 class="text">
+                              <v-btn small icon style="float: right; margin: 0 !important;"><v-icon>delete</v-icon></v-btn>
+                              <h6>{{ friend.login }}</h6>
+                              <v-btn small primary block>
+                                ACCEPTER
+                              </v-btn>
+                            </v-flex>
+                          </v-layout>
+                        </div>
+                      </v-flex>
+                    </v-layout>
                   </v-tabs-content>
                   <v-tabs-content lazy id="pending">
-
+                    <v-layout row wrap>
+                      <v-flex v-for="friend in pendingFriendRequests" :key="friend.id" xs6>
+                        <div class="friend elevation-3">
+                          <v-layout>
+                            <v-flex xs3>
+                              <v-avatar size="75px" class="avatar">
+                                <img :src="friend.avatar" :alt="friend.login">
+                              </v-avatar>
+                            </v-flex>
+                            <v-flex xs9 class="text">
+                              <h6>{{ friend.login }}</h6>
+                              <v-btn small primary block>
+                                ANNULER
+                              </v-btn>
+                            </v-flex>
+                          </v-layout>
+                        </div>
+                      </v-flex>
+                    </v-layout>
                   </v-tabs-content>
                 </div>
               </v-tabs>
@@ -108,6 +137,8 @@ export default {
     return {
       currTab: "friends",
       me: { friends: [] },
+      friendRequests: [],
+      pendingFriendRequests: [],
       search: '',
       selectedFriends: [],
       searchUser: []
@@ -117,8 +148,9 @@ export default {
   },
   computed: {
     searchResults() {
+      const friendsId = this.me.friends.map(({ id }) => id)
       const selectedFriendsId = this.selectedFriends.map(({ id }) => id)
-      const search = this.searchUser.filter(({ id }) => !selectedFriendsId.includes(id))
+      const search = this.searchUser.filter(({ id }) => !selectedFriendsId.includes(id) && !friendsId.includes(id) )
       return search.concat(this.selectedFriends)
     }
   },
@@ -147,6 +179,14 @@ export default {
     me: {
       query: gql`{ me { friends { id login avatar } } }`,
       update: ({ me }) => me
+    },
+    friendRequests: {
+      query: gql`{ friendRequests { login id avatar } }`,
+      update: ({ friendRequests }) => friendRequests
+    },
+    pendingFriendRequests: {
+      query: gql`{ pendingFriendRequests { login id avatar } }`,
+      update: ({ pendingFriendRequests }) => pendingFriendRequests
     },
     searchUser: {
       query: gql`query ($name: String!) {
@@ -201,6 +241,7 @@ export default {
           overflow: hidden;
           text-overflow: ellipsis;
           max-width: 100%;
+          margin-bottom: 0;
         }
       }
     }

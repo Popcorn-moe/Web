@@ -28,6 +28,14 @@
                     <v-list-tile-title>Librairie</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+            <v-list-tile :to="{ name: 'User', params: { page: 'friends' }}">
+              <v-list-tile-action>
+                <v-icon>group</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Friends</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
             <v-list-tile :to="{ name: 'User', params: { page: 'settings' }}">
                 <v-list-tile-action>
                     <v-icon>settings</v-icon>

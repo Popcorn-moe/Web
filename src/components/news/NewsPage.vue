@@ -4,7 +4,7 @@
     <v-container>
       <div class="news-page">
         <h1 class="uppercase title" v-html="news.name"></h1>
-        <p v-t="{ path: 'news.by_author_on_date', args: { author: news.author.login, date: news.author.login }}"></p>
+        <p v-t="{ path: 'news.by_author_on_date', args: { author: news.author.login, date: news.posted_date }}"></p>
         <v-divider></v-divider>
         <div v-html="newsContent"></div>
       </div>
