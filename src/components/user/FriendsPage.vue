@@ -5,7 +5,6 @@
         <v-select
           label="Search Friends"
           autocomplete
-          dark
           multiple
           chips
           prepend-icon="search"
