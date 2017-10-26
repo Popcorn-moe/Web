@@ -9,6 +9,13 @@
           multiple
           chips
           prepend-icon="search"
+          :search-input.sync="search"
+          :items="searchResults"
+          item-text="login"
+          item-value="id"
+          return-object
+          v-model="selectedFriends"
+          no-data-text="Type something to start search"
         ></v-select>
       </v-flex>
       <v-flex xs1>
@@ -102,9 +109,19 @@ export default {
     return {
       currTab: "friends",
       me: { friends: [] },
+      search: '',
+      selectedFriends: [],
+      searchUser: []
     }
   },
   methods: {
+  },
+  computed: {
+    searchResults() {
+      const selectedFriendsId = this.selectedFriends.map(({ id }) => id)
+      const search = this.searchUser.filter(({ id }) => !selectedFriendsId.includes(id))
+      return search.concat(this.selectedFriends)
+    }
   },
   components: {
     VAvatar,
@@ -132,15 +149,16 @@ export default {
       query: gql`{ me { friends { id login avatar } } }`,
       update: ({ me }) => me
     },
-    searchResults: {
+    searchUser: {
       query: gql`query ($name: String!) {
         searchUser(name: $name) {
           login id
         }
       }`,
       variables() {
+        console.log(this.search)
         return {
-          name: this.search ? this.search : ""
+          name: this.search || ''
         }
       },
       update: ({ searchUser }) => searchUser
