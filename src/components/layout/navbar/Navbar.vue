@@ -20,11 +20,12 @@
               <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
             </v-flex>
             <v-flex xs3>
-              <v-btn icon @click.stop="notifications = !notifications" v-if="isAuth">
-                  <v-badge overlay>
-                    <span slot="badge">6</span>
-                    <v-icon>notifications</v-icon>
-                  </v-badge>
+              <v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">
+                <v-badge overlay v-if="notifs_count > 0">
+                  <span slot="badge" v-html="notifs_count"></span>
+                  <v-icon>notifications</v-icon>
+                </v-badge>
+                <v-icon v-if="notifs_count == 0">notifications</v-icon>
               </v-btn>
             </v-flex>
           </v-layout>
@@ -78,6 +79,7 @@ import { VSlideXTransition } from 'vuetify/es5/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import { routes } from '../../../router'
 import { logout } from '../../../utils/auth'
+import gql from 'graphql-tag'
 
 export default {
   props: {
@@ -86,11 +88,17 @@ export default {
 
   data() {
     return {
-        routes,
-        notifications: false
+      routes,
+      notifications: false,
+      notifs_count: -1
     }
   },
-
+  apollo: {
+    notifs_count: {
+      query: gql`{ me { notifications { id } } }`,
+      update: ({ me }) => me.notifications.length
+    }
+  },
   components: {
     Notifications,
     AuthMenu,
