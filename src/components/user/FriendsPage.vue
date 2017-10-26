@@ -60,7 +60,7 @@
                               </v-avatar>
                             </v-flex>
                             <v-flex xs9 class="text">
-                              <v-btn small icon style="float: right; margin: 0 !important;"><v-icon>delete</v-icon></v-btn>
+                              <v-btn small icon class="delete"><v-icon>delete</v-icon></v-btn>
                               <h6>{{ friend.login }}</h6>
                               <div>{{ "STATUS" }}</div>
                             </v-flex>
@@ -80,7 +80,7 @@
                               </v-avatar>
                             </v-flex>
                             <v-flex xs9 class="text">
-                              <v-btn small icon style="float: right; margin: 0 !important;"><v-icon>delete</v-icon></v-btn>
+                              <v-btn small icon class="delete" @click.stop=""><v-icon>delete</v-icon></v-btn>
                               <h6>{{ friend.login }}</h6>
                               <v-btn small primary block>
                                 ACCEPTER
@@ -229,6 +229,10 @@ export default {
 
     .friend {
       padding: 10px;
+      .delete {
+        float: right;
+        margin: 0 !important;
+      }
       .avatar {
         background-color: #454545;
         border: 1px solid #595959 !important;
