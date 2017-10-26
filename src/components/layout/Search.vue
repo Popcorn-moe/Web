@@ -33,7 +33,7 @@
         <v-divider inset v-if="result.users.length && result.animes.length"></v-divider>
         <template v-if="result.animes.length">
           <v-subheader inset>Animes</v-subheader>
-          <v-list-tile v-for="anime in result.animes" :key="anime.id" avatar>
+          <v-list-tile v-for="anime in result.animes" :key="anime.id" :to="{ name: 'Anime', params: { id: anime.id }}" avatar>
             <v-list-tile-avatar>
               <img :src="anime.cover">
             </v-list-tile-avatar>
