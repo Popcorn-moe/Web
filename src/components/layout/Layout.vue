@@ -1,9 +1,10 @@
 <template>
     <div>
         <navbar :value="drawer" @input="toggleDrawer"></navbar>
-        <v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="button-float main-color" small>
+        <v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="el-float main-color" small>
             <v-icon>menu</v-icon>
         </v-btn>
+        <search class="el-float el-right"></search>
         <main>
             <v-content>
                 <loader v-show="isLoading"></loader>
@@ -33,6 +34,7 @@ import { VContent, VContainer } from 'vuetify/es5/components/VGrid'
 import { VSlideYTransition } from 'vuetify/es5/components/transitions'
 import { mapGetters, mapActions } from 'vuex'
 import Navbar from './navbar/Navbar'
+import Search from './Search'
 import Floating from '../Floating'
 import VideoPlayer, { videoPlayer } from '../player/GlobalPlayer'
 
@@ -45,6 +47,7 @@ export default {
     components: {
         Loader,
         Navbar,
+        Search,
         VBtn,
         VIcon,
         VContent,
@@ -65,8 +68,12 @@ export default {
 <style lang="stylus">
   @import '../../stylus/main'
 
-  .button-float {
+  .el-float {
     position: fixed !important;
     z-index: 1000;
+  }
+
+  .el-right {
+      right: 0;
   }
 </style>
