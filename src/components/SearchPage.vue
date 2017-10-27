@@ -3,7 +3,7 @@
     <v-container class="page-container" grid-list-md>
       <v-layout row wrap>
         <v-flex offset-xs3 xs6>
-          <v-text-field name="search" :label="$t('search.search')" hide-details single-line append-icon="search"></v-text-field>
+          <v-text-field v-model="search" :label="$t('search.search')" hide-details single-line append-icon="search"></v-text-field>
           <div class="text-xs-center">
             <transition-group name="fade-transition">
               <v-chip v-for="tag in tags" :key="tag.id" class="white--text" :style="{ 'background-color': tag.color }" v-if="tag.value" @input="tag.value = false" close>
@@ -41,13 +41,24 @@
             <v-select :label="$t('search.sort_by')" bottom></v-select>
           </v-flex>
           <v-flex xs2>
-            <v-select :label="$t('search.status')" bottom></v-select>
+            <v-select :label="$t('search.status')" v-model="status" :items="animesStatus" clearable bottom></v-select>
           </v-flex>
           <v-flex xs2>
-            <v-select :label="$t('search.type')" bottom></v-select>
+            <v-select :label="$t('search.type')" v-model="type" :items="animesTypes" clearable bottom></v-select>
           </v-flex>
           <v-flex xs2>
-            <v-text-field :label="$t('search.author')" single-line></v-text-field>
+            <v-select :label="$t('search.author')"
+                autocomplete
+                multiple
+                :no-data-text="$t('search.nothing_found')"
+                :search-input.sync="searchAuthor"
+                :items="authorsResults"
+                item-text="name"
+                item-value="id"
+                v-model="selectedAuthors"
+                return-object
+                bottom
+            ></v-select>
           </v-flex>
         </v-layout>
         <v-layout row wrap>
@@ -57,10 +68,10 @@
         </v-layout>
       </div>
       <v-layout row wrap>
-        <v-flex v-for="result in results" :key="result.id">
+        <v-flex v-for="result in searchResults" :key="result.id" class="text-xs-center">
           <anime :value="result"></anime>
         </v-flex>
-        <v-flex class="filler" v-for="i in 24" :key="i"></v-flex>
+        <v-flex v-for="i in 24" :key="i"><div class="filler"></div></v-flex>
       </v-layout>
     </v-container>
   </div>
@@ -81,27 +92,76 @@ export default {
     return {
       showMore: false,
       dialog_tags: false,
-      tags: []
+      tags: [],
+      animesStatus: [],
+      animesTypes: ['ANIME', 'FILM'],
+
+      searchAuthorResults: [],
+      selectedAuthors: [],
+      searchAuthor: '',
+
+      searchResults: [],
+      search: "",
+      status: null,
+      type: null,
     }
   },
   computed: {
-    results() {
-      const array = [];
-      for(let i = 0; i < 50; i++) {
-        array.push({
-          id: i,
-          names: ['test' + i],
-          authors: [{ name: 'Test author' }],
-          cover: 'https://media.kitsu.io/anime/poster_images/6589/large.jpg?1416428763'
-        })
-      }
-      return array
+    authorsResults() {
+      const selectedAuthorsId = this.selectedAuthors.map(({ id }) => id)
+      const search = this.searchAuthorResults.filter(({ id }) => !selectedAuthorsId.includes(id));
+      return search.concat(this.selectedAuthors);
     }
   },
   apollo: {
     tags: {
       query: gql`{ tags { id name desc color } }`,
       update: ({ tags }) => tags.map(tag => Object.assign({}, tag, { value: false }))
+    },
+    animesStatus: {
+      query: gql`{
+          __type(name: "AnimeStatus") {
+            enumValues {
+              name
+            }
+          }
+        }`,
+      update: ({ __type: { enumValues }}) => enumValues
+        .map(e => e.name.split('_')
+          .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '))
+    },
+    searchResults: {
+      query: gql`
+        query searchAnimes($name: String, $status: AnimeStatus, $type: MediaType, $authors: [ID!], $year: Int, $tags: [ID!]) {
+          searchAnimes(name: $name, status: $status, type: $type, authors: $authors, year: $year, tags: $tags)
+          {
+            id
+            names
+            authors { name }
+            cover
+          }
+        }
+      `,
+      variables() {
+        return {
+          name: this.search,
+          status: this.status && this.status.toUpperCase().replace(/ /g, '_'),
+        }
+      },
+      update: ({ searchAnimes }) => searchAnimes
+    },
+    searchAuthorResults: {
+      query: gql`query ($name: String!) {
+        searchAuthor(name: $name) {
+          id name
+        }
+      }`,
+      variables() {
+        return {
+          name: this.searchAuthor || ''
+        }
+      },
+      update: ({ searchAuthor }) => searchAuthor
     }
   },
   components: {
@@ -124,6 +184,7 @@ export default {
         search: {
           more_options: 'Plus d\'options',
           less_options: 'Moins d\'options',
+          nothing_found: 'Aucun resultats',
           add_tags: 'Ajouter des tags',
           finish: 'Terminer',
           search: 'Rechercher',
@@ -138,6 +199,7 @@ export default {
         search: {
           more_options: 'More options',
           less_options: 'Less options',
+          nothing_found: 'Nothing found',
           add_tags: 'Add tags',
           finish: 'Ok',
           search: 'Search',
@@ -180,5 +242,6 @@ export default {
 
   .filler {
     width: $anime.width + $anime.padding * 2;
+    margin: 2px;
   }
 </style>

@@ -96,7 +96,7 @@ export default {
   apollo: {
     notifs_count: {
       query: gql`{ me { notifications { id } } }`,
-      update: ({ me }) => me.notifications.length
+      update: ({ me }) => (me && me.notifications.length) || -1
     }
   },
   components: {
