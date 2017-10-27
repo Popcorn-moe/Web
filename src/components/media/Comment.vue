@@ -8,7 +8,7 @@
         <div class="comment-container">
           <div class="username">
             {{ value.user }}
-            <h6>{{ value.date }}</h6>
+            <h6 class="date">{{ value.date }}</h6>
           </div>
           <p v-html="value.content"></p>
           <v-divider></v-divider>
@@ -91,7 +91,7 @@
 
     img {
       height: auto;
-      width: 80px;
+      width: 60px;
       float: right;
       border-radius 50%;
     }
@@ -111,7 +111,7 @@
           display: inline-block;
           width: auto;
           font-size: 10px;
-          color: #d5d5d5
+          color: #adadad
         }
       }
 
