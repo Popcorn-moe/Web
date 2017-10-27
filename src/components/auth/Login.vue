@@ -62,7 +62,7 @@
   import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
   import { login } from '../../utils/auth'
   import { mapActions } from 'vuex'
-  
+
   export default {
     data() {
         return {
@@ -120,6 +120,8 @@
         left: 10px;
         height: 35px;
     }
+    box-shadow: none;
+    margin-top: 20px;
     width: calc(100% - 16px);
   }
 
@@ -145,10 +147,11 @@
   }
 
   .login-button {
+    box-shadow: none;
     margin: 0 !important;
   }
 
   .auth-logo {
-    width: 110px;
+    width: 160px;
   }
 </style>

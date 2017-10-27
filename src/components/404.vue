@@ -10,7 +10,9 @@
             <v-container fill-height fluid>
               <v-layout fill-height>
                 <v-flex xs12 align-end flexbox>
-                  <h1 class="headline"> 404 !</h1>
+                  <h1 class="err">404</h1>
+                  <h2 class="main-message" v-t="'not_found.main_message'"></h2>
+                  <h3 class="sub-message" v-t="'not_found.sub_message'"></h3>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -50,6 +52,22 @@ export default {
     VCardMedia,
     VBtn,
     VIcon
+  },
+  i18n: {
+    messages: {
+      fr: {
+        not_found: {
+          main_message: 'La page que vous cherchez n\'existe pas.',
+          sub_message: 'Encore un tour des pinguins unijambistes de l\'espace...'
+        }
+      },
+      en: {
+        not_found: {
+          main_message: 'The page you are searching for can\'t be found.',
+          sub_message: 'That\'s your fault. Baka.'
+        }
+      }
+    }
   }
 }
 </script>
@@ -68,6 +86,18 @@ export default {
     iframe {
       width: 100%;
       height: 400px;
+    }
+
+    .err {
+      font-size: 24px;
+    }
+
+    .main-message {
+      font-size: 20px;
+    }
+
+    .sub-message {
+      font-size: 14px;
     }
   }
 </style>

@@ -108,13 +108,15 @@
       left: 10px;
       height: 35px;
     }
+    box-shadow: none;
+    margin-top: 20px;
     width: calc(100% - 16px);
   }
 
   .fields-container {
 
     background-color: rgba(255, 255, 255, 0.71);
-    .inputs{
+    .inputs {
       padding-top: 15px;
       padding-bottom: 15px;
       padding-left: 50px !important;
@@ -133,6 +135,7 @@
   }
 
   .login-button {
+    box-shadow: none;
     margin: 0 !important;
   }
 </style>
