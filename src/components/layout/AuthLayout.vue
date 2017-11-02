@@ -3,6 +3,9 @@
     <v-btn fab @click.stop="$router.go(-1)" class="button-float main-color" small>
       <v-icon>arrow_back</v-icon>
     </v-btn>
+    <v-btn fab @click.stop="$apollo.queries.moe.refetch()" class="button-float button-right main-color" small>
+      <v-icon>refresh</v-icon>
+    </v-btn>
     <main>
       <div class="auth-root" :style="{ 'background-image': `url(${this.moe})` }">
         <v-fade-transition mode="out-in">
@@ -21,7 +24,7 @@
   export default {
     data() {
       return {
-        moe: ''
+        moe: '/static/fallback_background.jpg'
       }
     },
     components: {
@@ -29,11 +32,10 @@
       VIcon,
       VFadeTransition
     },
-    apollo    : {
+    apollo: {
       moe: {
-        query : gql`{ moe(moe: "background") { url } }`,
-        update: ({ moe: { url } }) => url,
-        error(err) { this.moe = '/static/fallback_background.jpg' } //fallback & silent fail
+        query: gql`{ moe(moe: "background") { url } }`,
+        update: ({ moe: { url } }) => url
       }
     }
   }
@@ -45,6 +47,10 @@
   .button-float {
     position: fixed !important;
     z-index: 1000;
+  }
+
+  .button-right {
+    right: 0;
   }
 
   .auth-root {
