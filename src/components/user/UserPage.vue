@@ -20,7 +20,7 @@
         <v-container>
           <div class="tabs__items">
             <v-tabs-content lazy id="profile">
-              1
+              <user-profile></user-profile>
             </v-tabs-content>
             <v-tabs-content lazy id="library">
               <user-library></user-library>
@@ -41,6 +41,7 @@
 import UserSettings from './SettingsPage.vue'
 import UserLibrary from './LibraryPage.vue'
 import UserFriends from './FriendsPage.vue'
+import UserProfile from './ProfilePage.vue'
 
 import VTabs from 'vuetify/es5/components/VTabs'
 import VTabsBar from 'vuetify/es5/components/VTabs/VTabsBar'
@@ -67,7 +68,8 @@ export default
     VLayout,
     UserLibrary,
     UserSettings,
-    UserFriends
+    UserFriends,
+    UserProfile
   },
   apollo: {
     me: {
@@ -89,6 +91,9 @@ export default
     width: 100%;
     height: 300px;
     background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
+    -moz-box-shadow: inset 0 -50px 75px 0px #000000;
+    -webkit-box-shadow: inset 0 -50px 75px 0px #000000;
+    box-shadow: inset 0 -50px 60px -35px #000000;
   }
 
   .user-cover {
@@ -108,12 +113,16 @@ export default
   {
     transform: translateY(-100%);
 
+    a {
+      color: white !important;
+    }
+
     .tabs__bar {
       background-color: transparent;
     }
 
     .tabs__wrapper {
-      margin: 0px 10px !important;
+      margin: 0 10px !important;
     }
 
     .right {
@@ -122,11 +131,17 @@ export default
 
     .active {
       color: white !important;
+      font-weight bold;
       background: linear-gradient(transparent, $main-color);
     }
   }
 
   .application--dark {
+    .user-page-banner {
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
     .user-cover {
       border-color: $grey.darken-3;
     }
