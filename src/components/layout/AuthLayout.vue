@@ -21,7 +21,7 @@
   export default {
     data() {
       return {
-        moe    : ''
+        moe: ''
       }
     },
     components: {
@@ -31,8 +31,9 @@
     },
     apollo    : {
       moe: {
-        query: gql`{ moe(moe: "background") { url } }`,
-        update: ({ moe: { url } }) => url
+        query : gql`{ moe(moe: "background") { url } }`,
+        update: ({ moe: { url } }) => url,
+        error(err) { this.moe = '/static/fallback_background.jpg' } //fallback & silent fail
       }
     }
   }
