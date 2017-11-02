@@ -17,7 +17,7 @@
             </div>
           </v-flex>
         </v-layout>
-        <v-container>
+        <v-container fluid>
           <div class="tabs__items">
             <v-tabs-content lazy id="profile">
               <user-profile></user-profile>

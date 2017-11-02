@@ -1,17 +1,17 @@
 <template>
   <div class="anime-list">
         <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
-            <anime 
-                v-for="(anime, i) in value" 
+            <anime
+                v-for="(anime, i) in value"
                 :key="anime.id"
                 v-if="i <= maxIndex + elemsPerLine"
                 :value="anime"></anime>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" v-if="index > 0" fab @click="index--">
+        <v-btn class="nav-button nav-left main-color--text" v-if="index > elemsPerLine" fab @click="index--">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" v-if="index < value.length" fab @click="++index > maxIndex ? ++maxIndex : 1">
+        <v-btn class="nav-button nav-right main-color--text" v-if="index < value.length - elemsPerLine" fab @click="++index > maxIndex ? ++maxIndex : 1">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
     </div>
@@ -73,7 +73,7 @@ export default {
         position: absolute;
         top: $anime.img-height * 0.5 - $anime.img-border;
         transform: translateX(-50%);
-        z-index: 3;
+        z-index: 2;
 
         &.nav-left {
             left: 28px;

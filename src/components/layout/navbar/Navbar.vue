@@ -55,7 +55,7 @@
           </div>
         </v-slide-x-transition>
       </div>
-      <div class="nav-bottom bottom">
+      <div class="bottom">
         <v-divider></v-divider>
         <v-layout row>
           <v-flex xs4 offset-xs1>
@@ -152,17 +152,11 @@ export default {
   @import '../../../stylus/main.styl';
 
   .nav-content {
-    height calc(100vh - 57px) !important;
-    min-height calc(100% - 57px) !important;
-    overflow-y auto;
+    min-height: calc(100% - 57px) !important;
+    overflow-y: auto;
   }
-
-  .nav-bottom {
-    height 53px;
-  }
-
   .navigation-drawer {
-    padding-bottom 0 !important;
+    padding-bottom: 0 !important;
   }
 
   .badge__badge {
@@ -174,7 +168,6 @@ export default {
   }
 
   .bottom {
-    position: absolute;
     bottom: 5px;
     width: 100%;
     .input-group__details {
