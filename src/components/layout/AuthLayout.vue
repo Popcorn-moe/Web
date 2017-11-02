@@ -31,7 +31,7 @@
     },
     apollo    : {
       moe: {
-        query: gql`{ moe(moe: "auth_background") { url } }`,
+        query: gql`{ moe(moe: "background") { url } }`,
         update: ({ moe: { url } }) => url
       }
     }

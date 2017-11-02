@@ -62,7 +62,6 @@
   export default {
     data() {
       return {
-        mobile             : false,
         login              : '',
         email              : '',
         password           : '',
