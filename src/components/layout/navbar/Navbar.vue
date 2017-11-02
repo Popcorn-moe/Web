@@ -7,54 +7,55 @@
       disable-route-watcher
       app
     >
-      <v-slide-x-transition mode="out-in">
-        <notifications @close="notifications = false" @input="value => $emit('input', value)"  v-if="notifications"></notifications>
-        <div v-else key="menu">
-          <v-layout row wrap class="text-xs-center no-margin">
-            <v-flex xs3>
-              <v-btn icon @click.stop="$emit('input', !value)">
-                <v-icon>menu</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex xs6>
-              <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
-            </v-flex>
-            <v-flex xs3>
-              <v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">
-                <v-badge overlay v-if="notifs_count > 0">
-                  <span slot="badge" v-html="notifs_count"></span>
-                  <v-icon>notifications</v-icon>
-                </v-badge>
-                <v-icon v-if="notifs_count == 0">notifications</v-icon>
-              </v-btn>
-            </v-flex>
-          </v-layout>
+      <div class="nav-content">
+        <v-slide-x-transition mode="out-in">
+          <notifications @close="notifications = false" @input="value => $emit('input', value)"  v-if="notifications"></notifications>
+          <div v-else key="menu" style="">
+            <v-layout row wrap class="text-xs-center no-margin">
+              <v-flex xs3>
+                <v-btn icon @click.stop="$emit('input', !value)">
+                  <v-icon>menu</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex xs6>
+                <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
+              </v-flex>
+              <v-flex xs3>
+                <v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">
+                  <v-badge overlay v-if="notifs_count > 0">
+                    <span slot="badge" v-html="notifs_count"></span>
+                    <v-icon>notifications</v-icon>
+                  </v-badge>
+                  <v-icon v-if="notifs_count == 0">notifications</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
 
-          <auth-menu v-if="isAuth"></auth-menu>
-          <v-layout v-else row wrap class="text-xs-center no-margin">
-            <v-flex xs6>
-              <v-btn outline small @click.stop="$router.push({ name: 'Login' })" v-t="'navbar.login'"></v-btn>
-            </v-flex>
-            <v-flex xs6>
-              <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })" v-t="'navbar.signup'"></v-btn>
-            </v-flex>
-          </v-layout>
-          <v-list>
-            <v-list-tile
-              v-for="(route, i) in routes.filter(r => !r.hide)"
-              :key="i"
-              :to="route.path"
-            >
-              <v-list-tile-action>
-                <v-icon v-html="route.icon"></v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content v-t="route.t"></v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </div>
-      </v-slide-x-transition>
-
-      <div class="bottom">
+            <auth-menu v-if="isAuth"></auth-menu>
+            <v-layout v-else row wrap class="text-xs-center no-margin">
+              <v-flex xs6>
+                <v-btn outline small @click.stop="$router.push({ name: 'Login' })" v-t="'navbar.login'"></v-btn>
+              </v-flex>
+              <v-flex xs6>
+                <v-btn outline small class="main-color--text" @click.stop="$router.push({ name: 'SignUp' })" v-t="'navbar.signup'"></v-btn>
+              </v-flex>
+            </v-layout>
+            <v-list>
+              <v-list-tile
+                v-for="(route, i) in routes.filter(r => !r.hide)"
+                :key="i"
+                :to="route.path"
+              >
+                <v-list-tile-action>
+                  <v-icon v-html="route.icon"></v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content v-t="route.t"></v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </div>
+        </v-slide-x-transition>
+      </div>
+      <div class="nav-bottom bottom">
         <v-divider></v-divider>
         <v-layout row>
           <v-flex xs4 offset-xs1>
@@ -149,6 +150,20 @@ export default {
 
 <style lang="stylus">
   @import '../../../stylus/main.styl';
+
+  .nav-content {
+    height calc(100vh - 57px) !important;
+    min-height calc(100% - 57px) !important;
+    overflow-y auto;
+  }
+
+  .nav-bottom {
+    height 53px;
+  }
+
+  .navigation-drawer {
+    padding-bottom 0 !important;
+  }
 
   .badge__badge {
     right: -10px !important;
