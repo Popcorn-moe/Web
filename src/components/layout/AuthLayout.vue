@@ -4,7 +4,7 @@
       <v-icon>arrow_back</v-icon>
     </v-btn>
     <main>
-      <div class="auth-root">
+      <div class="auth-root" :style="{ 'background-image': `url(${this.moe})` }">
         <v-fade-transition mode="out-in">
           <router-view class="auth-center"></router-view>
         </v-fade-transition>
@@ -16,12 +16,24 @@
 <script>
   import { VBtn, VIcon } from 'vuetify/es5/components'
   import { VFadeTransition } from 'vuetify/es5/components/transitions'
+  import gql from 'graphql-tag'
 
   export default {
+    data() {
+      return {
+        moe    : ''
+      }
+    },
     components: {
       VBtn,
       VIcon,
       VFadeTransition
+    },
+    apollo    : {
+      moe: {
+        query: gql`{ moe(moe: "auth_background") { url } }`,
+        update: ({ moe: { url } }) => url
+      }
     }
   }
 </script>
@@ -38,7 +50,9 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url(/static/auth-background.jpg) no-repeat center center fixed;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
     background-size: cover;
 
     @media (max-width: 600px) {

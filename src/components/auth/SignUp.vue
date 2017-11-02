@@ -80,13 +80,6 @@
       VFlex,
       VLayout
     },
-    monted() {
-      console.log('ready')
-      window.addEventListener('resize', this.handleResize)
-    },
-    beforeDestroy() {
-      window.removeEventListener('resize', this.handleResize)
-    },
     methods   : {
       ...mapActions({
                       setIsAuth: 'setIsAuth'
@@ -104,10 +97,6 @@
             this.setIsAuth(true)
           })
         }
-      },
-      handleResize() {
-        this.mobile = document.documentElement.clientHeight <= 600
-        console.log(this.mobile)
       }
     }
   }
