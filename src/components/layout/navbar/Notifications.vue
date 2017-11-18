@@ -84,7 +84,7 @@ export default {
                           type
                           ... on NotifMessageContent { message }
                           ... on NotifFriendRequestContent { _from { id login avatar } }
-                          ... on NotifFollowContent { anime { id names} }
+                          ... on NotifAnimeFollowContent { anime { id names cover} }
                         }
                       }
                    }`,
