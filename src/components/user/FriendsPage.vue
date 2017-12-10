@@ -18,7 +18,7 @@
         ></v-select>
       </v-flex>
       <v-flex xs1>
-        <v-btn fab dark small color="primary">
+        <v-btn fab dark small color="primary" @click.stop="inviteFriends()">
           <v-icon>add</v-icon>
         </v-btn>
       </v-flex>
@@ -60,7 +60,7 @@
                               </v-avatar>
                             </v-flex>
                             <v-flex xs9 class="text">
-                              <v-btn small icon class="delete"><v-icon>delete</v-icon></v-btn>
+                              <v-btn small icon class="delete" @click.stop="removeFriend(friend.id)"><v-icon>delete</v-icon></v-btn>
                               <h6>{{ friend.login }}</h6>
                               <div>{{ "STATUS" }}</div>
                             </v-flex>
@@ -76,13 +76,13 @@
                           <v-layout>
                             <v-flex xs3>
                               <v-avatar size="75px" class="avatar">
-                                <img :src="friend.avatar" :alt="friend.login">
+                                <img :src="friend._from.avatar" :alt="friend._from.login">
                               </v-avatar>
                             </v-flex>
                             <v-flex xs9 class="text">
-                              <v-btn small icon class="delete" @click.stop=""><v-icon>delete</v-icon></v-btn>
-                              <h6>{{ friend.login }}</h6>
-                              <v-btn small primary block>
+                              <v-btn small icon class="delete" @click.stop="delNotification(friend.id)"><v-icon>delete</v-icon></v-btn>
+                              <h6>{{ friend._from.login }}</h6>
+                              <v-btn small primary block @click.stop="acceptFriendRequest(friend.id)">
                                 ACCEPTER
                               </v-btn>
                             </v-flex>
@@ -93,17 +93,17 @@
                   </v-tabs-content>
                   <v-tabs-content lazy id="pending">
                     <v-layout row wrap>
-                      <v-flex v-for="friend in pendingFriendRequests" :key="friend.id" xs6>
+                      <v-flex v-for="pending in pendingFriendRequests" :key="pending.id" xs6>
                         <div class="friend elevation-3">
                           <v-layout>
                             <v-flex xs3>
                               <v-avatar size="75px" class="avatar">
-                                <img :src="friend.avatar" :alt="friend.login">
+                                <img :src="pending.user.avatar" :alt="pending.user.login">
                               </v-avatar>
                             </v-flex>
                             <v-flex xs9 class="text">
-                              <h6>{{ friend.login }}</h6>
-                              <v-btn small primary block>
+                              <h6>{{ pending.user.login }}</h6>
+                              <v-btn small primary block @click.stop="delNotification(pending.id)">
                                 ANNULER
                               </v-btn>
                             </v-flex>
@@ -145,12 +145,74 @@ export default {
     }
   },
   methods: {
+    acceptFriendRequest(id) {
+      this.$apollo.mutate({
+        mutation: gql`
+            mutation acceptFriendRequest($notif: ID!) {
+                acceptFriendRequest(notif: $notif) {
+                    error
+                }
+            }
+          `,
+        variables: {
+          notif: id
+        }
+      }).then(() => {
+        this.$apollo.queries.friendRequests.refetch()
+        this.$apollo.queries.me.refetch()
+      });
+    },
+    removeFriend(id) {
+      this.$apollo.mutate({
+        mutation: gql`
+            mutation delFriend($friend: ID!)
+            {
+              delFriend(friend: $friend)
+            }
+          `,
+        variables: {
+          friend: id
+        }
+      }).then(() => this.$apollo.queries.me.refetch());
+    },
+    delNotification(id) {
+      this.$apollo.mutate({
+        mutation: gql`
+            mutation delNotification($notif: ID!) {
+                delNotification(notif: $notif) {
+                    error
+                }
+            }
+          `,
+        variables: {
+          notif: id
+        }
+      }).then(() => this.$apollo.queries.pendingFriendRequests.refetch());
+    },
+    inviteFriends() {
+      this.$apollo.mutate({
+        mutation: gql`
+            mutation sendFriendsRequests($to: [ID!]!)
+            {
+              sendFriendsRequests(to: $to)
+            }
+          `,
+        variables: {
+          to: this.selectedFriends.map(({ id }) => id)
+        }
+      }).then(() =>{
+        this.$apollo.queries.pendingFriendRequests.refetch()
+        this.searchUser = [];
+        this.selectedFriends = [];
+      })
+    }
   },
   computed: {
     searchResults() {
       const friendsId = this.me.friends.map(({ id }) => id)
+      const friendsRequestsId = this.pendingFriendRequests.map(({ user }) => user.id)
       const selectedFriendsId = this.selectedFriends.map(({ id }) => id)
-      const search = this.searchUser.filter(({ id }) => !selectedFriendsId.includes(id) && !friendsId.includes(id) )
+      const search = this.searchUser.filter(({ id }) => !selectedFriendsId.includes(id) && !friendsId.includes(id) && !friendsRequestsId.includes(id) && id !== this.me.id)
       return search.concat(this.selectedFriends)
     }
   },
@@ -177,15 +239,15 @@ export default {
   },
   apollo: {
     me: {
-      query: gql`{ me { friends { id login avatar } } }`,
+      query: gql`{ me { id friends { id login avatar } } }`,
       update: ({ me }) => me
     },
     friendRequests: {
-      query: gql`{ friendRequests { login id avatar } }`,
+      query: gql`{ friendRequests { id _from { login id avatar } } }`,
       update: ({ friendRequests }) => friendRequests
     },
     pendingFriendRequests: {
-      query: gql`{ pendingFriendRequests { login id avatar } }`,
+      query: gql`{ pendingFriendRequests { id user { login id avatar } } }`,
       update: ({ pendingFriendRequests }) => pendingFriendRequests
     },
     searchUser: {

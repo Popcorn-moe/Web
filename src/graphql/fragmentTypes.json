@@ -33,13 +33,13 @@
         "name": "Notification",
         "possibleTypes": [
           {
+            "name": "NotifFriendRequestContent"
+          },
+          {
             "name": "NotifMessageContent"
           },
           {
-            "name": "NotifFollowContent"
-          },
-          {
-            "name": "NotifFriendRequestContent"
+            "name": "NotifAnimeFollowContent"
           }
         ]
       }
