@@ -221,4 +221,21 @@ export default {
       }
     }
   }
+
+  .application--dark {
+
+    .infos {
+      background-color: #363636 !important;
+    }
+
+    .meta-date {
+      background-color: #181818 !important;
+    }
+
+    .timeline-elem {
+      .content {
+        background-color: #363636 !important;
+      }
+    }
+  }
 </style>
