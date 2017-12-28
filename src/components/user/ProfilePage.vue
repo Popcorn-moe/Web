@@ -30,7 +30,7 @@
         </v-container>
         <div class="timeline">
           <div class="line"></div>
-          <div v-for="(day, k) in timeline()" :key="k" class="timeline-elem">
+          <div v-for="(day, k) in timeline" :key="k" class="timeline-elem">
             <div class="date-content">
               <div v-for="event in day" :key="event.id" class="content elevation-1">
                 <p v-show="event.type == 'MESSAGE' ">{{ event.message }}</p>
@@ -43,7 +43,6 @@
         </div>
       </v-flex>
     </v-layout>
-
   </v-container>
 </template>
 
@@ -119,19 +118,21 @@ export default {
     isMe() {
       return this.user.id === this.me.id
     },
-    timeline() {
-      const days = [];
-      const out = {};
-      this.events.forEach(({ date }) => days.indexOf(date) === -1 && days.push(date));
-      days.sort((a, b) => new Date(b).getTime() > new Date(a).getTime());
-      days.forEach(d => out[d] = this.events.filter(({ date }) => date === d));
-      return out;
-    },
     dateFormat(date) {
       return {
         day: dateformat(date, 'd'),
         month: dateformat(date, 'mmm') + '.'
       }
+    }
+  },
+  computed: {
+    timeline() {
+      const days = [];
+      const out = {};
+      this.events.forEach(({ date }) => days.indexOf(date) === -1 && days.push(date));
+      days.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+      days.forEach(d => out[d] = this.events.filter(({ date }) => date === d));
+      return out;
     }
   },
   components: {
