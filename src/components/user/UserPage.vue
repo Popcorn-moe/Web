@@ -1,10 +1,10 @@
 <template>
     <div>
       <div class="user-page-banner"></div>
-      <v-tabs class="user-tabs" :value="page" @input="value => this.$router.push({ name: 'User', params: { page: value }})">
+      <v-tabs class="user-tabs" :value="page" @input="value => this.$router.push({ name: $route.name, params: Object.assign({}, $route.params, { page: value })})">
         <v-layout>
           <v-flex offset-xs1 xs2>
-            <img class="user-cover elevation-4" :src="me.avatar">
+            <img class="user-cover elevation-4" :src="user.avatar">
           </v-flex>
           <v-flex xs9>
             <div class="user-top-nav">
@@ -12,7 +12,7 @@
                 <v-tabs-item activeClass="active" href="#profile">Profile</v-tabs-item>
                 <v-tabs-item activeClass="active" href="#library">Library</v-tabs-item>
                 <v-tabs-item activeClass="active" href="#friends">Friends</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#settings" class="right">Settings</v-tabs-item>
+                <v-tabs-item activeClass="active" href="#settings" class="right" v-if="isMe()">Settings</v-tabs-item>
               </v-tabs-bar>
             </div>
           </v-flex>
@@ -20,15 +20,15 @@
         <v-container fluid>
           <div class="tabs__items">
             <v-tabs-content lazy id="profile">
-              <user-profile></user-profile>
+              <user-profile :userId="user.id"></user-profile>
             </v-tabs-content>
             <v-tabs-content lazy id="library">
-              <user-library></user-library>
+              <!--<user-library></user-library>-->
             </v-tabs-content>
             <v-tabs-content lazy id="friends">
-              <user-friends></user-friends>
+              <user-friends :userId="user.id"></user-friends>
             </v-tabs-content>
-            <v-tabs-content lazy id="settings">
+            <v-tabs-content lazy id="settings" v-if="isMe()">
               <user-settings></user-settings>
             </v-tabs-content>
           </div>
@@ -52,9 +52,11 @@ import gql from 'graphql-tag'
 
 export default
 {
-  props: ['page'],
+  name: 'user-page',
+  props: ['page', 'userLogin'],
   data() {
       return {
+        user: {},
         me: {}
       }
   },
@@ -71,13 +73,34 @@ export default
     UserFriends,
     UserProfile
   },
+  methods: {
+    isMe() {
+      return this.user.id === this.me.id
+    }
+  },
   apollo: {
     me: {
-      query: gql`{ me { avatar } }`,
-      update({ me }) {
-        if(!me)
+      query: gql`{ me { id } }`,
+      update: ({ me }) => me
+    },
+    user: {
+      query() {
+        return !this.userLogin
+          ? gql`{ me { id avatar } }`
+          : gql`
+              query user($name: String!) {
+                user(name: $name) { id avatar }
+              }`;
+      },
+      variables() {
+        return {
+          name: this.userLogin ? this.userLogin : ''
+        }
+      },
+      update({ me, user }) {
+        if(!me && !user)
           this.$router.replace({ name: 'Login' });
-        else return me;
+        else return user ? user : me;
       }
     }
   },

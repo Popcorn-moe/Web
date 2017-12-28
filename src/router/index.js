@@ -77,6 +77,13 @@ export const routes = [
   },
   {
     hide: true,
+    name: 'Account',
+    path: '/user/:userLogin/:page(profile|library|friends|settings)',
+    component: () => import('../components/user/UserPage'),
+    props: true
+  },
+  {
+    hide: true,
     name: 'Translations',
     path: '/translations',
     component: () => import('../components/Translations')

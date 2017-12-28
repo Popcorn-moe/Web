@@ -20,7 +20,13 @@
       <v-list class="search-results" v-if="result.users.length || result.animes.length">
         <template v-if="result.users.length">
           <v-subheader inset>Users</v-subheader>
-          <v-list-tile avatar v-for="user in result.users" :key="user.id">
+          <v-list-tile
+            avatar
+            v-for="user in result.users"
+            :key="user.id"
+            :to="{ name: 'Account', params: { userLogin: user.login, page: 'profile' } }"
+            @click.stop="toggled = false"
+          >
             <v-list-tile-avatar>
               <img :src="user.avatar">
             </v-list-tile-avatar>

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md>
-    <v-layout class="text-xs-center">
+    <v-layout class="text-xs-center" v-if="isMe()">
       <v-flex offset-xs2 xs8>
         <v-select
           label="Search Friends"
@@ -23,7 +23,22 @@
         </v-btn>
       </v-flex>
     </v-layout>
-    <v-tabs class="friends-tabs">
+    <v-flex v-for="friend in user.friends" :key="friend.id" v-if="!isMe()" xs6>
+      <div class="friend elevation-3">
+        <v-layout>
+          <v-flex xs3>
+            <v-avatar size="75px" class="avatar">
+              <img :src="friend.avatar" :alt="friend.login">
+            </v-avatar>
+          </v-flex>
+          <v-flex xs9 class="text">
+            <h6>{{ friend.login }}</h6>
+            <div>{{ "STATUS" }}</div>
+          </v-flex>
+        </v-layout>
+      </div>
+    </v-flex>
+    <v-tabs class="friends-tabs" v-if="isMe()">
       <v-layout>
         <v-flex xs3>
           <v-list class="friends-tabs-list elevation-3">
@@ -133,9 +148,13 @@ import gql from 'graphql-tag'
 
 export default {
   name: "user_friends",
+  props: {
+    userId: String
+  },
   data() {
     return {
       currTab: "friends",
+      user: { login: "UNKNOWN", friends: [] },
       me: { friends: [] },
       friendRequests: [],
       pendingFriendRequests: [],
@@ -145,6 +164,9 @@ export default {
     }
   },
   methods: {
+    isMe() {
+      return this.user.id === this.me.id
+    },
     acceptFriendRequest(id) {
       this.$apollo.mutate({
         mutation: gql`
@@ -239,8 +261,23 @@ export default {
   },
   apollo: {
     me: {
-      query: gql`{ me { id friends { id login avatar } } }`,
+      query: gql`{ me { id friends { id avatar login } } }`,
       update: ({ me }) => me
+    },
+    user: {
+      query() {
+        return gql`
+          query userById($id: ID!) {
+            userById(id: $id) { id friends { id avatar login } }
+          }
+        `;
+      },
+      variables() {
+        return {
+          id: this.userId
+        }
+      },
+      update: ({ userById }) => userById
     },
     friendRequests: {
       query: gql`{ friendRequests { id _from { login id avatar } } }`,
@@ -257,7 +294,6 @@ export default {
         }
       }`,
       variables() {
-        console.log(this.search)
         return {
           name: this.search || ''
         }
