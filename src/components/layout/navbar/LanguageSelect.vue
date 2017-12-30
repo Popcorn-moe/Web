@@ -19,7 +19,7 @@
         <img class="language-flag" :src="`https://cdn.rawgit.com/lipis/flag-icon-css/fe79c175/flags/1x1/${MAP[data.item] || data.item }.svg`"/>
       </v-list-tile-avatar>
       <v-list-tile-content>
-        <v-list-tile-title v-html="data.item"></v-list-tile-title>
+        <v-list-tile-title v-html="data.item" ></v-list-tile-title>
       </v-list-tile-content>
     </template>
   </v-select>

@@ -10,7 +10,7 @@
             <v-icon>arrow_back</v-icon>
         </v-btn>
         <v-text-field
-          label="Search"
+          :label="$t('quick_search.search')"
           prepend-icon="search"
           hide-details
           single-line
@@ -19,7 +19,7 @@
       </v-toolbar>
       <v-list class="search-results" v-if="result.users.length || result.animes.length">
         <template v-if="result.users.length">
-          <v-subheader inset>Users</v-subheader>
+          <v-subheader inset v-t="'quick_search.users'"></v-subheader>
           <v-list-tile
             avatar
             v-for="user in result.users"
@@ -110,6 +110,22 @@ export default {
       update: data => data
     }
   },
+  i18n: {
+    messages: {
+      fr: {
+        quick_search: {
+          search: 'Rechercher',
+          users: 'Utilisateurs',
+        }
+      },
+      en: {
+        quick_search: {
+          search: 'Search',
+          users: 'Users',
+        }
+      }
+    }
+  }
 }
 </script>
 

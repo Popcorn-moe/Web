@@ -122,7 +122,7 @@
         en: {
           login: {
             connect_with: 'Connect With :',
-            connect: 'Connection',
+            connect: 'Sign in',
             sign_up: 'Sign up',
             login: 'E-mail / Login',
             password: 'Password'
