@@ -5,7 +5,7 @@
         <div class="top-logo text-xs-center">
           <object data="/static/logo-animated.svg" type="image/svg+xml" class="itop-logo"></object>
         </div>
-        <h1 class="buttons-title">S'inscrire avec :</h1>
+        <h1 class="buttons-title" v-t="'sign_up.sign_up_with'"></h1>
         <div class="social-buttons">
           <v-btn class="social-button google-color" large light block @click.stop="signup('google')">
             <img src="/static/icons/google-icon.svg">
@@ -27,26 +27,25 @@
       </v-flex>
       <v-flex class="fields-container" sm8 xs12>
         <div class="inputs">
-          <v-text-field v-model="login" label="Pseudo" light></v-text-field>
-          <v-text-field v-model="email" label="E-mail" light></v-text-field>
-          <v-text-field label="Mot de passe" light
+          <v-text-field v-model="login" :label="$t('sign_up.login')" light></v-text-field>
+          <v-text-field v-model="email" :label="$t('sign_up.mail')" light></v-text-field>
+          <v-text-field :label="$t('sign_up.password')" light
                         v-model="password"
                         :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
                         :append-icon-cb="() => (hidePassword = !hidePassword)"
                         :type="hidePassword ? 'password' : 'text'"></v-text-field>
-          <v-text-field label="Mot de passe" light
+          <v-text-field :label="$t('sign_up.password')" light
                         v-model="passwordConfirm"
                         :append-icon="hidePasswordConfirm ? 'visibility' : 'visibility_off'"
                         :append-icon-cb="() => (hidePasswordConfirm = !hidePasswordConfirm)"
                         :type="hidePasswordConfirm ? 'password' : 'text'"></v-text-field>
-          <v-checkbox label="Recevoir les newsletter" v-model="newsletter" light></v-checkbox>
+          <v-checkbox :label="$t('sign_up.newsletter')" v-model="newsletter" light></v-checkbox>
           <div class="text-xs-center">
-            <v-btn class="login-button secondary-color black--text" large light @click.stop="signup()">S'inscrire
-            </v-btn>
+            <v-btn class="login-button secondary-color black--text" large light @click.stop="signup()" v-t="'sign_up.sign_up'"></v-btn>
           </div>
         </div>
         <div class="link-container">
-          <router-link replace :to="{ name: 'Login' }" light>Se connecter</router-link>
+          <router-link replace :to="{ name: 'Login' }" light v-t="'sign_up.sign_in'"></router-link>
         </div>
       </v-flex>
     </v-layout>
@@ -96,6 +95,32 @@
             this.setIsAuth(true)
           })
         }
+      }
+    },
+    i18n: {
+      messages: {
+        fr: {
+          sign_up: {
+            sign_up_with: 'S\'inscrire avec :',
+            sign_up: 'S\'inscrire',
+            login: 'Pseudo',
+            mail: 'E-mail',
+            password: 'Mot de passe',
+            newsletter: 'Recevoir les newsletter',
+            sign_in: 'Se connecter'
+          }
+        },
+        en: {
+          sign_up: {
+            sign_up_with: 'Sign up with :',
+            sign_up: 'Sign up',
+            login: 'Login',
+            mail: 'E-mail',
+            password: 'Password',
+            newsletter: 'Get newsletter',
+            sign_in: 'Sign in'
+          }
+        },
       }
     }
   }
