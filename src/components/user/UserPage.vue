@@ -9,10 +9,10 @@
           <v-flex xs9>
             <div class="user-top-nav">
               <v-tabs-bar>
-                <v-tabs-item activeClass="active" href="#profile" >{{ $t('user_page.profile') }}</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#library" >{{ $t('user_page.library') }}</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#friends" >{{ $t('user_page.friends') }}</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#settings" class="right" v-if="isMe()">{{ $t('user_page.settings') }}</v-tabs-item>
+                <v-tabs-item activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tabs-item>
+                <v-tabs-item activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tabs-item>
+                <v-tabs-item activeClass="active" href="#friends" >{{ $t('route.auth.friends') }}</v-tabs-item>
+                <v-tabs-item activeClass="active" href="#settings" class="right" v-if="isMe()">{{ $t('route.auth.settings') }}</v-tabs-item>
               </v-tabs-bar>
             </div>
           </v-flex>
@@ -101,26 +101,6 @@ export default
         if(!me && !user)
           this.$router.replace({ name: 'Login' });
         else return user ? user : me;
-      }
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        user_page: {
-          profile: 'Profil',
-          library: 'Librairie',
-          friends: 'Amis',
-          settings: 'Paramètres'
-        }
-      },
-      en: {
-        user_page: {
-          profile: 'Profile',
-          library: 'Library',
-          friends: 'Friends',
-          settings: 'Settings'
-        }
       }
     }
   }

@@ -17,7 +17,7 @@
                     <v-icon>face</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Profile</v-list-tile-title>
+                    <v-list-tile-title v-t="'route.auth.profile'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile :to="{ name: 'User', params: { page: 'library' }}">
@@ -25,7 +25,7 @@
                     <v-icon>local_library</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Librairie</v-list-tile-title>
+                    <v-list-tile-title v-t="'route.auth.library'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
             <v-list-tile :to="{ name: 'User', params: { page: 'friends' }}">
@@ -33,7 +33,7 @@
                 <v-icon>group</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>Friends</v-list-tile-title>
+                <v-list-tile-title v-t="'route.auth.friends'"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile :to="{ name: 'User', params: { page: 'settings' }}">
@@ -41,12 +41,10 @@
                     <v-icon>settings</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title>Settings</v-list-tile-title>
+                    <v-list-tile-title v-t="'route.auth.settings'"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <li class="text-xs-right user-logout" @click.stop="logout()">
-                Se deconnecter
-            </li>
+            <li class="text-xs-right user-logout" @click.stop="logout()" v-t="'route.auth.logout'"></li>
         </v-list-group>
     </v-list>
 </template>

@@ -10,14 +10,28 @@ const i18n = new VueI18n({
       route: {
         index: 'Index',
         search: 'Search',
-        news: 'News'
+        news: 'News',
+        auth: {
+          profile: 'Profile',
+          library: 'Library',
+          friends: 'Friends',
+          settings: 'Settings',
+          logout: 'Logout'
+        }
       }
     },
     fr: {
       route: {
         index: 'Accueil',
         search: 'Rechercher',
-        news: 'Nouveautés'
+        news: 'Nouveautés',
+        auth: {
+          profile: 'Profil',
+          library: 'Librairie',
+          friends: 'Amis',
+          settings: 'Paramètres',
+          logout: 'Se deconnecter'
+        }
       }
     }
   },
@@ -34,7 +48,7 @@ function _translate(messages, locale, fallback, key, host, interpolateMode, args
   let res = this._interpolate(locale, messages[locale], key, host, interpolateMode, args)
   if (!isNull(res)) return res
 
-  if (locale.indexOf('-') !== -1) 
+  if (locale.indexOf('-') !== -1)
     return this._translate(messages, locale.split('-', 1)[0], fallback, key, host, interpolateMode, args)
 
   res = this._interpolate(fallback, messages[fallback], key, host, interpolateMode, args)
