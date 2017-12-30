@@ -3,7 +3,7 @@
     <v-layout class="text-xs-center" v-if="isMe()">
       <v-flex offset-xs2 xs8>
         <v-select
-          label="Search Friends"
+          :label="$t('friends.search')"
           autocomplete
           multiple
           chips
@@ -14,7 +14,7 @@
           item-value="id"
           return-object
           v-model="selectedFriends"
-          no-data-text="Nothing found"
+          :no-data-text="$t('friends.no_results')"
         ></v-select>
       </v-flex>
       <v-flex xs1>
@@ -44,17 +44,17 @@
           <v-list class="friends-tabs-list elevation-3">
             <v-list-tile @click.stop="currTab = 'friends'" :class="{'active': currTab === 'friends'}">
               <v-list-tile-content>
-                <v-list-tile-title>Friends List</v-list-tile-title>
+                <v-list-tile-title v-t="'friends.list'"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile @click.stop="currTab = 'invites'" :class="{'active': currTab === 'invites'}">
               <v-list-tile-content>
-                <v-list-tile-title>Friends Invites</v-list-tile-title>
+                <v-list-tile-title v-t="'friends.invites'"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile @click.stop="currTab = 'pending'" :class="{'active': currTab === 'pending'}">
               <v-list-tile-content>
-                <v-list-tile-title>Pending invites</v-list-tile-title>
+                <v-list-tile-title v-t="'friends.pending_invites'"></v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
@@ -97,9 +97,7 @@
                             <v-flex xs9 class="text">
                               <v-btn small icon class="delete" @click.stop="delNotification(friend.id)"><v-icon>delete</v-icon></v-btn>
                               <h6>{{ friend._from.login }}</h6>
-                              <v-btn small primary block @click.stop="acceptFriendRequest(friend.id)">
-                                ACCEPTER
-                              </v-btn>
+                              <v-btn small primary block @click.stop="acceptFriendRequest(friend.id)" v-t="'friends.accept'"></v-btn>
                             </v-flex>
                           </v-layout>
                         </div>
@@ -118,9 +116,7 @@
                             </v-flex>
                             <v-flex xs9 class="text">
                               <h6>{{ pending.user.login }}</h6>
-                              <v-btn small primary block @click.stop="delNotification(pending.id)">
-                                ANNULER
-                              </v-btn>
+                              <v-btn small primary block @click.stop="delNotification(pending.id)" v-t="'friends.cancel'"></v-btn>
                             </v-flex>
                           </v-layout>
                         </div>
@@ -299,6 +295,32 @@ export default {
         }
       },
       update: ({ searchUser }) => searchUser
+    }
+  },
+  i18n: {
+    messages: {
+      fr: {
+        friends: {
+          list: 'Liste d\'amis',
+          invites: 'Invitations',
+          pending_invites: 'Mes invitations',
+          search: 'Rechercher des amis',
+          no_results: 'Aucun ami trouvé',
+          accept: 'Acepter',
+          cancel: 'Annuler'
+        }
+      },
+      en: {
+        friends: {
+          list: 'Friends List',
+          invites: 'Friends Invites',
+          pending_invites: 'My Invites',
+          search: 'Search firends',
+          no_results: 'Nothing found',
+          accept: 'Accept',
+          cancel: 'Cancel'
+        }
+      }
     }
   }
 }
