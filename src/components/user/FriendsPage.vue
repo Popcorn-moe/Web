@@ -324,27 +324,27 @@ export default {
     .tabs__items {
       padding 5px;
     }
+  }
 
-    .friend {
-      padding: 10px;
-      .delete {
-        float: right;
-        margin: 0 !important;
-      }
-      .avatar {
-        background-color: #454545;
-        border: 1px solid #595959 !important;
-      }
-      .text {
-        padding-left 10px !important;
-        h6 { padding-top: 2px !important; }
-        p {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 100%;
-          margin-bottom: 0;
-        }
+  .friend {
+    padding: 10px;
+    .delete {
+      float: right;
+      margin: 0 !important;
+    }
+    .avatar {
+      background-color: #454545;
+      border: 1px solid #595959 !important;
+    }
+    .text {
+      padding-left 10px !important;
+      h6 { padding-top: 2px !important; }
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        margin-bottom: 0;
       }
     }
   }
@@ -361,10 +361,8 @@ export default {
       }
     }
 
-    .friends-tabs {
-      .friend {
-        background-color: #454545;
-      }
+    .friend {
+      background-color: #454545;
     }
   }
 </style>

@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs3>
         <div class="infos elevation-3">
-          <h6 class="text-xs-center">About {{ isMe() ? "Me" : user.login }}</h6>
+          <h6 class="text-xs-center" v-t="{ path: 'profile.about', args: { user:  isMe() ? 'Me' : user.login } }"></h6>
           <v-divider></v-divider>
           <v-icon>cake</v-icon>
           <p>Date of Birth Bla bla bla</p>
@@ -18,22 +18,26 @@
             <v-flex xs10>
               <v-text-field
                 prepend-icon="message"
-                placeholder="Envoyer un message"
+                :placeholder="$t('profile.send_message')"
                 single-line
               ></v-text-field>
             </v-flex>
             <v-flex xs2>
-              <v-btn primary block top left class="white--text">Envoyer <v-icon right>send</v-icon></v-btn>
+              <v-btn primary block top left class="white--text"> {{ $t('profile.send_message_btn') }} <v-icon right>send</v-icon></v-btn>
             </v-flex>
           </v-layout>
-          {{ events.length === 0 ? "Aucun evènements" : "" }}
+          <p v-t="'profile.empty_events'" v-if="events.length === 0"></p>
         </v-container>
         <div class="timeline">
           <div class="line"></div>
           <div v-for="(day, k) in timeline" :key="k" class="timeline-elem">
             <div class="date-content">
-              <div v-for="event in day" :key="event.id" class="content elevation-1">
+              <div v-for="event in day" :key="event.id" :class="{ content: true, 'elevation-1': true, 'content-img': event.type == 'NEW_FRIEND'}">
                 <p v-show="event.type == 'MESSAGE' ">{{ event.message }}</p>
+                <div v-show="event.type == 'NEW_FRIEND'">
+                  <img class="elevation-5" :src="event.friend.avatar">
+                  <p v-t="{ path: 'profile.new_friend_event', args: { user: event.user.login, friend: event.friend.login } }"></p>
+                </div>
               </div>
             </div>
             <div class="meta-date">
@@ -45,12 +49,6 @@
     </v-layout>
   </v-container>
 </template>
-
-
-<!--<div class="content content-img elevation-1">-->
-  <!--<img class="elevation-5" :src="user.avatar">-->
-  <!--<p>When I orbited the Earth in a spaceship, I saw for the first time how beautiful our planet is. </p>-->
-<!--</div>-->
 
 <script>
 import { VExpansionPanel, VBtn, VIcon, VTextField, VDivider } from 'vuetify/es5/components'
@@ -89,6 +87,9 @@ export default {
           id: this.userId
         }
       },
+      skip() {
+        return !this.userId
+      },
       update: ({ userById }) => userById
     },
     events: {
@@ -96,6 +97,7 @@ export default {
         return gql`
           query events($user: ID!) {
             events(user: $user) {
+              user { login }
               id
               date
               type
@@ -111,7 +113,32 @@ export default {
           user: this.userId
         }
       },
+      skip() {
+        return !this.userId
+      },
       update: ({ events }) => events
+    }
+  },
+  i18n: {
+    messages: {
+      fr: {
+        profile: {
+          send_message: 'Envoyer un message',
+          send_message_btn: 'Envoyer',
+          about: 'A propos de {user}',
+          empty_events: 'Aucuns evènements',
+          new_friend_event: "{user} et {friend} sont devenus amis !"
+        }
+      },
+      en: {
+        profile: {
+          send_message: 'Send message',
+          send_message_btn: 'Send',
+          about: 'About {user}',
+          empty_events: 'No events',
+          new_friend_event: "{user} and {friend} became friends !"
+        }
+      }
     }
   },
   methods: {
@@ -130,7 +157,7 @@ export default {
       const days = [];
       const out = {};
       this.events.forEach(({ date }) => days.indexOf(date) === -1 && days.push(date));
-      days.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+      days.sort((a, b) =>  new Date(b).getTime() - new Date(a).getTime());
       days.forEach(d => out[d] = this.events.filter(({ date }) => date === d));
       return out;
     }
