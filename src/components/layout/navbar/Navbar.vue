@@ -62,7 +62,7 @@
             <language-select></language-select>
           </v-flex>
           <v-flex xs4 offset-xs2>
-            <v-switch label="Dark" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
+            <v-switch :label="$t('navbar.dark')" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
           </v-flex>
         </v-layout>
       </div>
@@ -134,13 +134,15 @@ export default {
       fr: {
         navbar: {
           login: 'Connexion',
-          signup: 'Inscription'
+          signup: 'Inscription',
+          dark: 'Foncé'
         }
       },
       en: {
         navbar: {
           login: 'Log In',
-          signup: 'Sign Up'
+          signup: 'Sign Up',
+          dark: 'Dark'
         }
       }
     }
