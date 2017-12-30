@@ -4,6 +4,9 @@
     @input="setLocale"
     :value="i18n.locale.split('-', 1)[0]"
     hide-details
+    :light="!transparent"
+    :solo="!transparent"
+    :color="!transparent ? 'black' : 'inherit'"
   >
     <template slot="selection" slot-scope="data">
       <v-avatar size="25px">
@@ -32,6 +35,12 @@ const MAP = {
 
 export default {
   name: 'LanguageSelect',
+  props: {
+    transparent: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       MAP,

@@ -13,12 +13,16 @@
         </v-fade-transition>
       </div>
     </main>
+    <div class="button-float button-bottom">
+      <language-select class="language" :transparent="false"></language-select>
+    </div>
   </div>
 </template>
 
 <script>
   import { VBtn, VIcon } from 'vuetify/es5/components'
   import { VFadeTransition } from 'vuetify/es5/components/transitions'
+  import LanguageSelect from './navbar/LanguageSelect'
   import gql from 'graphql-tag'
 
   export default {
@@ -30,7 +34,8 @@
     components: {
       VBtn,
       VIcon,
-      VFadeTransition
+      VFadeTransition,
+      LanguageSelect
     },
     apollo: {
       moe: {
@@ -49,8 +54,16 @@
     z-index: 1000;
   }
 
+  .button-bottom {
+    bottom 0;
+  }
+
   .button-right {
     right: 0;
+  }
+
+  .language {
+    margin 8px;
   }
 
   .auth-root {
