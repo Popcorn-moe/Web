@@ -5,7 +5,7 @@
         <div class="top-logo text-xs-center">
           <object data="/static/logo-animated.svg" type="image/svg+xml" class="itop-logo"></object>
         </div>
-        <h1 class="buttons-title">Se connecter avec :</h1>
+        <h1 class="buttons-title" v-t="'login.connect_with'"></h1>
         <div class="social-buttons">
           <v-btn class="social-button google-color" large light block @click.stop="login('google')">
             <img src="/static/icons/google-icon.svg">
@@ -40,22 +40,21 @@
             @input="alert = null">
             {{ alert && alert.text }}
           </v-alert>
-          <v-text-field label="E-mail / Pseudo" light
+          <v-text-field :label="$t('login.login')" light
                         v-model="username"
           ></v-text-field>
-          <v-text-field label="Mot de passe" light
+          <v-text-field :label="$t('login.password')" light
                         v-model="password"
                         :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
                         :append-icon-cb="() => (hidePassword = !hidePassword)"
                         :type="hidePassword ? 'password' : 'text'"
           ></v-text-field>
           <div class="text-xs-right">
-            <v-btn class="login-button secondary-color black--text" large light @click.stop="login()">Se Connecter
-            </v-btn>
+            <v-btn class="login-button secondary-color black--text" large light @click.stop="login()" v-t="'login.connect'"></v-btn>
           </div>
         </div>
         <div class="link-container">
-          <router-link replace :to="{ name: 'SignUp' }">Se créer un compte</router-link>
+          <router-link replace :to="{ name: 'SignUp' }" v-t="'login.sign_up'"></router-link>
         </div>
       </v-flex>
     </v-layout>
@@ -85,7 +84,7 @@
       VFlex,
       VLayout
     },
-    methods   : {
+    methods: {
       ...mapActions({
                       setIsAuth: 'setIsAuth'
                     }),
@@ -107,6 +106,28 @@
               return Promise.reject(error)
           })
         }
+      }
+    },
+    i18n: {
+      messages: {
+        fr: {
+          login: {
+            connect_with: 'Se connecter avec :',
+            connect: ' Se connecter',
+            sign_up: 'Créer un compte',
+            login: 'E-mail / Pseudo',
+            password: 'Mot de passe'
+          }
+        },
+        en: {
+          login: {
+            connect_with: 'Connect With :',
+            connect: 'Connection',
+            sign_up: 'Sign up',
+            login: 'E-mail / Login',
+            password: 'Password'
+          }
+        },
       }
     }
   }
@@ -138,6 +159,7 @@
       color: #212121 !important;
       font-size: 20px;
     }
+
     .social-buttons {
       padding: 8px;
 
@@ -191,6 +213,8 @@
     .login-button {
       box-shadow: none;
       margin: 0 !important;
+      padding-left 5px;
+      padding-right 5px;
     }
   }
 </style>
