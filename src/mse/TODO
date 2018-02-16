@@ -1,0 +1,2 @@
+Don't seek if it's in the same TimeRange
+Don't redownload downloaded regions after seeking

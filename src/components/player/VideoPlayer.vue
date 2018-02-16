@@ -58,7 +58,7 @@
     },
     mounted() {
       console.log(this.$refs.video)
-      new MegaMediaSource('https://mega.nz/#!d1sFkIjS!Y3l7aaM0kvUfzEc9O35t-pBXt61y4lsov-Xu6YJ1LuM', this.$refs.video)
+      new MegaMediaSource('https://mega.nz/#!Q0UGmAZD!wZV_ZEpa09GYuyVi849M9YRz1-Hpvr-AEj8XH3mjVZ8', this.$refs.video)
     },
     beforeDestroy() {
 	    document.removeEventListener('fullscreenchange', this.onFullscreenEvent)
