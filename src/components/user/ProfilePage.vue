@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="profile-container">
     <v-layout>
       <v-flex xs3>
         <div class="infos elevation-3">
@@ -180,122 +180,124 @@ export default {
 <style lang="stylus">
   @import '../../stylus/main.styl';
 
-  .infos {
-    min-height 120px;
-    padding: 15px;
-    h6 {
-      color: rgba(0,0,0,0.87);
+  .profile-container {
+    .infos {
+      min-height 120px;
+      padding: 15px;
+      h6 {
+        color: rgba(0,0,0,0.87);
+      }
+
+      .icon {
+        font-size 20px;
+        padding-top 10px;
+        padding-bottom 10px;
+      }
+
+      p {
+        line-height 20px;
+        display inline-flex;
+        width calc(100% - 34px);
+      }
     }
 
-    .icon {
-      font-size 20px;
-      padding-top 10px;
-      padding-bottom 10px;
-    }
-
-    p {
-      line-height 20px;
-      display inline-flex;
-      width calc(100% - 34px);
-    }
-  }
-
-  .timeline {
-    position: relative;
-    width: 100%;
-    .line {
-      position: absolute;
-      width: 3px;
-      height: 100%;
-      top: 0;
-      left: 50px;
-      background: #bcbcbc;
-      z-index: 0;
-    }
-
-    .timeline-elem {
-      width: 100%;
-      height: 100%;
+    .timeline {
       position: relative;
-      overflow: hidden;
-      margin: 20px 0;
+      width: 100%;
+      .line {
+        position: absolute;
+        width: 3px;
+        height: 100%;
+        top: 0;
+        left: 50px;
+        background: #bcbcbc;
+        z-index: 0;
+      }
+
+      .timeline-elem {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        margin: 20px 0;
 
 
-      .date-content {
-        max-width: 100%;
-        width: auto;
-        margin-left: 110px;
-        min-height: 53px;
-        padding-bottom 5px;
-        padding-right: 3px;
-
-        .content {
-          position: relative;
-          border-radius: 4px;
+        .date-content {
+          max-width: 100%;
           width: auto;
-          background-color: #e4e4e4;
-          min-height: 62px;
-          padding: 15px;
-          margin-bottom: 10px
+          margin-left: 110px;
+          min-height: 53px;
+          padding-bottom 5px;
+          padding-right: 3px;
 
-          img {
-            margin-top: -50px;
-            border-radius: 50%;
-            width: 100px;
-            height 100px;
+          .content {
+            position: relative;
+            border-radius: 4px;
+            width: auto;
+            background-color: #e4e4e4;
+            min-height: 62px;
+            padding: 15px;
+            margin-bottom: 10px
+
+            img {
+              margin-top: -50px;
+              border-radius: 50%;
+              width: 100px;
+              height 100px;
+            }
+
+            p {
+              margin-bottom 0;
+            }
           }
 
-          p {
+          .content-img {
+            margin-top: 50px;
+            min-height 80px;
+
+            p {
+              padding-left 115px;
+              margin-top: -50px;
+            }
+          }
+
+          .content:last-child {
             margin-bottom 0;
           }
         }
 
-        .content-img {
-          margin-top: 50px;
-          min-height 80px;
+        .meta-date {
+          position: absolute;
+          top: 0;
+          left: 20px;
+          width: 62px;
+          height: 62px;
+          color: #bcbcbc;
+          background-color: #fafafa;
+          border-radius: 100%;
+          border: 3px solid #bcbcbc;
 
-          p {
-            padding-left 115px;
-            margin-top: -50px;
+          .day, .month {
+            display: block;
+            text-align: center;
+            font-weight: 900;
           }
-        }
 
-        .content:last-child {
-          margin-bottom 0;
-        }
-      }
+          .day {
+            font-size: 28px;
+            line-height: 40px;
+          }
 
-      .meta-date {
-        position: absolute;
-        top: 0;
-        left: 20px;
-        width: 62px;
-        height: 62px;
-        color: #bcbcbc;
-        background-color: #fafafa;
-        border-radius: 100%;
-        border: 3px solid #bcbcbc;
-
-        .day, .month {
-          display: block;
-          text-align: center;
-          font-weight: 900;
-        }
-
-        .day {
-          font-size: 28px;
-          line-height: 40px;
-        }
-
-        .month {
-          font-size: 16px;
-          line-height: 5px;
+          .month {
+            font-size: 16px;
+            line-height: 5px;
+          }
         }
       }
     }
   }
 
-  .application--dark {
+  .application--dark .profile-container {
 
     .infos {
       background-color: #363636 !important;
