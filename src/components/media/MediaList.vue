@@ -1,13 +1,10 @@
 <template>
   <v-list class="media-list">
     <v-list-group v-for="(season, si) in seasons" :value="season.active" :key="season.name">
-      <v-list-tile slot="item">
+      <v-list-tile slot="activator">
         <v-list-tile-content>
           <v-list-tile-title>{{ season.name }}</v-list-tile-title>
         </v-list-tile-content>
-        <v-list-tile-action>
-          <v-icon>keyboard_arrow_down</v-icon>
-        </v-list-tile-action>
       </v-list-tile>
       <v-list-tile
         v-for="(ep, ei) in season.episodes"
