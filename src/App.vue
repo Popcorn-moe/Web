@@ -1,5 +1,5 @@
 <template>
-  <v-app :light="!darkTheme" :dark="darkTheme">
+  <v-app :light="isAuth ? true : !darkTheme" :dark="isAuth ? false : darkTheme">
     <v-slide-x-transition mode="out-in">
       <auth-layout v-if="isAuth"></auth-layout>
       <layout v-else></layout>

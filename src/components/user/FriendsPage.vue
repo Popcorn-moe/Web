@@ -64,7 +64,7 @@
             <v-flex xs12>
               <v-tabs class="friends-tabs" :value="currTab">
                 <div class="tabs__items">
-                  <v-tabs-content lazy id="friends">
+                  <v-tab key="friends">
                     <v-layout row wrap>
                       <v-flex v-for="friend in me.friends" :key="friend.id" xs6>
                         <div class="friend elevation-3">
@@ -83,8 +83,8 @@
                         </div>
                       </v-flex>
                     </v-layout>
-                  </v-tabs-content>
-                  <v-tabs-content lazy id="invites">
+                  </v-tab>
+                  <v-tab key="invites">
                     <v-layout row wrap>
                       <v-flex v-for="friend in friendRequests" :key="friend.id" xs6>
                         <div class="friend elevation-3">
@@ -103,8 +103,8 @@
                         </div>
                       </v-flex>
                     </v-layout>
-                  </v-tabs-content>
-                  <v-tabs-content lazy id="pending">
+                  </v-tab>
+                  <v-tab key="pending">
                     <v-layout row wrap>
                       <v-flex v-for="pending in pendingFriendRequests" :key="pending.id" xs6>
                         <div class="friend elevation-3">
@@ -122,7 +122,7 @@
                         </div>
                       </v-flex>
                     </v-layout>
-                  </v-tabs-content>
+                  </v-tab>
                 </div>
               </v-tabs>
             </v-flex>
@@ -134,9 +134,7 @@
 </template>
 
 <script>
-import VTabs from 'vuetify/es5/components/VTabs'
-import VTabsContent from 'vuetify/es5/components/VTabs/VTabsContent'
-import VTabsItem from 'vuetify/es5/components/VTabs/VTabsItem'
+import { VTabs, VTab } from 'vuetify/es5/components/VTabs'
 import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip, VAvatar } from 'vuetify/es5/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
@@ -249,8 +247,7 @@ export default {
     VBtn,
     VTextField,
     VTabs,
-    VTabsContent,
-    VTabsItem,
+    VTab,
     VDataTable,
     VSelect,
     VChip

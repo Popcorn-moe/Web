@@ -72,12 +72,17 @@ export default {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin-top: 10px;
-    background-color: #dcdcdc !important;
   }
 
-  .application--dark {
+  .application.theme--dark {
     .media-list {
       background-color: #454545 !important;
+    }
+  }
+
+  .application.theme--light {
+    .media-list {
+      background-color: #dcdcdc !important;
     }
   }
 </style>

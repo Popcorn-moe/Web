@@ -8,29 +8,27 @@
           </v-flex>
           <v-flex xs9>
             <div class="user-top-nav">
-              <v-tabs-bar>
-                <v-tabs-item activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#friends" >{{ $t('route.auth.friends') }}</v-tabs-item>
-                <v-tabs-item activeClass="active" href="#settings" class="right" v-if="isMe()">{{ $t('route.auth.settings') }}</v-tabs-item>
-              </v-tabs-bar>
+              <v-tab activeClass="active" key="profile" >{{ $t('route.auth.profile') }}</v-tab>
+              <v-tab activeClass="active" key="library" >{{ $t('route.auth.library') }}</v-tab>
+              <v-tab activeClass="active" key="friends" >{{ $t('route.auth.friends') }}</v-tab>
+              <v-tab activeClass="active" key="settings" class="right" v-if="isMe()">{{ $t('route.auth.settings') }}</v-tab>
             </div>
           </v-flex>
         </v-layout>
         <v-container fluid>
           <div class="tabs__items">
-            <v-tabs-content lazy id="profile">
+            <v-tab-item key="profile">
               <user-profile :userId="user.id"></user-profile>
-            </v-tabs-content>
-            <v-tabs-content lazy id="library">
+            </v-tab-item>
+            <v-tab-item key="library">
               <!--<user-library></user-library>-->
-            </v-tabs-content>
-            <v-tabs-content lazy id="friends">
+            </v-tab-item>
+            <v-tab-item key="friends">
               <user-friends :userId="user.id"></user-friends>
-            </v-tabs-content>
-            <v-tabs-content lazy id="settings" v-if="isMe()">
+            </v-tab-item>
+            <v-tab-item key="settings" v-if="isMe()">
               <user-settings></user-settings>
-            </v-tabs-content>
+            </v-tab-item>
           </div>
         </v-container>
       </v-tabs>
@@ -43,10 +41,7 @@ import UserLibrary from './LibraryPage.vue'
 import UserFriends from './FriendsPage.vue'
 import UserProfile from './ProfilePage.vue'
 
-import VTabs from 'vuetify/es5/components/VTabs'
-import VTabsBar from 'vuetify/es5/components/VTabs/VTabsBar'
-import VTabsContent from 'vuetify/es5/components/VTabs/VTabsContent'
-import VTabsItem from 'vuetify/es5/components/VTabs/VTabsItem'
+import { VTabs, VTab, VTabItem  }from 'vuetify/es5/components/VTabs'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
@@ -62,9 +57,8 @@ export default
   },
   components: {
     VTabs,
-    VTabsBar,
-    VTabsContent,
-    VTabsItem,
+    VTab,
+    VTabItem,
     VContainer,
     VFlex,
     VLayout,

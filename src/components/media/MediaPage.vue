@@ -203,7 +203,6 @@
     }
 
     .infos {
-      background-color: #dcdcdc;
       margin-top: 15px;
       padding: 30px;
     }
@@ -235,9 +234,15 @@
     }
   }
 
-  .application--dark {
-    .rate-container {
+  .application.theme--dark {
+    .infos {
       background-color: #454545;
+    }
+  }
+
+  .application.theme--light {
+    .infos {
+      background-color: #dcdcdc;
     }
   }
 

@@ -105,7 +105,6 @@ export default {
 
         .description
         {
-            background-color: $grey.lighten-3;
             color: $main-color;
             display: block;
             margin: -($anime.padding);
@@ -122,7 +121,7 @@ export default {
         }
     }
 
-    .application--dark .anime {
+    .application.theme--dark .anime {
         .title {
             color: white;
         }
@@ -133,6 +132,12 @@ export default {
 
         &:hover, .rate {
             background-color: #1C1C1C;
+        }
+    }
+
+    .application.theme--light .anime {
+        .description {
+            background-color: $grey.lighten-3;
         }
     }
 </style>

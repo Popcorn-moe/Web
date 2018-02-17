@@ -62,7 +62,6 @@ export default {
     white-space: nowrap;
     position: relative;
     padding: 10px;
-    margin-bottom: -50px;
 
     .animes {
         position: relative;
@@ -90,14 +89,19 @@ export default {
         top: 0px;
         right: 0px;
         bottom: 0px;
-        background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-light.background 100%);
         pointer-events: none;
     }
   }
 
-  .application--dark .anime-list {
+  .application.theme--dark .anime-list {
     .shadow {
         background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-dark.background 100%);
+    }
+  }
+
+  .application.theme--light .anime-list {
+    .shadow {
+        background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-light.background 100%);
     }
   }
 

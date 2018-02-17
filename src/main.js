@@ -5,9 +5,20 @@ import router from './router'
 import store from './store'
 import apolloProvider from './graphql'
 import i18n from './i18n'
+import colors from 'vuetify/es5/util/colors'
 
 Vue.config.productionTip = false
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#f6416c',
+    accent: '#f6416c',
+    secondary: colors.grey.darken3,
+    info: colors.blue.base,
+    warning: colors.amber.base,
+    error: colors.red.accent2,
+    success: colors.green.base
+  }
+})
 VSelect.components.VChip = VChip;
 
 /* eslint-disable no-new */

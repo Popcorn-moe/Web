@@ -97,7 +97,6 @@
     }
 
     .comment-container {
-      background-color: #f0f0f0;
       min-height: 120px;
       border-radius: 5px;
       margin-bottom 10px;
@@ -126,7 +125,11 @@
 
   }
 
-  .application--dark .comment .comment-container {
+  .application.theme--dark .comment .comment-container {
     background-color: #1C1C1C;
+  }
+
+  .application.theme--light .comment .comment-container {
+    background-color: #f0f0f0;
   }
 </style>

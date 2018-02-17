@@ -4,8 +4,8 @@
 </template>
 
 <script>
-
   import loader from 'html-loader!../../assets/loader.svg'
+
   export default {
     name: "Loader",
     data() {

@@ -6,7 +6,7 @@
       <v-layout row wrap>
         <v-flex offset-xs1 xs7 class="anime-infos">
           <img class="anime-cover" :src="anime.cover">
-          <h6 class="uppercase">{{ anime.names[0] }}</h6>
+          <h3 class="uppercase">{{ anime.names[0] }}</h3>
           <ul>
             <li v-for="author in anime.authors" :key="author.id">
               <div class="list-name" v-t="'anime.author'"></div>
@@ -15,7 +15,7 @@
           </ul>
           <p>{{ anime.desc }}</p>
           <div class="text-xs-center">
-            <h6 class="uppercase" v-t="'anime.trailer'"></h6>
+            <h4 class="uppercase" v-t="'anime.trailer'"></h4>
           </div>
         </v-flex>
         <v-flex xs3>
@@ -25,7 +25,7 @@
           </v-btn>
           <div class="rate-container">
             <div class="text-xs-center">
-              <h6 v-t="'anime.rating'"></h6>
+              <h4 v-t="'anime.rating'"></h4>
               <rating v-model="anime.rating"></rating>
             </div>
           </div>
@@ -186,7 +186,7 @@
     }
   }
 
-  .application--dark .anime-page-container {
+  .application.theme--dark .anime-page-container {
     .rate-container {
       background-color: #454545;
     }
