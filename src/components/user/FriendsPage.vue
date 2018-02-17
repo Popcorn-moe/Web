@@ -62,69 +62,67 @@
         <v-flex xs9>
           <v-layout>
             <v-flex xs12>
-              <v-tabs class="friends-tabs" :value="currTab">
-                <div class="tabs__items">
-                  <v-tab key="friends">
-                    <v-layout row wrap>
-                      <v-flex v-for="friend in me.friends" :key="friend.id" xs6>
-                        <div class="friend elevation-3">
-                          <v-layout>
-                            <v-flex xs3>
-                              <v-avatar size="75px" class="avatar">
-                                <img :src="friend.avatar" :alt="friend.login">
-                              </v-avatar>
-                            </v-flex>
-                            <v-flex xs9 class="text">
-                              <v-btn small icon class="delete" @click.stop="removeFriend(friend.id)"><v-icon>delete</v-icon></v-btn>
-                              <h6>{{ friend.login }}</h6>
-                              <div>{{ "STATUS" }}</div>
-                            </v-flex>
-                          </v-layout>
-                        </div>
-                      </v-flex>
-                    </v-layout>
-                  </v-tab>
-                  <v-tab key="invites">
-                    <v-layout row wrap>
-                      <v-flex v-for="friend in friendRequests" :key="friend.id" xs6>
-                        <div class="friend elevation-3">
-                          <v-layout>
-                            <v-flex xs3>
-                              <v-avatar size="75px" class="avatar">
-                                <img :src="friend._from.avatar" :alt="friend._from.login">
-                              </v-avatar>
-                            </v-flex>
-                            <v-flex xs9 class="text">
-                              <v-btn small icon class="delete" @click.stop="delNotification(friend.id)"><v-icon>delete</v-icon></v-btn>
-                              <h6>{{ friend._from.login }}</h6>
-                              <v-btn small primary block @click.stop="acceptFriendRequest(friend.id)" v-t="'friends.accept'"></v-btn>
-                            </v-flex>
-                          </v-layout>
-                        </div>
-                      </v-flex>
-                    </v-layout>
-                  </v-tab>
-                  <v-tab key="pending">
-                    <v-layout row wrap>
-                      <v-flex v-for="pending in pendingFriendRequests" :key="pending.id" xs6>
-                        <div class="friend elevation-3">
-                          <v-layout>
-                            <v-flex xs3>
-                              <v-avatar size="75px" class="avatar">
-                                <img :src="pending.user.avatar" :alt="pending.user.login">
-                              </v-avatar>
-                            </v-flex>
-                            <v-flex xs9 class="text">
-                              <h6>{{ pending.user.login }}</h6>
-                              <v-btn small primary block @click.stop="delNotification(pending.id)" v-t="'friends.cancel'"></v-btn>
-                            </v-flex>
-                          </v-layout>
-                        </div>
-                      </v-flex>
-                    </v-layout>
-                  </v-tab>
-                </div>
-              </v-tabs>
+              <v-tabs-items class="friends-tabs" :value="currTab">
+                <v-tab-item id="friends">
+                  <v-layout row wrap>
+                    <v-flex v-for="friend in me.friends" :key="friend.id" xs6>
+                      <div class="friend elevation-3">
+                        <v-layout>
+                          <v-flex xs3>
+                            <v-avatar size="75px" class="avatar">
+                              <img :src="friend.avatar" :alt="friend.login">
+                            </v-avatar>
+                          </v-flex>
+                          <v-flex xs9 class="text">
+                            <v-btn small icon class="delete" @click.stop="removeFriend(friend.id)"><v-icon>delete</v-icon></v-btn>
+                            <h6>{{ friend.login }}</h6>
+                            <div>{{ "STATUS" }}</div>
+                          </v-flex>
+                        </v-layout>
+                      </div>
+                    </v-flex>
+                  </v-layout>
+                </v-tab-item>
+                <v-tab-item id="invites">
+                  <v-layout row wrap>
+                    <v-flex v-for="friend in friendRequests" :key="friend.id" xs6>
+                      <div class="friend elevation-3">
+                        <v-layout>
+                          <v-flex xs3>
+                            <v-avatar size="75px" class="avatar">
+                              <img :src="friend._from.avatar" :alt="friend._from.login">
+                            </v-avatar>
+                          </v-flex>
+                          <v-flex xs9 class="text">
+                            <v-btn small icon class="delete" @click.stop="delNotification(friend.id)"><v-icon>delete</v-icon></v-btn>
+                            <h6>{{ friend._from.login }}</h6>
+                            <v-btn small primary block @click.stop="acceptFriendRequest(friend.id)" v-t="'friends.accept'"></v-btn>
+                          </v-flex>
+                        </v-layout>
+                      </div>
+                    </v-flex>
+                  </v-layout>
+                </v-tab-item>
+                <v-tab-item id="pending">
+                  <v-layout row wrap>
+                    <v-flex v-for="pending in pendingFriendRequests" :key="pending.id" xs6>
+                      <div class="friend elevation-3">
+                        <v-layout>
+                          <v-flex xs3>
+                            <v-avatar size="75px" class="avatar">
+                              <img :src="pending.user.avatar" :alt="pending.user.login">
+                            </v-avatar>
+                          </v-flex>
+                          <v-flex xs9 class="text">
+                            <h6>{{ pending.user.login }}</h6>
+                            <v-btn small primary block @click.stop="delNotification(pending.id)" v-t="'friends.cancel'"></v-btn>
+                          </v-flex>
+                        </v-layout>
+                      </div>
+                    </v-flex>
+                  </v-layout>
+                </v-tab-item>
+              </v-tabs-items>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -134,7 +132,7 @@
 </template>
 
 <script>
-import { VTabs, VTab } from 'vuetify/es5/components/VTabs'
+import { VTabsItems, VTabItem } from 'vuetify/es5/components/VTabs'
 import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip, VAvatar } from 'vuetify/es5/components'
 import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
@@ -246,8 +244,8 @@ export default {
     VIcon,
     VBtn,
     VTextField,
-    VTabs,
-    VTab,
+    VTabsItems,
+    VTabItem,
     VDataTable,
     VSelect,
     VChip
@@ -339,10 +337,8 @@ export default {
     }
   }
 
-  .friends-tabs {
-    .tabs__items {
-      padding 5px;
-    }
+  .friends-tabs > * {
+    padding 5px;
   }
 
   .friend {

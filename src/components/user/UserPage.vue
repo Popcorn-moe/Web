@@ -1,37 +1,35 @@
 <template>
     <div>
       <div class="user-page-banner"></div>
-      <v-tabs class="user-tabs" :value="page" @input="value => this.$router.push({ name: $route.name, params: Object.assign({}, $route.params, { page: value })})">
-        <v-layout>
-          <v-flex offset-xs1 xs2>
-            <img class="user-cover elevation-4" :src="user.avatar">
-          </v-flex>
-          <v-flex xs9>
-            <div class="user-top-nav">
-              <v-tab activeClass="active" key="profile" >{{ $t('route.auth.profile') }}</v-tab>
-              <v-tab activeClass="active" key="library" >{{ $t('route.auth.library') }}</v-tab>
-              <v-tab activeClass="active" key="friends" >{{ $t('route.auth.friends') }}</v-tab>
-              <v-tab activeClass="active" key="settings" class="right" v-if="isMe()">{{ $t('route.auth.settings') }}</v-tab>
-            </div>
-          </v-flex>
-        </v-layout>
-        <v-container fluid>
-          <div class="tabs__items">
-            <v-tab-item key="profile">
-              <user-profile :userId="user.id"></user-profile>
-            </v-tab-item>
-            <v-tab-item key="library">
-              <!--<user-library></user-library>-->
-            </v-tab-item>
-            <v-tab-item key="friends">
-              <user-friends :userId="user.id"></user-friends>
-            </v-tab-item>
-            <v-tab-item key="settings" v-if="isMe()">
-              <user-settings></user-settings>
-            </v-tab-item>
-          </div>
-        </v-container>
-      </v-tabs>
+      <v-layout>
+        <v-flex offset-xs1 xs2>
+          <img class="user-cover elevation-4" :src="user.avatar">
+        </v-flex>
+        <v-flex xs9>
+          <v-tabs class="user-top-nav" :value="page" @input="value => this.$router.push({ name: $route.name, params: Object.assign({}, $route.params, { page: value })})">
+            <v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
+            <v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
+            <v-tab activeClass="active" href="#friends" >{{ $t('route.auth.friends') }}</v-tab>
+            <v-tab activeClass="active" href="#settings" class="right" v-if="isMe()">{{ $t('route.auth.settings') }}</v-tab>
+          </v-tabs>
+        </v-flex>
+      </v-layout>
+      <v-container fluid>
+        <v-tabs-items :value="page">
+          <v-tab-item id="profile">
+            <user-profile :userId="user.id"></user-profile>
+          </v-tab-item>
+          <v-tab-item id="library">
+            <!--<user-library></user-library>-->
+          </v-tab-item>
+          <v-tab-item id="friends">
+            <user-friends :userId="user.id"></user-friends>
+          </v-tab-item>
+          <v-tab-item id="settings" v-if="isMe()">
+            <user-settings></user-settings>
+          </v-tab-item>
+        </v-tabs-items>
+      </v-container>
     </div>
 </template>
 
@@ -41,7 +39,7 @@ import UserLibrary from './LibraryPage.vue'
 import UserFriends from './FriendsPage.vue'
 import UserProfile from './ProfilePage.vue'
 
-import { VTabs, VTab, VTabItem  }from 'vuetify/es5/components/VTabs'
+import { VTabs, VTab, VTabsItems, VTabItem  }from 'vuetify/es5/components/VTabs'
 import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
 import gql from 'graphql-tag'
 
@@ -59,6 +57,7 @@ export default
     VTabs,
     VTab,
     VTabItem,
+    VTabsItems,
     VContainer,
     VFlex,
     VLayout,
@@ -120,10 +119,6 @@ export default
     border: 4px solid white;
     border-radius: 3px;
     float: left;
-  }
-
-  .user-tabs {
-    overflow: visible !important;
   }
 
   .user-top-nav
