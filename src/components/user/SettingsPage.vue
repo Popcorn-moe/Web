@@ -138,9 +138,12 @@ export default {
 
   .settings-avatar-btn
   {
-    margin: 0;
-    margin-bottom: 25px;
+    display: inline-block;
     position relative;
+
+    .btn {
+        margin: 0;
+    }
 
     & > .btn__content {
       font-size: 12px;
