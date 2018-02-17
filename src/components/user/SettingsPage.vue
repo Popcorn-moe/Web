@@ -7,11 +7,13 @@
                 <div class="settings-image">
                     <img class="settings-image" :src="avatar">
                     <div class="text-xs-center">
-                        <v-btn small class="main-color settings-avatar-btn" :loading="uploadingAvatar" :disabled="uploadingAvatar">
-                            <v-icon class="white--text">save</v-icon>
-                            Changer d'Avatar
+                        <label class="settings-avatar-btn">
+                            <v-btn small class="main-color" :loading="uploadingAvatar" :disabled="uploadingAvatar">
+                                <v-icon class="white--text">save</v-icon>
+                                Changer d'Avatar
+                            </v-btn>
                             <input type="file" @change="changeAvatar">
-                        </v-btn>
+                        </label>
                     </div>
                 </div>
                 <v-text-field
@@ -138,6 +140,7 @@ export default {
   {
     margin: 0;
     margin-bottom: 25px;
+    position relative;
 
     & > .btn__content {
       font-size: 12px;
