@@ -1,12 +1,15 @@
 import Vue from "vue";
-import { ApolloClient, IntrospectionFragmentMatcher } from "apollo-client";
+import { ApolloClient } from "apollo-client";
+import { HttpLink } from "apollo-link-http";
 import {
-	SubscriptionClient,
-	addGraphQLSubscriptions
-} from "subscriptions-transport-sse";
-import introspectionQueryResultData from "./fragmentTypes.json";
-import { createNetworkInterface } from "./network-interface.js";
+	InMemoryCache,
+	IntrospectionFragmentMatcher
+} from "apollo-cache-inmemory";
 import VueApollo from "vue-apollo";
+/*import {
+	SubscriptionClient
+} from "subscriptions-transport-sse";*/
+import introspectionQueryResultData from "./fragmentTypes.json";
 
 Vue.use(VueApollo);
 
@@ -14,19 +17,25 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 	introspectionQueryResultData
 });
 
-const httpClient = createNetworkInterface({
-	uri: `${process.env.API_URL}/graphql`
+const cache = new InMemoryCache({
+	addTypename: true,
+	dataIdFromObject: ({ id }) => id,
+	fragmentMatcher
 });
-const sseClient = new SubscriptionClient(
+
+const link = new HttpLink({
+	uri: `${process.env.API_URL}/graphql`,
+	credentials: "include"
+});
+
+/*const sseClient = new SubscriptionClient(
 	`${process.env.API_URL}/subscriptions`,
 	{ reconnect: true }
-);
+);*/
 
 export const client = new ApolloClient({
-	networkInterface: addGraphQLSubscriptions(httpClient, sseClient),
-	dataIdFromObject: ({ id }) => id,
-	fragmentMatcher,
-	addTypename: true
+	link,
+	cache
 });
 
 export default new VueApollo({

@@ -28,7 +28,6 @@ export default class MegaMediaSource {
 		this.video.src = URL.createObjectURL(this.mediaSource);
 		this.mediaSource.addEventListener("sourceopen", () => this.sourceOpen());
 		this.video.addEventListener("loadedmetadata", () => this.loadedMetadata());
-		this.video.addEventListener("canplay", () => this.canPlay());
 		this.video.addEventListener("seeking", () => this.seeking());
 		this.buffers = [];
 		this.seekQueue = Promise.resolve();

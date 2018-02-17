@@ -132,7 +132,8 @@ export default {
 					}
 				}
 			`,
-			update: ({ me: { avatar } }) => avatar
+			update: ({ me: { avatar } }) => avatar,
+			fetchPolicy: "network-only"
 		}
 	}
 };
