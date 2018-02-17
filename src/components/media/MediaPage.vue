@@ -234,13 +234,13 @@
     }
   }
 
-  .application.theme--dark {
+  .application.theme--dark .media-page-container {
     .infos {
       background-color: #454545;
     }
   }
 
-  .application.theme--light {
+  .application.theme--light .media-page-container {
     .infos {
       background-color: #dcdcdc;
     }
