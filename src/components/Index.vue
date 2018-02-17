@@ -13,53 +13,68 @@
 </template>
 
 <script>
-import { VCarousel, VCarouselItem } from 'vuetify/es5/components/VCarousel'
-import AnimeList from './anime/AnimeList'
-import gql from 'graphql-tag'
+import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
+import AnimeList from "./anime/AnimeList";
+import gql from "graphql-tag";
 
 export default {
-  name: "index",
-  data () {
-    setTimeout(() => 
-      this.news = [
-        "https://images6.alphacoders.com/505/thumb-1920-505441.jpg",
-        "https://images4.alphacoders.com/706/thumb-1920-706365.png",
-        "https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US"
-      ]
-    , 1000)
-    return {
-      animes: [],
-      news: ['0','0','0']
-    }
-  },
-  components: {
-    AnimeList,
-    VCarousel,
-    VCarouselItem
-  },
-  apollo: {
-    animes: {
-      query: gql`{ animes(limit: 50) { id names authors { id name } cover background } }`,
-      update: ({ animes }) => animes
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        index: {
-          last_episodes: 'Derniers Episodes',
-          last_trailers: 'Derniers trailers'
-        }
-      },
-      en: {
-        index: {
-          last_episodes: 'Last Episodes',
-          last_trailers: 'Last trailers'
-        }
-      }
-    }
-  }
-}
+	name: "index",
+	data() {
+		setTimeout(
+			() =>
+				(this.news = [
+					"https://images6.alphacoders.com/505/thumb-1920-505441.jpg",
+					"https://images4.alphacoders.com/706/thumb-1920-706365.png",
+					"https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US"
+				]),
+			1000
+		);
+		return {
+			animes: [],
+			news: ["0", "0", "0"]
+		};
+	},
+	components: {
+		AnimeList,
+		VCarousel,
+		VCarouselItem
+	},
+	apollo: {
+		animes: {
+			query: gql`
+				{
+					animes(limit: 50) {
+						id
+						names
+						authors {
+							id
+							name
+						}
+						cover
+						background
+					}
+				}
+			`,
+			update: ({ animes }) => animes
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				index: {
+					last_episodes: "Derniers Episodes",
+					last_trailers: "Derniers trailers"
+				}
+			},
+			en: {
+				index: {
+					last_episodes: "Last Episodes",
+					last_trailers: "Last trailers"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

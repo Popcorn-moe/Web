@@ -70,84 +70,105 @@
 </template>
 
 <script>
-import Notifications from './Notifications'
-import AuthMenu from './AuthMenu'
-import LanguageSelect from './LanguageSelect'
-import { VNavigationDrawer, VBtn, VSwitch, VIcon, VBadge, VDivider } from 'vuetify/es5/components'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/es5/components/VList'
-import { VSlideXTransition } from 'vuetify/es5/components/transitions'
-import { mapGetters, mapActions } from 'vuex'
-import { routes } from '../../../router'
-import { logout } from '../../../utils/auth'
-import gql from 'graphql-tag'
+import Notifications from "./Notifications";
+import AuthMenu from "./AuthMenu";
+import LanguageSelect from "./LanguageSelect";
+import {
+	VNavigationDrawer,
+	VBtn,
+	VSwitch,
+	VIcon,
+	VBadge,
+	VDivider
+} from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileAction,
+	VListTileContent
+} from "vuetify/es5/components/VList";
+import { VSlideXTransition } from "vuetify/es5/components/transitions";
+import { mapGetters, mapActions } from "vuex";
+import { routes } from "../../../router";
+import { logout } from "../../../utils/auth";
+import gql from "graphql-tag";
 
 export default {
-  props: {
-    value: Boolean
-  },
+	props: {
+		value: Boolean
+	},
 
-  data() {
-    return {
-      routes,
-      notifications: false,
-      notifs_count: -1
-    }
-  },
-  apollo: {
-    notifs_count: {
-      query: gql`{ me { notifications { id } } }`,
-      update: ({ me }) => (me && me.notifications.length) || -1
-    }
-  },
-  components: {
-    Notifications,
-    AuthMenu,
-    LanguageSelect,
-    VNavigationDrawer,
-    VBtn,
-    VSwitch,
-    VIcon,
-    VDivider,
-    VSlideXTransition,
-    VContainer,
-    VFlex,
-    VLayout,
-    VList,
-    VListGroup,
-    VListTile,
-    VListTileAction,
-    VListTileContent,
-    VBadge
-  },
+	data() {
+		return {
+			routes,
+			notifications: false,
+			notifs_count: -1
+		};
+	},
+	apollo: {
+		notifs_count: {
+			query: gql`
+				{
+					me {
+						notifications {
+							id
+						}
+					}
+				}
+			`,
+			update: ({ me }) => (me && me.notifications.length) || -1
+		}
+	},
+	components: {
+		Notifications,
+		AuthMenu,
+		LanguageSelect,
+		VNavigationDrawer,
+		VBtn,
+		VSwitch,
+		VIcon,
+		VDivider,
+		VSlideXTransition,
+		VContainer,
+		VFlex,
+		VLayout,
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileAction,
+		VListTileContent,
+		VBadge
+	},
 
-  computed: mapGetters({
-    darkTheme: 'darkTheme',
-    isAuth: 'isAuth'
-  }),
+	computed: mapGetters({
+		darkTheme: "darkTheme",
+		isAuth: "isAuth"
+	}),
 
-  methods: mapActions({
-    setDarkTheme: 'setDarkTheme'
-  }),
-  i18n: {
-    messages: {
-      fr: {
-        navbar: {
-          login: 'Connexion',
-          signup: 'Inscription',
-          dark: 'Foncé'
-        }
-      },
-      en: {
-        navbar: {
-          login: 'Log In',
-          signup: 'Sign Up',
-          dark: 'Dark'
-        }
-      }
-    }
-  }
-}
+	methods: mapActions({
+		setDarkTheme: "setDarkTheme"
+	}),
+	i18n: {
+		messages: {
+			fr: {
+				navbar: {
+					login: "Connexion",
+					signup: "Inscription",
+					dark: "Foncé"
+				}
+			},
+			en: {
+				navbar: {
+					login: "Log In",
+					signup: "Sign Up",
+					dark: "Dark"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

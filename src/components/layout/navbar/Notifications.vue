@@ -56,102 +56,123 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VList, VAvatar } from 'vuetify/es5/components'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import gql from 'graphql-tag'
+import { VBtn, VIcon, VList, VAvatar } from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import gql from "graphql-tag";
 
 export default {
-    data() {
-        return {
-            notifs : []
-        }
-    },
-    components: {
-        VContainer,
-        VFlex,
-        VLayout,
-        VList,
-        VBtn,
-        VIcon,
-        VAvatar
-    },
-    apollo: {
-      notifs: {
-        query: gql`{
-                      me {
-                        notifications {
-                          id
-                          type
-                          ... on NotifMessageContent { message }
-                          ... on NotifFriendRequestContent { _from { id login avatar } }
-                          ... on NotifAnimeFollowContent { anime { id names cover} }
-                        }
-                      }
-                   }`,
-        update: ({ me }) => me.notifications
-      }
-    },
-    methods: {
-      acceptFriendRequest(id) {
-        this.$apollo.mutate({
-          mutation: gql`
-            mutation acceptFriendRequest($notif: ID!) {
-                acceptFriendRequest(notif: $notif) {
-                    error
-                }
-            }
-          `,
-          variables: {
-            notif: id
-          }
-        }).then((data) => {
-          console.log(data)
-          this.$apollo.queries.notifs.refetch()
-        });
-      },
-      refuseFriendRequest(id) {
-        this.$apollo.mutate({
-          mutation: gql`
-            mutation refuseFriendRequest($notif: ID!) {
-                refuseFriendRequest(notif: $notif) {
-                    error
-                }
-            }
-          `,
-          variables: {
-            notif: id
-          }
-        }).then((data) => {
-          console.log(data)
-          this.$apollo.queries.notifs.refetch()
-        });
-      }
-    },
-    i18n: {
-      messages: {
-        fr: {
-          notifications: {
-            friends: {
-              friend_request: "Vous avez reçu une demande d'amis de {from}",
-              accept: "Accepter",
-              refuse: "Refuser"
-            },
-            follow: "L'episode {episode} de la saison {saison} de {anime} viens d'arriver!"
-          }
-        },
-        en: {
-          notifications: {
-            friends: {
-              friend_request: "You have received a friend request from {from}",
-              accept: "Accept",
-              refuse: "Refuse"
-            },
-            follow: "Episode {episode} of {season} season {anime} just arrived!"
-          }
-        }
-      }
-    }
-}
+	data() {
+		return {
+			notifs: []
+		};
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VList,
+		VBtn,
+		VIcon,
+		VAvatar
+	},
+	apollo: {
+		notifs: {
+			query: gql`
+				{
+					me {
+						notifications {
+							id
+							type
+							... on NotifMessageContent {
+								message
+							}
+							... on NotifFriendRequestContent {
+								_from {
+									id
+									login
+									avatar
+								}
+							}
+							... on NotifAnimeFollowContent {
+								anime {
+									id
+									names
+									cover
+								}
+							}
+						}
+					}
+				}
+			`,
+			update: ({ me }) => me.notifications
+		}
+	},
+	methods: {
+		acceptFriendRequest(id) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation acceptFriendRequest($notif: ID!) {
+							acceptFriendRequest(notif: $notif) {
+								error
+							}
+						}
+					`,
+					variables: {
+						notif: id
+					}
+				})
+				.then(data => {
+					console.log(data);
+					this.$apollo.queries.notifs.refetch();
+				});
+		},
+		refuseFriendRequest(id) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation refuseFriendRequest($notif: ID!) {
+							refuseFriendRequest(notif: $notif) {
+								error
+							}
+						}
+					`,
+					variables: {
+						notif: id
+					}
+				})
+				.then(data => {
+					console.log(data);
+					this.$apollo.queries.notifs.refetch();
+				});
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				notifications: {
+					friends: {
+						friend_request: "Vous avez reçu une demande d'amis de {from}",
+						accept: "Accepter",
+						refuse: "Refuser"
+					},
+					follow:
+						"L'episode {episode} de la saison {saison} de {anime} viens d'arriver!"
+				}
+			},
+			en: {
+				notifications: {
+					friends: {
+						friend_request: "You have received a friend request from {from}",
+						accept: "Accept",
+						refuse: "Refuse"
+					},
+					follow: "Episode {episode} of {season} season {anime} just arrived!"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

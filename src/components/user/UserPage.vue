@@ -34,70 +34,90 @@
 </template>
 
 <script>
-import UserSettings from './SettingsPage.vue'
-import UserLibrary from './LibraryPage.vue'
-import UserFriends from './FriendsPage.vue'
-import UserProfile from './ProfilePage.vue'
+import UserSettings from "./SettingsPage.vue";
+import UserLibrary from "./LibraryPage.vue";
+import UserFriends from "./FriendsPage.vue";
+import UserProfile from "./ProfilePage.vue";
 
-import { VTabs, VTab, VTabsItems, VTabItem  }from 'vuetify/es5/components/VTabs'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import gql from 'graphql-tag'
+import {
+	VTabs,
+	VTab,
+	VTabsItems,
+	VTabItem
+} from "vuetify/es5/components/VTabs";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import gql from "graphql-tag";
 
-export default
-{
-  name: 'user-page',
-  props: ['page', 'userLogin'],
-  data() {
-      return {
-        user: {},
-        me: {}
-      }
-  },
-  components: {
-    VTabs,
-    VTab,
-    VTabItem,
-    VTabsItems,
-    VContainer,
-    VFlex,
-    VLayout,
-    UserLibrary,
-    UserSettings,
-    UserFriends,
-    UserProfile
-  },
-  methods: {
-    isMe() {
-      return this.user.id === this.me.id
-    }
-  },
-  apollo: {
-    me: {
-      query: gql`{ me { id } }`,
-      update: ({ me }) => me
-    },
-    user: {
-      query() {
-        return !this.userLogin
-          ? gql`{ me { id avatar } }`
-          : gql`
-              query user($name: String!) {
-                user(name: $name) { id avatar }
-              }`;
-      },
-      variables() {
-        return {
-          name: this.userLogin ? this.userLogin : ''
-        }
-      },
-      update({ me, user }) {
-        if(!me && !user)
-          this.$router.replace({ name: 'Login' });
-        else return user ? user : me;
-      }
-    }
-  }
-}
+export default {
+	name: "user-page",
+	props: ["page", "userLogin"],
+	data() {
+		return {
+			user: {},
+			me: {}
+		};
+	},
+	components: {
+		VTabs,
+		VTab,
+		VTabItem,
+		VTabsItems,
+		VContainer,
+		VFlex,
+		VLayout,
+		UserLibrary,
+		UserSettings,
+		UserFriends,
+		UserProfile
+	},
+	methods: {
+		isMe() {
+			return this.user.id === this.me.id;
+		}
+	},
+	apollo: {
+		me: {
+			query: gql`
+				{
+					me {
+						id
+					}
+				}
+			`,
+			update: ({ me }) => me
+		},
+		user: {
+			query() {
+				return !this.userLogin
+					? gql`
+							{
+								me {
+									id
+									avatar
+								}
+							}
+						`
+					: gql`
+							query user($name: String!) {
+								user(name: $name) {
+									id
+									avatar
+								}
+							}
+						`;
+			},
+			variables() {
+				return {
+					name: this.userLogin ? this.userLogin : ""
+				};
+			},
+			update({ me, user }) {
+				if (!me && !user) this.$router.replace({ name: "Login" });
+				else return user ? user : me;
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

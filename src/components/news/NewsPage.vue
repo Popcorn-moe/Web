@@ -13,62 +13,74 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VDivider } from 'vuetify/es5/components'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import marked from 'marked'
-import gql from 'graphql-tag'
+import { VBtn, VIcon, VDivider } from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import marked from "marked";
+import gql from "graphql-tag";
 
 export default {
-  name: "NewsPage",
-  props: ['id'],
-  data() {
-    return {
-      news: { author: { login: "EMPTY" }, content: "", posted_date: new Date().toISOString()}
-    }
-  },
-  components: {
-    VBtn,
-    VIcon,
-    VDivider,
-    VContainer,
-    VFlex,
-    VLayout
-  },
-  computed: {
-    newsContent() {
-      return marked(this.news.content, { sanitize: true })
-    }
-  },
-  apollo: {
-    news: {
-      query: gql`query ($id: ID!) {
-        _news(id: $id) {
-          name content author { login } cover posted_date
-        }
-      }`,
-      variables() {
-          return {
-            id: this.id
-          }
-      },
-      update: ({ _news }) => _news
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        news: {
-          by_author_on_date: 'Publié par {author} le {date}'
-        }
-      },
-      en: {
-        news: {
-          by_author_on_date: 'By {author} on {date}'
-        }
-      }
-    }
-  }
-}
+	name: "NewsPage",
+	props: ["id"],
+	data() {
+		return {
+			news: {
+				author: { login: "EMPTY" },
+				content: "",
+				posted_date: new Date().toISOString()
+			}
+		};
+	},
+	components: {
+		VBtn,
+		VIcon,
+		VDivider,
+		VContainer,
+		VFlex,
+		VLayout
+	},
+	computed: {
+		newsContent() {
+			return marked(this.news.content, { sanitize: true });
+		}
+	},
+	apollo: {
+		news: {
+			query: gql`
+				query($id: ID!) {
+					_news(id: $id) {
+						name
+						content
+						author {
+							login
+						}
+						cover
+						posted_date
+					}
+				}
+			`,
+			variables() {
+				return {
+					id: this.id
+				};
+			},
+			update: ({ _news }) => _news
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				news: {
+					by_author_on_date: "Publié par {author} le {date}"
+				}
+			},
+			en: {
+				news: {
+					by_author_on_date: "By {author} on {date}"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

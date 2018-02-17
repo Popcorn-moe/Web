@@ -24,52 +24,59 @@
 </template>
 
 <script>
-
-import { VBtn, VIcon } from 'vuetify/es5/components'
-import { VCard, VCardTitle, VCardMedia } from 'vuetify/es5/components/VCard'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
+import { VBtn, VIcon } from "vuetify/es5/components";
+import { VCard, VCardTitle, VCardMedia } from "vuetify/es5/components/VCard";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 
 const GIFS = [
-  { src: "https://i.imgur.com/1A17LFL.gif", type: "img" },
-  { src: "https://cdn.discordapp.com/attachments/349974957998080001/355086450699534336/unknown.png", type: "img" },
-  { src: "https://images-ext-1.discordapp.net/external/dlIPdqpVNkz6YgwgmicyLPCE-IMHeg65sOa5P2RhgYI/https/rra.ram.moe/i/r12y82Xex.gif", type: "img" },
-  { src: "https://www.youtube.com/embed/_NXrTujMP50", type: "video" }
-]
+	{ src: "https://i.imgur.com/1A17LFL.gif", type: "img" },
+	{
+		src:
+			"https://cdn.discordapp.com/attachments/349974957998080001/355086450699534336/unknown.png",
+		type: "img"
+	},
+	{
+		src:
+			"https://images-ext-1.discordapp.net/external/dlIPdqpVNkz6YgwgmicyLPCE-IMHeg65sOa5P2RhgYI/https/rra.ram.moe/i/r12y82Xex.gif",
+		type: "img"
+	},
+	{ src: "https://www.youtube.com/embed/_NXrTujMP50", type: "video" }
+];
 
 export default {
-  name: "NopPage",
-  data() {
-    return {
-      gif: GIFS[Math.floor(Math.random() * GIFS.length)],
-    }
-  },
-  components: {
-    VContainer,
-    VFlex,
-    VLayout,
-    VCard,
-    VCardTitle,
-    VCardMedia,
-    VBtn,
-    VIcon
-  },
-  i18n: {
-    messages: {
-      fr: {
-        not_found: {
-          main_message: 'La page que vous cherchez n\'existe pas.',
-          sub_message: 'Encore un tour des pinguins unijambistes de l\'espace...'
-        }
-      },
-      en: {
-        not_found: {
-          main_message: 'The page you are searching for can\'t be found.',
-          sub_message: 'That\'s your fault. Baka.'
-        }
-      }
-    }
-  }
-}
+	name: "NopPage",
+	data() {
+		return {
+			gif: GIFS[Math.floor(Math.random() * GIFS.length)]
+		};
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VCard,
+		VCardTitle,
+		VCardMedia,
+		VBtn,
+		VIcon
+	},
+	i18n: {
+		messages: {
+			fr: {
+				not_found: {
+					main_message: "La page que vous cherchez n'existe pas.",
+					sub_message: "Encore un tour des pinguins unijambistes de l'espace..."
+				}
+			},
+			en: {
+				not_found: {
+					main_message: "The page you are searching for can't be found.",
+					sub_message: "That's your fault. Baka."
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

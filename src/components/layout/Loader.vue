@@ -4,16 +4,16 @@
 </template>
 
 <script>
-  import loader from 'html-loader!../../assets/loader.svg'
+import loader from "html-loader!../../assets/loader.svg";
 
-  export default {
-    name: "Loader",
-    data() {
-      return {
-        loader
-      }
-    }
-  }
+export default {
+	name: "Loader",
+	data() {
+		return {
+			loader
+		};
+	}
+};
 </script>
 
 <style lang="stylus">

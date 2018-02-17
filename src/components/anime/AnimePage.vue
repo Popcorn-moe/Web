@@ -37,89 +37,99 @@
 </template>
 
 <script>
-  import Loader from '../layout/Loader'
-  import { VBtn, VIcon } from 'vuetify/es5/components'
-  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-  import Rating from './Rating'
-  import MediaList from '../media/MediaList'
-  import gql from 'graphql-tag'
-  import { client } from '../../graphql'
+import Loader from "../layout/Loader";
+import { VBtn, VIcon } from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import Rating from "./Rating";
+import MediaList from "../media/MediaList";
+import gql from "graphql-tag";
+import { client } from "../../graphql";
 
-  export default {
-    props: ['id'],
-    data () {
-      // Try from cache
-      try {
-        const anime = client.readFragment({
-          id: this.id,
-          fragment: gql`
-            fragment anime on Anime {
-              names
-              cover
-              background
-              authors { id name }
-            }
-          `,
-        });
-        if (anime)
-          return { anime, loading: false }
-      } catch (e) { console.log(e) }
-      // Query it
-      client.query({
-        query: gql`query ($id: ID!){
-            anime (id: $id) {
-              names
-              cover
-              background
-              authors { id name }
-            }
-          }`,
-        variables: {
-          id: this.id
-        }
-      }).then(({ data: { anime } }) => {
-        if (anime) {
-          this.anime = anime
-          this.loading = false
-        } else
-          this.$router.replace({ name: '404' })
-      })
-      return {
-        anime: null,
-        loading: true
-      }
-    },
-    components: {
-      Loader,
-      VContainer,
-      VFlex,
-      VLayout,
-      VBtn,
-      VIcon,
-      Rating,
-      MediaList
-    },
-    i18n: {
-    messages: {
-      fr: {
-        anime: {
-          subscribe: 'S\'abonner',
-          author: 'Auteur :',
-          trailer: 'Trailer :',
-          rating: 'Note :'
-        }
-      },
-      en: {
-        anime: {
-          subscribe: 'Subscribe',
-          author: 'Author :',
-          trailer: 'Trailer :',
-          rating: 'Rating :'
-        }
-      }
-    }
-  }
-  }
+export default {
+	props: ["id"],
+	data() {
+		// Try from cache
+		try {
+			const anime = client.readFragment({
+				id: this.id,
+				fragment: gql`
+					fragment anime on Anime {
+						names
+						cover
+						background
+						authors {
+							id
+							name
+						}
+					}
+				`
+			});
+			if (anime) return { anime, loading: false };
+		} catch (e) {
+			console.log(e);
+		}
+		// Query it
+		client
+			.query({
+				query: gql`
+					query($id: ID!) {
+						anime(id: $id) {
+							names
+							cover
+							background
+							authors {
+								id
+								name
+							}
+						}
+					}
+				`,
+				variables: {
+					id: this.id
+				}
+			})
+			.then(({ data: { anime } }) => {
+				if (anime) {
+					this.anime = anime;
+					this.loading = false;
+				} else this.$router.replace({ name: "404" });
+			});
+		return {
+			anime: null,
+			loading: true
+		};
+	},
+	components: {
+		Loader,
+		VContainer,
+		VFlex,
+		VLayout,
+		VBtn,
+		VIcon,
+		Rating,
+		MediaList
+	},
+	i18n: {
+		messages: {
+			fr: {
+				anime: {
+					subscribe: "S'abonner",
+					author: "Auteur :",
+					trailer: "Trailer :",
+					rating: "Note :"
+				}
+			},
+			en: {
+				anime: {
+					subscribe: "Subscribe",
+					author: "Author :",
+					trailer: "Trailer :",
+					rating: "Rating :"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

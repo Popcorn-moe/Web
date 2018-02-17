@@ -56,65 +56,80 @@
 
 
 <script>
-import { VIcon, VBtn } from 'vuetify/es5/components'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import gql from 'graphql-tag'
+import { VIcon, VBtn } from "vuetify/es5/components";
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileAction,
+	VListTileContent,
+	VListTileTitle
+} from "vuetify/es5/components/VList";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import gql from "graphql-tag";
 
 export default {
-  name: "user_library",
-  data() {
-    return {
-      me: {},
-      playlists: [],
-      currentPlaylist: { medias: [] },
-    }
-  },
-  components: {
-    VContainer,
-    VFlex,
-    VLayout,
-    VList,
-    VListGroup,
-    VListTile,
-    VListTileAction,
-    VListTileContent,
-    VListTileTitle,
-    VIcon,
-    VBtn
-  },
-  methods: {
-    selectPlaylist(id) {
-      this.currentPlaylist = this.playlists.filter(p => p.id === id)[0]
-    }
-  },
-  apollo: {
-    me: {
-      query: gql`{
-        me {
-          playlists {
-            id
-            name
-            medias {
-              ... on PlaylistMediaElem {
-                media { id, type }
-              }
-              ... on PlaylistAnimeElem {
-                anime { id , names }
-              }
-            }
-          }
-        }
-      }`,
-      update: function({ me }) {
-        console.log(me);
-        this.playlists = me.playlists;
-        this.currentPlaylist = this.playlists[0];
-        return me
-      }
-    }
-  },
-}
+	name: "user_library",
+	data() {
+		return {
+			me: {},
+			playlists: [],
+			currentPlaylist: { medias: [] }
+		};
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileAction,
+		VListTileContent,
+		VListTileTitle,
+		VIcon,
+		VBtn
+	},
+	methods: {
+		selectPlaylist(id) {
+			this.currentPlaylist = this.playlists.filter(p => p.id === id)[0];
+		}
+	},
+	apollo: {
+		me: {
+			query: gql`
+				{
+					me {
+						playlists {
+							id
+							name
+							medias {
+								... on PlaylistMediaElem {
+									media {
+										id
+										type
+									}
+								}
+								... on PlaylistAnimeElem {
+									anime {
+										id
+										names
+									}
+								}
+							}
+						}
+					}
+				}
+			`,
+			update: function({ me }) {
+				console.log(me);
+				this.playlists = me.playlists;
+				this.currentPlaylist = this.playlists[0];
+				return me;
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

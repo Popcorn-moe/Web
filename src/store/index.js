@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-import app, { onLoad } from './app'
+import app, { onLoad } from "./app";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  strict: true,  // process.env.NODE_ENV !== 'production',
-  ...app
-})
+	strict: true, // process.env.NODE_ENV !== 'production',
+	...app
+});
 
-onLoad(store)
+onLoad(store);
 
-export default store
+export default store;

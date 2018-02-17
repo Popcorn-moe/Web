@@ -62,72 +62,76 @@
 </template>
 
 <script>
-  import { VBtn, VTextField, VIcon, VAlert } from 'vuetify/es5/components'
-  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-  import { login } from '../../utils/auth'
-  import { mapActions } from 'vuex'
+import { VBtn, VTextField, VIcon, VAlert } from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import { login } from "../../utils/auth";
+import { mapActions } from "vuex";
 
-  export default {
-    data() {
-      return {
-        username    : '',
-        password    : '',
-        hidePassword: true,
-        alert       : null
-      }
-    },
-    components: {
-      VAlert,
-      VBtn,
-      VTextField,
-      VContainer,
-      VFlex,
-      VLayout
-    },
-    methods: {
-      ...mapActions({
-        setIsAuth: 'setIsAuth'
-      }),
-      login(provider) {
-        if (provider){
-          const callback = encodeURIComponent(`${location.origin}/#${this.$router.last}`)
-          window.location.assign(`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`)
-        } else {
-          login(this.username, this.password).then(() => {
-            this.setIsAuth(true)
-            this.$router.go(-1)
-          }).catch(error => {
-            if (error.alert)
-              this.alert = error.alert
-            else
-              return Promise.reject(error)
-          })
-        }
-      }
-    },
-    i18n: {
-      messages: {
-        fr: {
-          login: {
-            connect_with: 'Se connecter avec :',
-            connect: ' Se connecter',
-            sign_up: 'Créer un compte',
-            login: 'E-mail / Pseudo',
-            password: 'Mot de passe'
-          }
-        },
-        en: {
-          login: {
-            connect_with: 'Connect With :',
-            connect: 'Sign in',
-            sign_up: 'Sign up',
-            login: 'E-mail / Login',
-            password: 'Password'
-          }
-        },
-      }
-    }
-  }
+export default {
+	data() {
+		return {
+			username: "",
+			password: "",
+			hidePassword: true,
+			alert: null
+		};
+	},
+	components: {
+		VAlert,
+		VBtn,
+		VTextField,
+		VContainer,
+		VFlex,
+		VLayout
+	},
+	methods: {
+		...mapActions({
+			setIsAuth: "setIsAuth"
+		}),
+		login(provider) {
+			if (provider) {
+				const callback = encodeURIComponent(
+					`${location.origin}/#${this.$router.last}`
+				);
+				window.location.assign(
+					`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`
+				);
+			} else {
+				login(this.username, this.password)
+					.then(() => {
+						this.setIsAuth(true);
+						this.$router.go(-1);
+					})
+					.catch(error => {
+						if (error.alert) this.alert = error.alert;
+						else return Promise.reject(error);
+					});
+			}
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				login: {
+					connect_with: "Se connecter avec :",
+					connect: " Se connecter",
+					sign_up: "Créer un compte",
+					login: "E-mail / Pseudo",
+					password: "Mot de passe"
+				}
+			},
+			en: {
+				login: {
+					connect_with: "Connect With :",
+					connect: "Sign in",
+					sign_up: "Sign up",
+					login: "E-mail / Login",
+					password: "Password"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

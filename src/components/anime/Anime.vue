@@ -20,22 +20,21 @@
 </template>
 
 <script>
-import { VIcon } from 'vuetify/es5/components'
-import Rating from './Rating'
+import { VIcon } from "vuetify/es5/components";
+import Rating from "./Rating";
 
 export default {
-  props: ['value'],
-  data() {
-      return {
-          rate: 0
-      }
-  },
-  components: {
-      VIcon,
-      Rating
-  }
-}
-
+	props: ["value"],
+	data() {
+		return {
+			rate: 0
+		};
+	},
+	components: {
+		VIcon,
+		Rating
+	}
+};
 </script>
 
 <style lang="stylus">

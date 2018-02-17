@@ -132,193 +132,265 @@
 </template>
 
 <script>
-import { VTabsItems, VTabItem } from 'vuetify/es5/components/VTabs'
-import { VIcon, VBtn, VTextField, VDataTable, VSelect, VChip, VAvatar } from 'vuetify/es5/components'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import gql from 'graphql-tag'
+import { VTabsItems, VTabItem } from "vuetify/es5/components/VTabs";
+import {
+	VIcon,
+	VBtn,
+	VTextField,
+	VDataTable,
+	VSelect,
+	VChip,
+	VAvatar
+} from "vuetify/es5/components";
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileAction,
+	VListTileContent,
+	VListTileTitle
+} from "vuetify/es5/components/VList";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import gql from "graphql-tag";
 
 export default {
-  name: "user_friends",
-  props: {
-    userId: String
-  },
-  data() {
-    return {
-      currTab: "friends",
-      user: { login: "UNKNOWN", friends: [] },
-      me: { friends: [] },
-      friendRequests: [],
-      pendingFriendRequests: [],
-      search: '',
-      selectedFriends: [],
-      searchUser: []
-    }
-  },
-  methods: {
-    isMe() {
-      return this.user.id === this.me.id
-    },
-    acceptFriendRequest(id) {
-      this.$apollo.mutate({
-        mutation: gql`
-            mutation acceptFriendRequest($notif: ID!) {
-                acceptFriendRequest(notif: $notif) {
-                    error
-                }
-            }
-          `,
-        variables: {
-          notif: id
-        }
-      }).then(() => {
-        this.$apollo.queries.friendRequests.refetch()
-        this.$apollo.queries.me.refetch()
-      });
-    },
-    removeFriend(id) {
-      this.$apollo.mutate({
-        mutation: gql`
-            mutation delFriend($friend: ID!)
-            {
-              delFriend(friend: $friend)
-            }
-          `,
-        variables: {
-          friend: id
-        }
-      }).then(() => this.$apollo.queries.me.refetch());
-    },
-    delNotification(id) {
-      this.$apollo.mutate({
-        mutation: gql`
-            mutation delNotification($notif: ID!) {
-                delNotification(notif: $notif) {
-                    error
-                }
-            }
-          `,
-        variables: {
-          notif: id
-        }
-      }).then(() => this.$apollo.queries.pendingFriendRequests.refetch());
-    },
-    inviteFriends() {
-      this.$apollo.mutate({
-        mutation: gql`
-            mutation sendFriendsRequests($to: [ID!]!)
-            {
-              sendFriendsRequests(to: $to)
-            }
-          `,
-        variables: {
-          to: this.selectedFriends.map(({ id }) => id)
-        }
-      }).then(() =>{
-        this.$apollo.queries.pendingFriendRequests.refetch()
-        this.searchUser = [];
-        this.selectedFriends = [];
-      })
-    }
-  },
-  computed: {
-    searchResults() {
-      const friendsId = this.me.friends.map(({ id }) => id)
-      const friendsRequestsId = this.pendingFriendRequests.map(({ user }) => user.id)
-      const selectedFriendsId = this.selectedFriends.map(({ id }) => id)
-      const search = this.searchUser.filter(({ id }) => !selectedFriendsId.includes(id) && !friendsId.includes(id) && !friendsRequestsId.includes(id) && id !== this.me.id)
-      return search.concat(this.selectedFriends)
-    }
-  },
-  components: {
-    VAvatar,
-    VContainer,
-    VFlex,
-    VLayout,
-    VList,
-    VListGroup,
-    VListTile,
-    VListTileAction,
-    VListTileContent,
-    VListTileTitle,
-    VIcon,
-    VBtn,
-    VTextField,
-    VTabsItems,
-    VTabItem,
-    VDataTable,
-    VSelect,
-    VChip
-  },
-  apollo: {
-    me: {
-      query: gql`{ me { id friends { id avatar login } } }`,
-      update: ({ me }) => me
-    },
-    user: {
-      query() {
-        return gql`
-          query userById($id: ID!) {
-            userById(id: $id) { id friends { id avatar login } }
-          }
-        `;
-      },
-      variables() {
-        return {
-          id: this.userId
-        }
-      },
-      update: ({ userById }) => userById
-    },
-    friendRequests: {
-      query: gql`{ friendRequests { id _from { login id avatar } } }`,
-      update: ({ friendRequests }) => friendRequests
-    },
-    pendingFriendRequests: {
-      query: gql`{ pendingFriendRequests { id user { login id avatar } } }`,
-      update: ({ pendingFriendRequests }) => pendingFriendRequests
-    },
-    searchUser: {
-      query: gql`query ($name: String!) {
-        searchUser(name: $name) {
-          login id
-        }
-      }`,
-      variables() {
-        return {
-          name: this.search || ''
-        }
-      },
-      update: ({ searchUser }) => searchUser
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        friends: {
-          list: 'Liste d\'amis',
-          invites: 'Invitations',
-          pending_invites: 'Mes invitations',
-          search: 'Rechercher des amis',
-          no_results: 'Aucun ami trouvé',
-          accept: 'Acepter',
-          cancel: 'Annuler'
-        }
-      },
-      en: {
-        friends: {
-          list: 'Friends List',
-          invites: 'Friends Invites',
-          pending_invites: 'My Invites',
-          search: 'Search firends',
-          no_results: 'Nothing found',
-          accept: 'Accept',
-          cancel: 'Cancel'
-        }
-      }
-    }
-  }
-}
+	name: "user_friends",
+	props: {
+		userId: String
+	},
+	data() {
+		return {
+			currTab: "friends",
+			user: { login: "UNKNOWN", friends: [] },
+			me: { friends: [] },
+			friendRequests: [],
+			pendingFriendRequests: [],
+			search: "",
+			selectedFriends: [],
+			searchUser: []
+		};
+	},
+	methods: {
+		isMe() {
+			return this.user.id === this.me.id;
+		},
+		acceptFriendRequest(id) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation acceptFriendRequest($notif: ID!) {
+							acceptFriendRequest(notif: $notif) {
+								error
+							}
+						}
+					`,
+					variables: {
+						notif: id
+					}
+				})
+				.then(() => {
+					this.$apollo.queries.friendRequests.refetch();
+					this.$apollo.queries.me.refetch();
+				});
+		},
+		removeFriend(id) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation delFriend($friend: ID!) {
+							delFriend(friend: $friend)
+						}
+					`,
+					variables: {
+						friend: id
+					}
+				})
+				.then(() => this.$apollo.queries.me.refetch());
+		},
+		delNotification(id) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation delNotification($notif: ID!) {
+							delNotification(notif: $notif) {
+								error
+							}
+						}
+					`,
+					variables: {
+						notif: id
+					}
+				})
+				.then(() => this.$apollo.queries.pendingFriendRequests.refetch());
+		},
+		inviteFriends() {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation sendFriendsRequests($to: [ID!]!) {
+							sendFriendsRequests(to: $to)
+						}
+					`,
+					variables: {
+						to: this.selectedFriends.map(({ id }) => id)
+					}
+				})
+				.then(() => {
+					this.$apollo.queries.pendingFriendRequests.refetch();
+					this.searchUser = [];
+					this.selectedFriends = [];
+				});
+		}
+	},
+	computed: {
+		searchResults() {
+			const friendsId = this.me.friends.map(({ id }) => id);
+			const friendsRequestsId = this.pendingFriendRequests.map(
+				({ user }) => user.id
+			);
+			const selectedFriendsId = this.selectedFriends.map(({ id }) => id);
+			const search = this.searchUser.filter(
+				({ id }) =>
+					!selectedFriendsId.includes(id) &&
+					!friendsId.includes(id) &&
+					!friendsRequestsId.includes(id) &&
+					id !== this.me.id
+			);
+			return search.concat(this.selectedFriends);
+		}
+	},
+	components: {
+		VAvatar,
+		VContainer,
+		VFlex,
+		VLayout,
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileAction,
+		VListTileContent,
+		VListTileTitle,
+		VIcon,
+		VBtn,
+		VTextField,
+		VTabsItems,
+		VTabItem,
+		VDataTable,
+		VSelect,
+		VChip
+	},
+	apollo: {
+		me: {
+			query: gql`
+				{
+					me {
+						id
+						friends {
+							id
+							avatar
+							login
+						}
+					}
+				}
+			`,
+			update: ({ me }) => me
+		},
+		user: {
+			query() {
+				return gql`
+					query userById($id: ID!) {
+						userById(id: $id) {
+							id
+							friends {
+								id
+								avatar
+								login
+							}
+						}
+					}
+				`;
+			},
+			variables() {
+				return {
+					id: this.userId
+				};
+			},
+			update: ({ userById }) => userById
+		},
+		friendRequests: {
+			query: gql`
+				{
+					friendRequests {
+						id
+						_from {
+							login
+							id
+							avatar
+						}
+					}
+				}
+			`,
+			update: ({ friendRequests }) => friendRequests
+		},
+		pendingFriendRequests: {
+			query: gql`
+				{
+					pendingFriendRequests {
+						id
+						user {
+							login
+							id
+							avatar
+						}
+					}
+				}
+			`,
+			update: ({ pendingFriendRequests }) => pendingFriendRequests
+		},
+		searchUser: {
+			query: gql`
+				query($name: String!) {
+					searchUser(name: $name) {
+						login
+						id
+					}
+				}
+			`,
+			variables() {
+				return {
+					name: this.search || ""
+				};
+			},
+			update: ({ searchUser }) => searchUser
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				friends: {
+					list: "Liste d'amis",
+					invites: "Invitations",
+					pending_invites: "Mes invitations",
+					search: "Rechercher des amis",
+					no_results: "Aucun ami trouvé",
+					accept: "Acepter",
+					cancel: "Annuler"
+				}
+			},
+			en: {
+				friends: {
+					list: "Friends List",
+					invites: "Friends Invites",
+					pending_invites: "My Invites",
+					search: "Search firends",
+					no_results: "Nothing found",
+					accept: "Accept",
+					cancel: "Cancel"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

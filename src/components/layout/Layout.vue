@@ -27,42 +27,42 @@
 </template>
 
 <script>
-import Loader from './Loader'
+import Loader from "./Loader";
 
-import { VBtn, VIcon } from 'vuetify/es5/components'
-import { VContent, VContainer } from 'vuetify/es5/components/VGrid'
-import { VSlideYTransition } from 'vuetify/es5/components/transitions'
-import { mapGetters, mapActions } from 'vuex'
-import Navbar from './navbar/Navbar'
-import Search from './Search'
-import Floating from '../Floating'
-import VideoPlayer, { videoPlayer } from '../player/GlobalPlayer'
+import { VBtn, VIcon } from "vuetify/es5/components";
+import { VContent, VContainer } from "vuetify/es5/components/VGrid";
+import { VSlideYTransition } from "vuetify/es5/components/transitions";
+import { mapGetters, mapActions } from "vuex";
+import Navbar from "./navbar/Navbar";
+import Search from "./Search";
+import Floating from "../Floating";
+import VideoPlayer, { videoPlayer } from "../player/GlobalPlayer";
 
 export default {
-    data() {
-        return {
-            videoPlayer
-        }
-    },
-    components: {
-        Loader,
-        Navbar,
-        Search,
-        VBtn,
-        VIcon,
-        VContent,
-        VSlideYTransition,
-        Floating,
-        VideoPlayer
-    },
-    computed: mapGetters({
-        drawer: 'drawer',
-        isLoading: 'isLoading'
-    }),
-    methods: mapActions({
-        toggleDrawer: 'toggleDrawer'
-    })
-}
+	data() {
+		return {
+			videoPlayer
+		};
+	},
+	components: {
+		Loader,
+		Navbar,
+		Search,
+		VBtn,
+		VIcon,
+		VContent,
+		VSlideYTransition,
+		Floating,
+		VideoPlayer
+	},
+	computed: mapGetters({
+		drawer: "drawer",
+		isLoading: "isLoading"
+	}),
+	methods: mapActions({
+		toggleDrawer: "toggleDrawer"
+	})
+};
 </script>
 
 <style lang="stylus">

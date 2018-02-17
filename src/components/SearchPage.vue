@@ -80,139 +80,186 @@
 </template>
 
 <script>
-import { VTextField, VSelect, VBtn, VDialog, VChip } from 'vuetify/es5/components'
-import { VCard, VCardTitle } from 'vuetify/es5/components/VCard'
-import { VContainer, VFlex, VLayout, VSpacer } from 'vuetify/es5/components/VGrid'
-import Anime from './anime/Anime.vue'
-import gql from 'graphql-tag'
+import {
+	VTextField,
+	VSelect,
+	VBtn,
+	VDialog,
+	VChip
+} from "vuetify/es5/components";
+import { VCard, VCardTitle } from "vuetify/es5/components/VCard";
+import {
+	VContainer,
+	VFlex,
+	VLayout,
+	VSpacer
+} from "vuetify/es5/components/VGrid";
+import Anime from "./anime/Anime.vue";
+import gql from "graphql-tag";
 
 export default {
-  name: "search",
-  data () {
-    return {
-      showMore: false,
-      dialog_tags: false,
-      tags: [],
-      animesStatus: [],
-      animesTypes: ['ANIME', 'FILM'],
+	name: "search",
+	data() {
+		return {
+			showMore: false,
+			dialog_tags: false,
+			tags: [],
+			animesStatus: [],
+			animesTypes: ["ANIME", "FILM"],
 
-      searchAuthorResults: [],
-      selectedAuthors: [],
-      searchAuthor: '',
+			searchAuthorResults: [],
+			selectedAuthors: [],
+			searchAuthor: "",
 
-      searchResults: [],
-      search: "",
-      status: null,
-      type: null,
-    }
-  },
-  computed: {
-    authorsResults() {
-      const selectedAuthorsId = this.selectedAuthors.map(({ id }) => id)
-      const search = this.searchAuthorResults.filter(({ id }) => !selectedAuthorsId.includes(id));
-      return search.concat(this.selectedAuthors);
-    }
-  },
-  apollo: {
-    tags: {
-      query: gql`{ tags { id name desc color } }`,
-      update: ({ tags }) => tags.map(tag => Object.assign({}, tag, { value: false }))
-    },
-    animesStatus: {
-      query: gql`{
-          __type(name: "AnimeStatus") {
-            enumValues {
-              name
-            }
-          }
-        }`,
-      update: ({ __type: { enumValues }}) => enumValues
-        .map(e => e.name.split('_')
-          .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '))
-    },
-    searchResults: {
-      query: gql`
-        query searchAnimes($name: String, $status: AnimeStatus, $type: MediaType, $authors: [ID!], $year: Int, $tags: [ID!]) {
-          searchAnimes(name: $name, status: $status, type: $type, authors: $authors, year: $year, tags: $tags)
-          {
-            id
-            names
-            authors { name }
-            cover
-          }
-        }
-      `,
-      variables() {
-        return {
-          name: this.search,
-          status: this.status && this.status.toUpperCase().replace(/ /g, '_'),
-        }
-      },
-      update: ({ searchAnimes }) => searchAnimes
-    },
-    searchAuthorResults: {
-      query: gql`query ($name: String!) {
-        searchAuthor(name: $name) {
-          id name
-        }
-      }`,
-      variables() {
-        return {
-          name: this.searchAuthor || ''
-        }
-      },
-      update: ({ searchAuthor }) => searchAuthor
-    }
-  },
-  components: {
-    VContainer,
-    VFlex,
-    VLayout,
-    VSpacer,
-    VTextField,
-    VSelect,
-    VDialog,
-    VCard,
-    VCardTitle,
-    VBtn,
-    Anime,
-    VChip
-  },
-  i18n: {
-    messages: {
-      fr: {
-        search: {
-          more_options: 'Plus d\'options',
-          less_options: 'Moins d\'options',
-          nothing_found: 'Aucun resultats',
-          add_tags: 'Ajouter des tags',
-          finish: 'Terminer',
-          search: 'Rechercher',
-          sort_by: 'Trier par',
-          status: 'Status',
-          type: 'Type',
-          author: 'Autheur',
-          year: 'Année'
-        }
-      },
-      en: {
-        search: {
-          more_options: 'More options',
-          less_options: 'Less options',
-          nothing_found: 'Nothing found',
-          add_tags: 'Add tags',
-          finish: 'Ok',
-          search: 'Search',
-          sort_by: 'Sort by',
-          status: 'Status',
-          type: 'Type',
-          author: 'Author',
-          year: 'Year'
-        }
-      }
-    }
-  }
-}
+			searchResults: [],
+			search: "",
+			status: null,
+			type: null
+		};
+	},
+	computed: {
+		authorsResults() {
+			const selectedAuthorsId = this.selectedAuthors.map(({ id }) => id);
+			const search = this.searchAuthorResults.filter(
+				({ id }) => !selectedAuthorsId.includes(id)
+			);
+			return search.concat(this.selectedAuthors);
+		}
+	},
+	apollo: {
+		tags: {
+			query: gql`
+				{
+					tags {
+						id
+						name
+						desc
+						color
+					}
+				}
+			`,
+			update: ({ tags }) =>
+				tags.map(tag => Object.assign({}, tag, { value: false }))
+		},
+		animesStatus: {
+			query: gql`
+				{
+					__type(name: "AnimeStatus") {
+						enumValues {
+							name
+						}
+					}
+				}
+			`,
+			update: ({ __type: { enumValues } }) =>
+				enumValues.map(e =>
+					e.name
+						.split("_")
+						.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+						.join(" ")
+				)
+		},
+		searchResults: {
+			query: gql`
+				query searchAnimes(
+					$name: String
+					$status: AnimeStatus
+					$type: MediaType
+					$authors: [ID!]
+					$year: Int
+					$tags: [ID!]
+				) {
+					searchAnimes(
+						name: $name
+						status: $status
+						type: $type
+						authors: $authors
+						year: $year
+						tags: $tags
+					) {
+						id
+						names
+						authors {
+							name
+						}
+						cover
+					}
+				}
+			`,
+			variables() {
+				return {
+					name: this.search,
+					status: this.status && this.status.toUpperCase().replace(/ /g, "_")
+				};
+			},
+			update: ({ searchAnimes }) => searchAnimes
+		},
+		searchAuthorResults: {
+			query: gql`
+				query($name: String!) {
+					searchAuthor(name: $name) {
+						id
+						name
+					}
+				}
+			`,
+			variables() {
+				return {
+					name: this.searchAuthor || ""
+				};
+			},
+			update: ({ searchAuthor }) => searchAuthor
+		}
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VSpacer,
+		VTextField,
+		VSelect,
+		VDialog,
+		VCard,
+		VCardTitle,
+		VBtn,
+		Anime,
+		VChip
+	},
+	i18n: {
+		messages: {
+			fr: {
+				search: {
+					more_options: "Plus d'options",
+					less_options: "Moins d'options",
+					nothing_found: "Aucun resultats",
+					add_tags: "Ajouter des tags",
+					finish: "Terminer",
+					search: "Rechercher",
+					sort_by: "Trier par",
+					status: "Status",
+					type: "Type",
+					author: "Autheur",
+					year: "Année"
+				}
+			},
+			en: {
+				search: {
+					more_options: "More options",
+					less_options: "Less options",
+					nothing_found: "Nothing found",
+					add_tags: "Add tags",
+					finish: "Ok",
+					search: "Search",
+					sort_by: "Sort by",
+					status: "Status",
+					type: "Type",
+					author: "Author",
+					year: "Year"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

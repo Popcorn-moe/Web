@@ -26,51 +26,55 @@
 </template>
 
 <script>
-import { VSelect, VAvatar } from 'vuetify/es5/components'
-import { VListTileAvatar, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
-import i18n from '../../../i18n'
+import { VSelect, VAvatar } from "vuetify/es5/components";
+import {
+	VListTileAvatar,
+	VListTileContent,
+	VListTileTitle
+} from "vuetify/es5/components/VList";
+import i18n from "../../../i18n";
 const MAP = {
-  'en': 'gb'
-}
+	en: "gb"
+};
 
 export default {
-  name: 'LanguageSelect',
-  props: {
-    transparent: {
-      type: Boolean,
-      default: true
-    }
-  },
-  data() {
-    return {
-      MAP,
-      i18n
-    }
-  },
-  methods: {
-    setLocale(locale) {
-      i18n.locale = locale
-      localStorage.setItem('locale', locale)
-      const update = elem => {
-        elem.$forceUpdate();
-        elem.$children.forEach(update)
-      }
-      update(this.$root)
-    }
-  },
-  components: {
-    VSelect,
-    VAvatar,
-    VListTileAvatar,
-    VListTileContent,
-    VListTileTitle
-  }
-}
+	name: "LanguageSelect",
+	props: {
+		transparent: {
+			type: Boolean,
+			default: true
+		}
+	},
+	data() {
+		return {
+			MAP,
+			i18n
+		};
+	},
+	methods: {
+		setLocale(locale) {
+			i18n.locale = locale;
+			localStorage.setItem("locale", locale);
+			const update = elem => {
+				elem.$forceUpdate();
+				elem.$children.forEach(update);
+			};
+			update(this.$root);
+		}
+	},
+	components: {
+		VSelect,
+		VAvatar,
+		VListTileAvatar,
+		VListTileContent,
+		VListTileTitle
+	}
+};
 </script>
 
 <style>
-  .language-flag {
-    width: 35px !important;
-    height: 35px !important;
-  }
+.language-flag {
+	width: 35px !important;
+	height: 35px !important;
+}
 </style>

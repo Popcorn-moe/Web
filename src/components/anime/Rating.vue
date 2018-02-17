@@ -13,23 +13,23 @@
 </template>
 
 <script>
-import { VIcon } from 'vuetify/es5/components'
+import { VIcon } from "vuetify/es5/components";
 
 export default {
-  name: 'Rating',
-  props: {
-    value: { type: Number },
-    length: { type: Number, default: 5 },
-  },
-  data () {
-    return {
-      over: 0,
-    }
-  },
-  components: {
-    VIcon
-  }
-}
+	name: "Rating",
+	props: {
+		value: { type: Number },
+		length: { type: Number, default: 5 }
+	},
+	data() {
+		return {
+			over: 0
+		};
+	},
+	components: {
+		VIcon
+	}
+};
 </script>
 
 <style lang="stylus">

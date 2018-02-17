@@ -51,129 +51,165 @@
 </template>
 
 <script>
-import { VExpansionPanel, VBtn, VIcon, VTextField, VDivider } from 'vuetify/es5/components'
-import VExpansionPanelContent from 'vuetify/es5/components/VExpansionPanel/VExpansionPanelContent'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import gql from 'graphql-tag'
-import dateformat from 'dateformat';
+import {
+	VExpansionPanel,
+	VBtn,
+	VIcon,
+	VTextField,
+	VDivider
+} from "vuetify/es5/components";
+import VExpansionPanelContent from "vuetify/es5/components/VExpansionPanel/VExpansionPanelContent";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import gql from "graphql-tag";
+import dateformat from "dateformat";
 
 export default {
-  name: 'user-profile',
-  props: {
-      userId: String
-  },
-  data() {
-    return {
-      user: { login: "UNKNOWN" },
-      me: { login: "Me" },
-      events: []
-    }
-  },
-  apollo: {
-    me: {
-      query: gql`{ me { id } }`,
-      update: ({ me }) => me
-    },
-    user: {
-      query() {
-        return gql`
-          query userById($id: ID!) {
-            userById(id: $id) { id avatar login }
-          }
-        `;
-      },
-      variables() {
-        return {
-          id: this.userId
-        }
-      },
-      skip() {
-        return !this.userId
-      },
-      update: ({ userById }) => userById
-    },
-    events: {
-      query() {
-        return gql`
-          query events($user: ID!) {
-            events(user: $user) {
-              user { login }
-              id
-              date
-              type
-              ... on AnimeFollowEvent { anime { id names cover } }
-              ... on NewFriendEvent { friend { id login avatar } }
-              ... on MessageEvent { message }
-            }
-          }
-        `;
-      },
-      variables() {
-        return {
-          user: this.userId
-        }
-      },
-      skip() {
-        return !this.userId
-      },
-      update: ({ events }) => events
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        profile: {
-          send_message: 'Envoyer un message',
-          send_message_btn: 'Envoyer',
-          about: 'A propos de {user}',
-          empty_events: 'Aucuns evènements',
-          new_friend_event: "{user} et {friend} sont devenus amis !"
-        }
-      },
-      en: {
-        profile: {
-          send_message: 'Send message',
-          send_message_btn: 'Send',
-          about: 'About {user}',
-          empty_events: 'No events',
-          new_friend_event: "{user} and {friend} became friends !"
-        }
-      }
-    }
-  },
-  methods: {
-    isMe() {
-      return this.user.id === this.me.id
-    },
-    dateFormat(date) {
-      return {
-        day: dateformat(date, 'd'),
-        month: dateformat(date, 'mmm') + '.'
-      }
-    }
-  },
-  computed: {
-    timeline() {
-      const days = [];
-      const out = {};
-      this.events.forEach(({ date }) => days.indexOf(date) === -1 && days.push(date));
-      days.sort((a, b) =>  new Date(b).getTime() - new Date(a).getTime());
-      days.forEach(d => out[d] = this.events.filter(({ date }) => date === d));
-      return out;
-    }
-  },
-  components: {
-    VDivider,
-    VTextField,
-    VExpansionPanel,
-    VExpansionPanelContent,
-    VBtn,
-    VIcon,
-    VContainer,
-    VFlex,
-    VLayout
-  }
-}
+	name: "user-profile",
+	props: {
+		userId: String
+	},
+	data() {
+		return {
+			user: { login: "UNKNOWN" },
+			me: { login: "Me" },
+			events: []
+		};
+	},
+	apollo: {
+		me: {
+			query: gql`
+				{
+					me {
+						id
+					}
+				}
+			`,
+			update: ({ me }) => me
+		},
+		user: {
+			query() {
+				return gql`
+					query userById($id: ID!) {
+						userById(id: $id) {
+							id
+							avatar
+							login
+						}
+					}
+				`;
+			},
+			variables() {
+				return {
+					id: this.userId
+				};
+			},
+			skip() {
+				return !this.userId;
+			},
+			update: ({ userById }) => userById
+		},
+		events: {
+			query() {
+				return gql`
+					query events($user: ID!) {
+						events(user: $user) {
+							user {
+								login
+							}
+							id
+							date
+							type
+							... on AnimeFollowEvent {
+								anime {
+									id
+									names
+									cover
+								}
+							}
+							... on NewFriendEvent {
+								friend {
+									id
+									login
+									avatar
+								}
+							}
+							... on MessageEvent {
+								message
+							}
+						}
+					}
+				`;
+			},
+			variables() {
+				return {
+					user: this.userId
+				};
+			},
+			skip() {
+				return !this.userId;
+			},
+			update: ({ events }) => events
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				profile: {
+					send_message: "Envoyer un message",
+					send_message_btn: "Envoyer",
+					about: "A propos de {user}",
+					empty_events: "Aucuns evènements",
+					new_friend_event: "{user} et {friend} sont devenus amis !"
+				}
+			},
+			en: {
+				profile: {
+					send_message: "Send message",
+					send_message_btn: "Send",
+					about: "About {user}",
+					empty_events: "No events",
+					new_friend_event: "{user} and {friend} became friends !"
+				}
+			}
+		}
+	},
+	methods: {
+		isMe() {
+			return this.user.id === this.me.id;
+		},
+		dateFormat(date) {
+			return {
+				day: dateformat(date, "d"),
+				month: dateformat(date, "mmm") + "."
+			};
+		}
+	},
+	computed: {
+		timeline() {
+			const days = [];
+			const out = {};
+			this.events.forEach(
+				({ date }) => days.indexOf(date) === -1 && days.push(date)
+			);
+			days.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+			days.forEach(
+				d => (out[d] = this.events.filter(({ date }) => date === d))
+			);
+			return out;
+		}
+	},
+	components: {
+		VDivider,
+		VTextField,
+		VExpansionPanel,
+		VExpansionPanelContent,
+		VBtn,
+		VIcon,
+		VContainer,
+		VFlex,
+		VLayout
+	}
+};
 </script>
 
 

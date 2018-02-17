@@ -18,39 +18,39 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from 'vuetify/es5/components'
-import Anime from './Anime'
+import { VBtn, VIcon } from "vuetify/es5/components";
+import Anime from "./Anime";
 
 export default {
-  props: {
-    value: Array
-  },
-  data() {
-    return {
-        index: 0,
-        maxIndex: 0,
-        animeSize: 184, // Anime width + 2 * padding + 2 * margin in px
-        elemsPerLine: 0
-    }
-  },
-  mounted() {
-    window.addEventListener('resize', this.update)
-    this.update()
-  },
-  destroyed() {
-    window.removeEventListener('resize', this.update)
-  },
-  methods: {
-    update() {
-        this.elemsPerLine = Math.ceil(document.body.offsetWidth / this.animeSize)
-    }
-  },
-  components: {
-      VBtn,
-      VIcon,
-      Anime
-  }
-}
+	props: {
+		value: Array
+	},
+	data() {
+		return {
+			index: 0,
+			maxIndex: 0,
+			animeSize: 184, // Anime width + 2 * padding + 2 * margin in px
+			elemsPerLine: 0
+		};
+	},
+	mounted() {
+		window.addEventListener("resize", this.update);
+		this.update();
+	},
+	destroyed() {
+		window.removeEventListener("resize", this.update);
+	},
+	methods: {
+		update() {
+			this.elemsPerLine = Math.ceil(document.body.offsetWidth / this.animeSize);
+		}
+	},
+	components: {
+		VBtn,
+		VIcon,
+		Anime
+	}
+};
 </script>
 
 

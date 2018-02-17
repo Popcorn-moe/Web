@@ -1,48 +1,48 @@
 {
-  "__schema": {
-    "types": [
-      {
-        "kind": "INTERFACE",
-        "name": "Dated",
-        "possibleTypes": [
-          {
-            "name": "Anime"
-          },
-          {
-            "name": "Media"
-          },
-          {
-            "name": "Season"
-          }
-        ]
-      },
-      {
-        "kind": "UNION",
-        "name": "PlaylistElem",
-        "possibleTypes": [
-          {
-            "name": "PlaylistAnimeElem"
-          },
-          {
-            "name": "PlaylistMediaElem"
-          }
-        ]
-      },
-      {
-        "kind": "INTERFACE",
-        "name": "Notification",
-        "possibleTypes": [
-          {
-            "name": "NotifFriendRequestContent"
-          },
-          {
-            "name": "NotifMessageContent"
-          },
-          {
-            "name": "NotifAnimeFollowContent"
-          }
-        ]
-      }
-    ]
-  }
+	"__schema": {
+		"types": [
+			{
+				"kind": "INTERFACE",
+				"name": "Dated",
+				"possibleTypes": [
+					{
+						"name": "Anime"
+					},
+					{
+						"name": "Media"
+					},
+					{
+						"name": "Season"
+					}
+				]
+			},
+			{
+				"kind": "UNION",
+				"name": "PlaylistElem",
+				"possibleTypes": [
+					{
+						"name": "PlaylistAnimeElem"
+					},
+					{
+						"name": "PlaylistMediaElem"
+					}
+				]
+			},
+			{
+				"kind": "INTERFACE",
+				"name": "Notification",
+				"possibleTypes": [
+					{
+						"name": "NotifFriendRequestContent"
+					},
+					{
+						"name": "NotifMessageContent"
+					},
+					{
+						"name": "NotifAnimeFollowContent"
+					}
+				]
+			}
+		]
+	}
 }

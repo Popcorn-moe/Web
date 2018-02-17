@@ -19,49 +19,61 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import { VBtn, VIcon } from 'vuetify/es5/components'
-import { VCard, VCardTitle, VCardMedia } from 'vuetify/es5/components/VCard'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
+import gql from "graphql-tag";
+import { VBtn, VIcon } from "vuetify/es5/components";
+import { VCard, VCardTitle, VCardMedia } from "vuetify/es5/components/VCard";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 
 export default {
-  name: "NewsList",
-  data() {
-    return {
-        news: []
-    }
-  },
-  components: {
-    VContainer,
-    VFlex,
-    VLayout,
-    VCard,
-    VCardTitle,
-    VCardMedia,
-    VBtn,
-    VIcon
-  },
-  apollo: {
-    news: {
-      query: gql`{ news { id name author { login } content cover }}`,
-      update: ({ news }) => news
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        news: {
-          see_more: 'Voir plus'
-        }
-      },
-      en: {
-        news: {
-          see_more: 'See More'
-        }
-      }
-    }
-  }
-}
+	name: "NewsList",
+	data() {
+		return {
+			news: []
+		};
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VCard,
+		VCardTitle,
+		VCardMedia,
+		VBtn,
+		VIcon
+	},
+	apollo: {
+		news: {
+			query: gql`
+				{
+					news {
+						id
+						name
+						author {
+							login
+						}
+						content
+						cover
+					}
+				}
+			`,
+			update: ({ news }) => news
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				news: {
+					see_more: "Voir plus"
+				}
+			},
+			en: {
+				news: {
+					see_more: "See More"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

@@ -66,57 +66,76 @@
 </template>
 
 <script>
-import { VExpansionPanel, VBtn, VIcon, VTextField, VDatePicker, VMenu, VProgressCircular } from 'vuetify/es5/components'
-import VExpansionPanelContent from 'vuetify/es5/components/VExpansionPanel/VExpansionPanelContent'
-import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-import gql from 'graphql-tag'
+import {
+	VExpansionPanel,
+	VBtn,
+	VIcon,
+	VTextField,
+	VDatePicker,
+	VMenu,
+	VProgressCircular
+} from "vuetify/es5/components";
+import VExpansionPanelContent from "vuetify/es5/components/VExpansionPanel/VExpansionPanelContent";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import gql from "graphql-tag";
 
 export default {
-    data() {
-        return {
-            born: '',
-            uploadingAvatar: false
-        }
-    },
-    components: {
-        VExpansionPanel,
-        VExpansionPanelContent,
-        VProgressCircular,
-        VBtn,
-        VIcon,
-        VTextField,
-        VDatePicker,
-        VMenu,
-        VContainer,
-        VFlex,
-        VLayout
-    },
-    methods: {
-        changeAvatar({ target: { files: [file] }}) {
-            this.uploadingAvatar = true
-            this.$apollo.mutate({
-                mutation: gql`mutation ($file: Upload!) {
-                    setAvatar(file: $file) {
-                        error
-                    }
-                }`,
-                variables: {
-                    file
-                }
-            }).then((data) => {
-                console.log(data)
-                this.$apollo.queries.avatar.refetch()
-            }).catch(e => console.error(e))
-            .then(_ => this.uploadingAvatar = false)
-        }
-    },
-    apollo: {
-        avatar: {
-            query: gql`{ me { avatar } }`,
-            update: ({ me: { avatar }}) => avatar
-        }
-    },
-}
+	data() {
+		return {
+			born: "",
+			uploadingAvatar: false
+		};
+	},
+	components: {
+		VExpansionPanel,
+		VExpansionPanelContent,
+		VProgressCircular,
+		VBtn,
+		VIcon,
+		VTextField,
+		VDatePicker,
+		VMenu,
+		VContainer,
+		VFlex,
+		VLayout
+	},
+	methods: {
+		changeAvatar({ target: { files: [file] } }) {
+			this.uploadingAvatar = true;
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation($file: Upload!) {
+							setAvatar(file: $file) {
+								error
+							}
+						}
+					`,
+					variables: {
+						file
+					}
+				})
+				.then(data => {
+					console.log(data);
+					this.$apollo.queries.avatar.refetch();
+				})
+				.catch(e => console.error(e))
+				.then(_ => (this.uploadingAvatar = false));
+		}
+	},
+	apollo: {
+		avatar: {
+			query: gql`
+				{
+					me {
+						avatar
+					}
+				}
+			`,
+			update: ({ me: { avatar } }) => avatar
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

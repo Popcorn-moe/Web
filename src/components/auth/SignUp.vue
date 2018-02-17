@@ -53,74 +53,80 @@
 </template>
 
 <script>
-  import { VBtn, VTextField, VCheckbox } from 'vuetify/es5/components'
-  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid'
-  import { signup } from '../../utils/auth'
-  import { mapActions } from 'vuex'
+import { VBtn, VTextField, VCheckbox } from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import { signup } from "../../utils/auth";
+import { mapActions } from "vuex";
 
-  export default {
-    data() {
-      return {
-        login: '',
-        email: '',
-        password: '',
-        passwordConfirm: '',
-        newsletter: true,
-        hidePassword: true,
-        hidePasswordConfirm: true
-      }
-    },
-    components: {
-      VBtn,
-      VTextField,
-      VCheckbox,
-      VContainer,
-      VFlex,
-      VLayout
-    },
-    methods   : {
-      ...mapActions({
-        setIsAuth: 'setIsAuth'
-      }),
-      signup(provider) {
-        if (provider) {
-          const callback = encodeURIComponent(`${location.origin}/#${this.$router.last}`)
-          window.location.assign(`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`)
-        } else {
-          signup(this.login, this.email, this.password, this.newsletter).then(() => {
-            this.$router.go(-1)
-            this.setIsAuth(true)
-          })
-        }
-      }
-    },
-    i18n: {
-      messages: {
-        fr: {
-          sign_up: {
-            sign_up_with: 'S\'inscrire avec :',
-            sign_up: 'S\'inscrire',
-            login: 'Pseudo',
-            mail: 'E-mail',
-            password: 'Mot de passe',
-            newsletter: 'Recevoir les newsletter',
-            sign_in: 'Se connecter'
-          }
-        },
-        en: {
-          sign_up: {
-            sign_up_with: 'Sign up with :',
-            sign_up: 'Sign up',
-            login: 'Login',
-            mail: 'E-mail',
-            password: 'Password',
-            newsletter: 'Get newsletter',
-            sign_in: 'Sign in'
-          }
-        },
-      }
-    }
-  }
+export default {
+	data() {
+		return {
+			login: "",
+			email: "",
+			password: "",
+			passwordConfirm: "",
+			newsletter: true,
+			hidePassword: true,
+			hidePasswordConfirm: true
+		};
+	},
+	components: {
+		VBtn,
+		VTextField,
+		VCheckbox,
+		VContainer,
+		VFlex,
+		VLayout
+	},
+	methods: {
+		...mapActions({
+			setIsAuth: "setIsAuth"
+		}),
+		signup(provider) {
+			if (provider) {
+				const callback = encodeURIComponent(
+					`${location.origin}/#${this.$router.last}`
+				);
+				window.location.assign(
+					`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`
+				);
+			} else {
+				signup(this.login, this.email, this.password, this.newsletter).then(
+					() => {
+						this.$router.go(-1);
+						this.setIsAuth(true);
+					}
+				);
+			}
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				sign_up: {
+					sign_up_with: "S'inscrire avec :",
+					sign_up: "S'inscrire",
+					login: "Pseudo",
+					mail: "E-mail",
+					password: "Mot de passe",
+					newsletter: "Recevoir les newsletter",
+					sign_in: "Se connecter"
+				}
+			},
+			en: {
+				sign_up: {
+					sign_up_with: "Sign up with :",
+					sign_up: "Sign up",
+					login: "Login",
+					mail: "E-mail",
+					password: "Password",
+					newsletter: "Get newsletter",
+					sign_in: "Sign in"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

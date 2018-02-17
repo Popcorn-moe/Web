@@ -85,36 +85,47 @@
 </template>
 
 <script>
-import { VIcon, VBtn, VAvatar, VTextField } from 'vuetify/es5/components'
-import { VToolbar, VToolbarSideIcon } from 'vuetify/es5/components/VToolbar'
-import { VCard } from 'vuetify/es5/components/VCard'
-import { VContainer, VFlex, VLayout, VSpacer } from 'vuetify/es5/components/VGrid'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent } from 'vuetify/es5/components/VList'
+import { VIcon, VBtn, VAvatar, VTextField } from "vuetify/es5/components";
+import { VToolbar, VToolbarSideIcon } from "vuetify/es5/components/VToolbar";
+import { VCard } from "vuetify/es5/components/VCard";
+import {
+	VContainer,
+	VFlex,
+	VLayout,
+	VSpacer
+} from "vuetify/es5/components/VGrid";
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileAction,
+	VListTileContent
+} from "vuetify/es5/components/VList";
 
 export default {
-  name: "chatBox",
-  data () {
-    return {}
-  },
-  components: {
-    VContainer,
-    VFlex,
-    VLayout,
-    VSpacer,
-    VCard,
-    VIcon,
-    VToolbar,
-    VToolbarSideIcon,
-    VBtn,
-    VList,
-    VListGroup,
-    VListTile,
-    VListTileAction,
-    VListTileContent,
-    VAvatar,
-    VTextField
-  }
-}
+	name: "chatBox",
+	data() {
+		return {};
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VSpacer,
+		VCard,
+		VIcon,
+		VToolbar,
+		VToolbarSideIcon,
+		VBtn,
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileAction,
+		VListTileContent,
+		VAvatar,
+		VTextField
+	}
+};
 </script>
 
 <style lang="stylus">

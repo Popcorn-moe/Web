@@ -20,30 +20,36 @@
 </template>
 
 <script>
-  import { VBtn, VIcon } from 'vuetify/es5/components'
-  import { VFadeTransition } from 'vuetify/es5/components/transitions'
-  import LanguageSelect from './navbar/LanguageSelect'
-  import gql from 'graphql-tag'
+import { VBtn, VIcon } from "vuetify/es5/components";
+import { VFadeTransition } from "vuetify/es5/components/transitions";
+import LanguageSelect from "./navbar/LanguageSelect";
+import gql from "graphql-tag";
 
-  export default {
-    data() {
-      return {
-        moe: '/static/fallback_background.jpg'
-      }
-    },
-    components: {
-      VBtn,
-      VIcon,
-      VFadeTransition,
-      LanguageSelect
-    },
-    apollo: {
-      moe: {
-        query: gql`{ moe(moe: "background") { url } }`,
-        update: ({ moe: { url } }) => url
-      }
-    }
-  }
+export default {
+	data() {
+		return {
+			moe: "/static/fallback_background.jpg"
+		};
+	},
+	components: {
+		VBtn,
+		VIcon,
+		VFadeTransition,
+		LanguageSelect
+	},
+	apollo: {
+		moe: {
+			query: gql`
+				{
+					moe(moe: "background") {
+						url
+					}
+				}
+			`,
+			update: ({ moe: { url } }) => url
+		}
+	}
+};
 </script>
 
 <style lang="stylus">

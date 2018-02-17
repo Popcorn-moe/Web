@@ -31,100 +31,110 @@
 </template>
 
 <script>
-  import { VBtn, VIcon, VSlider, VProgressCircular } from 'vuetify/es5/components';
-  import { VFadeTransition } from 'vuetify/es5/components/transitions'
-  import PlayerSlider from './PlayerSlider.vue'
-  import 'fullscreen-api-polyfill'
-  import MegaMediaSource from '../../mse/MegaMediaSource'
+import {
+	VBtn,
+	VIcon,
+	VSlider,
+	VProgressCircular
+} from "vuetify/es5/components";
+import { VFadeTransition } from "vuetify/es5/components/transitions";
+import PlayerSlider from "./PlayerSlider.vue";
+import "fullscreen-api-polyfill";
+import MegaMediaSource from "../../mse/MegaMediaSource";
 
-  export default {
-    name: 'video-player',
-    data () {
-      return {
-        hasPlayed: false,
-        waiting: false,
-        paused: true,
-        muted: false,
-        fullscreen: false,
-        buffered: [],
-        timeline: 0,
-        volume: 100,
-        controlsHidden: true
-      }
-    },
-    created() {
-      document.addEventListener('fullscreenchange', this.onFullscreenEvent)
-      document.addEventListener('fullscreenerror', this.onFullscreenEvent)
-    },
-    mounted() {
-      console.log(this.$refs.video)
-      new MegaMediaSource('https://mega.nz/#!Q0UGmAZD!wZV_ZEpa09GYuyVi849M9YRz1-Hpvr-AEj8XH3mjVZ8', this.$refs.video)
-    },
-    beforeDestroy() {
-	    document.removeEventListener('fullscreenchange', this.onFullscreenEvent)
-      document.removeEventListener('fullscreenerror', this.onFullscreenEvent)
-    },
-    methods: {
-      togglePlay() {
-        const video = this.$refs.video;
-        this.hasPlayed = true;
-        this.showControls()
-        this.paused ? video.play().catch(() => {}) : video.pause();
-      },
-      toggleMute() {
-        this.muted = this.$refs.video.muted = !this.muted
-      },
-      toggleFullScreen() {
-        this.fullscreen ? document.exitFullscreen() : this.$el.requestFullscreen()
-      },
-      onFullscreenEvent() {
-        this.fullscreen = document.fullscreenElement !== null;
-      },
-      onTimelineChangeEvent() {
-        const video = this.$refs.video;
-        if (video)
-          this.timeline = (100 / video.duration) * video.currentTime;
-      },
-      onProgress() {
-        const video = this.$refs.video;
-        if (video) {
-          const buffered = [];
-          for(let i = 0; i < video.buffered.length; i++) {
-            buffered.push([(video.buffered.start(i)/video.duration) * 100, (video.buffered.end(i)/video.duration) * 100])
-          }
-          this.buffered = buffered;
-        }
-      },
-      changeTimeline(value) {
-        const video = this.$refs.video;
-        if (video)
-          video.currentTime = video.duration * ((this.timeline = value) / 100);
-      },
-      changeVolume(value) {
-        if (this.$refs.video)
-          this.$refs.video.volume = (this.volume = value) / 100;
-      },
-      onMouseMove(e) {
-        if (Math.abs(e.movementX) > 1 || Math.abs(e.movementY) > 1)
-          this.showControls()
-      },
-      showControls() {
-        this.controlsHidden = false
-        if (this.timeoutID)
-          clearTimeout(this.timeoutID)
-        this.timeoutID = setTimeout(() => this.controlsHidden = true, 3000)
-      }
-    },
-    components:
-    {
-      VBtn,
-      VIcon,
-      VSlider,
-      PlayerSlider,
-      VProgressCircular,
-      VFadeTransition
-    }
-  }
+export default {
+	name: "video-player",
+	data() {
+		return {
+			hasPlayed: false,
+			waiting: false,
+			paused: true,
+			muted: false,
+			fullscreen: false,
+			buffered: [],
+			timeline: 0,
+			volume: 100,
+			controlsHidden: true
+		};
+	},
+	created() {
+		document.addEventListener("fullscreenchange", this.onFullscreenEvent);
+		document.addEventListener("fullscreenerror", this.onFullscreenEvent);
+	},
+	mounted() {
+		console.log(this.$refs.video);
+		new MegaMediaSource(
+			"https://mega.nz/#!Q0UGmAZD!wZV_ZEpa09GYuyVi849M9YRz1-Hpvr-AEj8XH3mjVZ8",
+			this.$refs.video
+		);
+	},
+	beforeDestroy() {
+		document.removeEventListener("fullscreenchange", this.onFullscreenEvent);
+		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
+	},
+	methods: {
+		togglePlay() {
+			const video = this.$refs.video;
+			this.hasPlayed = true;
+			this.showControls();
+			this.paused ? video.play().catch(() => {}) : video.pause();
+		},
+		toggleMute() {
+			this.muted = this.$refs.video.muted = !this.muted;
+		},
+		toggleFullScreen() {
+			this.fullscreen
+				? document.exitFullscreen()
+				: this.$el.requestFullscreen();
+		},
+		onFullscreenEvent() {
+			this.fullscreen = document.fullscreenElement !== null;
+		},
+		onTimelineChangeEvent() {
+			const video = this.$refs.video;
+			if (video) this.timeline = 100 / video.duration * video.currentTime;
+		},
+		onProgress() {
+			const video = this.$refs.video;
+			if (video) {
+				const buffered = [];
+				for (let i = 0; i < video.buffered.length; i++) {
+					buffered.push([
+						video.buffered.start(i) / video.duration * 100,
+						video.buffered.end(i) / video.duration * 100
+					]);
+				}
+				this.buffered = buffered;
+			}
+		},
+		changeTimeline(value) {
+			const video = this.$refs.video;
+			if (video)
+				video.currentTime = video.duration * ((this.timeline = value) / 100);
+		},
+		changeVolume(value) {
+			if (this.$refs.video)
+				this.$refs.video.volume = (this.volume = value) / 100;
+		},
+		onMouseMove(e) {
+			if (Math.abs(e.movementX) > 1 || Math.abs(e.movementY) > 1)
+				this.showControls();
+		},
+		showControls() {
+			this.controlsHidden = false;
+			if (this.timeoutID) clearTimeout(this.timeoutID);
+			this.timeoutID = setTimeout(() => (this.controlsHidden = true), 3000);
+		}
+	},
+	components: {
+		VBtn,
+		VIcon,
+		VSlider,
+		PlayerSlider,
+		VProgressCircular,
+		VFadeTransition
+	}
+};
 </script>
 
 <style lang="stylus">

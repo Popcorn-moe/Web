@@ -20,46 +20,51 @@
 </template>
 
 <script>
-import { VIcon } from 'vuetify/es5/components'
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
+import { VIcon } from "vuetify/es5/components";
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileAction,
+	VListTileContent,
+	VListTileTitle
+} from "vuetify/es5/components/VList";
 
 export default {
-  props: ['anime'],
-  data () {
-    const seasons = [];
-    for (let i = 0; i < 5; i++) {
-      seasons.push(
-        {
-          active: i == 0,
-          name: "Saison " + (i + 1),
-          episodes: [
-            {
-              name: "Episode 1"
-            },
-            {
-              name: "Episode 2"
-            },
-            {
-              name: "Episode 3"
-            }
-          ]
-        }
-      )
-    }
-    return {
-      seasons
-    }
-  },
-  components: {
-    VIcon,
-    VList,
-    VListGroup,
-    VListTile,
-    VListTileAction,
-    VListTileContent,
-    VListTileTitle
-  }
-}
+	props: ["anime"],
+	data() {
+		const seasons = [];
+		for (let i = 0; i < 5; i++) {
+			seasons.push({
+				active: i == 0,
+				name: "Saison " + (i + 1),
+				episodes: [
+					{
+						name: "Episode 1"
+					},
+					{
+						name: "Episode 2"
+					},
+					{
+						name: "Episode 3"
+					}
+				]
+			});
+		}
+		return {
+			seasons
+		};
+	},
+	components: {
+		VIcon,
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileAction,
+		VListTileContent,
+		VListTileTitle
+	}
+};
 </script>
 
 <style lang="stylus">

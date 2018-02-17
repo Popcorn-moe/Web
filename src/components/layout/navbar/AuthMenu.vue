@@ -47,42 +47,56 @@
 </template>
 
 <script>
-import { VList, VListGroup, VListTile, VListTileAction, VListTileContent, VListTileTitle } from 'vuetify/es5/components/VList'
-import { mapGetters, mapActions } from 'vuex'
-import { VIcon } from 'vuetify/es5/components'
-import { logout } from '@/utils/auth'
-import gql from 'graphql-tag'
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileAction,
+	VListTileContent,
+	VListTileTitle
+} from "vuetify/es5/components/VList";
+import { mapGetters, mapActions } from "vuex";
+import { VIcon } from "vuetify/es5/components";
+import { logout } from "@/utils/auth";
+import gql from "graphql-tag";
 
 export default {
-    data() {
-        return {
-            me: {}
-        }
-    },
-    components: {
-        VList,
-        VListGroup,
-        VListTile,
-        VListTileAction,
-        VListTileContent,
-        VListTileTitle,
-        VIcon
-    },
-    methods: {
-        ...mapActions({
-            setIsAuth: 'setIsAuth'
-        }),
-        logout() {
-            logout().then(() => this.setIsAuth(false))
-        }
-    },
-    apollo: {
-        me: {
-            query: gql`{ me { avatar, login } }`,
-            update: ({ me }) => me
-        }
-    },
-}
+	data() {
+		return {
+			me: {}
+		};
+	},
+	components: {
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileAction,
+		VListTileContent,
+		VListTileTitle,
+		VIcon
+	},
+	methods: {
+		...mapActions({
+			setIsAuth: "setIsAuth"
+		}),
+		logout() {
+			logout().then(() => this.setIsAuth(false));
+		}
+	},
+	apollo: {
+		me: {
+			query: gql`
+				{
+					me {
+						avatar
+						login
+					}
+				}
+			`,
+			update: ({ me }) => me
+		}
+	}
+};
 </script>
 
 <style lang="stylus">
@@ -100,4 +114,3 @@ export default {
     cursor: pointer;3
   }
 </style>
-

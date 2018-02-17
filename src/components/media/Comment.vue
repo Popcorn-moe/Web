@@ -50,38 +50,37 @@
 </template>
 
 <script>
-  import { VBtn, VDivider, VTextField, VIcon } from 'vuetify/es5/components';
-  import { VContainer, VFlex, VLayout } from 'vuetify/es5/components/VGrid';
-  import marked from 'marked';
+import { VBtn, VDivider, VTextField, VIcon } from "vuetify/es5/components";
+import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import marked from "marked";
 
-  export default {
-    name: 'comment',
-    data() {
-      return {
-        response: false,
-        responseText: "",
-        preview: false,
-      }
-    },
-    props: {
-      value: Object
-    },
-    computed: {
-      markdownResponse() {
-        return marked(this.responseText, { sanitize: true })
-      }
-    },
-    components: {
-      VContainer,
-      VFlex,
-      VLayout,
-      VDivider,
-      VBtn,
-      VTextField,
-      VIcon
-    }
-  };
-
+export default {
+	name: "comment",
+	data() {
+		return {
+			response: false,
+			responseText: "",
+			preview: false
+		};
+	},
+	props: {
+		value: Object
+	},
+	computed: {
+		markdownResponse() {
+			return marked(this.responseText, { sanitize: true });
+		}
+	},
+	components: {
+		VContainer,
+		VFlex,
+		VLayout,
+		VDivider,
+		VBtn,
+		VTextField,
+		VIcon
+	}
+};
 </script>
 
 <style lang="stylus">

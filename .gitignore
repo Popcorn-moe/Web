@@ -5,6 +5,7 @@ dist2/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
 
 # Editor directories and files
 .idea
@@ -14,5 +15,5 @@ yarn-error.log*
 .sln
 *.iml
 
-#custom env run file
+# custom env run file
 run.sh

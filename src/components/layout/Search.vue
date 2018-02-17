@@ -58,75 +58,98 @@
 </template>
 
 <script>
-import { VSlideXTransition } from 'vuetify/es5/components/transitions'
-import { VBtn, VIcon, VTextField, VToolbar, VDivider, VSubheader, VAvatar } from 'vuetify/es5/components'
-import { VList, VListGroup, VListTile, VListTileTitle, VListTileContent, VListTileAvatar, VListTileSubTitle } from 'vuetify/es5/components/VList'
-import gql from 'graphql-tag'
+import { VSlideXTransition } from "vuetify/es5/components/transitions";
+import {
+	VBtn,
+	VIcon,
+	VTextField,
+	VToolbar,
+	VDivider,
+	VSubheader,
+	VAvatar
+} from "vuetify/es5/components";
+import {
+	VList,
+	VListGroup,
+	VListTile,
+	VListTileTitle,
+	VListTileContent,
+	VListTileAvatar,
+	VListTileSubTitle
+} from "vuetify/es5/components/VList";
+import gql from "graphql-tag";
 
 export default {
-  name: 'Search',
-  data() {
-    return {
-      toggled: false,
-      query: '',
-      result: {
-        users: [],
-        animes: []
-      }
-    }
-  },
-  components: {
-    VSlideXTransition,
-    VBtn,
-    VIcon,
-    VTextField,
-    VToolbar,
-    VDivider,
-    VSubheader,
-    VAvatar,
-    VList,
-    VListGroup,
-    VListTile,
-    VListTileTitle,
-    VListTileContent,
-    VListTileAvatar,
-    VListTileSubTitle
-  },
-  apollo: {
-    result: {
-      query: gql`query ($name: String!) {
-        users: searchUser(name: $name, limit: 2) {
-          id login avatar
-        }
-        animes: searchAnime(name: $name, limit: 2) {
-          id names cover release_date
-        }
-      }`,
-      variables() {
-        return {
-          name: this.query || ''
-        }
-      },
-      update: data => data
-    }
-  },
-  i18n: {
-    messages: {
-      fr: {
-        quick_search: {
-          search: 'Rechercher',
-          users: 'Utilisateurs',
-        }
-      },
-      en: {
-        quick_search: {
-          search: 'Search',
-          users: 'Users',
-        }
-      }
-    }
-  }
-}
+	name: "Search",
+	data() {
+		return {
+			toggled: false,
+			query: "",
+			result: {
+				users: [],
+				animes: []
+			}
+		};
+	},
+	components: {
+		VSlideXTransition,
+		VBtn,
+		VIcon,
+		VTextField,
+		VToolbar,
+		VDivider,
+		VSubheader,
+		VAvatar,
+		VList,
+		VListGroup,
+		VListTile,
+		VListTileTitle,
+		VListTileContent,
+		VListTileAvatar,
+		VListTileSubTitle
+	},
+	apollo: {
+		result: {
+			query: gql`
+				query($name: String!) {
+					users: searchUser(name: $name, limit: 2) {
+						id
+						login
+						avatar
+					}
+					animes: searchAnime(name: $name, limit: 2) {
+						id
+						names
+						cover
+						release_date
+					}
+				}
+			`,
+			variables() {
+				return {
+					name: this.query || ""
+				};
+			},
+			update: data => data
+		}
+	},
+	i18n: {
+		messages: {
+			fr: {
+				quick_search: {
+					search: "Rechercher",
+					users: "Utilisateurs"
+				}
+			},
+			en: {
+				quick_search: {
+					search: "Search",
+					users: "Users"
+				}
+			}
+		}
+	}
+};
 </script>
 
 <style lang="stylus">
