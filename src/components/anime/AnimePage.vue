@@ -4,7 +4,7 @@
     <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }"></div>
     <v-container class="anime-page-container">
       <v-layout row wrap>
-        <v-flex offset-xs1 xs7 class="anime-infos">
+        <v-flex offset-sm1 sm7 class="anime-infos">
           <img class="anime-cover" :src="anime.cover">
           <h3 class="uppercase">{{ anime.names[0] }}</h3>
           <ul>
@@ -18,7 +18,7 @@
             <h4 class="uppercase" v-t="'anime.trailer'"></h4>
           </div>
         </v-flex>
-        <v-flex xs3>
+        <v-flex sm3 xs12>
           <v-btn class="main-color" block large light>
             <v-icon class="white--text">favorite</v-icon>
             {{ $t('anime.subscribe') }}

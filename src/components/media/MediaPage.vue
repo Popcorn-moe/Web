@@ -5,7 +5,7 @@
     </div>
     <v-container class="media-page-container">
       <v-layout row wrap>
-        <v-flex offset-xs1 xs7 class="anime-infos">
+        <v-flex offset-sm1 sm7 class="anime-infos">
           <v-layout row wrap>
             <v-flex xs12>
               <img class="anime-cover" :src="anime.cover">
@@ -26,14 +26,10 @@
                 </li>
               </ul>
             </v-flex>
-            <v-flex xs12>
-              <v-divider></v-divider>
-              <comment v-for="comment in comments" :value="comment" :key="comment.id"></comment>
-            </v-flex>
           </v-layout>
 
         </v-flex>
-        <v-flex xs3>
+        <v-flex sm3 xs12>
           <v-btn class="secondary-color black--text" block large>
             Créer une room
           </v-btn>
@@ -43,6 +39,10 @@
             </div>
           </div>
           <media-list :anime="id"></media-list>
+        </v-flex>
+        <v-flex sm12 offset-lg1 lg8>
+            <v-divider></v-divider>
+            <comment v-for="comment in comments" :value="comment" :key="comment.id"></comment>
         </v-flex>
       </v-layout>
     </v-container>
@@ -246,18 +246,17 @@ export default {
 
   .media-banner {
     text-align: center;
-    height: 600px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #2f2f2f;
-    padding-top: 40px;
+    padding: 30px 0;
 
     & > .media-player
     {
       display: inline-block;
-      height: 500px;
-      width: calc(1280/720*500px);
+      width: 100%;
+      max-width: 900px;
     }
   }
 
