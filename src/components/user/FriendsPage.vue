@@ -434,7 +434,7 @@ export default {
     }
   }
 
-  .application--dark {
+  .application.theme--dark {
     .friends-tabs-list {
       background-color: #454545 !important;
 

@@ -150,7 +150,7 @@ export default {
     }
   }
 
-  .application--dark {
+  .application.theme--dark {
     .library-list {
       background-color: #454545 !important;
     }

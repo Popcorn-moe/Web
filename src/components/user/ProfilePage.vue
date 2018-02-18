@@ -333,7 +333,7 @@ export default {
     }
   }
 
-  .application--dark .profile-container {
+  .application.theme--dark .profile-container {
 
     .infos {
       background-color: #363636 !important;

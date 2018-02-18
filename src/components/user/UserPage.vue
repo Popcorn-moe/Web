@@ -168,7 +168,7 @@ export default {
     }
   }
 
-  .application--dark {
+  .application.theme--dark {
     .user-page-banner {
       -moz-box-shadow: none;
       -webkit-box-shadow: none;
