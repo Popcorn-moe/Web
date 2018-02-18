@@ -83,7 +83,8 @@ export default {
 	data() {
 		return {
 			born: "",
-			uploadingAvatar: false
+			uploadingAvatar: false,
+			avatar: null
 		};
 	},
 	components: {
@@ -128,6 +129,7 @@ export default {
 			query: gql`
 				{
 					me {
+						id
 						avatar
 					}
 				}

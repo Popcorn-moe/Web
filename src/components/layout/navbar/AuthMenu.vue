@@ -88,6 +88,7 @@ export default {
 			query: gql`
 				{
 					me {
+						id
 						avatar
 						login
 					}
