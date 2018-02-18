@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
+import { createUploadLink } from "apollo-upload-client";
 import {
 	InMemoryCache,
 	IntrospectionFragmentMatcher
@@ -23,7 +23,7 @@ const cache = new InMemoryCache({
 	fragmentMatcher
 });
 
-const link = new HttpLink({
+const link = createUploadLink({
 	uri: `${process.env.API_URL}/graphql`,
 	credentials: "include"
 });
