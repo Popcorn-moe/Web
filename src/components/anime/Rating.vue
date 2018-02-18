@@ -2,7 +2,7 @@
   <div class="rating">
     <v-icon v-for="n in length"
         :key="n"
-        :class="{ active: over === -1 ? n <= value : n <= over, star: true }"
+        :class="{ over: n <= over, active: n <= value, star: true }"
         @mouseover="over = n"
         @mouseout="over = -1"
         @click="$emit('input', n)"
@@ -41,6 +41,10 @@ export default {
 
     &.active {
       color: $yellow.base;
+    }
+
+    &.over {
+      color: $blue.base;
     }
   }
 </style>
