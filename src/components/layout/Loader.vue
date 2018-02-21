@@ -1,19 +1,9 @@
-
-<template>
-  <div v-html="loader"></div>
-</template>
-
 <script>
-import loader from "html-loader!../../assets/loader.svg";
+import Loader from "vue-svg-loader!../../assets/loader.svg";
 
-export default {
-	name: "Loader",
-	data() {
-		return {
-			loader
-		};
-	}
-};
+Loader.name = "loader";
+
+export default Loader;
 </script>
 
 <style lang="stylus">
@@ -23,5 +13,30 @@ export default {
     height: 100vh;
     width: 10%;
     margin auto auto;
+    /*.cls-1 {
+      fill:#f6416c;
+    }
+    .cls-2{
+      fill:#ffde7d;
+    }
+    .cls-3{
+      fill:#3a2a2a;
+    }
+    .cls-4{
+      fill:#ddd;
+    }*/
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    #perso {
+        animation: rotate 2s linear infinite;
+        transform-origin: center;
+        transform-box: fill-box;
+    }
   }
 </style>
