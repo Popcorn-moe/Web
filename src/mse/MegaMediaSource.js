@@ -39,7 +39,7 @@ export default class MegaMediaSource {
 		this.readInitSegment().then(([data, segment]) => {
 			console.log(data, segment.byteLength);
 			for (const seek of data.Segment.SeekHead) {
-				if (byteArrayToLong(seek.SeekID.data) == 0x1c53bb6b)
+				if (seek.SeekID && byteArrayToLong(seek.SeekID.data) == 0x1c53bb6b)
 					console.log("Cue Offset", seek);
 			}
 			this.cues = MegaMediaSource.getCues(data);
@@ -96,7 +96,7 @@ export default class MegaMediaSource {
 	startDownload(start) {
 		if (this.currentStream) throw new Error("Download alrealy running");
 		this.lastByte = start;
-		this.currentStream = this.file.download({ start });
+		this.currentStream = this.file.download({ start, maxConnections: 2 });
 
 		this.currentStream.on("data", buffer => {
 			if (this.currentStream) {
@@ -118,13 +118,20 @@ export default class MegaMediaSource {
 	}
 
 	updateEnd() {
+		console.log("Update End");
+		const buffered = this.sourceBuffer.buffered;
+		for (let i = 0; i < buffered.length; i++)
+			console.log("\t => Buffered", i, buffered.start(i), buffered.end(i));
 		if (this.buffers.length && !this.sourceBuffer.updating)
 			this.sourceBuffer.appendBuffer(this.buffers.shift());
 	}
 
 	readInitSegment() {
 		return new Promise((resolve, reject) => {
-			const stream = this.file.download({ maxChunkSize: 128 * 1024 });
+			const stream = this.file.download({
+				maxChunkSize: 128 * 1024,
+				maxConnections: 2
+			});
 			const decoder = new ebml.Decoder();
 
 			let node = {};
@@ -176,9 +183,11 @@ export default class MegaMediaSource {
 		let vCodec;
 		let aCodec;
 		for (const track of Tracks) {
-			const codec = track.CodecID.data.toString().toLowerCase();
-			if (codec.startsWith("v_")) vCodec = codec.slice(2);
-			else if (codec.startsWith("a_")) aCodec = codec.slice(2);
+			if (track.CodecID) {
+				const codec = track.CodecID.data.toString().toLowerCase();
+				if (codec.startsWith("v_")) vCodec = codec.slice(2);
+				else if (codec.startsWith("a_")) aCodec = codec.slice(2);
+			}
 		}
 		if (vCodec && aCodec) return `video/webm;codecs="${vCodec},${aCodec}"`;
 		else if (vCodec) return `video/webm;codecs="${vCodec}"`;
@@ -187,15 +196,19 @@ export default class MegaMediaSource {
 
 	static getCues({ Segment: { dataOffset, Cues, Info: { TimecodeScale } } }) {
 		if (Cues === undefined) return;
-		const timeBase = byteArrayToLong(TimecodeScale.data) / 1000000;
+		const timeBase = TimecodeScale
+			? byteArrayToLong(TimecodeScale.data) / 1000000
+			: 1;
 		const cues = [];
 		for (const cue of Cues) {
-			cues.push({
-				time: byteArrayToLong(cue["CueTime"].data) * timeBase,
-				offset:
-					byteArrayToLong(cue["CueTrackPositions"]["CueClusterPosition"].data) +
-					dataOffset
-			});
+			if (cue.CueTime)
+				cues.push({
+					time: byteArrayToLong(cue["CueTime"].data) * timeBase,
+					offset:
+						byteArrayToLong(
+							cue["CueTrackPositions"]["CueClusterPosition"].data
+						) + dataOffset
+				});
 		}
 		return cues;
 	}

@@ -64,7 +64,7 @@ export default {
 	mounted() {
 		console.log(this.$refs.video);
 		new MegaMediaSource(
-			"https://mega.nz/#!Q0UGmAZD!wZV_ZEpa09GYuyVi849M9YRz1-Hpvr-AEj8XH3mjVZ8",
+			"https://mega.nz/#!UtNBmDAA!aI9mX85re7gKflQYkqQgK9pbktIHmUnUYb_eZhvWq1E",
 			this.$refs.video
 		);
 	},
