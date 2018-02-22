@@ -20,7 +20,7 @@
     <!-- Video Controls -->
     <v-fade-transition>
       <div class="video-controls" v-show="hasPlayed && !controlsHidden">
-        <player-slider dark hide-details color="primary" class="floating-cancel timeline" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
+        <player-slider dark hide-details color="primary" class="floating-cancel timeline" :step="0" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
         <v-btn color="primary" dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
         <v-btn color="primary" dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
         <v-slider hide-details color="primary" dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
