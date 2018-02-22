@@ -28,7 +28,7 @@ export default class MegaMediaSource {
 		this.video.src = URL.createObjectURL(this.mediaSource);
 		this.mediaSource.addEventListener("sourceopen", () => this.sourceOpen());
 		this.video.addEventListener("loadedmetadata", () => this.loadedMetadata());
-		this.video.addEventListener("seeking", () => this.seeking());
+		this.video.addEventListener("seeking", e => this.seeking(e));
 		this.buffers = [];
 		this.seekQueue = Promise.resolve();
 		this.lastSeek = 0;
@@ -58,7 +58,7 @@ export default class MegaMediaSource {
 		this.startDownload(this.lastByte);
 	}
 
-	seeking() {
+	seeking(e) {
 		this.seekQueue = this.seekQueue.then(
 			_ =>
 				new Promise(resolve => {
@@ -75,20 +75,35 @@ export default class MegaMediaSource {
 						}
 
 					this.stopDownload();
-					const next = this.cues.find(e => e.offset > this.lastByte);
+					const next = this.cues.find(e => e.offset >= this.lastByte);
 
-					this.file.download(
-						{ start: this.lastByte, end: next.offset },
-						(err, data) => {
-							this.appendBuffer(data);
-							const next = this.cues
-								.slice(0)
-								.reverse()
-								.find(e => e.time / 1000 <= time);
-							this.startDownload(next.offset + 1);
-							resolve();
-						}
-					);
+					const seek = () => {
+						console.log("Seek");
+						const next = this.cues
+							.slice(0)
+							.reverse()
+							.find(e => e.time / 1000 <= time);
+						this.startDownload(next.offset + 1);
+						resolve();
+					};
+					if (next && next.offset == this.lastByte) seek();
+					else {
+						const stream = this.file.download({
+							start: this.lastByte,
+							end: next ? next.offset : undefined
+						});
+						stream.on("data", data => this.appendBuffer(data));
+						stream.once("end", seek);
+						console.log(
+							"Next",
+							next,
+							this.lastByte,
+							this.video.currentTime,
+							this.mediaSource.duration,
+							this.video.duration,
+							e
+						);
+					}
 				})
 		);
 	}
@@ -104,6 +119,7 @@ export default class MegaMediaSource {
 				this.lastByte += buffer.byteLength;
 			}
 		});
+		this.currentStream.on("end", _ => console.log("Download end"));
 	}
 
 	stopDownload() {
