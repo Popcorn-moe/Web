@@ -168,6 +168,7 @@ export default {
     }
 
     .video-play {
+			cursor: pointer;
       position: absolute;
       left: 50%;
       top: 50%;
