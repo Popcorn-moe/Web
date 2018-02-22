@@ -13,6 +13,9 @@ export default {
 				return this.value;
 			},
 			set(value) {
+				const { min, max } = this;
+				value = Math.min(Math.max(value, min), max);
+
 				if (value !== this.value) {
 					this.$emit("input", value);
 				}
