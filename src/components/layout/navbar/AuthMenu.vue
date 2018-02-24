@@ -94,7 +94,8 @@ export default {
 					}
 				}
 			`,
-			update: ({ me }) => me
+			update: ({ me }) => me,
+			fetchPolicy: "network-only"
 		}
 	}
 };

@@ -1,18 +1,18 @@
+import { client } from "../graphql";
+import gql from "graphql-tag";
+
 export function isLoggedIn() {
-	return fetch(`${process.env.API_URL}/graphql`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			query: `{ me { id login email group newsletter } }`
-		}),
-		credentials: "include"
-	})
-		.then(res => res.json())
-		.then(({ data: { me } }) => {
-			return me !== null;
-		});
+	return client
+		.query({
+			query: gql`
+				{
+					me {
+						id
+					}
+				}
+			`
+		})
+		.then(({ data: { me } }) => me !== null);
 }
 
 export function exchangeSSOToken(token) {

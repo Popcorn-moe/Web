@@ -117,7 +117,6 @@ export default {
 					}
 				})
 				.then(data => {
-					console.log(data);
 					this.$apollo.queries.avatar.refetch();
 				})
 				.catch(e => console.error(e))
@@ -134,8 +133,7 @@ export default {
 					}
 				}
 			`,
-			update: ({ me: { avatar } }) => avatar,
-			fetchPolicy: "network-only"
+			update: ({ me: { avatar } }) => avatar
 		}
 	}
 };
