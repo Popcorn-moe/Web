@@ -112,6 +112,7 @@ export default {
 			query: gql`
 				{
 					me {
+						id
 						notifications {
 							id
 						}

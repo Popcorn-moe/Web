@@ -93,6 +93,8 @@ export default {
         .title {
             font-size: 14px !important;
             margin: 1px;
+            text-overflow: ellipsis;
+            overflow-x: hidden;
         }
 
         .details * {
