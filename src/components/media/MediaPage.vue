@@ -7,6 +7,7 @@
        class="media-player"
        v-if="anime.seasons[season -1].episodes[episode -1].content"
        :value="anime.seasons[season -1].episodes[episode -1].content"
+       :key="anime.seasons[season -1].episodes[episode -1].content"
       ></video-player>
     </div>
     <v-container class="media-page-container">
@@ -69,6 +70,7 @@ import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import Comment from "./Comment";
 import MediaList from "./MediaList";
 import VideoPlayer from "../player/GlobalPlayer";
+import Loader from "../layout/Loader";
 import gql from "graphql-tag";
 import { client } from "../../graphql";
 
@@ -76,7 +78,7 @@ export default {
 	props: ["id", "media", "season", "episode"],
 	data() {
 		return {
-			anime: { names: [] },
+			anime: null,
 			comments
 		};
 	},
@@ -130,7 +132,8 @@ export default {
 		VIcon,
 		Comment,
 		MediaList,
-		VideoPlayer
+		VideoPlayer,
+		Loader
 	}
 };
 

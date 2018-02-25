@@ -62,9 +62,6 @@ export default {
 		document.addEventListener("fullscreenchange", this.onFullscreenEvent);
 		document.addEventListener("fullscreenerror", this.onFullscreenEvent);
 	},
-	mounted() {
-		this.mse = new MegaMediaSource(this.value, this.$refs.video);
-	},
 	beforeDestroy() {
 		this.mse && this.mse.destroy();
 		document.removeEventListener("fullscreenchange", this.onFullscreenEvent);
@@ -73,6 +70,8 @@ export default {
 	methods: {
 		togglePlay() {
 			const video = this.$refs.video;
+			if (!this.hasPlayed)
+				this.mse = new MegaMediaSource(this.value, this.$refs.video);
 			this.hasPlayed = true;
 			this.showControls();
 			this.paused ? video.play().catch(() => {}) : video.pause();

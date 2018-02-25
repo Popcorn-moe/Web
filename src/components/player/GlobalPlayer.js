@@ -19,6 +19,13 @@ export default {
 		if (videoPlayer.owner != null)
 			throw new Error(`Already owned by ${videoPlayer.owner}`);
 
+		if (this.value && videoPlayer.instance) {
+			if (!videoPlayer.destroyed) videoPlayer.destroy();
+			videoPlayer.instance.$destroy();
+			videoPlayer.instance = null;
+			videoPlayer.paused = true;
+		}
+
 		if (!videoPlayer.instance) {
 			videoPlayer.instance = new Vue(VideoPlayer);
 			videoPlayer.instance.value = this.value;
