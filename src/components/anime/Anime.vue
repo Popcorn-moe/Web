@@ -94,7 +94,7 @@ export default {
             font-size: 14px !important;
             margin: 1px;
             text-overflow: ellipsis;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         .details * {

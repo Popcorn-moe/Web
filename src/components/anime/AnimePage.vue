@@ -1,5 +1,5 @@
 <template>
-  <loader v-if="loading"></loader>
+  <loader v-if="!anime"></loader>
   <div v-else>
     <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }"></div>
     <v-container class="anime-page-container">
@@ -29,7 +29,7 @@
               <rating v-model="anime.rating"></rating>
             </div>
           </div>
-          <media-list :anime="id"></media-list>
+          <media-list :anime="anime"></media-list>
         </v-flex>
       </v-layout>
     </v-container>
@@ -48,12 +48,16 @@ import { client } from "../../graphql";
 export default {
 	props: ["id"],
 	data() {
-		// Try from cache
-		try {
-			const anime = client.readFragment({
-				id: this.id,
-				fragment: gql`
-					fragment anime on Anime {
+		return {
+			anime: null
+		};
+	},
+	apollo: {
+		anime: {
+			query: gql`
+				query($id: ID!) {
+					anime(id: $id) {
+						id
 						names
 						cover
 						background
@@ -61,43 +65,27 @@ export default {
 							id
 							name
 						}
-					}
-				`
-			});
-			if (anime) return { anime, loading: false };
-		} catch (e) {
-			console.log(e);
-		}
-		// Query it
-		client
-			.query({
-				query: gql`
-					query($id: ID!) {
-						anime(id: $id) {
-							names
-							cover
-							background
-							authors {
+						seasons {
+							name
+							episodes {
 								id
 								name
+								content
 							}
 						}
 					}
-				`,
-				variables: {
-					id: this.id
 				}
-			})
-			.then(({ data: { anime } }) => {
-				if (anime) {
-					this.anime = anime;
-					this.loading = false;
-				} else this.$router.replace({ name: "404" });
-			});
-		return {
-			anime: null,
-			loading: true
-		};
+			`,
+			variables() {
+				return {
+					id: this.id
+				};
+			},
+			update({ anime }) {
+				if (!anime) this.$router.replace({ name: "404" });
+				else return anime;
+			}
+		}
 	},
 	components: {
 		Loader,

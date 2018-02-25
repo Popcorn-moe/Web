@@ -1,18 +1,18 @@
 <template>
-  <v-list class="media-list">
-    <v-list-group v-for="(season, si) in seasons" :value="season.active" :key="season.name">
+  <v-list class="media-list" v-if="anime">
+    <v-list-group v-for="(season, si) in anime.seasons" v-if="season" :value="si == active" :key="season.name">
       <v-list-tile slot="activator">
         <v-list-tile-content>
-          <v-list-tile-title>{{ season.name }}</v-list-tile-title>
+          <v-list-tile-title>Season {{ si + 1}}{{ season.name && `: ${season.name}` }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
         v-for="(ep, ei) in season.episodes"
         :key="ep.name"
-        :to="{ name: 'Episode', params: { id: anime, season: si + 1, episode: ei + 1 }}"
+        :to="{ name: 'Episode', params: { id: anime.id, season: si + 1, episode: ei + 1 }}"
       >
         <v-list-tile-title>
-          <v-list-tile-title>{{ ep.name }}</v-list-tile-title>
+          <v-list-tile-title>Episode {{ ei + 1}}{{ ep.name && `: ${ep.name}` }}</v-list-tile-title>
         </v-list-tile-title>
       </v-list-tile>
     </v-list-group>
@@ -31,30 +31,7 @@ import {
 } from "vuetify/es5/components/VList";
 
 export default {
-	props: ["anime"],
-	data() {
-		const seasons = [];
-		for (let i = 0; i < 5; i++) {
-			seasons.push({
-				active: i == 0,
-				name: "Saison " + (i + 1),
-				episodes: [
-					{
-						name: "Episode 1"
-					},
-					{
-						name: "Episode 2"
-					},
-					{
-						name: "Episode 3"
-					}
-				]
-			});
-		}
-		return {
-			seasons
-		};
-	},
+	props: ["anime", "active"],
 	components: {
 		VIcon,
 		VList,

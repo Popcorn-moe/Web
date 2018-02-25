@@ -11,7 +11,7 @@ export const videoPlayer = {
 };
 
 export default {
-	props: ["owner"],
+	props: ["owner", "value"],
 	render(h) {
 		return h("div");
 	},
@@ -21,6 +21,7 @@ export default {
 
 		if (!videoPlayer.instance) {
 			videoPlayer.instance = new Vue(VideoPlayer);
+			videoPlayer.instance.value = this.value;
 			videoPlayer.instance.$mount();
 			videoPlayer.destroyed = false;
 		}

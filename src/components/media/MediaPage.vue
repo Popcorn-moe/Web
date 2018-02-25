@@ -1,7 +1,13 @@
 <template>
-  <div>
+  <loader v-if="!anime"></loader>
+  <div v-else>
     <div class="media-banner" :style="{ 'background-image': `url(${anime.background})` }">
-      <video-player owner="media" class="media-player"></video-player>
+      <video-player
+       owner="media"
+       class="media-player"
+       v-if="anime.seasons[season -1].episodes[episode -1].content"
+       :value="anime.seasons[season -1].episodes[episode -1].content"
+      ></video-player>
     </div>
     <v-container class="media-page-container">
       <v-layout row wrap>
@@ -10,7 +16,7 @@
             <v-flex xs12>
               <img class="anime-cover" :src="anime.cover">
               <h6 class="uppercase">{{ anime.names[0] }}</h6>
-              <p class="sub">Saison {{ season }}, épisode {{ episode }}</p>
+              <p class="sub">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</p>
               <ul>
                 <li>
                   <div class="list-name">Auteur :</div>
@@ -38,7 +44,7 @@
               <p>20min</p>
             </div>
           </div>
-          <media-list :anime="id"></media-list>
+          <media-list :anime="anime" :active="season - 1"></media-list>
         </v-flex>
         <v-flex sm12 offset-lg1 lg8>
             <v-divider></v-divider>
@@ -69,56 +75,17 @@ import { client } from "../../graphql";
 export default {
 	props: ["id", "media", "season", "episode"],
 	data() {
-		const icon =
-			"https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg";
-		const comments = [
-			{
-				id: 1,
-				user: "Xx_loucass006_xX",
-				date: "11 Sept.",
-				icon,
-				content:
-					"On ne peut pas parler de politique administrative scientifique, la concertation politique par rapport aux diplomaties consent à catapulter les revenus dans les camps militaires non-voyants, c’est clair.",
-				response: {
-					id: 2,
-					user: "Xx_loucass006_xX",
-					date: "11 Sept.",
-					icon,
-					content:
-						"Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui.",
-					response: {
-						id: 3,
-						user: "Xx_loucass006_xX",
-						date: "11 Sept.",
-						icon,
-						content:
-							"C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
-					}
-				}
-			},
-			{
-				id: 4,
-				user: "Xx_loucass006_xX",
-				date: "11 Sept.",
-				icon,
-				content:
-					"C’est à dire quand on parle de ces rollers, la délégation autour de phylogomènes généralisés suffit à intentionner l'estime du savoir avéré(e)(s), mais oui.",
-				response: {
-					id: 5,
-					user: "Xx_loucass006_xX",
-					date: "11 Sept.",
-					icon,
-					content:
-						"D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
-				}
-			}
-		];
-		// Try from cache
-		try {
-			const anime = client.readFragment({
-				id: this.id,
-				fragment: gql`
-					fragment anime on Anime {
+		return {
+			anime: { names: [] },
+			comments
+		};
+	},
+	apollo: {
+		anime: {
+			query: gql`
+				query($id: ID!) {
+					anime(id: $id) {
+						id
 						names
 						cover
 						background
@@ -126,38 +93,27 @@ export default {
 							id
 							name
 						}
-					}
-				`
-			});
-			if (anime) return { anime, comments };
-		} catch (e) {
-			console.log(e);
-		}
-		// Query it
-		client
-			.query({
-				query: gql`
-					query($id: ID!) {
-						anime(id: $id) {
-							names
-							cover
-							background
-							authors {
+						seasons {
+							name
+							episodes {
 								id
 								name
+								content
 							}
 						}
 					}
-				`,
-				variables: {
-					id: this.id
 				}
-			})
-			.then(({ data: { anime } }) => (this.anime = anime));
-		return {
-			anime: { names: [] },
-			comments
-		};
+			`,
+			variables() {
+				return {
+					id: this.id
+				};
+			},
+			update({ anime }) {
+				if (!anime) this.$router.replace({ name: "404" });
+				else return anime;
+			}
+		}
 	},
 	components: {
 		VContainer,
@@ -177,6 +133,51 @@ export default {
 		VideoPlayer
 	}
 };
+
+const icon =
+	"https://img09.deviantart.net/6825/i/2015/142/a/b/kawaii_dinosaur_by_peppermint_pop_uk-d8uaaiv.jpg";
+const comments = [
+	{
+		id: 1,
+		user: "Xx_loucass006_xX",
+		date: "11 Sept.",
+		icon,
+		content:
+			"On ne peut pas parler de politique administrative scientifique, la concertation politique par rapport aux diplomaties consent à catapulter les revenus dans les camps militaires non-voyants, c’est clair.",
+		response: {
+			id: 2,
+			user: "Xx_loucass006_xX",
+			date: "11 Sept.",
+			icon,
+			content:
+				"Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui.",
+			response: {
+				id: 3,
+				user: "Xx_loucass006_xX",
+				date: "11 Sept.",
+				icon,
+				content:
+					"C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
+			}
+		}
+	},
+	{
+		id: 4,
+		user: "Xx_loucass006_xX",
+		date: "11 Sept.",
+		icon,
+		content:
+			"C’est à dire quand on parle de ces rollers, la délégation autour de phylogomènes généralisés suffit à intentionner l'estime du savoir avéré(e)(s), mais oui.",
+		response: {
+			id: 5,
+			user: "Xx_loucass006_xX",
+			date: "11 Sept.",
+			icon,
+			content:
+				"D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
+		}
+	}
+];
 </script>
 
 <style lang="stylus">

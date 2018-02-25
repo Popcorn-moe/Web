@@ -35,6 +35,10 @@ export default class MegaMediaSource {
 		this.file = File.fromURL(url);
 	}
 
+	destroy() {
+		this.stopDownload();
+	}
+
 	sourceOpen() {
 		this.readInitSegment().then(([data, segment]) => {
 			console.log(data, segment.byteLength);
@@ -119,7 +123,7 @@ export default class MegaMediaSource {
 				this.lastByte += buffer.byteLength;
 			}
 		});
-		this.currentStream.on("end", _ => console.log("Download end"));
+		this.currentStream.on("end", _ => this.appendBuffer(null));
 	}
 
 	stopDownload() {
@@ -130,7 +134,10 @@ export default class MegaMediaSource {
 	appendBuffer(buffer) {
 		if (this.buffers.length > 0 || this.sourceBuffer.updating)
 			this.buffers.push(buffer);
-		else this.sourceBuffer.appendBuffer(buffer);
+		else {
+			if (buffer === null) this.mediaSource.endOfStream();
+			else this.sourceBuffer.appendBuffer(buffer);
+		}
 	}
 
 	updateEnd() {
@@ -138,8 +145,11 @@ export default class MegaMediaSource {
 		const buffered = this.sourceBuffer.buffered;
 		for (let i = 0; i < buffered.length; i++)
 			console.log("\t => Buffered", i, buffered.start(i), buffered.end(i));
-		if (this.buffers.length && !this.sourceBuffer.updating)
-			this.sourceBuffer.appendBuffer(this.buffers.shift());
+		if (this.buffers.length && !this.sourceBuffer.updating) {
+			const buffer = this.buffers.shift();
+			if (buffer === null) this.mediaSource.endOfStream();
+			else this.sourceBuffer.appendBuffer(buffer);
+		}
 	}
 
 	readInitSegment() {

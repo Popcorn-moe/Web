@@ -44,6 +44,7 @@ import MegaMediaSource from "../../mse/MegaMediaSource";
 
 export default {
 	name: "video-player",
+	props: ["value"],
 	data() {
 		return {
 			hasPlayed: false,
@@ -62,13 +63,10 @@ export default {
 		document.addEventListener("fullscreenerror", this.onFullscreenEvent);
 	},
 	mounted() {
-		console.log(this.$refs.video);
-		new MegaMediaSource(
-			"https://mega.nz/#!Vp8yUKzD!P0kX5vDSDvQFGKjIMschCCjgXJECrfF7K4uf1Clg5ZY",
-			this.$refs.video
-		);
+		this.mse = new MegaMediaSource(this.value, this.$refs.video);
 	},
 	beforeDestroy() {
+		this.mse && this.mse.destroy();
 		document.removeEventListener("fullscreenchange", this.onFullscreenEvent);
 		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
 	},
