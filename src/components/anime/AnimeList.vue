@@ -1,5 +1,8 @@
 <template>
-  <div class="anime-list">
+  <div class="anime-list" v-touch="{
+      right: () => index > elemsPerLine && index--,
+      left: () => index <= value.length - elemsPerLine && index++
+    }">
         <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
             <anime
                 v-for="(anime, i) in value"
@@ -8,7 +11,7 @@
                 :value="anime"></anime>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" v-if="index > elemsPerLine" fab @click="index--">
+        <v-btn class="nav-button nav-left main-color--text" v-if="index >= elemsPerLine" fab @click="index--">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-btn class="nav-button nav-right main-color--text" v-if="index < value.length - elemsPerLine" fab @click="++index > maxIndex ? ++maxIndex : 1">
@@ -19,6 +22,8 @@
 
 <script>
 import { VBtn, VIcon } from "vuetify/es5/components";
+import { Touch } from "vuetify/es5/directives";
+
 import Anime from "./Anime";
 
 export default {
@@ -42,13 +47,18 @@ export default {
 	},
 	methods: {
 		update() {
-			this.elemsPerLine = Math.ceil(document.body.offsetWidth / this.animeSize);
+			this.elemsPerLine = Math.floor(
+				document.body.offsetWidth / this.animeSize
+			);
 		}
 	},
 	components: {
 		VBtn,
 		VIcon,
 		Anime
+	},
+	directives: {
+		Touch
 	}
 };
 </script>
