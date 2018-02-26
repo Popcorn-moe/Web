@@ -20,18 +20,13 @@ import gql from "graphql-tag";
 export default {
 	name: "index",
 	data() {
-		setTimeout(
-			() =>
-				(this.news = [
-					"https://images6.alphacoders.com/505/thumb-1920-505441.jpg",
-					"https://images4.alphacoders.com/706/thumb-1920-706365.png",
-					"https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US"
-				]),
-			1000
-		);
 		return {
 			animes: [],
-			news: ["0", "0", "0"]
+			news: [
+				"https://images6.alphacoders.com/505/thumb-1920-505441.jpg",
+				"https://images4.alphacoders.com/706/thumb-1920-706365.png",
+				"https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US"
+			]
 		};
 	},
 	components: {
@@ -94,6 +89,6 @@ export default {
       margin: 0;
       font-size: 20px;
       margin-top: 20px;
-    } 
+    }
   }
 </style>
