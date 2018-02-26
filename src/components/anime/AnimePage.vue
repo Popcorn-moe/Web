@@ -79,6 +79,7 @@ export default {
 						cover
 						background
 						status
+						desc
 						tags {
 							name
 						}
@@ -133,7 +134,12 @@ export default {
 						content: this.anime.names[0],
 						id: "og:title"
 					},
-					{ property: "og:image", content: this.anime.cover, id: "og:image" }
+					{ property: "og:image", content: this.anime.cover, id: "og:image" },
+					{
+						property: "og:description",
+						content: this.anime.desc,
+						id: "og:description"
+					}
 				];
 		}
 	},
