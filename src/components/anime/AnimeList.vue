@@ -1,6 +1,6 @@
 <template>
   <div class="anime-list" v-touch="{
-      right: () => index > elemsPerLine && index--,
+      right: () => index && index + 1 >= elemsPerLine && index--,
       left: () => index <= value.length - elemsPerLine && index++
     }">
         <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
@@ -11,7 +11,7 @@
                 :value="anime"></anime>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" v-if="index >= elemsPerLine" fab @click="index--">
+        <v-btn class="nav-button nav-left main-color--text" v-if="index && index + 1 >= elemsPerLine" fab @click="index--">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
         <v-btn class="nav-button nav-right main-color--text" v-if="index < value.length - elemsPerLine" fab @click="++index > maxIndex ? ++maxIndex : 1">
