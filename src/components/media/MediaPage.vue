@@ -34,7 +34,7 @@
                 </li>
                 <li>
                   <div class="list-name" v-t="'media.status'"></div>
-                  {{ anime.status }}
+                  <div v-t="`anime_status.${anime.status}`"></div>
                 </li>
               </ul>
             </v-flex>
@@ -154,6 +154,11 @@ export default {
 					authors: "Auteurs :",
 					tags: "Tags :",
 					status: "Statut :"
+				},
+				anime_status: {
+					PENDING: "En cours",
+					FINISHED: "Terminé",
+					NOT_STARTED: "Non démaré"
 				}
 			},
 			en: {
@@ -163,7 +168,12 @@ export default {
 					author: "Author:",
 					authors: "Authors:",
 					tags: "Tags:",
-					status: "Status :"
+					status: "Status:"
+				},
+				anime_status: {
+					PENDING: "Currently airing",
+					FINISHED: "Finished",
+					NOT_STARTED: "Not started"
 				}
 			}
 		}
