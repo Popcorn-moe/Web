@@ -58,6 +58,13 @@ export default {
 			update: ({ animes }) => animes
 		}
 	},
+	head: {
+		title() {
+			return {
+				inner: this.$t("route.index")
+			};
+		}
+	},
 	i18n: {
 		messages: {
 			fr: {

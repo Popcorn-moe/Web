@@ -99,7 +99,10 @@ export default {
 			},
 			update({ anime }) {
 				if (!anime) this.$router.replace({ name: "404" });
-				else return anime;
+				else {
+					this.$emit("updateHead");
+					return anime;
+				}
 			}
 		}
 	},
@@ -112,6 +115,14 @@ export default {
 		VIcon,
 		Rating,
 		MediaList
+	},
+	head: {
+		title() {
+			if (this.anime)
+				return {
+					inner: this.anime.names[0]
+				};
+		}
 	},
 	i18n: {
 		messages: {

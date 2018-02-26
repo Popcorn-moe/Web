@@ -6,6 +6,7 @@ import store from "./store";
 import apolloProvider from "./graphql";
 import i18n from "./i18n";
 import colors from "vuetify/es5/util/colors";
+import VueHead from "vue-head";
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify, {
@@ -18,6 +19,10 @@ Vue.use(Vuetify, {
 		error: colors.red.accent2,
 		success: colors.green.base
 	}
+});
+Vue.use(VueHead, {
+	separator: "-",
+	complement: "Popcorn.moe"
 });
 
 /* eslint-disable no-new */
