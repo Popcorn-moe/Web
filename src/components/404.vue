@@ -43,6 +43,8 @@ const GIFS = [
 	{ src: "https://www.youtube.com/embed/_NXrTujMP50", type: "video" }
 ];
 
+const GIFS_IMG = GIFS.filter(({ type }) => type === "img");
+
 export default {
 	name: "NopPage",
 	data() {
@@ -59,6 +61,28 @@ export default {
 		VCardMedia,
 		VBtn,
 		VIcon
+	},
+	head: {
+		title: {
+			inner: "404"
+		},
+		meta: [
+			{
+				property: "og:title",
+				content: "404",
+				id: "og:title"
+			},
+			{
+				property: "og:image",
+				content: GIFS_IMG[Math.floor(Math.random() * GIFS_IMG.length)].src,
+				id: "og:image"
+			},
+			{
+				id: "prerender-status-code",
+				name: "prerender-status-code",
+				content: 404
+			}
+		]
 	},
 	i18n: {
 		messages: {
