@@ -21,19 +21,19 @@
               <p class="sub">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</p>
               <ul>
                 <li>
-                  <div class="list-name">Noms :</div>
+                  <div class="list-name" v-t="anime.names.length > 1 ? 'media.names' : 'media.name'"></div>
                   {{ anime.names.join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name">Auteur{{anime.authors.length > 1 ? 's' : ''}} :</div>
+                  <div class="list-name" v-t="anime.authors.length > 1 ? 'media.authors' : 'media.author'"></div>
                   {{ anime.authors.map(({ name }) => name).join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name">Tags :</div>
+                  <div class="list-name" v-t="'media.tags'"></div>
                   {{ anime.tags.map(({ name }) => name).join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name">Status :</div>
+                  <div class="list-name" v-t="'media.status'"></div>
                   {{ anime.status }}
                 </li>
               </ul>
@@ -143,6 +143,30 @@ export default {
 		MediaList,
 		VideoPlayer,
 		Loader
+	},
+	i18n: {
+		messages: {
+			fr: {
+				media: {
+					name: "Nom :",
+					names: "Noms :",
+					author: "Auteur :",
+					authors: "Auteurs :",
+					tags: "Tags :",
+					status: "Statut :"
+				}
+			},
+			en: {
+				media: {
+					name: "Name:",
+					names: "Names:",
+					author: "Author:",
+					authors: "Authors:",
+					tags: "Tags:",
+					status: "Status :"
+				}
+			}
+		}
 	}
 };
 
