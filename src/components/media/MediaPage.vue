@@ -154,11 +154,6 @@ export default {
 					authors: "Auteurs :",
 					tags: "Tags :",
 					status: "Statut :"
-				},
-				anime_status: {
-					PENDING: "En cours",
-					FINISHED: "Terminé",
-					NOT_STARTED: "Non démarré"
 				}
 			},
 			en: {
@@ -169,11 +164,6 @@ export default {
 					authors: "Authors:",
 					tags: "Tags:",
 					status: "Status:"
-				},
-				anime_status: {
-					PENDING: "Currently airing",
-					FINISHED: "Finished",
-					NOT_STARTED: "Not started"
 				}
 			}
 		}

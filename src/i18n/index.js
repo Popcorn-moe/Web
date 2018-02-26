@@ -20,6 +20,11 @@ const i18n = new VueI18n({
 					settings: "Settings",
 					logout: "Logout"
 				}
+			},
+			anime_status: {
+				PENDING: "Currently airing",
+				FINISHED: "Finished",
+				NOT_STARTED: "Not started"
 			}
 		},
 		fr: {
@@ -34,6 +39,11 @@ const i18n = new VueI18n({
 					settings: "Paramètres",
 					logout: "Se deconnecter"
 				}
+			},
+			anime_status: {
+				PENDING: "En cours",
+				FINISHED: "Terminé",
+				NOT_STARTED: "Non démarré"
 			}
 		}
 	},
