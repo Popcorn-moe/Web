@@ -1,7 +1,7 @@
 <template>
   <div class="anime-list" v-touch="{
-      right: () => index && index + 1 >= elemsPerLine && index--,
-      left: () => index <= value.length - elemsPerLine && index++
+      right: () => canPrev && prev(),
+      left: () => canNext && next()
     }">
         <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
             <anime
@@ -11,10 +11,10 @@
                 :value="anime"></anime>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" v-if="index && index + 1 >= elemsPerLine" fab @click="index--">
+        <v-btn class="nav-button nav-left main-color--text" v-if="canPrev" fab @click="prev">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" v-if="index < value.length - elemsPerLine" fab @click="++index > maxIndex ? ++maxIndex : 1">
+        <v-btn class="nav-button nav-right main-color--text" v-if="canNext" fab @click="next">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
     </div>
@@ -45,11 +45,26 @@ export default {
 	destroyed() {
 		window.removeEventListener("resize", this.update);
 	},
+	computed: {
+		canPrev() {
+			return this.index && this.index + 1 >= this.elemsPerLine;
+		},
+		canNext() {
+			return this.index < this.value.length - this.elemsPerLine;
+		}
+	},
 	methods: {
 		update() {
 			this.elemsPerLine = Math.floor(
 				document.body.offsetWidth / this.animeSize
 			);
+		},
+		prev() {
+			this.index--;
+		},
+		next() {
+			this.index++;
+			if (this.index > this.maxIndex) this.maxIndex++;
 		}
 	},
 	components: {
