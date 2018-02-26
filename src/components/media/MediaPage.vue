@@ -16,20 +16,25 @@
           <v-layout row wrap>
             <v-flex xs12>
               <img class="anime-cover" :src="anime.cover">
+              <!-- router-link :to="{ name: 'Anime', params: { id: anime.id }}"><h6 class="uppercase">{{ anime.names[0] }}</h6></router-link-->
               <h6 class="uppercase">{{ anime.names[0] }}</h6>
               <p class="sub">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</p>
               <ul>
                 <li>
-                  <div class="list-name">Auteur :</div>
-                  Jean
+                  <div class="list-name">Noms :</div>
+                  {{ anime.names.join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name">Auteur :</div>
-                  Jean
+                  <div class="list-name">Auteur{{anime.authors.length > 1 ? 's' : ''}} :</div>
+                  {{ anime.authors.map(({ name }) => name).join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name">Auteur :</div>
-                  Jean
+                  <div class="list-name">Tags :</div>
+                  {{ anime.tags.map(({ name }) => name).join(', ') }}
+                </li>
+                <li>
+                  <div class="list-name">Status :</div>
+                  {{ anime.status }}
                 </li>
               </ul>
             </v-flex>
@@ -91,6 +96,10 @@ export default {
 						names
 						cover
 						background
+						status
+						tags {
+							name
+						}
 						authors {
 							id
 							name
