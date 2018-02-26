@@ -7,12 +7,24 @@
         <v-flex offset-sm1 sm7 class="anime-infos">
           <img class="anime-cover" :src="anime.cover">
           <h3 class="uppercase">{{ anime.names[0] }}</h3>
-          <ul>
-            <li v-for="author in anime.authors" :key="author.id">
-              <div class="list-name" v-t="'anime.author'"></div>
-              {{ author.name }}
-            </li>
-          </ul>
+            <ul>
+              <li>
+                <div class="list-name" v-t="anime.names.length > 1 ? 'anime.names' : 'anime.name'"></div>
+                {{ anime.names.join(', ') }}
+              </li>
+              <li>
+                <div class="list-name" v-t="anime.authors.length > 1 ? 'anime.authors' : 'anime.author'"></div>
+                {{ anime.authors.map(({ name }) => name).join(', ') }}
+              </li>
+              <li>
+                <div class="list-name" v-t="'anime.tags'"></div>
+                {{ anime.tags.map(({ name }) => name).join(', ') }}
+              </li>
+              <li>
+                <div class="list-name" v-t="'anime.status'"></div>
+                <div v-t="`anime_status.${anime.status}`"></div>
+              </li>
+            </ul>
           <p>{{ anime.desc }}</p>
           <div class="text-xs-center">
             <h4 class="uppercase" v-t="'anime.trailer'"></h4>
@@ -61,6 +73,10 @@ export default {
 						names
 						cover
 						background
+						status
+						tags {
+							name
+						}
 						authors {
 							id
 							name
@@ -102,7 +118,12 @@ export default {
 			fr: {
 				anime: {
 					subscribe: "S'abonner",
+					name: "Nom :",
+					names: "Noms :",
 					author: "Auteur :",
+					authors: "Auteurs :",
+					tags: "Tags :",
+					status: "Statut :",
 					trailer: "Trailer :",
 					rating: "Note :"
 				}
@@ -110,7 +131,12 @@ export default {
 			en: {
 				anime: {
 					subscribe: "Subscribe",
+					name: "Name:",
+					names: "Names:",
 					author: "Author:",
+					authors: "Authors:",
+					tags: "Tags:",
+					status: "Status:",
 					trailer: "Trailer:",
 					rating: "Rating:"
 				}
@@ -147,7 +173,7 @@ export default {
 
       li {
         list-style: none;
-      }
+      } 
 
       .list-name {
         float: left;
