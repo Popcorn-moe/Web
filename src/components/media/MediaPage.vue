@@ -158,7 +158,7 @@ export default {
 				anime_status: {
 					PENDING: "En cours",
 					FINISHED: "Terminé",
-					NOT_STARTED: "Non démaré"
+					NOT_STARTED: "Non démarré"
 				}
 			},
 			en: {

@@ -110,9 +110,9 @@ export default {
 			en: {
 				anime: {
 					subscribe: "Subscribe",
-					author: "Author :",
-					trailer: "Trailer :",
-					rating: "Rating :"
+					author: "Author:",
+					trailer: "Trailer:",
+					rating: "Rating:"
 				}
 			}
 		}

@@ -68,7 +68,7 @@ export default {
 			},
 			en: {
 				news: {
-					see_more: "See More"
+					see_more: "See more"
 				}
 			}
 		}
