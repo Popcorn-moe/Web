@@ -180,38 +180,51 @@ const comments = [
 		icon,
 		content:
 			"On ne peut pas parler de politique administrative scientifique, la concertation politique par rapport aux diplomaties consent à catapulter les revenus dans les camps militaires non-voyants, c’est clair.",
-		response: {
-			id: 2,
-			user: "Xx_loucass006_xX",
-			date: "11 Sept.",
-			icon,
-			content:
-				"Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui.",
-			response: {
-				id: 3,
+		responses: [
+			{
+				id: 2,
 				user: "Xx_loucass006_xX",
 				date: "11 Sept.",
 				icon,
 				content:
-					"C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
+					"Parallèlement, la systématique de l'orthodoxisation peut intentionner le point adjacent dans le prémice, mais oui.",
+				responses: [
+					{
+						id: 3,
+						user: "Xx_loucass006_xX",
+						date: "11 Sept.",
+						icon,
+						content:
+							"C’est à dire quand on parle de ces rollers, la pédagogie des lois du marché est censé(e) catapulter la renaissance africaine vers Lovanium, je vous en prie."
+					}
+				]
+			},
+			{
+				id: 4,
+				user: "Xx_loucass006_xX",
+				date: "11 Sept.",
+				icon,
+				content: "moi aussi j'aime les licornes"
 			}
-		}
+		]
 	},
 	{
-		id: 4,
+		id: 5,
 		user: "Xx_loucass006_xX",
 		date: "11 Sept.",
 		icon,
 		content:
 			"C’est à dire quand on parle de ces rollers, la délégation autour de phylogomènes généralisés suffit à intentionner l'estime du savoir avéré(e)(s), mais oui.",
-		response: {
-			id: 5,
-			user: "Xx_loucass006_xX",
-			date: "11 Sept.",
-			icon,
-			content:
-				"D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
-		}
+		responses: [
+			{
+				id: 6,
+				user: "Xx_loucass006_xX",
+				date: "11 Sept.",
+				icon,
+				content:
+					"D'une manière ou d'une autre, l'imbroglio de l'orthodoxisation doit réglementer le conpemdium dans le prémice, mais oui."
+			}
+		]
 	}
 ];
 </script>

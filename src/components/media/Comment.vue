@@ -43,8 +43,8 @@
         </div>
       </v-flex>
     </v-layout>
-    <div class="response" v-if="value.response">
-      <comment :value="value.response"></comment>
+    <div class="response" v-if="value.responses">
+      <comment v-for="comment in value.responses" :value="comment" :key="comment.id"></comment>
     </div>
   </div>
 </template>
