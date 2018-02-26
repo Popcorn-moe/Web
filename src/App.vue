@@ -21,12 +21,24 @@ export default {
 		VApp,
 		VSlideXTransition
 	},
+	watch: {
+		$route() {
+			this.$emit("updateHead");
+		}
+	},
 	computed: {
 		...mapGetters({
 			darkTheme: "darkTheme"
 		}),
 		isAuth() {
 			return this.$route.path.match("auth");
+		}
+	},
+	head: {
+		meta() {
+			return [
+				{ property: "og:url", content: window.location.href, id: "og:url" }
+			];
 		}
 	}
 };

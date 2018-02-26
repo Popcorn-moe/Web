@@ -64,6 +64,11 @@ export default {
 			anime: null
 		};
 	},
+	watch: {
+		anime() {
+			this.$emit("updateHead");
+		}
+	},
 	apollo: {
 		anime: {
 			query: gql`
@@ -99,10 +104,7 @@ export default {
 			},
 			update({ anime }) {
 				if (!anime) this.$router.replace({ name: "404" });
-				else {
-					this.$emit("updateHead");
-					return anime;
-				}
+				else return anime;
 			}
 		}
 	},
@@ -122,6 +124,17 @@ export default {
 				return {
 					inner: this.anime.names[0]
 				};
+		},
+		meta() {
+			if (this.anime)
+				return [
+					{
+						property: "og:title",
+						content: this.anime.names[0],
+						id: "og:title"
+					},
+					{ property: "og:image", content: this.anime.cover, id: "og:image" }
+				];
 		}
 	},
 	i18n: {
