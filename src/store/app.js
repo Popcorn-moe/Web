@@ -8,7 +8,7 @@ export const IS_LOADING = "IS_LOADING";
 
 const state = {
 	darkTheme: localStorage.getItem("darkTheme") === "true",
-	drawer: localStorage.getItem("drawer") === "true",
+	drawer: (localStorage.getItem("drawer") || "true") === "true",
 	isLoading: true,
 	isAuth: null
 };

@@ -1,10 +1,14 @@
 <template>
     <div>
-        <navbar :value="drawer" @input="toggleDrawer"></navbar>
-        <v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="el-float main-color" small>
-            <v-icon>menu</v-icon>
-        </v-btn>
-        <search class="el-float el-right"></search>
+        <template v-if="$vuetify.breakpoint.mdAndUp">
+            <navbar :value="drawer" @input="toggleDrawer"></navbar>
+            <v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="el-float main-color" small>
+                <v-icon>menu</v-icon>
+            </v-btn>
+            <search class="el-float el-right"></search>
+        </template>
+        <mobile-navbar v-else></mobile-navbar>
+
         <main>
             <v-content>
                 <loader v-show="isLoading"></loader>
@@ -34,6 +38,7 @@ import { VContent, VContainer } from "vuetify/es5/components/VGrid";
 import { VSlideYTransition } from "vuetify/es5/components/transitions";
 import { mapGetters, mapActions } from "vuex";
 import Navbar from "./navbar/Navbar";
+import MobileNavbar from "./navbar/MobileNavbar";
 import Search from "./Search";
 import Floating from "../Floating";
 import VideoPlayer, { videoPlayer } from "../player/GlobalPlayer";
@@ -47,6 +52,7 @@ export default {
 	components: {
 		Loader,
 		Navbar,
+		MobileNavbar,
 		Search,
 		VBtn,
 		VIcon,
