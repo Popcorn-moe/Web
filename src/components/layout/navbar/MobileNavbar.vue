@@ -49,7 +49,7 @@
 			</v-slide-y-transition>
 		</v-toolbar>
 		<search-results class="floating-search-results" @close="search = false, query = null" :query="query"></search-results>
-		<v-bottom-nav app :value="true" :height="45">
+		<v-bottom-nav app :value="true">
 			<v-btn
 			 flat
 			 v-for="(route, i) in routes.filter(r => !r.hide)"
