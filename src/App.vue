@@ -1,16 +1,16 @@
 <template>
   <v-app :light="isAuth ? true : !darkTheme" :dark="isAuth ? false : darkTheme">
-    <v-slide-x-transition mode="out-in">
+    <v-fade-transition mode="out-in">
       <auth-layout v-if="isAuth"></auth-layout>
       <layout v-else></layout>
-    </v-slide-x-transition>
+    </v-fade-transition>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { VApp } from "vuetify/es5/components";
-import { VSlideXTransition } from "vuetify/es5/components/transitions";
+import { VFadeTransition } from "vuetify/es5/components/transitions";
 import Layout from "./components/layout/Layout";
 import AuthLayout from "./components/layout/AuthLayout";
 
@@ -19,7 +19,7 @@ export default {
 		Layout,
 		AuthLayout,
 		VApp,
-		VSlideXTransition
+		VFadeTransition
 	},
 	watch: {
 		$route() {
