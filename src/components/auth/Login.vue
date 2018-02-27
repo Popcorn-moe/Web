@@ -91,7 +91,7 @@ export default {
 		login(provider) {
 			if (provider) {
 				const callback = encodeURIComponent(
-					`${location.origin}/#${this.$router.last}`
+					location.origin + this.$router.last
 				);
 				window.location.assign(
 					`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`
