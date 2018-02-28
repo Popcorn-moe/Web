@@ -1,13 +1,9 @@
-const casual = require("casual");
-const md5 = require("md5");
+const faker = require("faker");
 
-module.exports = () => {
-	const email = casual.email.toLowerCase().trim();
-	return {
-		login: casual.name,
-		group: "VIEWER",
-		newsletter: true,
-		avatar: `https://www.gravatar.com/avatar/${md5(email)}?d=identicon`,
-		email
-	};
-};
+module.exports = () => ({
+	login: faker.name.findName(),
+	group: "VIEWER",
+	newsletter: true,
+	avatar: faker.image.avatar(),
+	email: faker.internet.email()
+});

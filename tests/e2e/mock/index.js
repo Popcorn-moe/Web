@@ -6,7 +6,7 @@ const cors = require("cors");
 const graphqlHTTP = require("express-graphql");
 const { graphql } = require("graphql");
 const mocks = require("./mocks");
-const casual = require("casual");
+const faker = require("faker");
 const { join } = require("path");
 
 const schema = buildClientSchema(introspectionResult);
@@ -23,7 +23,7 @@ app.use(
 );
 
 app.use((req, res, next) => {
-	casual.seed(123456);
+	faker.seed(123);
 	next();
 });
 app.use("/graphql", graphqlHTTP({ schema }));

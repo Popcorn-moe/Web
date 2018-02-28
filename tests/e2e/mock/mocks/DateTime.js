@@ -1,3 +1,3 @@
-const casual = require("casual");
+const faker = require("faker");
 
-module.exports = () => casual.date((format = "YYYY-MM-DD"));
+module.exports = () => faker.date.past();

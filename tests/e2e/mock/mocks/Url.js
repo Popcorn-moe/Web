@@ -1,3 +1,3 @@
-const casual = require("casual");
+const faker = require("faker");
 
-module.exports = () => casual.url;
+module.exports = () => faker.internet.url();

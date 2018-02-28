@@ -1,7 +1,7 @@
-const casual = require("casual");
+const faker = require("faker");
 
 module.exports = () => ({
-	names: [casual.title],
+	names: [faker.commerce.productName()],
 	cover: "http://localhost:3029/cover.png",
 	background: "http://localhost:3029/background.gif"
 });
