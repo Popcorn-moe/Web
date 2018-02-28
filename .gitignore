@@ -17,3 +17,6 @@ yarn.lock
 
 # custom env run file
 run.sh
+
+# testcafe screenshots
+screenshots

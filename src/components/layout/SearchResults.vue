@@ -48,7 +48,6 @@ import {
 import gql from "graphql-tag";
 
 export default {
-	name: "Search",
 	props: ["query"],
 	data() {
 		return {

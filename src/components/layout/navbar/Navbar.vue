@@ -99,7 +99,6 @@ export default {
 	props: {
 		value: Boolean
 	},
-
 	data() {
 		return {
 			routes,
