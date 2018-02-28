@@ -22,7 +22,7 @@ Vue.use(Vuetify, {
 });
 Vue.use(VueHead, {
 	separator: "-",
-	complement: "PopPorn.moe"
+	complement: "Popcorn.moe"
 });
 
 /* eslint-disable no-new */
