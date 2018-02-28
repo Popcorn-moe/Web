@@ -87,6 +87,12 @@ export default {
 							id
 							name
 						}
+						medias {
+							id
+							name
+							type
+							content
+						}
 						seasons {
 							name
 							episodes {
@@ -203,7 +209,7 @@ export default {
 
       li {
         list-style: none;
-      } 
+      }
 
       .list-name {
         float: left;

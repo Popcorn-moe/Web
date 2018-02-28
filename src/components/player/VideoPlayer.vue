@@ -70,8 +70,12 @@ export default {
 	methods: {
 		togglePlay() {
 			const video = this.$refs.video;
-			if (!this.hasPlayed)
-				this.mse = new MegaMediaSource(this.value, this.$refs.video);
+			if (!this.hasPlayed) {
+				const host = this.value.split("/")[2];
+				if (host.startsWith("mega"))
+					this.mse = new MegaMediaSource(this.value, this.$refs.video);
+				else video.src = this.value;
+			}
 			this.hasPlayed = true;
 			this.showControls();
 			this.paused ? video.play().catch(() => {}) : video.pause();

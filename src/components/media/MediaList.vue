@@ -16,6 +16,22 @@
         </v-list-tile-title>
       </v-list-tile>
     </v-list-group>
+    <v-list-group v-if="anime.medias.length > 0">
+      <v-list-tile slot="activator">
+        <v-list-tile-content>
+          <v-list-tile-title>Musics</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile
+        v-for="(media, i) in anime.medias"
+        :key="media.id"
+        :to="{ name: 'Media', params: { id: anime.id, media: media.id }}"
+      >
+        <v-list-tile-title>
+          <v-list-tile-title>{{ capitalize(media.type.toLowerCase()) }}: {{ media.name }}</v-list-tile-title>
+        </v-list-tile-title>
+      </v-list-tile>
+    </v-list-group>
   </v-list>
 </template>
 
@@ -32,6 +48,11 @@ import {
 
 export default {
 	props: ["anime", "active"],
+	methods: {
+		capitalize(string) {
+			return string.replace(/\b\w/g, l => l.toUpperCase());
+		}
+	},
 	components: {
 		VIcon,
 		VList,

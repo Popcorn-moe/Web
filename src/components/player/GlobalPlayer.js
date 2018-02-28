@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VideoPlayer from "./VideoPlayer";
+import VideoPlayer from "./VideoPlayer.vue";
 
 export const videoPlayer = {
 	owner: null,

@@ -5,9 +5,9 @@
       <video-player
        owner="media"
        class="media-player"
-       v-if="anime.seasons[season -1].episodes[episode -1].content"
-       :value="anime.seasons[season -1].episodes[episode -1].content"
-       :key="anime.seasons[season -1].episodes[episode -1].content"
+       v-if="playerContent()"
+       :value="playerContent()"
+       :key="playerContent()"
       ></video-player>
     </div>
     <v-container class="media-page-container">
@@ -18,7 +18,10 @@
               <img class="anime-cover" :src="anime.cover">
               <!-- router-link :to="{ name: 'Anime', params: { id: anime.id }}"><h6 class="uppercase">{{ anime.names[0] }}</h6></router-link-->
               <h6 class="uppercase">{{ anime.names[0] }}</h6>
-              <p class="sub">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</p>
+              <p class="sub">
+                <span v-if="anime.season">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</span>
+                <span v-if="currMedia">{{ capitalize(currMedia.type.toLowerCase()) }}: {{ currMedia.name }}</span>
+              </p>
               <ul>
                 <li>
                   <div class="list-name" v-t="anime.names.length > 1 ? 'media.names' : 'media.name'"></div>
@@ -84,8 +87,19 @@ export default {
 	data() {
 		return {
 			anime: null,
+			currMedia: null,
 			comments
 		};
+	},
+	methods: {
+		capitalize(string) {
+			return string.replace(/\b\w/g, l => l.toUpperCase());
+		},
+		playerContent() {
+			return this.media
+				? this.anime.medias.filter(({ id }) => id === this.media)[0].content
+				: this.anime.seasons[season - 1].episodes[episode - 1].content;
+		}
 	},
 	apollo: {
 		anime: {
@@ -99,6 +113,12 @@ export default {
 						status
 						tags {
 							name
+						}
+						medias {
+							id
+							name
+							type
+							content
 						}
 						authors {
 							id
@@ -122,7 +142,12 @@ export default {
 			},
 			update({ anime }) {
 				if (!anime) this.$router.replace({ name: "404" });
-				else return anime;
+				else {
+					this.currMedia = this.media
+						? anime.medias.filter(({ id }) => id === this.media)[0]
+						: null;
+					return anime;
+				}
 			}
 		}
 	},
