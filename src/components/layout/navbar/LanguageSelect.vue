@@ -38,7 +38,6 @@ const MAP = {
 };
 
 export default {
-	name: "LanguageSelect",
 	props: {
 		transparent: {
 			type: Boolean,
