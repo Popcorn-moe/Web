@@ -2,7 +2,7 @@
     <div class="anime text-xs-center">
         <router-link :to="{ name: 'Anime', params: { id: value.id }}">
             <div class="cover-container">
-                <img class="cover" alt="cover" :src="value.cover">
+                <p-img class="cover" alt="cover" :src="value.cover"/>
                 <v-icon class="arrow">play_arrow</v-icon>
             </div>
         </router-link>
@@ -22,6 +22,7 @@
 <script>
 import { VIcon } from "vuetify/es5/components";
 import Rating from "./Rating";
+import PImg from "../ProgressiveImg";
 
 export default {
 	props: ["value"],
@@ -32,7 +33,8 @@ export default {
 	},
 	components: {
 		VIcon,
-		Rating
+		Rating,
+		PImg
 	}
 };
 </script>
