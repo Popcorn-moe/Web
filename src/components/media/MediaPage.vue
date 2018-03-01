@@ -5,9 +5,9 @@
       <video-player
        owner="media"
        class="media-player"
-       v-if="playerContent"
-       :value="playerContent"
-       :key="playerContent"
+       v-if="currMedia.content"
+       :value="currMedia.content"
+       :key="currMedia.content"
       ></video-player>
     </div>
     <v-container class="media-page-container">
@@ -15,12 +15,13 @@
         <v-flex offset-sm1 sm7 class="anime-infos">
           <v-layout row wrap>
             <v-flex xs12>
-              <img class="anime-cover" alt="cover" :src="anime.cover">
-              <!-- router-link :to="{ name: 'Anime', params: { id: anime.id }}"><h6 class="uppercase">{{ anime.names[0] }}</h6></router-link-->
-              <h6 class="uppercase">{{ anime.names[0] }}</h6>
+              <router-link :to="{ name: 'Anime', params: { id: anime.id }}" class="link">
+                <img class="anime-cover" alt="cover" :src="anime.cover">
+                <h3 class="uppercase">{{ anime.names[0] }}</h3>
+              </router-link>
               <p class="sub">
-                <span v-if="anime.season">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</span>
-                <span v-if="currMedia">{{ capitalize(currMedia.type.toLowerCase()) }}: {{ currMedia.name }}</span>
+                <span v-if="currMedia.type === 'EPISODE'">Saison {{ season }}, épisode {{ episode }}: {{ anime.seasons[season -1].episodes[episode -1].name }}</span>
+                <span v-if="currMedia.type !== 'EPISODE'">{{ capitalize(currMedia.type.toLowerCase()) }} : {{ currMedia.name }}</span>
               </p>
               <ul>
                 <li>
@@ -87,7 +88,6 @@ export default {
 	data() {
 		return {
 			anime: null,
-			currMedia: null,
 			comments
 		};
 	},
@@ -97,11 +97,12 @@ export default {
 		}
 	},
 	computed: {
-		playerContent() {
-			return this.media
-				? this.anime.medias.filter(({ id }) => id === this.media)[0].content
-				: this.anime.seasons[this.season - 1].episodes[this.episode - 1]
-						.content;
+		currMedia() {
+			const out = this.media
+				? this.anime.medias.filter(({ id }) => id === this.media)[0]
+				: this.anime.seasons[this.season - 1].episodes[this.episode - 1];
+			console.log(out);
+			return out;
 		}
 	},
 	apollo: {
@@ -132,6 +133,7 @@ export default {
 							episodes {
 								id
 								name
+								type
 								content
 							}
 						}
@@ -146,9 +148,7 @@ export default {
 			update({ anime }) {
 				if (!anime) this.$router.replace({ name: "404" });
 				else {
-					this.currMedia = this.media
-						? anime.medias.filter(({ id }) => id === this.media)[0]
-						: null;
+					//this.currMedia = this.media ? anime.medias.filter(({ id }) => id === this.media)[0] : null;
 					return anime;
 				}
 			}
@@ -266,6 +266,10 @@ const comments = [
 
   .media-page-container {
     padding-top: 30px;
+
+    .link {
+      text-decoration none
+    }
 
     .divider {
       margin-top: 30px;
