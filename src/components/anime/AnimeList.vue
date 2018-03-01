@@ -23,7 +23,7 @@
 <script>
 import { VBtn, VIcon } from "vuetify/es5/components";
 import { Touch } from "vuetify/es5/directives";
-
+import { mapGetters } from "vuex";
 import Anime from "./Anime";
 
 export default {
@@ -46,8 +46,11 @@ export default {
 		window.removeEventListener("resize", this.update);
 	},
 	computed: {
+		...mapGetters({
+			drawer: "drawer"
+		}),
 		canPrev() {
-			return this.index && this.index + 1 >= this.elemsPerLine;
+			return this.index > 0;
 		},
 		canNext() {
 			return this.index < this.value.length - this.elemsPerLine;
@@ -55,9 +58,8 @@ export default {
 	},
 	methods: {
 		update() {
-			this.elemsPerLine = Math.floor(
-				document.body.offsetWidth / this.animeSize
-			);
+			const width = document.body.offsetWidth - (this.drawer ? 280 : 0);
+			this.elemsPerLine = Math.floor(width / this.animeSize);
 		},
 		prev() {
 			this.index--;
