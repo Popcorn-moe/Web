@@ -5,9 +5,9 @@
       <video-player
        owner="media"
        class="media-player"
-       v-if="playerContent()"
-       :value="playerContent()"
-       :key="playerContent()"
+       v-if="playerContent"
+       :value="playerContent"
+       :key="playerContent"
       ></video-player>
     </div>
     <v-container class="media-page-container">
@@ -94,11 +94,14 @@ export default {
 	methods: {
 		capitalize(string) {
 			return string.replace(/\b\w/g, l => l.toUpperCase());
-		},
+		}
+	},
+	computed: {
 		playerContent() {
 			return this.media
 				? this.anime.medias.filter(({ id }) => id === this.media)[0].content
-				: this.anime.seasons[season - 1].episodes[episode - 1].content;
+				: this.anime.seasons[this.season - 1].episodes[this.episode - 1]
+						.content;
 		}
 	},
 	apollo: {

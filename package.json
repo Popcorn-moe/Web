@@ -21,7 +21,7 @@
 		"precommit": "lint-staged",
 		"test": "npm run test:e2e",
 		"test:e2e": "concurrently --kill-others \"npm run test:e2e:mock\" \"npm run test:e2e:run\"",
-		"test:e2e:run": "cross-env API_URL=http://localhost:3029 PORT=8042 OPEN=false testcafe \"chromium\" tests/e2e/*.test.js --app \"npm start >/dev/null 2>&1\" --app-init-delay 25000 -S -s screenshots",
+		"test:e2e:run": "cross-env API_URL=http://localhost:3029 PORT=8042 OPEN=false testcafe \"all\" tests/e2e/*.test.js --app \"npm start >/dev/null 2>&1\" --app-init-delay 25000 -S -s screenshots",
 		"test:e2e:mock": "node tests/e2e/mock"
 	},
 	"lint-staged": {
