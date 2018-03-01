@@ -1,7 +1,10 @@
 import { ClientFunction } from "testcafe";
 import VueSelector from "testcafe-vue-selectors";
+import collectCoverage from "./utils/istanbul";
 
-fixture("Navbar").page("http://localhost:8042/");
+fixture("Navbar")
+	.page("http://localhost:8042/")
+	.afterEach(collectCoverage);
 
 const navbar = VueSelector("navbar");
 const mobileNavbar = VueSelector("mobile-navbar");

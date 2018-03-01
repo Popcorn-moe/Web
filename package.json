@@ -21,7 +21,7 @@
 		"precommit": "lint-staged",
 		"test": "npm run test:e2e",
 		"test:e2e": "concurrently --kill-others \"npm run test:e2e:mock\" \"npm run test:e2e:run\"",
-		"test:e2e:run": "cross-env API_URL=http://localhost:3029 PORT=8042 OPEN=false testcafe \"all\" tests/e2e/*.test.js --app \"npm start >/dev/null 2>&1\" --app-init-delay 25000 -S -s screenshots",
+		"test:e2e:run": "cross-env NODE_ENV=test testcafe \"chromium\" \"tests/e2e/*.test.js\" --app \"npm start >/dev/null 2>&1\" --app-init-delay 25000 -S -s screenshots",
 		"test:e2e:mock": "node tests/e2e/mock"
 	},
 	"lint-staged": {
@@ -59,6 +59,7 @@
 		"babel-eslint": "^7.1.1",
 		"babel-helper-vue-jsx-merge-props": "^2.0.3",
 		"babel-loader": "^7.1.1",
+		"babel-plugin-istanbul": "^4.1.5",
 		"babel-plugin-syntax-jsx": "^6.18.0",
 		"babel-plugin-transform-imports": "^1.4.1",
 		"babel-plugin-transform-runtime": "^6.22.0",
@@ -75,6 +76,7 @@
 		"eslint-friendly-formatter": "^3.0.0",
 		"eslint-loader": "^1.7.1",
 		"eslint-plugin-html": "^3.0.0",
+		"exit-hook": "^1.1.1",
 		"express": "^4.16.2",
 		"express-graphql": "^0.6.12",
 		"extract-text-webpack-plugin": "^3.0.0",
@@ -86,6 +88,7 @@
 		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^2.30.1",
 		"husky": "^0.14.3",
+		"istanbul": "^0.4.5",
 		"lint-staged": "^6.1.1",
 		"node-notifier": "^5.1.2",
 		"optimize-css-assets-webpack-plugin": "^3.2.0",
