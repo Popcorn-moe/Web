@@ -2,7 +2,7 @@
     <div class="anime text-xs-center">
         <router-link :to="{ name: 'Anime', params: { id: value.id }}">
             <div class="cover-container">
-                <img class="cover" :src="value.cover">
+                <img class="cover" alt="cover" :src="value.cover">
                 <v-icon class="arrow">play_arrow</v-icon>
             </div>
         </router-link>
@@ -65,9 +65,10 @@ export default {
         }
 
         .cover {
-          padding: $anime.img-border;
-          width: $anime.width;
-          height: $anime.img-height;
+            display: inline-block;
+            padding: $anime.img-border;
+            width: $anime.width;
+            height: $anime.img-height;
         }
 
         .cover-container:hover {
@@ -91,7 +92,7 @@ export default {
         }
 
         .title {
-            font-size: 14px !important;
+            font-size: 16px !important;
             margin: 1px;
             text-overflow: ellipsis;
             overflow: hidden;

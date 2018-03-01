@@ -15,7 +15,7 @@
         <v-flex offset-sm1 sm7 class="anime-infos">
           <v-layout row wrap>
             <v-flex xs12>
-              <img class="anime-cover" :src="anime.cover">
+              <img class="anime-cover" alt="cover" :src="anime.cover">
               <!-- router-link :to="{ name: 'Anime', params: { id: anime.id }}"><h6 class="uppercase">{{ anime.names[0] }}</h6></router-link-->
               <h6 class="uppercase">{{ anime.names[0] }}</h6>
               <p class="sub">

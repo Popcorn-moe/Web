@@ -18,7 +18,7 @@
                 </v-btn>
               </v-flex>
               <v-flex xs6>
-                <object data="/static/logo-animated.svg" type="image/svg+xml"></object>
+                <object alt="logo" data="/static/logo-animated.svg" type="image/svg+xml"></object>
               </v-flex>
               <v-flex xs3>
                 <v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">

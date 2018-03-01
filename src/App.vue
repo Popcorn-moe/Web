@@ -37,7 +37,22 @@ export default {
 	head: {
 		meta() {
 			return [
-				{ property: "og:url", content: window.location.href, id: "og:url" }
+				{ property: "og:url", content: window.location.href, id: "og:url" },
+				{
+					property: "og:image",
+					content: "https://popcorn.moe/static/logo.png",
+					id: "og:image"
+				},
+				{
+					property: "og:description",
+					content: "An anime streaming website",
+					id: "og:description"
+				},
+				{
+					name: "description",
+					content: "An anime streaming website",
+					id: "description"
+				}
 			];
 		}
 	}

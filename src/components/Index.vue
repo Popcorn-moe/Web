@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-carousel class="white--text">
-      <v-carousel-item v-for="(img,i) in news" :src="img" :key="i">News {{ i }}</v-carousel-item>
+      <v-carousel-item v-for="(img,i) in news" alt="carousel-item" :src="img" :key="i">News {{ i }}</v-carousel-item>
     </v-carousel>
     <div class="text-xs-center animes">
       <h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>

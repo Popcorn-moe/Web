@@ -14,7 +14,7 @@
 					></v-text-field>
 				</div>
 				<div v-else key="toolbar" class="toolbar__content" style="width: 100%;"> 
-					<object height="40px" data="/static/logo-animated.svg" type="image/svg+xml"></object>
+					<object alt="logo" height="40px" data="/static/logo-animated.svg" type="image/svg+xml"></object>
 					<v-spacer></v-spacer>
 					<v-btn icon @click.stop="search = true">
 						<v-icon>search</v-icon>
