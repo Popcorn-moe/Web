@@ -69,6 +69,11 @@ export default {
 			if (this.index > this.maxIndex) this.maxIndex++;
 		}
 	},
+	watch: {
+		drawer() {
+			this.update();
+		}
+	},
 	components: {
 		VBtn,
 		VIcon,
