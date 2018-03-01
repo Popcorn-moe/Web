@@ -23,7 +23,7 @@
             <!--<user-library></user-library>-->
           </v-tab-item>
           <v-tab-item id="friends">
-            <user-friends :userId="user.id"></user-friends>
+            <user-friends :userId="user"></user-friends>
           </v-tab-item>
           <v-tab-item id="settings" v-if="isMe()">
             <user-settings></user-settings>
@@ -108,7 +108,7 @@ export default {
 			},
 			variables() {
 				return {
-					name: this.userLogin ? this.userLogin : ""
+					name: this.userLogin ? this.userLogin : undefined
 				};
 			},
 			update({ me, user }) {

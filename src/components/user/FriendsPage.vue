@@ -153,13 +153,10 @@ import gql from "graphql-tag";
 
 export default {
 	name: "user_friends",
-	props: {
-		userId: String
-	},
+	props: ["user"],
 	data() {
 		return {
 			currTab: "friends",
-			user: { login: "UNKNOWN", friends: [] },
 			me: { friends: [] },
 			friendRequests: [],
 			pendingFriendRequests: [],
@@ -292,28 +289,6 @@ export default {
 				}
 			`,
 			update: ({ me }) => me
-		},
-		user: {
-			query() {
-				return gql`
-					query userById($id: ID!) {
-						userById(id: $id) {
-							id
-							friends {
-								id
-								avatar
-								login
-							}
-						}
-					}
-				`;
-			},
-			variables() {
-				return {
-					id: this.userId
-				};
-			},
-			update: ({ userById }) => userById
 		},
 		friendRequests: {
 			query: gql`

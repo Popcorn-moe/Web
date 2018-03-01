@@ -280,7 +280,7 @@ const comments = [
       text-align: justify;
       padding-right: 10px;
 
-      h6 {
+      h3 {
         margin-bottom: 3px;
       }
 

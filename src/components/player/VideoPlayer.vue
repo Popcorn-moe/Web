@@ -16,14 +16,15 @@
       Your browser does not support HTML5 video.
     </video>
     <v-progress-circular dark indeterminate class="main-color--text video-waiting" v-show="waiting"></v-progress-circular>
-    <v-icon dark @click="togglePlay" v-if="!hasPlayed" class="video-play">play_arrow</v-icon>
+    <v-icon dark @click="togglePlay" v-if="!hasPlayed || paused" class="video-play">play_arrow</v-icon>
     <!-- Video Controls -->
     <v-fade-transition>
       <div class="video-controls" v-show="hasPlayed && !controlsHidden">
         <player-slider dark hide-details color="primary" class="floating-cancel timeline" :step="0" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
         <v-btn color="primary" dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
         <v-btn color="primary" dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
-        <v-slider hide-details color="primary" dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
+        <v-slider hide-details color="primary" dark class="floating-cancel volume" :max="100" :value="muted ? 0 : volume" @input="changeVolume"></v-slider>
+        <div class="timer">{{ currentTime }}/{{ duration }}</div>
         <v-btn color="primary" dark icon class="right" @click.stop="toggleFullScreen"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
       </div>
     </v-fade-transition>
@@ -55,6 +56,8 @@ export default {
 			buffered: [],
 			timeline: 0,
 			volume: 100,
+			currentTime: 0,
+			duration: 0,
 			controlsHidden: true
 		};
 	},
@@ -68,6 +71,13 @@ export default {
 		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
 	},
 	methods: {
+		formatTime(time) {
+			let minutes = Math.floor(time / 60);
+			minutes = minutes >= 10 ? minutes : "0" + minutes;
+			let seconds = Math.floor(time % 60);
+			seconds = seconds >= 10 ? seconds : "0" + seconds;
+			return `${minutes}:${seconds}`;
+		},
 		togglePlay() {
 			const video = this.$refs.video;
 			if (!this.hasPlayed) {
@@ -94,6 +104,8 @@ export default {
 		onTimelineChangeEvent() {
 			const video = this.$refs.video;
 			if (video) this.timeline = 100 / video.duration * video.currentTime;
+			this.currentTime = this.formatTime(video.currentTime);
+			this.duration = this.formatTime(video.duration);
 		},
 		onProgress() {
 			const video = this.$refs.video;
@@ -206,6 +218,13 @@ export default {
         background: $main-color !important;
       }
 
+      .timer {
+        margin-left 15px
+        vertical-align: middle;
+        display: inline-block;
+        width: 100px;
+        padding: 0;
+      }
     }
   }
 </style>
