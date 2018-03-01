@@ -16,7 +16,7 @@
           <v-layout row wrap>
             <v-flex xs12>
               <router-link :to="{ name: 'Anime', params: { id: anime.id }}" class="link">
-                <img class="anime-cover" alt="cover" :src="anime.cover">
+                <p-img class="anime-cover" alt="cover" :src="anime.cover"/>
                 <h3 class="uppercase">{{ anime.names[0] }}</h3>
               </router-link>
               <p class="sub">
@@ -80,6 +80,7 @@ import Comment from "./Comment";
 import MediaList from "./MediaList";
 import VideoPlayer from "../player/GlobalPlayer";
 import Loader from "../layout/Loader";
+import PImg from "../ProgressiveImg";
 import gql from "graphql-tag";
 import { client } from "../../graphql";
 
@@ -170,7 +171,8 @@ export default {
 		Comment,
 		MediaList,
 		VideoPlayer,
-		Loader
+		Loader,
+		PImg
 	},
 	i18n: {
 		messages: {
