@@ -76,7 +76,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 			chunksSortMode: "dependency"
 		}),
 		new ScriptExtHtmlWebpackPlugin({
-			defaultAttribute: "async"
+			defaultAttribute: "defer"
 		}),
 		// keep module.id stable when vendor modules does not change
 		new webpack.HashedModuleIdsPlugin(),
