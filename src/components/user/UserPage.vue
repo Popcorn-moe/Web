@@ -150,7 +150,7 @@ export default {
     }
 
     .tabs__bar {
-      background-color: transparent;
+      background-color: transparent !important;
     }
 
     .tabs__wrapper {

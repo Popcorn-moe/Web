@@ -5,7 +5,7 @@
     <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-sm1 sm7 class="anime-infos">
-          <img class="anime-cover" alt="cover" :src="anime.cover">
+          <p-img class="anime-cover" alt="cover" :src="anime.cover"/>
           <h3 class="uppercase">{{ anime.names[0] }}</h3>
             <ul>
               <li>
@@ -54,6 +54,7 @@ import { VBtn, VIcon } from "vuetify/es5/components";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import Rating from "./Rating";
 import MediaList from "../media/MediaList";
+import PImg from "../ProgressiveImg";
 import gql from "graphql-tag";
 import { client } from "../../graphql";
 
@@ -123,7 +124,8 @@ export default {
 		VBtn,
 		VIcon,
 		Rating,
-		MediaList
+		MediaList,
+		PImg
 	},
 	head: {
 		title() {
