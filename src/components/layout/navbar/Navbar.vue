@@ -194,10 +194,10 @@ export default {
     bottom: 5px;
     width: 100%;
     .input-group__details {
-      min-height: 0px;
+      min-height: 0px !important;
     }
     .input-group {
-      padding: 9px 0;
+      padding: 9px 0 !important;
     }
   }
 
