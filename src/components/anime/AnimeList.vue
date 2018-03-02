@@ -17,6 +17,7 @@
         <v-btn class="nav-button nav-right main-color--text" v-if="canNext" fab @click="next">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
+        <slot/>
     </div>
 </template>
 
@@ -96,6 +97,7 @@ export default {
     padding: 10px;
 
     .animes {
+        height: $anime-height
         position: relative;
         transition: left 500ms;
     }

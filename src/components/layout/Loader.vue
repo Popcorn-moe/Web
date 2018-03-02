@@ -13,18 +13,16 @@ export default Loader;
     height: 100vh;
     width: 10%;
     margin auto auto;
-    /*.cls-1 {
-      fill:#f6416c;
+    z-index: 9999;
+
+    &.float {
+      height: inherit;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
-    .cls-2{
-      fill:#ffde7d;
-    }
-    .cls-3{
-      fill:#3a2a2a;
-    }
-    .cls-4{
-      fill:#ddd;
-    }*/
+
     @keyframes rotate {
       from {
         transform: rotate(0deg);
@@ -33,6 +31,7 @@ export default Loader;
         transform: rotate(360deg);
       }
     }
+
     #perso {
         animation: rotate 2s linear infinite;
         transform-origin: center;

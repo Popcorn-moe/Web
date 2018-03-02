@@ -14,6 +14,7 @@ export default {
 
 <style>
 img.loading {
+	color: transparent;
 	filter: blur(5px);
 }
 </style>

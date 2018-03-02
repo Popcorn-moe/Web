@@ -75,13 +75,17 @@ export default {
             height: $anime.img-height;
         }
 
-        .cover-container:hover {
-            .cover {
-              background-color: $main-color;
-            }
+        .cover-container {
+            line-height: 0;
+            margin-bottom: $anime.img-border;
+            &:hover {
+                .cover {
+                    background-color: $main-color;
+                }
 
-            .arrow {
-              display: block;
+                .arrow {
+                    display: block;
+                }
             }
         }
 
@@ -96,7 +100,7 @@ export default {
         }
 
         .title {
-            font-size: 16px !important;
+            font-size: $anime.font-size !important;
             margin: 1px;
             text-overflow: ellipsis;
             overflow: hidden;

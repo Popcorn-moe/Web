@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <v-carousel class="white--text">
-      <v-carousel-item v-for="(img,i) in news" alt="carousel-item" :src="img" :key="i">News {{ i }}</v-carousel-item>
-    </v-carousel>
-    <div class="text-xs-center index-animes">
-      <h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>
-      <anime-list :value="animes"></anime-list>
-      <h3 class="anime-list-title" v-t="'index.last_trailers'"></h3>
-      <anime-list :value="animes"></anime-list>
-    </div>
-  </div>
+	<div>
+		<v-carousel class="white--text">
+			<v-carousel-item v-for="(img,i) in news" alt="carousel-item" :src="img" :key="i">News {{ i }}</v-carousel-item>
+		</v-carousel>
+		<div class="text-xs-center index-animes">
+			<h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>
+			<anime-list :value="animes">
+					<loader class="float" v-if="animes.length === 0"/>
+			</anime-list>
+			<h3 class="anime-list-title" v-t="'index.last_trailers'"></h3>
+			<anime-list :value="animes">
+				<loader class="float" v-if="animes.length === 0"/>
+			</anime-list>
+		</div>
+	</div>
 </template>
 
 <script>
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
 import AnimeList from "./anime/AnimeList";
+import Loader from "./layout/Loader";
 import gql from "graphql-tag";
 
 export default {
@@ -31,6 +36,7 @@ export default {
 	},
 	components: {
 		AnimeList,
+		Loader,
 		VCarousel,
 		VCarouselItem
 	},
