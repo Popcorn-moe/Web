@@ -131,6 +131,8 @@ export default {
     margin-left 30px;
     margin-right 30px;
     margin-top 30vh !important
+    color white !important
+
     .title {
       font-size 25pt !important
       background-color rgba(38, 38, 38, 0.68)

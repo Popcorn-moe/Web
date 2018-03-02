@@ -224,6 +224,7 @@ export default {
         display: inline-block;
         width: 100px;
         padding: 0;
+        color: white !important
       }
     }
   }
