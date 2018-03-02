@@ -4,6 +4,14 @@
       <auth-layout v-if="isAuth"></auth-layout>
       <layout v-else></layout>
     </v-fade-transition>
+	<floating
+        v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
+        width="400px"
+        :initial="{ 'bottom': '5px', 'right': '5px' }"
+        @close="videoPlayer.destroy()"
+    >
+        <video-player owner='floating'></video-player>
+    </floating>
   </v-app>
 </template>
 
@@ -13,13 +21,22 @@ import { VApp } from "vuetify/es5/components";
 import { VFadeTransition } from "vuetify/es5/components/transitions";
 import Layout from "./components/layout/Layout";
 import AuthLayout from "./components/layout/AuthLayout";
+import Floating from "./components/Floating";
+import VideoPlayer, { videoPlayer } from "./components/player/GlobalPlayer";
 
 export default {
+	data() {
+		return {
+			videoPlayer
+		};
+	},
 	components: {
 		Layout,
 		AuthLayout,
 		VApp,
-		VFadeTransition
+		VFadeTransition,
+		Floating,
+		VideoPlayer
 	},
 	watch: {
 		$route() {

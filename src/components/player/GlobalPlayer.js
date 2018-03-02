@@ -19,7 +19,11 @@ export default {
 		if (videoPlayer.owner != null)
 			throw new Error(`Already owned by ${videoPlayer.owner}`);
 
-		if (this.value && videoPlayer.instance) {
+		if (
+			this.value &&
+			videoPlayer.instance &&
+			this.value != videoPlayer.instance.value
+		) {
 			if (!videoPlayer.destroyed) videoPlayer.destroy();
 			videoPlayer.instance.$destroy();
 			videoPlayer.instance = null;
