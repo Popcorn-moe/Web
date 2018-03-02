@@ -1,7 +1,16 @@
 <template>
 	<div>
-		<v-carousel class="white--text">
-			<v-carousel-item v-for="(img,i) in news" alt="carousel-item" :src="img" :key="i">News {{ i }}</v-carousel-item>
+		<v-carousel class="white--text" :key="slides.length">
+      <v-carousel-item  v-for="(v, i) in slides" :src="v.image" :key="i">
+        <div class="slide-content">
+          <v-layout v-if="v.title">
+            <v-flex class="title" xs6 lg3 md3>{{ v.title }}</v-flex>
+          </v-layout>
+          <v-layout v-if="v.desc">
+            <v-flex class="desc" v-html="desc(v.desc)" xs12 lg6 md6></v-flex>
+          </v-layout>
+        </div>
+      </v-carousel-item>
 		</v-carousel>
 		<div class="text-xs-center index-animes">
 			<h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>
@@ -17,28 +26,28 @@
 </template>
 
 <script>
+import { VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
 import AnimeList from "./anime/AnimeList";
 import Loader from "./layout/Loader";
 import gql from "graphql-tag";
+import marked from "marked";
 
 export default {
 	name: "index",
 	data() {
 		return {
 			animes: [],
-			news: [
-				"https://images6.alphacoders.com/505/thumb-1920-505441.jpg",
-				"https://images4.alphacoders.com/706/thumb-1920-706365.png",
-				"https://ib3.hulu.com/show_key_art/12104?size=1600x600&region=US"
-			]
+			slides: []
 		};
 	},
 	components: {
 		AnimeList,
 		Loader,
 		VCarousel,
-		VCarouselItem
+		VCarouselItem,
+		VFlex,
+		VLayout
 	},
 	apollo: {
 		animes: {
@@ -57,6 +66,27 @@ export default {
 				}
 			`,
 			update: ({ animes }) => animes
+		},
+		slides: {
+			query: gql`
+				{
+					slider {
+						id
+						title
+						desc
+						image
+					}
+				}
+			`,
+			update: ({ slider }) => {
+				console.log(slider);
+				return slider;
+			}
+		}
+	},
+	methods: {
+		desc(desc) {
+			return marked(desc, { sanitize: true });
 		}
 	},
 	head: {
@@ -94,6 +124,25 @@ export default {
     .anime-list-title {
       margin: 0;
       font-size: 20px;
+    }
+  }
+
+  .slide-content {
+    margin-left 30px;
+    margin-right 30px;
+    margin-top 30vh !important
+    .title {
+      font-size 25pt !important
+      background-color rgba(38, 38, 38, 0.68)
+      padding-left 15px;
+      padding-right 15px;
+    }
+
+    .desc {
+      margin-top 10px
+      background-color rgba(38, 38, 38, 0.48)
+      padding-left 15px;
+      padding-right 15px;
     }
   }
 </style>
