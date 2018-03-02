@@ -19,14 +19,6 @@
                 </div>
             </v-content>
         </main>
-        <floating
-            v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
-            width="400px"
-            :initial="{ 'bottom': '5px', 'right': '5px' }"
-            @close="videoPlayer.destroy()"
-        >
-            <video-player owner='floating'></video-player>
-        </floating>
     </div>
 </template>
 
@@ -40,15 +32,8 @@ import { mapGetters, mapActions } from "vuex";
 import Navbar from "./navbar/Navbar";
 import MobileNavbar from "./navbar/MobileNavbar";
 import Search from "./Search";
-import Floating from "../Floating";
-import VideoPlayer, { videoPlayer } from "../player/GlobalPlayer";
 
 export default {
-	data() {
-		return {
-			videoPlayer
-		};
-	},
 	components: {
 		Loader,
 		Navbar,
@@ -57,9 +42,7 @@ export default {
 		VBtn,
 		VIcon,
 		VContent,
-		VSlideYTransition,
-		Floating,
-		VideoPlayer
+		VSlideYTransition
 	},
 	computed: mapGetters({
 		drawer: "drawer",
