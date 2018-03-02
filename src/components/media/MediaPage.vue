@@ -29,11 +29,11 @@
                   {{ anime.names.join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name" v-t="anime.authors.length > 1 ? 'media.authors' : 'media.author'"></div>
+                  <div class="list-name" v-if="anime.authors.length" v-t="anime.authors.length > 1 ? 'media.authors' : 'media.author'"></div>
                   {{ anime.authors.map(({ name }) => name).join(', ') }}
                 </li>
                 <li>
-                  <div class="list-name" v-t="'media.tags'"></div>
+                  <div class="list-name" v-if="anime.tags.length" v-t="'media.tags'"></div>
                   {{ anime.tags.map(({ name }) => name).join(', ') }}
                 </li>
                 <li>
@@ -280,14 +280,15 @@ const comments = [
 
     .anime-infos {
       text-align: justify;
-      padding-right: 10px;
+      padding-right: 10px !important
 
       h3 {
-        margin-bottom: 3px;
+        margin-bottom: 10px !important
       }
 
       li {
         list-style: none;
+        padding-right: 10px !important
       }
 
       .list-name {

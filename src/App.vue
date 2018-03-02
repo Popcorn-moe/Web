@@ -31,7 +31,7 @@ export default {
 			darkTheme: "darkTheme"
 		}),
 		isAuth() {
-			return this.$route.path.match("auth");
+			return this.$route.path.match("auth/");
 		}
 	},
 	head: {

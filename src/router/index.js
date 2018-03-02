@@ -50,6 +50,14 @@ export const routes = [
 	},
 	{
 		hide: true,
+		path: "/author/:id",
+		name: "Author",
+		component: () => import("../components/author/AuthorPage"),
+		meta: { hasPlayer: true },
+		props: true
+	},
+	{
+		hide: true,
 		path: "/anime/:id/:season/:episode",
 		name: "Episode",
 		component: () => import("../components/media/MediaPage"),
@@ -118,7 +126,7 @@ const router = new Router({
 let timeout;
 
 router.afterEach((to, from) => {
-	if (!from.path.startsWith("/auth")) {
+	if (!from.path.startsWith("/auth/")) {
 		router.last = from.path;
 	}
 	if (timeout) clearTimeout(timeout);

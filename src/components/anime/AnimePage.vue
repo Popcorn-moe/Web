@@ -13,11 +13,11 @@
                 {{ anime.names.join(', ') }}
               </li>
               <li>
-                <div class="list-name" v-t="anime.authors.length > 1 ? 'anime.authors' : 'anime.author'"></div>
+                <div class="list-name" v-if="anime.authors.length" v-t="anime.authors.length > 1 ? 'anime.authors' : 'anime.author'"></div>
                 {{ anime.authors.map(({ name }) => name).join(', ') }}
               </li>
               <li>
-                <div class="list-name" v-t="'anime.tags'"></div>
+                <div class="list-name" v-if="anime.authors.length" v-t="'anime.tags'"></div>
                 {{ anime.tags.map(({ name }) => name).join(', ') }}
               </li>
               <li>
@@ -210,12 +210,15 @@ export default {
 
     .anime-infos {
       text-align: justify;
-      h6 {
-        margin-bottom: 3px;
+      padding-right: 10px !important
+
+      h3 {
+        margin-bottom: 10px !important
       }
 
       li {
         list-style: none;
+        padding-right: 10px !important
       }
 
       .list-name {
@@ -231,8 +234,7 @@ export default {
 
       p {
         padding-top: 30px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-right: 10px;
       }
     }
 
