@@ -86,7 +86,7 @@ export default {
 	},
 	methods: {
 		desc(desc) {
-			return marked(desc, { sanitize: true });
+			return marked(desc);
 		}
 	},
 	head: {
