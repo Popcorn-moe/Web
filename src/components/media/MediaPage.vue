@@ -30,7 +30,9 @@
                 </li>
                 <li>
                   <div class="list-name" v-if="anime.authors.length" v-t="anime.authors.length > 1 ? 'media.authors' : 'media.author'"></div>
-                  {{ anime.authors.map(({ name }) => name).join(', ') }}
+									<router-link v-for="(author, i) in anime.authors" :key="i" :to="{ name: 'Author', params: { id: author.id }}">
+										{{ i > 0 ? ',' : "" }}{{ author.name }}
+									</router-link>
                 </li>
                 <li>
                   <div class="list-name" v-if="anime.tags.length" v-t="'media.tags'"></div>
@@ -102,7 +104,6 @@ export default {
 			const out = this.media
 				? this.anime.medias.filter(({ id }) => id === this.media)[0]
 				: this.anime.seasons[this.season - 1].episodes[this.episode - 1];
-			console.log(out);
 			return out;
 		}
 	},

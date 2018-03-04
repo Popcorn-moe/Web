@@ -79,7 +79,6 @@ export default {
 				}
 			`,
 			update: ({ slider }) => {
-				console.log(slider);
 				return slider;
 			}
 		}

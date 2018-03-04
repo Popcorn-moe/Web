@@ -27,7 +27,7 @@ module.exports = {
 		env: NODE_ENV === "test" ? require("./test.env") : require("./dev.env"),
 		port: NODE_ENV === "test" ? 8042 : 8080,
 		autoOpenBrowser: NODE_ENV !== "test",
-		devtool: NODE_ENV === "test" ? "inline-source-map" : false,
+		devtool: NODE_ENV === "test" ? "inline-source-map" : "source-map",
 		assetsSubDirectory: "static",
 		assetsPublicPath: "/",
 		proxyTable: {},
