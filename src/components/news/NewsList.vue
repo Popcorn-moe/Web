@@ -1,7 +1,7 @@
 <template>
     <v-container grid-list-md>
-      <v-layout>
-        <v-flex xs4 v-for="($new, i) in news" :key="i">
+      <v-layout row wrap>
+        <v-flex xs12 sm6 md4 v-for="($new, i) in news" :key="i">
           <v-card>
             <v-card-media :src="$new.cover" height="150px"></v-card-media>
             <v-card-title primary-title>
