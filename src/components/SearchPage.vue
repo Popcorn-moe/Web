@@ -2,7 +2,7 @@
   <div>
     <v-container class="page-container" grid-list-md>
       <v-layout row wrap>
-        <v-flex offset-xs3 xs6>
+        <v-flex offset-sm3 sm6 xs12>
           <v-text-field v-model="search" :label="$t('search.search')" hide-details single-line append-icon="search"></v-text-field>
           <div class="text-xs-center">
             <transition-group name="fade-transition">
@@ -18,7 +18,7 @@
       </v-layout>
       <div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
         <v-layout row wrap>
-          <v-flex offset-xs1 xs2>
+          <v-flex offset-sm1 xs12 sm2>
             <v-btn color="primary" dark @click.native.stop="dialog_tags = true" small block top v-t="'search.add_tags'"></v-btn>
             <v-dialog v-model="dialog_tags" max-width="50%">
               <v-card>
@@ -37,16 +37,16 @@
               </v-card>
             </v-dialog>
           </v-flex>
-          <v-flex xs2>
+          <v-flex xs12 sm2>
             <v-select :label="$t('search.sort_by')" bottom></v-select>
           </v-flex>
-          <v-flex xs2>
+          <v-flex xs12 sm2>
             <v-select :label="$t('search.status')" v-model="status" :items="animesStatus" clearable bottom></v-select>
           </v-flex>
-          <v-flex xs2>
+          <v-flex xs12 sm2>
             <v-select :label="$t('search.type')" v-model="type" :items="animesTypes" clearable bottom></v-select>
           </v-flex>
-          <v-flex xs2>
+          <v-flex xs12 sm2>
             <v-select :label="$t('search.author')"
                 autocomplete
                 multiple
@@ -62,7 +62,7 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap>
-          <v-flex offset-xs4 xs4>
+          <v-flex offset-sm4 sm4 xs12>
             <v-text-field :label="$t('search.year')" single-line></v-text-field>
           </v-flex>
         </v-layout>
@@ -263,32 +263,45 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../stylus/main'
-  .page-container {
-    padding-top: 30px;
+@import '../stylus/main';
 
-    .chip:focus {
-      box-shadow: none;
-    }
-  }
+.page-container {
+	padding-top: 30px;
 
-  .search-options-button {
-    cursor: pointer;
-    padding: 5px;
-  }
+	.chip:focus {
+		box-shadow: none;
+	}
+}
 
-  .search-options-body {
-    max-height: 175px;
-    transition: max-height .3s;
+.search-options-button {
+	cursor: pointer;
+	padding: 5px;
+}
 
-    &-hidden {
-      max-height: 0;
-      overflow: hidden;
-    }
-  }
+.search-options-body {
+	max-height: 170px;
+	transition: max-height 0.3s;
 
-  .filler {
-    width: $anime.width + $anime.padding * 2;
-    margin: 2px;
-  }
+	&-hidden {
+		max-height: 0;
+		overflow: hidden;
+	}
+}
+
+.filler {
+	width: $anime.width + $anime.padding * 2;
+	margin: 2px;
+}
+
+@media (max-width: 600px) {
+	.search-options-body {
+		max-height 450px;
+
+		&-hidden {
+			max-height: 0;
+			overflow: hidden;
+		}
+	}
+}
+// 450px;
 </style>
