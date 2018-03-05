@@ -13,7 +13,7 @@
         <v-flex offset-sm1 sm10 class="author-infos">
           <img class="author-picture" alt="cover" :src="author.picture"/>
           <h3 class="uppercase">{{ author.name }}</h3>
-          <p>{{ author.bio }}</p>
+          <div v-html="bio()"></div>
         </v-flex>
         <v-flex xs12>
           <div class="text-xs-center">
@@ -35,6 +35,7 @@ import { VBtn, VIcon } from "vuetify/es5/components";
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
+import marked from "marked";
 import { mapGetters } from "vuex";
 
 export default {
@@ -79,6 +80,11 @@ export default {
 			drawer: "drawer"
 		})
 	},
+	methods: {
+		bio() {
+			return marked(this.author.bio);
+		}
+	},
 	components: {
 		VCarouselItem,
 		VCarousel,
@@ -88,7 +94,8 @@ export default {
 		VContainer,
 		VFlex,
 		VLayout,
-		AnimeList
+		AnimeList,
+		marked
 	}
 };
 </script>

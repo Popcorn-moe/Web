@@ -30,9 +30,12 @@
                 </li>
                 <li>
                   <div class="list-name" v-if="anime.authors.length" v-t="anime.authors.length > 1 ? 'media.authors' : 'media.author'"></div>
-									<router-link v-for="(author, i) in anime.authors" :key="i" :to="{ name: 'Author', params: { id: author.id }}">
-										{{ i > 0 ? ',' : "" }}{{ author.name }}
-									</router-link>
+									<div  v-for="(author, i) in anime.authors" :key="i" style="display: inline">
+										{{ i > 0 ? ',' : "" }}
+										<router-link :to="{ name: 'Author', params: { id: author.id }}">
+											{{ author.name }}
+										</router-link>
+									</div>
                 </li>
                 <li>
                   <div class="list-name" v-if="anime.tags.length" v-t="'media.tags'"></div>
