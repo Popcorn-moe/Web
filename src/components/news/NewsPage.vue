@@ -63,10 +63,7 @@ export default {
 					id: this.id
 				};
 			},
-			update: ({ _news }) => {
-				console.log(_news);
-				return _news;
-			}
+			update: ({ _news }) => _news
 		}
 	},
 	i18n: {
