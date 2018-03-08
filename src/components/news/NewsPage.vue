@@ -63,7 +63,10 @@ export default {
 					id: this.id
 				};
 			},
-			update: ({ _news }) => _news
+			update: ({ _news }) => {
+				console.log(_news);
+				return _news;
+			}
 		}
 	},
 	i18n: {
@@ -101,6 +104,4 @@ export default {
       background-position: center;
       background-color: #2f2f2f;
     }
-
-
 </style>
