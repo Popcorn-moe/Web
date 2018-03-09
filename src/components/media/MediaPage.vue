@@ -136,7 +136,11 @@ export default {
 						id: "og:title"
 					},
 					{ property: "og:image", content: this.anime.cover, id: "og:image" },
-					{ property: "og:video", content: currMedia.content, id: "og:video" }
+					{
+						property: "og:video",
+						content: this.currMedia.content,
+						id: "og:video"
+					}
 				];
 		}
 	},
