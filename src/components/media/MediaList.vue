@@ -16,14 +16,30 @@
         </v-list-tile-title>
       </v-list-tile>
     </v-list-group>
-    <v-list-group v-if="anime.medias.length > 0">
+    <v-list-group v-if="musics.length > 0">
       <v-list-tile slot="activator">
         <v-list-tile-content>
           <v-list-tile-title>Musics</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
-        v-for="(media, i) in anime.medias"
+        v-for="(media) in musics"
+        :key="media.id"
+        :to="{ name: 'Media', params: { id: anime.id, media: media.id }}"
+      >
+        <v-list-tile-title>
+          <v-list-tile-title>{{ capitalize(media.type.toLowerCase()) }}: {{ media.name }}</v-list-tile-title>
+        </v-list-tile-title>
+      </v-list-tile>
+    </v-list-group>
+    <v-list-group v-if="trailers.length > 0">
+      <v-list-tile slot="activator">
+        <v-list-tile-content>
+          <v-list-tile-title>Trailers</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile
+        v-for="(media) in trailers"
         :key="media.id"
         :to="{ name: 'Media', params: { id: anime.id, media: media.id }}"
       >
@@ -51,6 +67,16 @@ export default {
 	methods: {
 		capitalize(string) {
 			return string.replace(/\b\w/g, l => l.toUpperCase());
+		}
+	},
+	computed: {
+		musics() {
+			return this.anime.medias.filter(
+				({ type }) => type === "OPENING" || type === "ENDING" || type === "OST"
+			);
+		},
+		trailers() {
+			return this.anime.medias.filter(({ type }) => type === "TRAILER");
 		}
 	},
 	components: {

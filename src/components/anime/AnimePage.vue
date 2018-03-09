@@ -31,8 +31,17 @@
               </li>
             </ul>
           <p>{{ anime.desc }}</p>
-          <div class="text-xs-center">
+          <div class="text-xs-center" v-if="trailers.length">
             <h4 class="uppercase" v-t="'anime.trailer'"></h4>
+						​<div class="videoWrapper">
+							<iframe 
+								width="100%" 
+								:src="trailers[0].content" 
+								frameborder="0" 
+								allow="autoplay; encrypted-media" 
+								allowfullscreen
+							></iframe>
+						</div>
           </div>
         </v-flex>
         <v-flex sm3 xs12>
@@ -73,6 +82,11 @@ export default {
 	watch: {
 		anime() {
 			this.$emit("updateHead");
+		}
+	},
+	computed: {
+		trailers() {
+			return this.anime.medias.filter(({ type }) => type === "TRAILER");
 		}
 	},
 	apollo: {
@@ -212,6 +226,22 @@ export default {
 
   .anime-page-container {
     padding-top:30px;
+
+		.videoWrapper {
+			position: relative;
+			padding-bottom: 56.25%; /* 16:9 */
+			padding-top: 25px;
+			height: 0;
+
+			iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		}
+	
 
     .anime-infos {
       text-align: justify;

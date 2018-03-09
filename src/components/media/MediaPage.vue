@@ -2,13 +2,25 @@
   <loader v-if="!anime"></loader>
   <div v-else>
     <div class="media-banner" :style="{ 'background-image': `url(${anime.background})` }">
-      <video-player
-       owner="media"
-       class="media-player"
-       v-if="currMedia.content"
-       :value="currMedia.content"
-       :key="currMedia.content"
-      ></video-player>
+
+			<template v-if="host.startsWith('www.youtube')">
+				<iframe 
+					width="100%" 
+					:src="currMedia.content" 
+					frameborder="0" 
+					allow="autoplay; encrypted-media" 
+					allowfullscreen
+				></iframe>
+			</template>
+			<template v-else>
+				<video-player
+					owner="media"
+					class="media-player"
+					v-if="currMedia.content"
+					:value="currMedia.content"
+					:key="currMedia.content"
+				></video-player>
+			</template>
     </div>
     <v-container class="media-page-container">
       <v-layout row wrap>
@@ -108,6 +120,9 @@ export default {
 				? this.anime.medias.filter(({ id }) => id === this.media)[0]
 				: this.anime.seasons[this.season - 1].episodes[this.episode - 1];
 			return out;
+		},
+		host() {
+			return this.currMedia.content.split("/")[2];
 		}
 	},
 	apollo: {
@@ -340,6 +355,14 @@ const comments = [
     background-position: center;
     background-color: #2f2f2f;
     padding: 30px 0;
+
+		iframe {
+			display: inline-block;
+			padding: 30px;
+			width: 100%;
+			max-width: 900px;
+			height: 506px;
+		}
 
     & > .media-player
     {
