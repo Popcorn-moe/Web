@@ -71,7 +71,7 @@ export default {
 		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
 	},
 	methods: {
-		formatTime(time) {
+		formatTime(time = 0) {
 			let minutes = Math.floor(time / 60);
 			minutes = minutes >= 10 ? minutes : "0" + minutes;
 			let seconds = Math.floor(time % 60);
