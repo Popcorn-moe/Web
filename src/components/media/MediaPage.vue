@@ -114,6 +114,32 @@ export default {
 			return string.replace(/\b\w/g, l => l.toUpperCase());
 		}
 	},
+	watch: {
+		anime() {
+			this.$emit("updateHead");
+		}
+	},
+	head: {
+		title() {
+			if (this.anime)
+				return {
+					inner: this.anime.names[0]
+				};
+		},
+		meta() {
+			console.log(media);
+			if (this.media)
+				return [
+					{
+						property: "og:title",
+						content: this.anime.names[0],
+						id: "og:title"
+					},
+					{ property: "og:image", content: this.anime.cover, id: "og:image" },
+					{ property: "og:video", content: currMedia.content, id: "og:video" }
+				];
+		}
+	},
 	computed: {
 		currMedia() {
 			const out = this.media
