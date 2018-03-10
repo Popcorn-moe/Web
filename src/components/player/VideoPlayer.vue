@@ -42,6 +42,7 @@ import { VFadeTransition } from "vuetify/es5/components/transitions";
 import PlayerSlider from "./PlayerSlider.vue";
 import "fullscreen-api-polyfill";
 import MegaMediaSource from "../../mse/MegaMediaSource";
+import isMobile from "ismobilejs";
 
 export default {
 	name: "video-player",
@@ -86,6 +87,8 @@ export default {
 					this.mse = new MegaMediaSource(this.value, this.$refs.video);
 				else video.src = this.value;
 			}
+			if (isMobile.any) video.volume = 1;
+
 			this.hasPlayed = true;
 			this.showControls();
 			this.paused ? video.play().catch(() => {}) : video.pause();
@@ -106,6 +109,7 @@ export default {
 			if (video) this.timeline = 100 / video.duration * video.currentTime;
 			this.currentTime = this.formatTime(video.currentTime);
 			this.duration = this.formatTime(video.duration);
+			console.log(video.volume);
 		},
 		onProgress() {
 			const video = this.$refs.video;
@@ -228,4 +232,12 @@ export default {
       }
     }
   }
+
+	@media (max-width: 600px) {
+		.video-controls {
+			.volume {
+				display: none !important;
+			}
+		}
+	}
 </style>

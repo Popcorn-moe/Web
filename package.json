@@ -40,6 +40,7 @@
 		"ebml": "^2.2.1",
 		"fullscreen-api-polyfill": "^1.1.2",
 		"graphql-tag": "^2.8.0",
+		"ismobilejs": "^0.4.1",
 		"marked": "^0.3.16",
 		"megajs": "^0.13.2",
 		"node-fetch": "^1.7.3",

@@ -121,14 +121,13 @@ export default {
 	},
 	head: {
 		title() {
-			if (this.anime)
+			if (this.anime && this.currMedia)
 				return {
 					inner: this.anime.names[0]
 				};
 		},
 		meta() {
-			console.log(media);
-			if (this.media)
+			if (this.anime && this.currMedia)
 				return [
 					{
 						property: "og:title",
@@ -197,10 +196,7 @@ export default {
 			},
 			update({ anime }) {
 				if (!anime) this.$router.replace({ name: "404" });
-				else {
-					//this.currMedia = this.media ? anime.medias.filter(({ id }) => id === this.media)[0] : null;
-					return anime;
-				}
+				else return anime;
 			}
 		}
 	},
