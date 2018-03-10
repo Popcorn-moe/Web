@@ -1,20 +1,23 @@
 <template>
-  <div class="anime-list" v-touch="{
-      right: () => canPrev && prev(),
-      left: () => canNext && next()
-    }">
-        <div class="animes" :style="{ left: -(animeSize * index) + 'px'}">
-            <anime
+  <div class="anime-list" v-touch="{ right: prev, left: next }">
+        <div
+            :class="{ animate, animes: true }"
+            :style="{ right: animeSize * elemsPerLine * moveDirection + 'px'}"
+        >
+            <div
+                class="anime-el"
                 v-for="(anime, i) in value"
+                :style="{ left: animeSize * positions[i] + 'px'}"
                 :key="anime.id"
-                v-if="i <= maxIndex + elemsPerLine"
-                :value="anime"></anime>
+                >
+                    <anime :value="anime"/>
+                </div>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" v-if="canPrev" fab @click="prev">
+        <v-btn class="nav-button nav-left main-color--text" fab @click="prev">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" v-if="canNext" fab @click="next">
+        <v-btn class="nav-button nav-right main-color--text" fab @click="next">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
         <slot/>
@@ -26,6 +29,12 @@ import { VBtn, VIcon } from "vuetify/es5/components";
 import { Touch } from "vuetify/es5/directives";
 import { mapGetters } from "vuex";
 import Anime from "./Anime";
+import { setTimeout } from "timers";
+
+// TODO: learn more of cubic-bezier to find right values
+const ANIMATION_TIME_PREV = 500 * 3 / 5; // For timing function
+const ANIMATION_TIME_NEXT = 500 * 3.5 / 5; // For timing function
+const ANIME_SIZE = 184; // Anime width + 2 * padding + 2 * margin in px
 
 export default {
 	props: {
@@ -33,10 +42,11 @@ export default {
 	},
 	data() {
 		return {
-			index: 0,
-			maxIndex: 0,
-			animeSize: 184, // Anime width + 2 * padding + 2 * margin in px
-			elemsPerLine: 0
+			positions: this.value.map((e, i) => i),
+			animeSize: ANIME_SIZE,
+			elemsPerLine: 0,
+			moveDirection: 0,
+			animate: true
 		};
 	},
 	mounted() {
@@ -46,33 +56,62 @@ export default {
 	destroyed() {
 		window.removeEventListener("resize", this.update);
 	},
-	computed: {
-		...mapGetters({
-			drawer: "drawer"
-		}),
-		canPrev() {
-			return this.index > 0;
-		},
-		canNext() {
-			return this.index < this.value.length - this.elemsPerLine;
-		}
-	},
+	computed: mapGetters({
+		drawer: "drawer"
+	}),
 	methods: {
 		update() {
 			const width = document.body.offsetWidth - (this.drawer ? 280 : 0);
 			this.elemsPerLine = Math.floor(width / this.animeSize);
 		},
+		nextAnimationTick(fn) {
+			this.$nextTick(() =>
+				requestAnimationFrame(() => requestAnimationFrame(fn))
+			);
+		},
 		prev() {
-			this.index--;
+			this.animate = false;
+			this.moveDirection = 1;
+			this.positions = this.positions.map(v => v + this.elemsPerLine);
+			this.nextAnimationTick(() => {
+				this.animate = true;
+				this.moveDirection = 0;
+				this.positions.forEach((v, i, arr) => {
+					if (v >= this.positions.length) {
+						const nV = v % this.positions.length;
+						setTimeout(
+							_ => this.$set(arr, i, nV),
+							ANIMATION_TIME_PREV * (1 - nV / this.elemsPerLine)
+						);
+					}
+				});
+			});
 		},
 		next() {
-			this.index++;
-			if (this.index > this.maxIndex) this.maxIndex++;
+			this.animate = false;
+			this.moveDirection = -1;
+			this.positions = this.positions.map(v => v - this.elemsPerLine);
+			this.nextAnimationTick(() => {
+				this.animate = true;
+				this.moveDirection = 0;
+				this.positions.forEach((v, i, arr) => {
+					if (v < 0) {
+						const nV = (v + this.positions.length) % this.positions.length;
+						setTimeout(
+							_ => this.$set(arr, i, nV),
+							ANIMATION_TIME_NEXT * (1 - (-v - 1) / this.elemsPerLine)
+						);
+					}
+				});
+			});
 		}
 	},
 	watch: {
 		drawer() {
 			this.update();
+		},
+		value(val) {
+			if (val) this.positions = val.map((e, i) => i);
 		}
 	},
 	components: {
@@ -97,9 +136,16 @@ export default {
     padding: 10px;
 
     .animes {
-        height: $anime-height
+        height: $anime-height;
         position: relative;
-        transition: left 500ms;
+
+        &.animate {
+            transition: right 500ms;
+        }
+
+        & > .anime-el {
+            position: absolute;
+        }
     }
 
     .nav-button {
