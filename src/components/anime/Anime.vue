@@ -45,7 +45,6 @@ export default {
     .anime {
         width: $anime.width + $anime.padding * 2;
         padding: $anime.padding;
-        padding-bottom: 0;
         display: inline-block;
         position: relative;
         margin: $anime.margin;
