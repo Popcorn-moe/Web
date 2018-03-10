@@ -130,15 +130,11 @@ export default {
 			if (this.anime && this.currMedia)
 				return [
 					{
-						property: "og:video",
-						content: this.currMedia.content,
-						id: "og:video"
+						property: "og:title",
+						content: this.anime.names[0],
+						id: "og:title"
 					},
-					{
-						property: "og:video:type",
-						content: "video/webm",
-						id: "og:video:type"
-					}
+					{ property: "og:image", content: this.anime.cover, id: "og:image" }
 				];
 		}
 	},
