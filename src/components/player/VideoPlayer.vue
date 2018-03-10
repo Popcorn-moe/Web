@@ -109,7 +109,6 @@ export default {
 			if (video) this.timeline = 100 / video.duration * video.currentTime;
 			this.currentTime = this.formatTime(video.currentTime);
 			this.duration = this.formatTime(video.duration);
-			console.log(video.volume);
 		},
 		onProgress() {
 			const video = this.$refs.video;
