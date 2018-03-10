@@ -61,7 +61,9 @@ export default {
 	}),
 	methods: {
 		update() {
-			const width = document.body.offsetWidth - (this.drawer ? 280 : 0);
+			const width =
+				document.body.offsetWidth -
+				(this.$vuetify.breakpoint.mdAndUp && this.drawer ? 280 : 0);
 			this.elemsPerLine = Math.floor(width / this.animeSize);
 		},
 		nextAnimationTick(fn) {
