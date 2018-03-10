@@ -130,12 +130,6 @@ export default {
 			if (this.anime && this.currMedia)
 				return [
 					{
-						property: "og:title",
-						content: this.anime.names[0],
-						id: "og:title"
-					},
-					{ property: "og:image", content: this.anime.cover, id: "og:image" },
-					{
 						property: "og:video",
 						content: this.currMedia.content,
 						id: "og:video"
