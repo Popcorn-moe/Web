@@ -139,6 +139,10 @@ export default {
 						property: "og:video",
 						content: this.currMedia.content,
 						id: "og:video"
+					},
+					{
+						property: "og:video:type",
+						content: "video/webm"
 					}
 				];
 		}
