@@ -142,7 +142,8 @@ export default {
 					},
 					{
 						property: "og:video:type",
-						content: "video/webm"
+						content: "video/webm",
+						id: "og:video:type"
 					}
 				];
 		}
