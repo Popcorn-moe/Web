@@ -1,16 +1,16 @@
 <template>
-  <div class="anime-list" v-touch="{ right: prev, left: next }">
+  <div class="cover-list" v-touch="{ right: prev, left: next }">
         <div
-            :class="{ animate, animes: true }"
+            :class="{ animate, covers: true }"
             :style="{ right: animeSize * elemsPerLine * moveDirection + 'px'}"
         >
             <div
-                class="anime-el"
-                v-for="(anime, i) in value"
+                class="cover-el"
+                v-for="(cover, i) in value"
                 :style="{ left: animeSize * positions[i] + 'px'}"
-                :key="anime.id"
+                :key="cover.id"
                 >
-                    <anime :value="anime"/>
+                    <cover :value="cover"/>
                 </div>
         </div>
         <div class="shadow"></div>
@@ -28,7 +28,7 @@
 import { VBtn, VIcon } from "vuetify/es5/components";
 import { Touch } from "vuetify/es5/directives";
 import { mapGetters } from "vuex";
-import Anime from "./Anime";
+import Cover from "./Cover";
 import { setTimeout } from "timers";
 
 // TODO: learn more of cubic-bezier to find right values
@@ -38,7 +38,8 @@ const ANIME_SIZE = 184; // Anime width + 2 * padding + 2 * margin in px
 
 export default {
 	props: {
-		value: Array
+		value: Array,
+		type: String
 	},
 	data() {
 		return {
@@ -119,7 +120,7 @@ export default {
 	components: {
 		VBtn,
 		VIcon,
-		Anime
+		Cover
 	},
 	directives: {
 		Touch
@@ -131,13 +132,13 @@ export default {
 <style lang="stylus">
   @import '../../stylus/main'
 
-  .anime-list {
-    overflow-x: hidden;
+  .cover-list {
+    overflow: hidden;
     white-space: nowrap;
     position: relative;
     padding: 10px;
 
-    .animes {
+    .covers {
         height: $anime-height;
         position: relative;
 
@@ -145,7 +146,7 @@ export default {
             transition: right 500ms;
         }
 
-        & > .anime-el {
+        & > .cover-el {
             position: absolute;
         }
     }
@@ -175,13 +176,13 @@ export default {
     }
   }
 
-  .application.theme--dark .anime-list {
+  .application.theme--dark .cover-list {
     .shadow {
         background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-dark.background 100%);
     }
   }
 
-  .application.theme--light .anime-list {
+  .application.theme--light .cover-list {
     .shadow {
         background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-light.background 100%);
     }

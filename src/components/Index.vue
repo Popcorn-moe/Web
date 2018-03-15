@@ -14,13 +14,13 @@
 		</v-carousel>
 		<div class="text-xs-center index-animes">
 			<h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>
-			<anime-list :value="animes">
-					<loader class="float" v-if="animes.length === 0"/>
-			</anime-list>
+			<cover-list :value="lastEpisodes">
+					<loader class="float" v-if="lastEpisodes.length === 0"/>
+			</cover-list>
 			<h3 class="anime-list-title" v-t="'index.last_trailers'"></h3>
-			<anime-list :value="animes">
-				<loader class="float" v-if="animes.length === 0"/>
-			</anime-list>
+			<cover-list :value="lastTrailers">
+				<loader class="float" v-if="lastTrailers.length === 0"/>
+			</cover-list>
 		</div>
 	</div>
 </template>
@@ -28,7 +28,7 @@
 <script>
 import { VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
-import AnimeList from "./anime/AnimeList";
+import CoverList from "./cover/CoverList";
 import Loader from "./layout/Loader";
 import gql from "graphql-tag";
 import marked from "marked";
@@ -37,12 +37,13 @@ export default {
 	name: "index",
 	data() {
 		return {
-			animes: [],
+			lastEpisodes: [],
+			lastTrailers: [],
 			slides: []
 		};
 	},
 	components: {
-		AnimeList,
+		CoverList,
 		Loader,
 		VCarousel,
 		VCarouselItem,
@@ -50,22 +51,88 @@ export default {
 		VLayout
 	},
 	apollo: {
-		animes: {
+		lastEpisodes: {
 			query: gql`
 				{
-					animes(limit: 50) {
+					lastEpisodes {
 						id
-						names
-						authors {
+						name
+						type
+						anime {
 							id
-							name
+							names
+							authors {
+								id
+								name
+							}
+							cover
 						}
-						cover
-						background
+						... on Episode {
+							season
+							episode
+						}
 					}
 				}
 			`,
-			update: ({ animes }) => animes
+			update: ({ lastEpisodes }) =>
+				lastEpisodes.map(
+					({
+						id,
+						name: subname,
+						anime: { id: animeId, cover, authors: [author], names: [name] },
+						season,
+						episode,
+						type
+					}) => ({
+						id,
+						name,
+						subname: `Ep ${episode + 1} S${season + 1} ${
+							subname ? ": " + subname : ""
+						}`,
+						cover,
+						author,
+						to: {
+							name: "Episode",
+							params: { id: animeId, season: season + 1, episode: episode + 1 }
+						}
+					})
+				)
+		},
+		lastTrailers: {
+			query: gql`
+				{
+					lastTrailers {
+						id
+						name
+						type
+						anime {
+							id
+							names
+							authors {
+								id
+								name
+							}
+							cover
+						}
+					}
+				}
+			`,
+			update: ({ lastTrailers }) =>
+				lastTrailers.map(
+					({
+						id: media,
+						name: subname,
+						anime: { id, cover, authors: [author], names: [name] },
+						type
+					}) => ({
+						id: media,
+						name,
+						subname,
+						cover,
+						author,
+						to: { name: "Media", params: { id, media } }
+					})
+				)
 		},
 		slides: {
 			query: gql`

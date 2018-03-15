@@ -69,7 +69,7 @@
       </div>
       <v-layout row wrap>
         <v-flex v-for="result in searchResults" :key="result.id" class="text-xs-center">
-          <anime :value="result"></anime>
+          <cover :value="result"></cover>
         </v-flex>
         <v-flex v-for="i in 24" :key="i"><div class="filler"></div></v-flex>
       </v-layout>
@@ -94,7 +94,7 @@ import {
 	VLayout,
 	VSpacer
 } from "vuetify/es5/components/VGrid";
-import Anime from "./anime/Anime.vue";
+import Cover from "./cover/Cover.vue";
 import gql from "graphql-tag";
 
 export default {
@@ -192,7 +192,15 @@ export default {
 					status: this.status && this.status.toUpperCase().replace(/ /g, "_")
 				};
 			},
-			update: ({ searchAnimes }) => searchAnimes
+			update: ({ searchAnimes }) =>
+				searchAnimes.map(
+					({ id, names: [name], authors: [author], ...fields }) => ({
+						author,
+						name,
+						to: { name: "Anime", params: { id } },
+						...fields
+					})
+				)
 		},
 		searchAuthorResults: {
 			query: gql`
@@ -222,7 +230,7 @@ export default {
 		VCard,
 		VCardTitle,
 		VBtn,
-		Anime,
+		Cover,
 		VChip
 	},
 	i18n: {

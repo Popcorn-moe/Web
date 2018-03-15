@@ -1,15 +1,16 @@
 <template>
     <div class="anime text-xs-center">
-        <router-link :to="{ name: 'Anime', params: { id: value.id }}">
+        <router-link :to="value.to">
             <div class="cover-container">
                 <p-img class="cover" alt="cover" :src="value.cover"/>
                 <v-icon class="arrow">play_arrow</v-icon>
             </div>
         </router-link>
-        <h3 class="title">{{ value.names[0] }}</h3>
+        <h3 class="title">{{ value.name }}</h3>
+        <h3 class="subtitle">{{ value.subname }}</h3>
         <div class="infos">
             <div class="details">
-                <address class="author"><a rel="author" :href="value.authors">{{ (value.authors[0] || {} ).name }}</a></address>
+                <address class="author"><a rel="author" :href="value.author">{{ (value.author || {} ).name }}</a></address>
                 <span> - </span>
                 <time pubdate datetime="2011-08-28" title="Jul 8, 2012 to Dec 23, 2013">{{ 'RIP' || value.date.toISOString().split('T')[0] }}</time>
             </div>
@@ -21,7 +22,7 @@
 
 <script>
 import { VIcon } from "vuetify/es5/components";
-import Rating from "./Rating";
+import Rating from "../anime/Rating";
 import PImg from "../ProgressiveImg";
 
 export default {
@@ -100,6 +101,13 @@ export default {
 
         .title {
             font-size: $anime.font-size !important;
+            margin: 1px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .subtitle {
+            font-size: $anime.font-size - 3 !important;
             margin: 1px;
             text-overflow: ellipsis;
             overflow: hidden;

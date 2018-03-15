@@ -18,9 +18,9 @@
         <v-flex xs12>
           <div class="text-xs-center">
             <h4>Animes</h4>
-            <anime-list :value="author.animes">
-              <loader class="float" v-if="author.animes.length === 0"></loader>
-            </anime-list>
+            <cover-list :value="animes">
+              <loader class="float" v-if="animes.length === 0"></loader>
+            </cover-list>
           </div>
         </v-flex>
       </v-layout>
@@ -30,7 +30,7 @@
 
 <script>
 import Loader from "../layout/Loader";
-import AnimeList from "../anime/AnimeList.vue";
+import CoverList from "../cover/CoverList.vue";
 import { VBtn, VIcon } from "vuetify/es5/components";
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
@@ -78,7 +78,19 @@ export default {
 	computed: {
 		...mapGetters({
 			drawer: "drawer"
-		})
+		}),
+		animes() {
+			return this.author.animes
+				? this.author.animes.map(
+						({ id, names: [name], authors: [author], ...fields }) => ({
+							name,
+							author,
+							to: { name: "Anime", params: { id } },
+							...fields
+						})
+					)
+				: [];
+		}
 	},
 	methods: {
 		bio() {
@@ -94,7 +106,7 @@ export default {
 		VContainer,
 		VFlex,
 		VLayout,
-		AnimeList,
+		CoverList,
 		marked
 	}
 };
