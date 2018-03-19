@@ -120,7 +120,7 @@ export default {
 			update: ({ lastTrailers }) =>
 				lastTrailers.map(
 					({
-						id: media,
+						id: mediaId,
 						name: subname,
 						anime: { id, cover, authors: [author], names: [name] },
 						type
@@ -130,7 +130,7 @@ export default {
 						subname,
 						cover,
 						author,
-						to: { name: "Media", params: { id, media } }
+						to: { name: "Media", params: { id, mediaId } }
 					})
 				)
 		},

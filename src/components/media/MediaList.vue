@@ -25,7 +25,7 @@
       <v-list-tile
         v-for="(media) in musics"
         :key="media.id"
-        :to="{ name: 'Media', params: { id: anime.id, media: media.id }}"
+        :to="{ name: 'Media', params: { id: anime.id, mediaId: media.id }}"
       >
         <v-list-tile-title>
           <v-list-tile-title>{{ capitalize(media.type.toLowerCase()) }}: {{ media.name }}</v-list-tile-title>
@@ -41,7 +41,7 @@
       <v-list-tile
         v-for="(media) in trailers"
         :key="media.id"
-        :to="{ name: 'Media', params: { id: anime.id, media: media.id }}"
+        :to="{ name: 'Media', params: { id: anime.id, mediaId: media.id }}"
       >
         <v-list-tile-title>
           <v-list-tile-title>{{ capitalize(media.type.toLowerCase()) }}: {{ media.name }}</v-list-tile-title>
@@ -71,6 +71,7 @@ export default {
 	},
 	computed: {
 		musics() {
+			console.log(this.anime.medias);
 			return this.anime.medias.filter(
 				({ type }) => type === "OPENING" || type === "ENDING" || type === "OST"
 			);

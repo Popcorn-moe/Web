@@ -42,7 +42,7 @@ export const routes = [
 	},
 	{
 		hide: true,
-		path: "/anime/:id/:media",
+		path: "/anime/:id/:mediaId",
 		name: "Media",
 		component: () => import("../components/media/MediaPage"),
 		meta: { hasPlayer: true },

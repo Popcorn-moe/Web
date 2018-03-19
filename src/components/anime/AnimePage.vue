@@ -81,6 +81,10 @@ export default {
 	},
 	watch: {
 		anime() {
+			if (!anime) {
+				this.$router.replace({ name: "404" });
+				return;
+			}
 			this.$emit("updateHead");
 		}
 	},
@@ -129,10 +133,7 @@ export default {
 					id: this.id
 				};
 			},
-			update({ anime }) {
-				if (!anime) this.$router.replace({ name: "404" });
-				else return anime;
-			}
+			update: ({ anime }) => anime
 		}
 	},
 	components: {
