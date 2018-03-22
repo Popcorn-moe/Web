@@ -14,12 +14,12 @@
 		</v-carousel>
 		<div class="text-xs-center index-animes">
 			<h3 class="anime-list-title" v-t="'index.last_episodes'"></h3>
-			<cover-list :value="lastEpisodes">
-					<loader class="float" v-if="lastEpisodes.length === 0"/>
+			<cover-list :value="lastEpisodes || []">
+					<loader class="float" v-if="lastEpisodes === null"/>
 			</cover-list>
 			<h3 class="anime-list-title" v-t="'index.last_trailers'"></h3>
-			<cover-list :value="lastTrailers">
-				<loader class="float" v-if="lastTrailers.length === 0"/>
+			<cover-list :value="lastTrailers || []">
+				<loader class="float" v-if="lastTrailers === null"/>
 			</cover-list>
 		</div>
 	</div>
@@ -37,8 +37,8 @@ export default {
 	name: "index",
 	data() {
 		return {
-			lastEpisodes: [],
-			lastTrailers: [],
+			lastEpisodes: null,
+			lastTrailers: null,
 			slides: []
 		};
 	},
