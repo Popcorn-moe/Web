@@ -35,7 +35,7 @@
 								<v-btn icon @click.native="dialog = false" dark>
 									<v-icon>close</v-icon>
 								</v-btn>
-								<v-toolbar-title v-t="'mobile_navbar.account'"></v-toolbar-title>
+								<v-toolbar-title class="white--text" v-t="'mobile_navbar.account'"></v-toolbar-title>
 							</v-toolbar>
 							<v-list>
 								<auth-menu-links @close="dialog = false"></auth-menu-links>
@@ -133,7 +133,8 @@ export default {
 					}
 				}
 			`,
-			update: ({ me }) => me
+			update: ({ me }) => me,
+			fetchPolicy: "network-only"
 		}
 	},
 	i18n: {
