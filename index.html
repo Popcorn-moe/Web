@@ -23,9 +23,15 @@
 
     <meta name="theme-color" content="#f6416c">
     <title>Popcorn.moe</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/logo-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/logo-16.png">
+    <link rel="manifest" href="/static/manifest.json">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
   </head>
   <body style="margin: 0">
+    <noscript>
+      This website require javascript to work
+    </noscript>
     <div id="app">
       <style>
         #root {
@@ -43,5 +49,8 @@
           document.getElementById('app').style = 'background: #111111;height: 100vh;';
       </script>
     </div>
+    <script>
+      ${require('fs').readFileSync('./build/service-worker-prod.js', 'utf-8')}
+    </script>
   </body>
 </html>

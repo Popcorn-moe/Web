@@ -11,6 +11,8 @@ const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const babel = require("babel-core");
 
 const env = require("../config/prod.env");
 
@@ -68,7 +70,9 @@ const webpackConfig = merge(baseWebpackConfig, {
 			minify: {
 				removeComments: true,
 				collapseWhitespace: true,
-				removeAttributeQuotes: true
+				removeAttributeQuotes: true,
+				minifyCSS: true,
+				minifyJS: true
 				// more options:
 				// https://github.com/kangax/html-minifier#options-quick-reference
 			},
@@ -116,8 +120,28 @@ const webpackConfig = merge(baseWebpackConfig, {
 				from: path.resolve(__dirname, "../static"),
 				to: config.build.assetsSubDirectory,
 				ignore: [".*"]
+			},
+			{
+				// copy service worker
+				from: path.resolve(__dirname, "../src/sw.js"),
+				to: config.build.assetsRoot + "/[name].js",
+				transform(content, path) {
+					return babel.transformFileSync(path).code;
+				}
 			}
-		])
+		]),
+		new SWPrecacheWebpackPlugin({
+			cacheId: "popcornmoe",
+			filename: "precache-sw.js",
+			staticFileGlobs: ["dist/**/*.{js,html,css,svg}"],
+			minify: true,
+			stripPrefix: "dist/",
+			importScripts: [
+				{
+					filename: "sw.js"
+				}
+			]
+		})
 	]
 });
 
