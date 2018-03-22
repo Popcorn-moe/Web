@@ -125,7 +125,7 @@ export default {
 						anime: { id, cover, authors: [author], names: [name] },
 						type
 					}) => ({
-						id: media,
+						id: mediaId,
 						name,
 						subname,
 						cover,
