@@ -18,7 +18,7 @@
                 </v-btn>
               </v-flex>
               <v-flex xs6>
-                <object alt="logo" data="/static/logo-animated.svg" type="image/svg+xml"></object>
+                <object data="/static/logo-animated.svg" type="image/svg+xml">Logo</object>
               </v-flex>
               <v-flex xs3>
                 <v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">
@@ -34,10 +34,10 @@
             <auth-menu v-if="isAuth"></auth-menu>
             <v-layout v-else row wrap class="text-xs-center no-margin">
               <v-flex xs6>
-                <v-btn outline small :to="{ name: 'Login' }" v-t="'navbar.login'"></v-btn>
+                <v-btn class="px-2" outline small :to="{ name: 'Login' }" v-t="'navbar.login'"></v-btn>
               </v-flex>
               <v-flex xs6>
-                <v-btn outline small class="main-color--text" :to="{ name: 'SignUp' }" v-t="'navbar.signup'"></v-btn>
+                <v-btn class="px-2 main-color--text" outline small :to="{ name: 'SignUp' }" v-t="'navbar.signup'"></v-btn>
               </v-flex>
             </v-layout>
             <v-list>
