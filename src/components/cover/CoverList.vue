@@ -14,10 +14,10 @@
                 </div>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" fab @click="prev">
+        <v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.mdAndUp">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" fab @click="next">
+        <v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.mdAndUp">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
         <slot/>
@@ -73,6 +73,7 @@ export default {
 			);
 		},
 		prev() {
+			if (this.value.length <= this.elemsPerLine) return;
 			this.animate = false;
 			this.moveDirection = 1;
 			this.positions = this.positions.map(v => v + this.elemsPerLine);
@@ -91,6 +92,7 @@ export default {
 			});
 		},
 		next() {
+			if (this.value.length <= this.elemsPerLine) return;
 			this.animate = false;
 			this.moveDirection = -1;
 			this.positions = this.positions.map(v => v - this.elemsPerLine);
