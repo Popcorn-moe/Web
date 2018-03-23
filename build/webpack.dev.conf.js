@@ -70,6 +70,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 				from: path.resolve(__dirname, "../static"),
 				to: config.dev.assetsSubDirectory,
 				ignore: [".*"]
+			},
+			{
+				from: path.resolve(__dirname, "sw-dev.js"),
+				to: "sw.js"
 			}
 		])
 	]

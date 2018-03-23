@@ -11,8 +11,7 @@ const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
-const babel = require("babel-core");
+const workboxPlugin = require("workbox-webpack-plugin");
 
 const env = require("../config/prod.env");
 
@@ -98,8 +97,6 @@ const webpackConfig = merge(baseWebpackConfig, {
 		}),
 		// keep module.id stable when vendor modules does not change
 		new webpack.HashedModuleIdsPlugin(),
-		// enable scope hoisting
-		new webpack.optimize.ModuleConcatenationPlugin(),
 
 		// copy custom static assets
 		new CopyWebpackPlugin([
@@ -107,27 +104,11 @@ const webpackConfig = merge(baseWebpackConfig, {
 				from: path.resolve(__dirname, "../static"),
 				to: config.build.assetsSubDirectory,
 				ignore: [".*"]
-			},
-			{
-				// copy service worker
-				from: path.resolve(__dirname, "../src/sw.js"),
-				to: config.build.assetsRoot + "/[name].js",
-				transform(content, path) {
-					return babel.transformFileSync(path).code;
-				}
 			}
 		]),
-		new SWPrecacheWebpackPlugin({
-			cacheId: "popcornmoe",
-			filename: "precache-sw.js",
-			staticFileGlobs: ["dist/**/*.{js,html,css,svg}"],
-			minify: true,
-			stripPrefix: "dist/",
-			importScripts: [
-				{
-					filename: "sw.js"
-				}
-			]
+		new workboxPlugin.InjectManifest({
+			swSrc: "./src/sw.js",
+			swDest: "sw.js"
 		})
 	]
 });

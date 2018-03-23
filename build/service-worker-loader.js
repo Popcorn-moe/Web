@@ -20,9 +20,9 @@
 			(window.location.protocol === "https:" || isLocalhost)
 		) {
 			navigator.serviceWorker
-				.register("precache-sw.js")
+				.register("sw.js")
 				.then(function(registration) {
-					// updatefound is fired if precache-sw.js changes.
+					// updatefound is fired if sw.js changes.
 					registration.onupdatefound = function() {
 						// updatefound is also fired the very first time the SW is installed,
 						// and there's no need to prompt for a reload at that point.
