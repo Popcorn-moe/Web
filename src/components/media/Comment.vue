@@ -51,7 +51,7 @@
                     <v-btn small block flat class="main-color--text" @click.stop="response = false">Annuler</v-btn>
                   </v-flex>
                   <v-flex xs2>
-                    <v-btn small block  class="main-color">Répondre</v-btn>
+                    <v-btn small block class="main-color" @click.stop="reply()">Répondre</v-btn>
                   </v-flex>
                 </v-layout>
               </div>
@@ -78,6 +78,7 @@ import {
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import marked from "marked";
 import gql from "graphql-tag";
+import clone from "clone";
 import { needAuth } from "../../utils/needAuth";
 
 export default {
@@ -106,7 +107,35 @@ export default {
 			this.show_more = !this.show_more;
 		},
 		reply() {
-			this.$apollo.mutate({});
+			this.$apollo
+				.query({
+					query: gql`
+						query reply($id: ID!, $content: String!) {
+							comment(id: $id) {
+								reply(content: $content) {
+									id
+									content
+									posted
+									user {
+										login
+										avatar
+									}
+								}
+								replies_count
+							}
+						}
+					`,
+					variables: {
+						id: this.value.id,
+						content: this.responseText
+					}
+				})
+				.then(({ data: { comment: { reply, replies_count } } }) => {
+					this.replies.push(reply);
+					this.value.replies_count = replies_count + 1;
+				});
+			this.response = false;
+			this.responseText = null;
 		}
 	},
 	watch: {
@@ -147,7 +176,7 @@ export default {
 			skip() {
 				return !this.loadMore;
 			},
-			update: ({ comment: { replies } }) => replies
+			update: ({ comment: { replies } }) => clone(replies)
 		}
 	},
 	components: {

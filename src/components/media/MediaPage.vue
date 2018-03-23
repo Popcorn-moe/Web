@@ -75,16 +75,18 @@
         <v-flex sm12 offset-lg1 lg10>
             <v-divider></v-divider>
 						<v-text-field
+							v-model="commentText"
               multi-line
               auto-grow
               rows="3"
 							label="Ecrire un commentaire"
 							solo
+							@focus="needAuth()"
             >
             </v-text-field>
 						<v-layout row>
               <v-flex offset-xs10 xs2>
-                <v-btn small block class="main-color comment-btn">Commenter</v-btn>
+                <v-btn small block class="main-color comment-btn" @click.stop="comment()">Commenter</v-btn>
               </v-flex>
             </v-layout>
 						<v-divider></v-divider>
@@ -116,17 +118,49 @@ import Loader from "../layout/Loader";
 import PImg from "../ProgressiveImg";
 import gql from "graphql-tag";
 import { client } from "../../graphql";
+import { needAuth } from "../../utils/needAuth";
+import clone from "clone";
 
 export default {
 	props: ["id", "mediaId", "season", "episode"],
 	data() {
 		return {
-			media: null
+			media: null,
+			commentText: null
 		};
 	},
 	methods: {
+		needAuth,
 		capitalize(string) {
 			return string.replace(/\b\w/g, l => l.toUpperCase());
+		},
+		comment() {
+			this.$apollo
+				.query({
+					query: gql`
+						query comment($id: ID, $content: String!) {
+							media(media: $id) {
+								comment(content: $content) {
+									id
+									content
+									posted
+									user {
+										login
+										avatar
+									}
+								}
+							}
+						}
+					`,
+					variables: {
+						id: this.media.id,
+						content: this.commentText
+					}
+				})
+				.then(({ data: { media: { comment } } }) =>
+					this.media.comments.push(comment)
+				);
+			this.commentText = null;
 		}
 	},
 	watch: {
@@ -176,6 +210,7 @@ export default {
 						episode: $episode
 						season: $season
 					) {
+						id
 						content
 						type
 						name
@@ -228,7 +263,7 @@ export default {
 					season: this.season - 1
 				};
 			},
-			update: ({ media }) => media
+			update: ({ media }) => clone(media)
 		}
 	},
 	components: {
