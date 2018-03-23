@@ -89,7 +89,7 @@ export default {
             }
         }
 
-        .arrow {
+        .arrow.icon {
           display: none;
           position: absolute;
           top: $anime.padding + $anime.img-height * 0.5;
