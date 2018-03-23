@@ -12,7 +12,7 @@
               <h6 class="date">{{ value.posted }}</h6>
             </div>
             <p v-html="value.content"></p>
-            <div v-if="!reply">
+            <div v-if="!isReply">
               <v-divider></v-divider>
               <div v-if="!response">
                 <v-layout row>
@@ -24,7 +24,7 @@
                       </a>
                     </div>
                   </v-flex>
-                  <v-flex offset-xs7 offset-lg8 xs2 lg1>
+                  <v-flex offset-lg7 lg2>
                     <v-btn rigth small block flat class="main-color--text" name="reply" @click.stop="response = true">Répondre</v-btn>
                   </v-flex>
                 </v-layout>
@@ -34,6 +34,7 @@
                 <v-text-field
                   v-else
                   v-model="responseText"
+                  @focus="needAuth()"
                   multi-line
                   auto-grow
                   rows="1"
@@ -61,7 +62,7 @@
       </v-flex>
     </v-layout>
     <div class="response">
-      <comment v-for="reply in replies" :value="reply" :key="reply.id" :reply="true" v-if="show_more"></comment>
+      <comment v-for="reply in replies" :value="reply" :key="reply.id" :isReply="true" v-if="show_more"></comment>
     </div>
   </div>
 </template>
@@ -77,6 +78,7 @@ import {
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import marked from "marked";
 import gql from "graphql-tag";
+import { needAuth } from "../../utils/needAuth";
 
 export default {
 	name: "comment",
@@ -92,9 +94,10 @@ export default {
 	},
 	props: {
 		value: Object,
-		reply: Boolean
+		isReply: Boolean
 	},
 	methods: {
+		needAuth,
 		toggleMore() {
 			if (!this.show_more) {
 				this.loadMore = true;
@@ -102,7 +105,9 @@ export default {
 			}
 			this.show_more = !this.show_more;
 		},
-		reply() {}
+		reply() {
+			this.$apollo.mutate({});
+		}
 	},
 	watch: {
 		replies() {

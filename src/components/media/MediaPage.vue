@@ -91,7 +91,7 @@
 						<div class="text-xs-center">
             	<h4 class="uppercase title">Commentaires</h4>
 						</div>
-            <comment v-for="comment in media.comments" :value="comment" :key="comment.id"></comment>
+            <comment v-for="comment in media.comments" :value="comment" :key="comment.id" :isReply="false"></comment>
         </v-flex>
       </v-layout>
     </v-container>

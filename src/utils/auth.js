@@ -10,7 +10,8 @@ export function isLoggedIn() {
 						id
 					}
 				}
-			`
+			`,
+			fetchPolicy: "network-only"
 		})
 		.then(({ data: { me } }) => me !== null);
 }
