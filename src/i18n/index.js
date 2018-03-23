@@ -25,6 +25,9 @@ const i18n = new VueI18n({
 				PENDING: "Currently airing",
 				FINISHED: "Finished",
 				NOT_STARTED: "Not started"
+			},
+			navbar: {
+				dark: "Dark"
 			}
 		},
 		fr: {
@@ -44,6 +47,9 @@ const i18n = new VueI18n({
 				PENDING: "En cours",
 				FINISHED: "Terminé",
 				NOT_STARTED: "Non démarré"
+			},
+			navbar: {
+				dark: "Foncé"
 			}
 		}
 	},

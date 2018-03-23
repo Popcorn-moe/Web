@@ -155,15 +155,13 @@ export default {
 			fr: {
 				navbar: {
 					login: "Connexion",
-					signup: "Inscription",
-					dark: "Foncé"
+					signup: "Inscription"
 				}
 			},
 			en: {
 				navbar: {
 					login: "Log In",
-					signup: "Sign Up",
-					dark: "Dark"
+					signup: "Sign Up"
 				}
 			}
 		}

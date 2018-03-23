@@ -45,6 +45,25 @@
 					<v-btn v-else icon :to="{ name: 'Login' }">
 						<v-icon>account_circle</v-icon>
 					</v-btn>
+					<v-menu offset-y auto>
+						<v-btn icon flat slot="activator">
+							<v-icon>more_vert</v-icon>
+						</v-btn>
+						<v-list>
+							<v-list-tile>
+								<v-list-tile-action>
+									<v-switch :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
+								</v-list-tile-action>
+								<v-list-tile-title v-t="'navbar.dark'"></v-list-tile-title>
+							</v-list-tile>
+							<v-list-tile>
+								<v-list-tile-action>
+									<language-select class="language"></language-select>
+								</v-list-tile-action>
+							</v-list-tile>
+						</v-list>
+					</v-menu>
+					
 				</div>
 			</v-slide-y-transition>
 		</v-toolbar>
@@ -73,14 +92,22 @@ import {
 	VAvatar,
 	VDialog,
 	VCard,
-	VList
+	VMenu,
+	VSwitch
 } from "vuetify/es5/components";
 import { VSpacer } from "vuetify/es5/components/VGrid";
+import {
+	VList,
+	VListTile,
+	VListTileTitle,
+	VListTileAction
+} from "vuetify/es5/components/VList/";
 import { VToolbar, VToolbarTitle } from "vuetify/es5/components/VToolbar";
 import { VSlideYTransition } from "vuetify/es5/components/transitions";
 import SearchResults from "../SearchResults";
 import AuthMenuLinks from "./AuthMenuLinks";
 import { routes } from "../../../router";
+import LanguageSelect from "./LanguageSelect";
 import { mapGetters, mapActions } from "vuex";
 import gql from "graphql-tag";
 
@@ -108,7 +135,13 @@ export default {
 		VCard,
 		SearchResults,
 		VList,
-		AuthMenuLinks
+		VListTile,
+		VListTileTitle,
+		VListTileAction,
+		AuthMenuLinks,
+		LanguageSelect,
+		VMenu,
+		VSwitch
 	},
 	computed: mapGetters({
 		darkTheme: "darkTheme",
@@ -164,5 +197,11 @@ export default {
 	  margin-top: 48px;
 	  z-index: 4;
 	  width: 100%;
+  }
+
+  .language {
+	.input-group__details {
+      min-height: 0px !important;
+    }
   }
 </style>
