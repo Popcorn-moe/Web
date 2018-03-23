@@ -118,7 +118,6 @@ import Loader from "../layout/Loader";
 import PImg from "../ProgressiveImg";
 import gql from "graphql-tag";
 import { client } from "../../graphql";
-import { needAuth } from "../../utils/needAuth";
 import clone from "clone";
 
 export default {
@@ -130,7 +129,9 @@ export default {
 		};
 	},
 	methods: {
-		needAuth,
+		needAuth() {
+			if (!this.$store.state.isAuth) this.$router.push({ name: "Login" });
+		},
 		capitalize(string) {
 			return string.replace(/\b\w/g, l => l.toUpperCase());
 		},

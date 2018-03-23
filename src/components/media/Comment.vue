@@ -79,7 +79,6 @@ import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import marked from "marked";
 import gql from "graphql-tag";
 import clone from "clone";
-import { needAuth } from "../../utils/needAuth";
 
 export default {
 	name: "comment",
@@ -98,7 +97,9 @@ export default {
 		isReply: Boolean
 	},
 	methods: {
-		needAuth,
+		needAuth() {
+			if (!this.$store.state.isAuth) this.$router.push({ name: "Login" });
+		},
 		toggleMore() {
 			if (!this.show_more) {
 				this.loadMore = true;
