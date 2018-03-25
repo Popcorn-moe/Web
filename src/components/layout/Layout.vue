@@ -17,7 +17,9 @@
                         <router-view></router-view>
                     </v-slide-y-transition>
                 </div>
+                <Footer></footer>
             </v-content>
+            
         </main>
     </div>
 </template>
@@ -32,6 +34,7 @@ import { mapGetters, mapActions } from "vuex";
 import Navbar from "./navbar/Navbar";
 import MobileNavbar from "./navbar/MobileNavbar";
 import Search from "./Search";
+import Footer from "./Footer";
 
 export default {
 	components: {
@@ -42,7 +45,8 @@ export default {
 		VBtn,
 		VIcon,
 		VContent,
-		VSlideYTransition
+		VSlideYTransition,
+		Footer
 	},
 	computed: mapGetters({
 		drawer: "drawer",
