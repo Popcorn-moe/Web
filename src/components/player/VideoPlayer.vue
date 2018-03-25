@@ -23,7 +23,7 @@
         <player-slider dark hide-details color="primary" class="floating-cancel timeline" :step="0" :buffer="buffered" :value="timeline" @input="changeTimeline"></player-slider>
         <v-btn color="primary" dark icon @click.stop="togglePlay"><v-icon v-html="paused ? 'play_arrow' : 'pause'"></v-icon></v-btn>
         <v-btn color="primary" dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
-        <v-slider hide-details color="primary" dark class="floating-cancel volume" :max="100" :value="muted ? 0 : volume" @input="changeVolume"></v-slider>
+        <v-slider hide-details color="primary" dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
         <div class="timer">{{ currentTime }}/{{ duration }}</div>
         <v-btn color="primary" dark icon class="right" @click.stop="toggleFullScreen"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
       </div>
@@ -59,6 +59,7 @@ export default {
 			buffered: [],
 			timeline: 0,
 			volume: 100,
+			oldVolume: 0,
 			currentTime: 0,
 			duration: 0,
 			controlsHidden: true
@@ -126,6 +127,8 @@ export default {
 		},
 		toggleMute() {
 			this.muted = this.$refs.video.muted = !this.muted;
+			this.volume = this.muted ? 0 : this.oldVolume;
+			this.changeVolume(this.volume);
 		},
 		toggleFullScreen() {
 			this.fullscreen
@@ -160,6 +163,8 @@ export default {
 				video.currentTime = video.duration * ((this.timeline = value) / 100);
 		},
 		changeVolume(value) {
+			this.muted = this.$refs.video.muted = value === 0;
+			this.oldVolume = this.$refs.video.volume * 100;
 			if (this.$refs.video)
 				this.$refs.video.volume = (this.volume = value) / 100;
 		},
