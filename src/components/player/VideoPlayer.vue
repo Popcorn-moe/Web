@@ -80,22 +80,21 @@ export default {
 			const focused =
 				document.activeElement &&
 				inputs.indexOf(document.activeElement.tagName.toLowerCase()) !== -1;
-			console.log(focused, document.activeElement);
 			if (focused) return;
-			switch (event.keyCode) {
-				case 32: {
+			switch (event.key.toUpperCase()) {
+				case " ": {
 					// Space
 					this.togglePlay();
 					event.preventDefault();
 					break;
 				}
-				case 77: {
+				case "M": {
 					// Key 'M'
 					this.toggleMute();
 					event.preventDefault();
 					break;
 				}
-				case 70: {
+				case "F": {
 					// Key 'F'
 					this.toggleFullScreen();
 					event.preventDefault();
