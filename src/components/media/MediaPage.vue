@@ -89,11 +89,13 @@
                 <v-btn small block class="main-color comment-btn" @click.stop="comment()">Commenter</v-btn>
               </v-flex>
             </v-layout>
-						<v-divider></v-divider>
-						<div class="text-xs-center">
-            	<h4 class="uppercase title">Commentaires</h4>
+						<div v-if="media.comments.length > 0">
+							<v-divider></v-divider>
+							<div class="text-xs-center">
+								<h4 class="uppercase title">Commentaires</h4>
+							</div>
+							<comment v-for="comment in media.comments" :value="comment" :key="comment.id" :isReply="false"></comment>
 						</div>
-            <comment v-for="comment in media.comments" :value="comment" :key="comment.id" :isReply="false"></comment>
         </v-flex>
       </v-layout>
     </v-container>
