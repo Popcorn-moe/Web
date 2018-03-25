@@ -153,11 +153,14 @@ import gql from "graphql-tag";
 
 export default {
 	name: "user_friends",
-	props: ["user"],
+	props: {
+		userId: String
+	},
 	data() {
 		return {
 			currTab: "friends",
 			me: { friends: [] },
+			user: {},
 			friendRequests: [],
 			pendingFriendRequests: [],
 			search: "",
@@ -167,7 +170,7 @@ export default {
 	},
 	methods: {
 		isMe() {
-			return this.user.id === this.me.id;
+			return this.me && this.user && this.me.id === this.user.id;
 		},
 		acceptFriendRequest(id) {
 			this.$apollo

@@ -9,7 +9,7 @@
                     <v-list-tile-title>{{ me.login }}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-            <auth-menu-links></auth-menu-links>
+            <auth-menu-links :login="me.login"></auth-menu-links>
         </v-list-group>
     </v-list>
 </template>
