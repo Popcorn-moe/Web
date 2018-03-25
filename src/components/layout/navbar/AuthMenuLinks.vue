@@ -46,7 +46,6 @@ import {
 import { mapActions } from "vuex";
 import { VIcon } from "vuetify/es5/components";
 import { logout } from "@/utils/auth";
-import gql from "graphql-tag";
 
 export default {
 	props: {

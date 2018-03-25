@@ -302,15 +302,13 @@ export default {
 			update: ({ userById }) => userById
 		},
 		me: {
-			query() {
-				return gql`
-					{
-						me {
-							id
-						}
+			query: gql`
+				{
+					me {
+						id
 					}
-				`;
-			},
+				}
+			`,
 			update: ({ me }) => me
 		},
 		friendRequests: {

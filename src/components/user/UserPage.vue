@@ -72,8 +72,11 @@ export default {
 	methods: {
 		changeUrl(value) {
 			this.$router.push({
-				name: $route.name,
-				params: Object.assign({}, $route.params, { page: value })
+				name: this.$route.name,
+				params: Object.assign({}, this.$route.params, {
+					page: value,
+					userId: this.user.id
+				})
 			});
 		},
 		goto404() {
@@ -87,16 +90,14 @@ export default {
 	},
 	apollo: {
 		user: {
-			query() {
-				return gql`
-					query user($name: String!) {
-						user(name: $name) {
-							id
-							avatar
-						}
+			query: gql`
+				query user($name: String!) {
+					user(name: $name) {
+						id
+						avatar
 					}
-				`;
-			},
+				}
+			`,
 			variables() {
 				return {
 					name: this.userLogin
@@ -108,15 +109,13 @@ export default {
 			update: ({ user }) => user
 		},
 		me: {
-			query() {
-				return gql`
-					{
-						me {
-							id
-						}
+			query: gql`
+				{
+					me {
+						id
 					}
-				`;
-			},
+				}
+			`,
 			update: ({ me }) => me
 		}
 	},

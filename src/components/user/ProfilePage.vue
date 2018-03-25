@@ -77,17 +77,15 @@ export default {
 	},
 	apollo: {
 		user: {
-			query() {
-				return gql`
-					query userById($id: ID!) {
-						userById(id: $id) {
-							id
-							avatar
-							login
-						}
+			query: gql`
+				query userById($id: ID!) {
+					userById(id: $id) {
+						id
+						avatar
+						login
 					}
-				`;
-			},
+				}
+			`,
 			variables() {
 				return {
 					id: this.userId
@@ -99,49 +97,45 @@ export default {
 			update: ({ userById }) => userById
 		},
 		me: {
-			query() {
-				return gql`
-					{
-						me {
-							id
-						}
+			query: gql`
+				{
+					me {
+						id
 					}
-				`;
-			},
+				}
+			`,
 			update: ({ me }) => me
 		},
 		events: {
-			query() {
-				return gql`
-					query events($user: ID!) {
-						events(user: $user) {
-							user {
-								login
-							}
-							id
-							date
-							type
-							... on AnimeFollowEvent {
-								anime {
-									id
-									names
-									cover
-								}
-							}
-							... on NewFriendEvent {
-								friend {
-									id
-									login
-									avatar
-								}
-							}
-							... on MessageEvent {
-								message
+			query: gql`
+				query events($user: ID!) {
+					events(user: $user) {
+						user {
+							login
+						}
+						id
+						date
+						type
+						... on AnimeFollowEvent {
+							anime {
+								id
+								names
+								cover
 							}
 						}
+						... on NewFriendEvent {
+							friend {
+								id
+								login
+								avatar
+							}
+						}
+						... on MessageEvent {
+							message
+						}
 					}
-				`;
-			},
+				}
+			`,
 			variables() {
 				return {
 					user: this.userId
