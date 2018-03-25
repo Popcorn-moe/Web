@@ -6,11 +6,11 @@
           <img class="user-cover elevation-4" :src="user.avatar">
         </v-flex>
         <v-flex xs9>
-          <v-tabs class="user-top-nav" :value="page" @input="value => this.$router.push({ name: $route.name, params: Object.assign({}, $route.params, { page: value })})">
+          <v-tabs class="user-top-nav" :value="page" @input="changeUrl">
             <v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
             <v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
             <v-tab activeClass="active" href="#friends" >{{ $t('route.auth.friends') }}</v-tab>
-            <v-tab activeClass="active" href="#settings" class="right" v-if="isMe()">{{ $t('route.auth.settings') }}</v-tab>
+            <v-tab activeClass="active" href="#settings" class="right" v-if="isMe">{{ $t('route.auth.settings') }}</v-tab>
           </v-tabs>
         </v-flex>
       </v-layout>
@@ -23,9 +23,9 @@
             <!--<user-library></user-library>-->
           </v-tab-item>
           <v-tab-item id="friends">
-            <user-friends :userId="user"></user-friends>
+            <user-friends :userId="user.id"></user-friends>
           </v-tab-item>
-          <v-tab-item id="settings" v-if="isMe()">
+          <v-tab-item id="settings" v-if="isMe">
             <user-settings></user-settings>
           </v-tab-item>
         </v-tabs-items>
@@ -53,8 +53,7 @@ export default {
 	props: ["page", "userLogin"],
 	data() {
 		return {
-			user: {},
-			me: {}
+			user: {}
 		};
 	},
 	components: {
@@ -71,50 +70,59 @@ export default {
 		UserProfile
 	},
 	methods: {
+		changeUrl(value) {
+			this.$router.push({
+				name: $route.name,
+				params: Object.assign({}, $route.params, { page: value })
+			});
+		},
+		goto404() {
+			this.$router.replace({ name: "404" });
+		}
+	},
+	computed: {
 		isMe() {
-			return this.user.id === this.me.id;
+			return this.me && this.user && this.me.id === this.user.id;
 		}
 	},
 	apollo: {
-		me: {
-			query: gql`
-				{
-					me {
-						id
-					}
-				}
-			`,
-			update: ({ me }) => me
-		},
 		user: {
 			query() {
-				return !this.userLogin
-					? gql`
-							{
-								me {
-									id
-									avatar
-								}
-							}
-						`
-					: gql`
-							query user($name: String!) {
-								user(name: $name) {
-									id
-									avatar
-								}
-							}
-						`;
+				return gql`
+					query user($name: String!) {
+						user(name: $name) {
+							id
+							avatar
+						}
+					}
+				`;
 			},
 			variables() {
 				return {
-					name: this.userLogin ? this.userLogin : undefined
+					name: this.userLogin
 				};
 			},
-			update({ me, user }) {
-				if (!me && !user) this.$router.replace({ name: "Login" });
-				else return user ? user : me;
-			}
+			skip() {
+				return !this.userLogin;
+			},
+			update: ({ user }) => user
+		},
+		me: {
+			query() {
+				return gql`
+					{
+						me {
+							id
+						}
+					}
+				`;
+			},
+			update: ({ me }) => me
+		}
+	},
+	watch: {
+		user(newUser) {
+			if (!newUser) this.goto404();
 		}
 	}
 };

@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs3>
         <div class="infos elevation-3">
-          <h6 class="text-xs-center" v-t="{ path: 'profile.about', args: { user:  isMe() ? 'Me' : user.login } }"></h6>
+          <h6 class="text-xs-center" v-t="{ path: 'profile.about', args: { user: user.login } }"></h6>
           <v-divider></v-divider>
           <v-icon>cake</v-icon>
           <p>Date of Birth Bla bla bla</p>
@@ -13,7 +13,7 @@
         </div>
       </v-flex>
       <v-flex xs9>
-        <v-container v-if="isMe()">
+        <v-container v-if="isMe">
           <v-layout>
             <v-flex xs10>
               <v-text-field
@@ -33,8 +33,8 @@
           <div v-for="(day, k) in timeline" :key="k" class="timeline-elem">
             <div class="date-content">
               <div v-for="event in day" :key="event.id" :class="{ content: true, 'elevation-1': true, 'content-img': event.type == 'NEW_FRIEND'}">
-                <p v-show="event.type == 'MESSAGE' ">{{ event.message }}</p>
-                <div v-show="event.type == 'NEW_FRIEND'">
+                <p v-if="event.type == 'MESSAGE' ">{{ event.message }}</p>
+                <div v-if="event.type == 'NEW_FRIEND'">
                   <img class="elevation-5" :src="event.friend.avatar">
                   <p v-t="{ path: 'profile.new_friend_event', args: { user: event.user.login, friend: event.friend.login } }"></p>
                 </div>
@@ -71,21 +71,11 @@ export default {
 	data() {
 		return {
 			user: { login: "UNKNOWN" },
-			me: { login: "Me" },
+			me: {},
 			events: []
 		};
 	},
 	apollo: {
-		me: {
-			query: gql`
-				{
-					me {
-						id
-					}
-				}
-			`,
-			update: ({ me }) => me
-		},
 		user: {
 			query() {
 				return gql`
@@ -107,6 +97,18 @@ export default {
 				return !this.userId;
 			},
 			update: ({ userById }) => userById
+		},
+		me: {
+			query() {
+				return gql`
+					{
+						me {
+							id
+						}
+					}
+				`;
+			},
+			update: ({ me }) => me
 		},
 		events: {
 			query() {
@@ -174,9 +176,6 @@ export default {
 		}
 	},
 	methods: {
-		isMe() {
-			return this.user.id === this.me.id;
-		},
 		dateFormat(date) {
 			return {
 				day: dateformat(date, "d"),
@@ -196,6 +195,9 @@ export default {
 				d => (out[d] = this.events.filter(({ date }) => date === d))
 			);
 			return out;
+		},
+		isMe() {
+			return this.user.id === this.me.id;
 		}
 	},
 	components: {
