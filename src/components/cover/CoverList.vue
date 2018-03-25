@@ -14,10 +14,10 @@
                 </div>
         </div>
         <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.mdAndUp && needArrow()">
+        <v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
             <v-icon large>keyboard_arrow_left</v-icon>
         </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.mdAndUp && needArrow()">
+        <v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
             <v-icon large>keyboard_arrow_right</v-icon>
         </v-btn>
         <slot/>
@@ -58,13 +58,15 @@ export default {
 	destroyed() {
 		window.removeEventListener("resize", this.update);
 	},
-	computed: mapGetters({
-		drawer: "drawer"
-	}),
-	methods: {
+	computed: {
+		...mapGetters({
+			drawer: "drawer"
+		}),
 		needArrow() {
 			return this.value.length > this.elemsPerLine;
-		},
+		}
+	},
+	methods: {
 		update() {
 			const width =
 				document.body.offsetWidth -
