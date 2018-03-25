@@ -80,9 +80,26 @@ export default {
 				document.activeElement &&
 				inputs.indexOf(document.activeElement.tagName.toLowerCase()) !== -1;
 			console.log(focused, document.activeElement);
-			if (event.keyCode == 32 && !focused) {
-				this.togglePlay();
-				event.preventDefault();
+			if (focused) return;
+			switch (event.keyCode) {
+				case 32: {
+					// Space
+					this.togglePlay();
+					event.preventDefault();
+					break;
+				}
+				case 77: {
+					// Key 'M'
+					this.toggleMute();
+					event.preventDefault();
+					break;
+				}
+				case 70: {
+					// Key 'F'
+					this.toggleFullScreen();
+					event.preventDefault();
+					break;
+				}
 			}
 		},
 		formatTime(time = 0) {
