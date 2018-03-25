@@ -73,6 +73,7 @@ export default {
 	},
 	methods: {
 		formatTime(time = 0) {
+			if (isNaN(time)) time = 0;
 			let minutes = Math.floor(time / 60);
 			minutes = minutes >= 10 ? minutes : "0" + minutes;
 			let seconds = Math.floor(time % 60);
