@@ -44,6 +44,8 @@ import "fullscreen-api-polyfill";
 import MegaMediaSource from "../../mse/MegaMediaSource";
 import isMobile from "ismobilejs";
 
+const inputs = ["input", "select", "button", "textarea"];
+
 export default {
 	name: "video-player",
 	props: ["value"],
@@ -65,6 +67,7 @@ export default {
 	created() {
 		document.addEventListener("fullscreenchange", this.onFullscreenEvent);
 		document.addEventListener("fullscreenerror", this.onFullscreenEvent);
+		document.onkeydown = this.onKeyDown;
 	},
 	beforeDestroy() {
 		this.mse && this.mse.destroy();
@@ -72,6 +75,16 @@ export default {
 		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
 	},
 	methods: {
+		onKeyDown(event) {
+			const focused =
+				document.activeElement &&
+				inputs.indexOf(document.activeElement.tagName.toLowerCase()) !== -1;
+			console.log(focused, document.activeElement);
+			if (event.keyCode == 32 && !focused) {
+				this.togglePlay();
+				event.preventDefault();
+			}
+		},
 		formatTime(time = 0) {
 			if (isNaN(time)) time = 0;
 			let minutes = Math.floor(time / 60);
