@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md>
-    <v-layout class="text-xs-center" v-if="isMe()">
+    <v-layout class="text-xs-center" v-if="isMe">
       <v-flex offset-xs2 xs8>
         <v-select
           :label="$t('friends.search')"
@@ -23,7 +23,7 @@
         </v-btn>
       </v-flex>
     </v-layout>
-    <v-flex v-for="friend in user.friends" :key="friend.id" v-if="!isMe()" xs6>
+    <v-flex v-for="friend in user.friends" :key="friend.id" v-if="!isMe" xs6>
       <div class="friend elevation-3">
         <v-layout>
           <v-flex xs3>
@@ -38,7 +38,7 @@
         </v-layout>
       </div>
     </v-flex>
-		<v-layout v-if="isMe()">
+		<v-layout v-if="isMe">
 			<v-flex xs3>
 				<v-list class="friends-tabs-list elevation-3">
 					<v-list-tile @click.stop="currTab = 'friends'" :class="{'active': currTab === 'friends'}">
@@ -64,7 +64,7 @@
 						<v-tabs-items class="friends-tabs" :value="currTab">
 							<v-tab-item id="friends">
 								<v-layout row wrap>
-									<v-flex v-for="friend in me.friends" :key="friend.id" xs6>
+									<v-flex v-for="friend in user.friends" :key="friend.id" xs6>
 										<div class="friend elevation-3">
 											<v-layout>
 												<v-flex xs3>
@@ -159,8 +159,8 @@ export default {
 	data() {
 		return {
 			currTab: "friends",
-			me: { friends: [] },
-			user: {},
+			me: {},
+			user: { friends: [] },
 			friendRequests: [],
 			pendingFriendRequests: [],
 			search: "",
@@ -169,9 +169,6 @@ export default {
 		};
 	},
 	methods: {
-		isMe() {
-			return this.me && this.user && this.me.id === this.user.id;
-		},
 		acceptFriendRequest(id) {
 			this.$apollo
 				.mutate({
@@ -188,7 +185,7 @@ export default {
 				})
 				.then(() => {
 					this.$apollo.queries.friendRequests.refetch();
-					this.$apollo.queries.me.refetch();
+					this.$apollo.queries.user.refetch();
 				});
 		},
 		removeFriend(id) {
@@ -203,7 +200,7 @@ export default {
 						friend: id
 					}
 				})
-				.then(() => this.$apollo.queries.me.refetch());
+				.then(() => this.$apollo.queries.user.refetch());
 		},
 		delNotification(id) {
 			this.$apollo
@@ -241,8 +238,11 @@ export default {
 		}
 	},
 	computed: {
+		isMe() {
+			return this.me && this.user && this.me.id === this.user.id;
+		},
 		searchResults() {
-			const friendsId = this.me.friends.map(({ id }) => id);
+			const friendsId = this.user.friends.map(({ id }) => id);
 			const friendsRequestsId = this.pendingFriendRequests.map(
 				({ user }) => user.id
 			);
@@ -252,7 +252,7 @@ export default {
 					!selectedFriendsId.includes(id) &&
 					!friendsId.includes(id) &&
 					!friendsRequestsId.includes(id) &&
-					id !== this.me.id
+					id !== this.user.id
 			);
 			return search.concat(this.selectedFriends);
 		}
@@ -278,10 +278,10 @@ export default {
 		VChip
 	},
 	apollo: {
-		me: {
+		user: {
 			query: gql`
-				{
-					me {
+				query userById($id: ID!) {
+					userById(id: $id) {
 						id
 						friends {
 							id
@@ -291,6 +291,26 @@ export default {
 					}
 				}
 			`,
+			variables() {
+				return {
+					id: this.userId
+				};
+			},
+			skip() {
+				return !this.userId;
+			},
+			update: ({ userById }) => userById
+		},
+		me: {
+			query() {
+				return gql`
+					{
+						me {
+							id
+						}
+					}
+				`;
+			},
 			update: ({ me }) => me
 		},
 		friendRequests: {
