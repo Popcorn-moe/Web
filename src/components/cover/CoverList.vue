@@ -34,7 +34,8 @@ import { setTimeout } from "timers";
 // TODO: learn more of cubic-bezier to find right values
 const ANIMATION_TIME_PREV = 500 * 3 / 5; // For timing function
 const ANIMATION_TIME_NEXT = 500 * 3.5 / 5; // For timing function
-const ANIME_SIZE = 184; // Anime width + 2 * padding + 2 * margin in px
+const ANIME_SIZE = 180; // Anime width + 2 * padding
+const PADDING = 10;
 
 export default {
 	props: {
@@ -67,7 +68,8 @@ export default {
 		update() {
 			const width =
 				document.body.offsetWidth -
-				(this.$vuetify.breakpoint.mdAndUp && this.drawer ? 280 : 0);
+				(this.$vuetify.breakpoint.mdAndUp && this.drawer ? 280 : 0) -
+				2 * PADDING;
 			this.elemsPerLine = Math.floor(width / this.animeSize);
 		},
 		nextAnimationTick(fn) {

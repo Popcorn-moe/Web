@@ -48,8 +48,6 @@ export default {
         padding: $anime.padding;
         display: inline-block;
         position: relative;
-        margin: $anime.margin;
-        margin-bottom: 0;
         transition: transform .3s ease-out;
 
         a {
@@ -69,8 +67,8 @@ export default {
         }
 
         .cover {
+            outline-offset: -1 * $anime.img-border;
             display: inline-block;
-            padding: $anime.img-border;
             width: $anime.width;
             height: $anime.img-height;
         }
@@ -80,7 +78,7 @@ export default {
             margin-bottom: $anime.img-border;
             &:hover {
                 .cover {
-                    background-color: $main-color;
+                    outline: $anime.img-border solid $main-color;
                 }
 
                 .arrow {
