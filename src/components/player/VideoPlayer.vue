@@ -11,6 +11,7 @@
       @canplay="waiting = false"
       @progress="onProgress"
       @click="togglePlay"
+			:style="backgroundImage && { 'background-image': `url(${backgroundImage})` }"
     >
       <!--source src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.mp4" type="video/mp4"!-->
       Your browser does not support HTML5 video.
@@ -48,7 +49,7 @@ const inputs = ["input", "select", "button", "textarea"];
 
 export default {
 	name: "video-player",
-	props: ["value"],
+	props: ["value", "backgroundImage"],
 	data() {
 		return {
 			hasPlayed: false,

@@ -45,7 +45,7 @@ export const routes = [
 		path: "/anime/:id/:mediaId",
 		name: "Media",
 		component: () => import("../components/media/MediaPage"),
-		meta: { hasPlayer: true },
+		meta: { hasPlayer: true, removeMobileNavbar: true },
 		props: true
 	},
 	{
@@ -61,7 +61,7 @@ export const routes = [
 		path: "/anime/:id/:season/:episode",
 		name: "Episode",
 		component: () => import("../components/media/MediaPage"),
-		meta: { hasPlayer: true },
+		meta: { hasPlayer: true, removeMobileNavbar: true },
 		props: true
 	},
 	{

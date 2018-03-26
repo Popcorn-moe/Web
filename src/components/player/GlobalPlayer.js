@@ -1,6 +1,10 @@
 import Vue from "vue";
 import VideoPlayer from "./VideoPlayer.vue";
 
+const VIDEO_PROPS = Array.isArray(VideoPlayer.props)
+	? VideoPlayer.props
+	: Object.keys(VideoPlayer.props);
+
 export const videoPlayer = {
 	owner: null,
 	destroyed: true,
@@ -11,7 +15,7 @@ export const videoPlayer = {
 };
 
 export default {
-	props: ["owner", "value"],
+	props: ["owner"].concat(VIDEO_PROPS),
 	render(h) {
 		return h("div");
 	},
@@ -32,7 +36,9 @@ export default {
 
 		if (!videoPlayer.instance) {
 			videoPlayer.instance = new Vue(VideoPlayer);
-			videoPlayer.instance.value = this.value;
+			VIDEO_PROPS.forEach(prop =>
+				console.log((videoPlayer.instance[prop] = this[prop]))
+			);
 			videoPlayer.instance.$mount();
 			videoPlayer.destroyed = false;
 		}

@@ -18,6 +18,7 @@
 					v-if="media.content"
 					:value="media.content"
 					:key="media.content"
+					:background-image="$vuetify.breakpoint.xs && media.anime.background"
 				></video-player>
 			</template>
     </div>
@@ -405,6 +406,7 @@ export default {
     background-position: center;
     background-color: #2f2f2f;
     padding: 30px 0;
+		font-size: 0;
 
 		iframe {
 			display: inline-block;
@@ -414,11 +416,20 @@ export default {
 			height: 506px;
 		}
 
-    & > .media-player
-    {
+    & > .media-player {
       display: inline-block;
       width: 100%;
       max-width: 900px;
+    }
+
+		@media (max-width: 600px) {
+			padding: 0;
+
+			& > .media-player video {
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
     }
   }
 

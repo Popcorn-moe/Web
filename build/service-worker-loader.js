@@ -20,7 +20,7 @@
 			(window.location.protocol === "https:" || isLocalhost)
 		) {
 			navigator.serviceWorker
-				.register("sw.js")
+				.register("/sw.js")
 				.then(function(registration) {
 					// updatefound is fired if sw.js changes.
 					registration.onupdatefound = function() {

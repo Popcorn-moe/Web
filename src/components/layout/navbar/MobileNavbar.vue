@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-toolbar app dense style="z-index: 4;">
+		<v-toolbar app dense style="z-index: 4;" v-if="!$route.meta.removeMobileNavbar">
 			<v-slide-y-transition mode="out-in">
 				<div v-if="search" key="search" class="toolbar__content" style="width: 100%;">
 					<v-btn @click.stop="search = false, query = null" flat icon>
