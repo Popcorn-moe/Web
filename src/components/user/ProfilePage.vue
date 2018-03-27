@@ -210,139 +210,139 @@ export default {
 
 
 <style lang="stylus">
-  @import '../../stylus/main.styl';
+@import '../../stylus/main.styl';
 
-  .profile-container {
-    .infos {
-      min-height 120px;
-      padding: 15px;
-      h6 {
-        color: rgba(0,0,0,0.87);
-      }
+.profile-container {
+  .infos {
+    min-height: 120px;
+    padding: 15px;
 
-      .icon {
-        font-size 20px;
-        padding-top 10px;
-        padding-bottom 10px;
-      }
-
-      p {
-        line-height 20px;
-        display inline-flex;
-        width calc(100% - 34px);
-      }
+    h6 {
+      color: rgba(0, 0, 0, 0.87);
     }
 
-    .timeline {
-      position: relative;
-      width: 100%;
-      .line {
-        position: absolute;
-        width: 3px;
-        height: 100%;
-        top: 0;
-        left: 50px;
-        background: #bcbcbc;
-        z-index: 0;
-      }
+    .icon {
+      font-size: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 
-      .timeline-elem {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        overflow: hidden;
-        margin: 20px 0;
-
-
-        .date-content {
-          max-width: 100%;
-          width: auto;
-          margin-left: 110px;
-          min-height: 53px;
-          padding-bottom 5px;
-          padding-right: 3px;
-
-          .content {
-            position: relative;
-            border-radius: 4px;
-            width: auto;
-            background-color: #e4e4e4;
-            min-height: 62px;
-            padding: 15px;
-            margin-bottom: 10px
-
-            img {
-              margin-top: -50px;
-              border-radius: 50%;
-              width: 100px;
-              height 100px;
-            }
-
-            p {
-              margin-bottom 0;
-            }
-          }
-
-          .content-img {
-            margin-top: 50px;
-            min-height 80px;
-
-            p {
-              padding-left 115px;
-              margin-top: -50px;
-            }
-          }
-
-          .content:last-child {
-            margin-bottom 0;
-          }
-        }
-
-        .meta-date {
-          position: absolute;
-          top: 0;
-          left: 20px;
-          width: 62px;
-          height: 62px;
-          color: #bcbcbc;
-          background-color: #fafafa;
-          border-radius: 100%;
-          border: 3px solid #bcbcbc;
-
-          .day, .month {
-            display: block;
-            text-align: center;
-            font-weight: 900;
-          }
-
-          .day {
-            font-size: 28px;
-            line-height: 40px;
-          }
-
-          .month {
-            font-size: 16px;
-            line-height: 5px;
-          }
-        }
-      }
+    p {
+      line-height: 20px;
+      display: inline-flex;
+      width: calc(100% - 34px);
     }
   }
 
-  .application.theme--dark .profile-container {
+  .timeline {
+    position: relative;
+    width: 100%;
 
-    .infos {
-      background-color: #363636 !important;
-    }
-
-    .meta-date {
-      background-color: #181818 !important;
+    .line {
+      position: absolute;
+      width: 3px;
+      height: 100%;
+      top: 0;
+      left: 50px;
+      background: #bcbcbc;
+      z-index: 0;
     }
 
     .timeline-elem {
-      .content {
-        background-color: #363636 !important;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      margin: 20px 0;
+
+      .date-content {
+        max-width: 100%;
+        width: auto;
+        margin-left: 110px;
+        min-height: 53px;
+        padding-bottom: 5px;
+        padding-right: 3px;
+
+        .content {
+          position: relative;
+          border-radius: 4px;
+          width: auto;
+          background-color: #e4e4e4;
+          min-height: 62px;
+          padding: 15px;
+          margin-bottom: 10px;
+
+          img {
+            margin-top: -50px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+          }
+
+          p {
+            margin-bottom: 0;
+          }
+        }
+
+        .content-img {
+          margin-top: 50px;
+          min-height: 80px;
+
+          p {
+            padding-left: 115px;
+            margin-top: -50px;
+          }
+        }
+
+        .content:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .meta-date {
+        position: absolute;
+        top: 0;
+        left: 20px;
+        width: 62px;
+        height: 62px;
+        color: #bcbcbc;
+        background-color: #fafafa;
+        border-radius: 100%;
+        border: 3px solid #bcbcbc;
+
+        .day, .month {
+          display: block;
+          text-align: center;
+          font-weight: 900;
+        }
+
+        .day {
+          font-size: 28px;
+          line-height: 40px;
+        }
+
+        .month {
+          font-size: 16px;
+          line-height: 5px;
+        }
       }
     }
   }
+}
+
+.application.theme--dark .profile-container {
+  .infos {
+    background-color: #363636 !important;
+  }
+
+  .meta-date {
+    background-color: #181818 !important;
+  }
+
+  .timeline-elem {
+    .content {
+      background-color: #363636 !important;
+    }
+  }
+}
 </style>

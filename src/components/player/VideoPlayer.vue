@@ -10,7 +10,7 @@
       @waiting="waiting = true"
       @canplay="waiting = false"
       @progress="onProgress"
-      @click="togglePlay"
+      @click="togglePlay(false)"
 			:style="backgroundImage && { 'background-image': `url(${backgroundImage})` }"
     >
       <!--source src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.mp4" type="video/mp4"!-->
@@ -44,7 +44,6 @@ import PlayerSlider from "./PlayerSlider.vue";
 import "fullscreen-api-polyfill";
 import MegaMediaSource from "../../mse/MegaMediaSource";
 import isMobile from "ismobilejs";
-
 const inputs = ["input", "select", "button", "textarea"];
 
 export default {
@@ -75,6 +74,9 @@ export default {
 		this.mse && this.mse.destroy();
 		document.removeEventListener("fullscreenchange", this.onFullscreenEvent);
 		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
+	},
+	computed: {
+		isMobile
 	},
 	methods: {
 		onKeyDown(event) {
@@ -111,7 +113,9 @@ export default {
 			seconds = seconds >= 10 ? seconds : "0" + seconds;
 			return `${minutes}:${seconds}`;
 		},
-		togglePlay() {
+		togglePlay(button = true) {
+			this.showControls();
+			if (!button && isMobile.any) return;
 			const video = this.$refs.video;
 			if (!this.hasPlayed) {
 				const host = this.value.split("/")[2];
@@ -120,9 +124,7 @@ export default {
 				else video.src = this.value;
 			}
 			if (isMobile.any) video.volume = 1;
-
 			this.hasPlayed = true;
-			this.showControls();
 			this.paused ? video.play().catch(() => {}) : video.pause();
 		},
 		toggleMute() {
