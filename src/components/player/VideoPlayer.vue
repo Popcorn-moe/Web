@@ -160,7 +160,7 @@ export default {
 		togglePlay(button = true, paused = this.paused) {
 			this.showControls();
 			if (!button && isMobile.any) return;
-			const video = this.$refs.video;
+			const { video } = this.$refs;
 			if (!this.hasPlayed) {
 				const host = this.value.split("/")[2];
 				if (host.startsWith("mega"))
@@ -197,13 +197,15 @@ export default {
 			this.fullscreen = document.fullscreenElement !== null;
 		},
 		onTimelineChangeEvent() {
-			const video = this.$refs.video;
-			if (video) this.timeline = 100 / video.duration * video.currentTime;
-			this.currentTime = this.formatTime(video.currentTime);
-			this.duration = this.formatTime(video.duration);
+			const { video } = this.$refs;
+			if (video) {
+				this.timeline = 100 / video.duration * video.currentTime;
+				this.currentTime = this.formatTime(video.currentTime);
+				this.duration = this.formatTime(video.duration);
+			}
 		},
 		onProgress() {
-			const video = this.$refs.video;
+			const { video } = this.$refs;
 			if (video) {
 				const buffered = [];
 				for (let i = 0; i < video.buffered.length; i++) {
@@ -216,7 +218,7 @@ export default {
 			}
 		},
 		changeTimeline(value) {
-			const video = this.$refs.video;
+			const { video } = this.$refs;
 			if (video)
 				video.currentTime = video.duration * ((this.timeline = value) / 100);
 		},
@@ -321,6 +323,7 @@ export default {
         display: inline-block;
         width: 100px;
         padding: 0;
+				font-size: 16px;
         color: white !important
       }
     }
