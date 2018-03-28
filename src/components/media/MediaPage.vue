@@ -84,11 +84,9 @@
 							@focus="needAuth()"
             >
             </v-text-field>
-						<v-layout row>
-              <v-flex offset-xs10 xs2>
-                <v-btn small block class="main-color comment-btn" @click.stop="comment()">Commenter</v-btn>
-              </v-flex>
-            </v-layout>
+						<v-flex class="text-xs-right">
+							<v-btn small class="main-color comment-btn" @click.stop="comment()">Commenter</v-btn>
+						</v-flex>
 						<div v-if="media.comments.length > 0">
 							<v-divider></v-divider>
 							<div class="text-xs-center">
