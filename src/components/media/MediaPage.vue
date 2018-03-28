@@ -32,8 +32,7 @@
                 <h3 class="uppercase">{{ media.anime.names[0] }}</h3>
               </router-link>
               <p class="sub">
-                <span v-if="media.type === 'EPISODE'">Saison {{ season }}, épisode {{ episode }}: {{ media.name }}</span>
-                <span v-if="media.type !== 'EPISODE'">{{ capitalize(media.type.toLowerCase()) }} : {{ media.name }}</span>
+                <span v-html="title"></span>
               </p>
               <ul>
                 <li>
@@ -168,12 +167,24 @@ export default {
 		}
 	},
 	watch: {
-		madia() {
+		media() {
 			if (!this.media) {
 				this.$router.replace({ name: "404" });
 				return;
 			}
 			this.$emit("updateHead");
+			if ("mediaSession" in navigator) {
+				navigator.mediaSession.metadata = new MediaMetadata({
+					title: this.media.anime.names[0],
+					artist: this.media.anime.authors.length
+						? this.media.anime.authors[0].name
+						: "",
+					album: this.title,
+					artwork: [
+						{ src: this.media.anime.cover, sizes: "150x210", type: "image/png" }
+					]
+				});
+			}
 		}
 	},
 	head: {
@@ -200,6 +211,16 @@ export default {
 		}
 	},
 	computed: {
+		title() {
+			const title =
+				this.media.type !== "EPISODE"
+					? `${capitalize(this.media.type.toLowerCase())}: ${this.media.name ||
+							"No name"} `
+					: `Saison ${this.season}, épisode ${this.episode}: ${this.media
+							.name || `Episode ${this.episode}`}`;
+			console.log(title);
+			return title;
+		},
 		host() {
 			return this.media.content.split("/")[2];
 		}

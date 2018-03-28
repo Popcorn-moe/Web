@@ -26,7 +26,7 @@
         <v-btn color="primary" dark icon @click.stop="toggleMute"><v-icon v-html="muted ? 'volume_off' : 'volume_up'"></v-icon></v-btn>
         <v-slider hide-details color="primary" dark class="floating-cancel volume" :max="100" :value="volume" @input="changeVolume"></v-slider>
         <div class="timer">{{ currentTime }}/{{ duration }}</div>
-        <v-btn color="primary" dark icon class="right" @click.stop="toggleFullScreen"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
+        <v-btn color="primary" dark icon class="right" @click.stop="toggleFullScreen(true)"><v-icon v-html="fullscreen ? 'fullscreen_exit' : 'fullscreen'"></v-icon></v-btn>
       </div>
     </v-fade-transition>
   </div>
@@ -62,18 +62,40 @@ export default {
 			oldVolume: 0,
 			currentTime: 0,
 			duration: 0,
-			controlsHidden: true
+			controlsHidden: true,
+			fullscreenLock: false
 		};
 	},
 	created() {
 		document.addEventListener("fullscreenchange", this.onFullscreenEvent);
 		document.addEventListener("fullscreenerror", this.onFullscreenEvent);
-		document.onkeydown = this.onKeyDown;
+		document.addEventListener("keydown", this.onKeyDown);
+		window.screen.orientation.addEventListener("change", this.onScreenChange);
+
+		if ("mediaSession" in navigator) {
+			navigator.mediaSession.setActionHandler("play", () =>
+				this.togglePlay(false, false)
+			);
+			navigator.mediaSession.setActionHandler("pause", () =>
+				this.togglePlay(false, false)
+			);
+			navigator.mediaSession.setActionHandler("seekbackward", () =>
+				this.skipTime(-10)
+			);
+			navigator.mediaSession.setActionHandler("seekforward", () =>
+				this.skipTime(10)
+			);
+		}
 	},
 	beforeDestroy() {
 		this.mse && this.mse.destroy();
 		document.removeEventListener("fullscreenchange", this.onFullscreenEvent);
 		document.removeEventListener("fullscreenerror", this.onFullscreenEvent);
+		document.removeEventListener("keydown", this.onKeyDown);
+		window.screen.orientation.removeEventListener(
+			"change",
+			this.onScreenChange
+		);
 	},
 	computed: {
 		isMobile
@@ -105,6 +127,22 @@ export default {
 				}
 			}
 		},
+		onScreenChange({ target: { type } }) {
+			console.log(isMobile.all, this.paused);
+			if (isMobile.any && !this.paused) {
+				!this.fullscreen && type.startsWith("landscape") && !this.fullscreenLock
+					? this.$el.requestFullscreen()
+					: document.exitFullscreen();
+			}
+		},
+		skipTime(time) {
+			const { video } = this.$refs;
+			if (video)
+				video.currentTime = Math.min(
+					Math.max(video.currentTime + time, 0),
+					video.duration
+				);
+		},
 		formatTime(time = 0) {
 			if (isNaN(time)) time = 0;
 			let minutes = Math.floor(time / 60);
@@ -113,7 +151,7 @@ export default {
 			seconds = seconds >= 10 ? seconds : "0" + seconds;
 			return `${minutes}:${seconds}`;
 		},
-		togglePlay(button = true) {
+		togglePlay(button = true, paused = this.paused) {
 			this.showControls();
 			if (!button && isMobile.any) return;
 			const video = this.$refs.video;
@@ -125,17 +163,30 @@ export default {
 			}
 			if (isMobile.any) video.volume = 1;
 			this.hasPlayed = true;
-			this.paused ? video.play().catch(() => {}) : video.pause();
+			paused ? video.play() : video.pause();
+			if ("mediaSession" in navigator)
+				navigator.mediaSession.playbackState = paused ? "Paused" : "playing";
 		},
 		toggleMute() {
 			this.muted = this.$refs.video.muted = !this.muted;
 			this.volume = this.muted ? 0 : this.oldVolume;
 			this.changeVolume(this.volume);
 		},
-		toggleFullScreen() {
+		toggleFullScreen(button = false) {
 			this.fullscreen
 				? document.exitFullscreen()
 				: this.$el.requestFullscreen();
+
+			if (button) {
+				window.screen.orientation
+					.lock(this.fullscreen ? "portrait-primary" : "landscape-primary")
+					.then(lock => this.fullscreenLock);
+				console.log(window.screen);
+				if (this.fullscreen) {
+					window.screen.orientation.unlock();
+					this.fullscreenLock = false;
+				}
+			}
 		},
 		onFullscreenEvent() {
 			this.fullscreen = document.fullscreenElement !== null;

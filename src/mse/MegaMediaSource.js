@@ -141,10 +141,10 @@ export default class MegaMediaSource {
 	}
 
 	updateEnd() {
-		console.log("Update End");
+		//console.log("Update End");
 		const buffered = this.sourceBuffer.buffered;
-		for (let i = 0; i < buffered.length; i++)
-			console.log("\t => Buffered", i, buffered.start(i), buffered.end(i));
+		//for (let i = 0; i < buffered.length; i++)
+		//	console.log("\t => Buffered", i, buffered.start(i), buffered.end(i));
 		if (this.buffers.length && !this.sourceBuffer.updating) {
 			const buffer = this.buffers.shift();
 			if (buffer === null) this.mediaSource.endOfStream();
