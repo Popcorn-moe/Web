@@ -68,7 +68,7 @@
         </v-layout>
       </div>
       <v-layout row wrap>
-        <v-flex v-for="result in searchResults" :key="result.id" class="text-xs-center">
+        <v-flex v-for="result in searchResults" :key="result.id" class="text-xs-center" :xs6="$vuetify.breakpoint.xsOnly">
           <cover :value="result"></cover>
         </v-flex>
         <v-flex v-for="i in 24" :key="i"><div class="filler"></div></v-flex>

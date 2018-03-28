@@ -214,11 +214,10 @@ export default {
 		title() {
 			const title =
 				this.media.type !== "EPISODE"
-					? `${capitalize(this.media.type.toLowerCase())}: ${this.media.name ||
-							"No name"} `
+					? `${this.capitalize(this.media.type.toLowerCase())}: ${this.media
+							.name || "No name"} `
 					: `Saison ${this.season}, épisode ${this.episode}: ${this.media
 							.name || `Episode ${this.episode}`}`;
-			console.log(title);
 			return title;
 		},
 		host() {

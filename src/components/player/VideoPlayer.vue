@@ -77,7 +77,7 @@ export default {
 				this.togglePlay(false, false)
 			);
 			navigator.mediaSession.setActionHandler("pause", () =>
-				this.togglePlay(false, false)
+				this.togglePlay(false, true)
 			);
 			navigator.mediaSession.setActionHandler("seekbackward", () =>
 				this.skipTime(-10)
@@ -96,9 +96,6 @@ export default {
 			"change",
 			this.onScreenChange
 		);
-	},
-	computed: {
-		isMobile
 	},
 	methods: {
 		onKeyDown(event) {
@@ -125,10 +122,19 @@ export default {
 					event.preventDefault();
 					break;
 				}
+				case "ArrowRight": {
+					this.skipTime(10);
+					event.preventDefault();
+					break;
+				}
+				case "ArrowLeft": {
+					this.skipTime(-10);
+					event.preventDefault();
+					break;
+				}
 			}
 		},
 		onScreenChange({ target: { type } }) {
-			console.log(isMobile.all, this.paused);
 			if (isMobile.any && !this.paused) {
 				!this.fullscreen && type.startsWith("landscape") && !this.fullscreenLock
 					? this.$el.requestFullscreen()
@@ -165,7 +171,7 @@ export default {
 			this.hasPlayed = true;
 			paused ? video.play() : video.pause();
 			if ("mediaSession" in navigator)
-				navigator.mediaSession.playbackState = paused ? "Paused" : "playing";
+				navigator.mediaSession.playbackState = paused ? "playing" : "paused";
 		},
 		toggleMute() {
 			this.muted = this.$refs.video.muted = !this.muted;
@@ -181,7 +187,6 @@ export default {
 				window.screen.orientation
 					.lock(this.fullscreen ? "portrait-primary" : "landscape-primary")
 					.then(lock => this.fullscreenLock);
-				console.log(window.screen);
 				if (this.fullscreen) {
 					window.screen.orientation.unlock();
 					this.fullscreenLock = false;

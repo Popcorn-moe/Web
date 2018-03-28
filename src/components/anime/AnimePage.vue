@@ -81,7 +81,7 @@ export default {
 	},
 	watch: {
 		anime() {
-			if (!anime) {
+			if (!this.anime) {
 				this.$router.replace({ name: "404" });
 				return;
 			}
