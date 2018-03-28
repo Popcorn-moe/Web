@@ -74,10 +74,10 @@ export default {
 
 		if ("mediaSession" in navigator) {
 			navigator.mediaSession.setActionHandler("play", () =>
-				this.togglePlay(false, true)
+				this.togglePlay(true, true)
 			);
 			navigator.mediaSession.setActionHandler("pause", () =>
-				this.togglePlay(false, false)
+				this.togglePlay(true, false)
 			);
 			navigator.mediaSession.setActionHandler("seekbackward", () =>
 				this.skipTime(-10)
