@@ -38,7 +38,7 @@
 								<v-toolbar-title class="white--text" v-t="'mobile_navbar.account'"></v-toolbar-title>
 							</v-toolbar>
 							<v-list>
-								<auth-menu-links @close="dialog = false"></auth-menu-links>
+								<auth-menu-links :login="me.login" @close="dialog = false"></auth-menu-links>
 							</v-list>
 						</v-card>
 					</v-dialog>

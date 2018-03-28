@@ -1,6 +1,6 @@
 <template>
     <v-list>
-        <v-list-group>
+        <v-list-group v-if="me">
             <v-list-tile slot="activator">
                 <v-list-tile-action>
                     <img class="user-logo" :src="me.avatar">
@@ -30,7 +30,7 @@ import { mapGetters } from "vuex";
 export default {
 	data() {
 		return {
-			me: {}
+			me: null
 		};
 	},
 	components: {
