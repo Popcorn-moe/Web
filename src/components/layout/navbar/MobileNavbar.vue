@@ -166,8 +166,7 @@ export default {
 					}
 				}
 			`,
-			update: ({ me }) => me,
-			fetchPolicy: "network-only"
+			update: ({ me }) => me
 		}
 	},
 	i18n: {
