@@ -14,16 +14,6 @@ const state = {
 };
 
 export function onLoad(store) {
-	if (cookies.ssoExchange) {
-		exchangeSSOToken(cookies.ssoExchange).then(
-			() => store.commit(IS_AUTH, true),
-			() => store.commit(IS_AUTH, false)
-		);
-	} else if (localStorage.getItem("csrf")) {
-		isLoggedIn().then(isAuth => store.commit(IS_AUTH, isAuth));
-	} else {
-		store.commit(IS_AUTH, false);
-	}
 	window.addEventListener(
 		"storage",
 		event => {
@@ -38,6 +28,14 @@ export function onLoad(store) {
 		},
 		false
 	);
+	if (cookies.ssoExchange) {
+		return exchangeSSOToken(cookies.ssoExchange);
+	} else if (localStorage.getItem("csrf")) {
+		return isLoggedIn().then(isAuth => store.dispatch("setIsAuth", isAuth));
+	} else {
+		store.dispatch("setIsAuth", false);
+		return Promise.resolve();
+	}
 }
 
 const mutations = {

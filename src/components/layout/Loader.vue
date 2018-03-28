@@ -1,7 +1,5 @@
 <script>
-import Loader from "vue-svg-loader!../../assets/loader.svg";
-
-Loader.name = "loader";
+import Loader from "!!vue-svg-loader!../../assets/loader.svg";
 
 export default Loader;
 </script>

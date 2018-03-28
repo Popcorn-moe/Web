@@ -7,19 +7,19 @@
         </div>
         <h1 class="buttons-title" v-t="'login.connect_with'"></h1>
         <div class="social-buttons">
-          <v-btn class="social-button google-color" large block @click.stop="login('google')">
+          <v-btn class="social-button" color="google-color" large block @click.stop="login('google')">
             <img src="/static/icons/google-icon.svg">
             Google
           </v-btn>
-          <v-btn class="social-button discord-color" large block @click.stop="login('discord')">
+          <v-btn class="social-button" color="discord-color" large block @click.stop="login('discord')">
             <img src="/static/icons/discord-icon.svg">
             Discord
           </v-btn>
-          <v-btn class="social-button twitter-color" large block @click.stop="login('twitter')">
+          <v-btn class="social-button" color="twitter-color" large block @click.stop="login('twitter')">
             <img src="/static/icons/twitter-icon.svg">
             Twitter
           </v-btn>
-          <v-btn class="social-button kitsu-color" large block @click.stop="login('kitsu')">
+          <v-btn class="social-button" color="kitsu-color" large block @click.stop="login('kitsu')">
             <img src="/static/icons/kitsu-icon.svg">
             Kitsu
           </v-btn>
@@ -31,24 +31,25 @@
             <object data="/static/logo-animated.svg" type="image/svg+xml" class="iauth-logo"></object>
           </div>
           <v-alert
-            :info="alert && alert.info"
-            :error="alert && alert.error"
-            :success="alert && alert.success"
-            :warning="alert && alert.warning"
+            v-if="alert"
+            :info="alert.info"
+            :error="alert.error"
+            :success="alert.success"
+            :warning="alert.warning"
             dismissible
-            :value="alert !== null"
+            :value="true"
             @input="alert = null">
-            {{ alert && alert.text }}
+            {{ alert.text }}
           </v-alert>
           <v-text-field :label="$t('login.login')"
-                        v-model="username"
-          ></v-text-field>
+            v-model="username"
+          />
           <v-text-field :label="$t('login.password')"
-                        v-model="password"
-                        :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
-                        :append-icon-cb="() => (hidePassword = !hidePassword)"
-                        :type="hidePassword ? 'password' : 'text'"
-          ></v-text-field>
+            v-model="password"
+            :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
+            :append-icon-cb="() => (hidePassword = !hidePassword)"
+            :type="hidePassword ? 'password' : 'text'"
+          />
           <div class="text-xs-right">
             <v-btn class="login-button secondary-color black--text" large @click.stop="login()" v-t="'login.connect'"></v-btn>
           </div>
@@ -64,7 +65,7 @@
 <script>
 import { VBtn, VTextField, VIcon, VAlert } from "vuetify/es5/components";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
-import { login } from "../../utils/auth";
+import { login, ssoLogin } from "../../utils/auth";
 import { mapActions } from "vuex";
 
 export default {
@@ -90,18 +91,10 @@ export default {
 		}),
 		login(provider) {
 			if (provider) {
-				const callback = encodeURIComponent(
-					location.origin + this.$router.last
-				);
-				window.location.assign(
-					`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`
-				);
+				ssoLogin(provider, location.origin + this.$router.last);
 			} else {
 				login(this.username, this.password)
-					.then(() => {
-						this.setIsAuth(true);
-						this.$router.go(-1);
-					})
+					.then(() => this.$router.go(-1))
 					.catch(error => {
 						if (error.alert) this.alert = error.alert;
 						else return Promise.reject(error);
@@ -169,7 +162,7 @@ export default {
       }
 
       .social-button {
-        .btn__content img {
+        img {
           position: absolute;
           left: 10px;
           height: 35px;

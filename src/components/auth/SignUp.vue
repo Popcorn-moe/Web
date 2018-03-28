@@ -55,7 +55,7 @@
 <script>
 import { VBtn, VTextField, VCheckbox } from "vuetify/es5/components";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
-import { signup } from "../../utils/auth";
+import { signup, ssoLogin } from "../../utils/auth";
 import { mapActions } from "vuex";
 
 export default {
@@ -84,12 +84,7 @@ export default {
 		}),
 		signup(provider) {
 			if (provider) {
-				const callback = encodeURIComponent(
-					location.origin + this.$router.last
-				);
-				window.location.assign(
-					`${process.env.AUTH_URL}/login/${provider}?callback=${callback}`
-				);
+				ssoLogin(provider, location.origin + this.$router.last);
 			} else {
 				signup(this.login, this.email, this.password, this.newsletter).then(
 					() => {

@@ -2,11 +2,12 @@ import Vue from "vue";
 import { Vuetify } from "vuetify/es5/components";
 import App from "./App";
 import router from "./router";
-import store from "./store";
+import store, { onLoad } from "./store";
 import apolloProvider from "./graphql";
 import i18n from "./i18n";
 import colors from "vuetify/es5/util/colors";
 import VueHead from "vue-head";
+import autoSignIn from "./credentials";
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify, {
@@ -33,4 +34,8 @@ new Vue({
 	provide: apolloProvider.provide(),
 	i18n,
 	render: h => h(App)
+});
+
+onLoad(store).then(() => {
+	if (!store.state.isAuth) autoSignIn();
 });
