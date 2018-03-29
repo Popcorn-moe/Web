@@ -10,7 +10,7 @@
         <mobile-navbar v-else></mobile-navbar>
 
         <main>
-            <v-content class="mb-3">
+            <v-content class="mb-5">
                 <loader v-show="isLoading"></loader>
                 <div v-show="!isLoading">
                     <v-slide-y-transition mode="out-in">
@@ -18,7 +18,7 @@
                     </v-slide-y-transition>
                 </div>
             </v-content>
-            <LayoutFooter></LayoutFooter>
+            <layoutFooter></layoutFooter>
         </main>
     </div>
 </template>
