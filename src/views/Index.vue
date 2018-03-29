@@ -28,8 +28,8 @@
 <script>
 import { VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
-import CoverList from "./cover/CoverList";
-import Loader from "./layout/Loader";
+import CoverList from "../components/cover/CoverList";
+import Loader from "../components/layout/Loader";
 import gql from "graphql-tag";
 import marked from "marked";
 

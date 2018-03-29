@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import UserSettings from "./SettingsPage.vue";
-import UserLibrary from "./LibraryPage.vue";
-import UserFriends from "./FriendsPage.vue";
-import UserProfile from "./ProfilePage.vue";
+import UserSettings from "./Settings";
+import UserLibrary from "./Library";
+import UserFriends from "./Friends";
+import UserProfile from "./Profile";
 
 import {
 	VTabs,

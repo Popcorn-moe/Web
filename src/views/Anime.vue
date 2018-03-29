@@ -63,14 +63,14 @@
 </template>
 
 <script>
-import Loader from "../layout/Loader";
+import Loader from "../components/layout/Loader";
 import { VBtn, VIcon } from "vuetify/es5/components";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
-import Rating from "./Rating";
-import MediaList from "../media/MediaList";
-import PImg from "../ProgressiveImg";
+import Rating from "../components/anime/Rating";
+import MediaList from "../components/media/MediaList";
+import PImg from "../components/ProgressiveImg";
 import gql from "graphql-tag";
-import { client } from "../../graphql";
+import { client } from "../graphql";
 
 export default {
 	props: ["id"],
@@ -210,7 +210,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main.styl';
+  @import '../stylus/main.styl';
 
   .uppercase {
     text-transform: uppercase;

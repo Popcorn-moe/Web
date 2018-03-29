@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { VBtn, VTextField, VIcon, VAlert } from "vuetify/es5/components";
+import { VBtn, VTextField, VIcon, VAlert } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import { login, ssoLogin } from "../../utils/auth";
 import { mapActions } from "vuex";

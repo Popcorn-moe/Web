@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from "vuetify/es5/components";
+import { VBtn, VIcon } from "vuetify";
 import { VFadeTransition } from "vuetify/es5/components/transitions";
 import LanguageSelect from "./navbar/LanguageSelect";
 import gql from "graphql-tag";

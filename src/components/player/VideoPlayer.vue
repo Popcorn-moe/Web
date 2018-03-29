@@ -33,12 +33,7 @@
 </template>
 
 <script>
-import {
-	VBtn,
-	VIcon,
-	VSlider,
-	VProgressCircular
-} from "vuetify/es5/components";
+import { VBtn, VIcon, VSlider, VProgressCircular } from "vuetify";
 import { VFadeTransition } from "vuetify/es5/components/transitions";
 import PlayerSlider from "./PlayerSlider.vue";
 import "fullscreen-api-polyfill";

@@ -17,7 +17,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { VApp } from "vuetify/es5/components";
+import { VApp } from "vuetify";
 import { VFadeTransition } from "vuetify/es5/components/transitions";
 import Layout from "./components/layout/Layout";
 import AuthLayout from "./components/layout/AuthLayout";

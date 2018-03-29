@@ -86,7 +86,7 @@ import {
 	VBtn,
 	VDialog,
 	VChip
-} from "vuetify/es5/components";
+} from "vuetify";
 import { VCard, VCardTitle } from "vuetify/es5/components/VCard";
 import {
 	VContainer,
@@ -94,7 +94,7 @@ import {
 	VLayout,
 	VSpacer
 } from "vuetify/es5/components/VGrid";
-import Cover from "./cover/Cover.vue";
+import Cover from "../components/cover/Cover.vue";
 import gql from "graphql-tag";
 
 export default {

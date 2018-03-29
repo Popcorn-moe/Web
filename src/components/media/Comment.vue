@@ -68,13 +68,7 @@
 </template>
 
 <script>
-import {
-	VBtn,
-	VDivider,
-	VTextField,
-	VIcon,
-	VProgressLinear
-} from "vuetify/es5/components";
+import { VBtn, VDivider, VTextField, VIcon, VProgressLinear } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import marked from "marked";
 import gql from "graphql-tag";

@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VDivider, VTextField } from "vuetify/es5/components";
+import { VBtn, VIcon, VDivider, VTextField } from "vuetify";
 import {
 	VList,
 	VListGroup,
@@ -111,13 +111,13 @@ import {
 	VListTileTitle
 } from "vuetify/es5/components/VList";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
-import Comment from "./Comment";
-import MediaList from "./MediaList";
-import VideoPlayer from "../player/GlobalPlayer";
-import Loader from "../layout/Loader";
-import PImg from "../ProgressiveImg";
+import Comment from "../components/media/Comment";
+import MediaList from "../components/media/MediaList";
+import VideoPlayer from "../components/player/GlobalPlayer";
+import Loader from "../components/layout/Loader";
+import PImg from "../components/ProgressiveImg";
+import { client } from "../graphql";
 import gql from "graphql-tag";
-import { client } from "../../graphql";
 import clone from "clone";
 
 export default {
@@ -336,7 +336,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main.styl';
+  @import '../stylus/main.styl';
 
   .uppercase {
     text-transform: uppercase;

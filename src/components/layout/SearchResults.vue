@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { VDivider, VSubheader } from "vuetify/es5/components";
+import { VDivider, VSubheader } from "vuetify";
 import {
 	VList,
 	VListGroup,

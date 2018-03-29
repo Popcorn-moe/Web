@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { VIcon } from "vuetify/es5/components";
+import { VIcon } from "vuetify";
 import {
 	VList,
 	VListGroup,

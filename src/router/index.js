@@ -10,41 +10,49 @@ export const routes = [
 		path: "/",
 		name: "Index",
 		t: "route.index",
-		component: () => import("../components/Index")
+		component: () => import("../views/Index")
 	},
 	{
 		icon: "search",
 		path: "/search",
 		name: "Search",
 		t: "route.search",
-		component: () => import("../components/SearchPage")
+		component: () => import("../views/Search")
 	},
 	{
 		icon: "equalizer",
 		path: "/news",
 		name: "News",
 		t: "route.news",
-		component: () => import("../components/news/NewsList.vue")
+		component: () => import("../views/news/NewsList.vue")
 	},
 	{
 		hide: true,
 		path: "/news/:id",
 		name: "NewsPage",
-		component: () => import("../components/news/NewsPage.vue"),
+		component: () => import("../views/news/News.vue"),
 		props: true
 	},
 	{
 		hide: true,
 		path: "/anime/:id",
 		name: "Anime",
-		component: () => import("../components/anime/AnimePage"),
+		component: () => import("../views/Anime"),
 		props: true
 	},
 	{
 		hide: true,
 		path: "/anime/:id/:mediaId",
 		name: "Media",
-		component: () => import("../components/media/MediaPage"),
+		component: () => import("../views/Media"),
+		meta: { hasPlayer: true, removeMobileNavbar: true },
+		props: true
+	},
+	{
+		hide: true,
+		path: "/anime/:id/:season/:episode",
+		name: "Episode",
+		component: () => import("../views/Media"),
 		meta: { hasPlayer: true, removeMobileNavbar: true },
 		props: true
 	},
@@ -52,48 +60,40 @@ export const routes = [
 		hide: true,
 		path: "/author/:id",
 		name: "Author",
-		component: () => import("../components/author/AuthorPage"),
+		component: () => import("../views/Author"),
 		meta: { hasPlayer: true },
-		props: true
-	},
-	{
-		hide: true,
-		path: "/anime/:id/:season/:episode",
-		name: "Episode",
-		component: () => import("../components/media/MediaPage"),
-		meta: { hasPlayer: true, removeMobileNavbar: true },
 		props: true
 	},
 	{
 		hide: true,
 		name: "Login",
 		path: "/auth/login",
-		component: () => import("../components/auth/Login")
+		component: () => import("../views/auth/Login")
 	},
 	{
 		hide: true,
 		name: "SignUp",
 		path: "/auth/signup",
-		component: () => import("../components/auth/SignUp")
+		component: () => import("../views/auth/SignUp")
 	},
 	{
 		hide: true,
 		name: "User",
 		path: "/user/:userLogin/:page(profile|library|friends|settings)",
-		component: () => import("../components/user/UserPage"),
+		component: () => import("../views/user/User"),
 		props: true
 	},
 	{
 		hide: true,
 		name: "Translations",
 		path: "/translations",
-		component: () => import("../components/Translations")
+		component: () => import("../views/Translations")
 	},
 	{
 		hide: true,
 		name: "404",
 		path: "/404",
-		component: () => import("../components/404")
+		component: () => import("../views/404")
 	},
 	{
 		hide: true,

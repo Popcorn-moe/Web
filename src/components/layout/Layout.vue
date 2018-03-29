@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-if="$vuetify.breakpoint.mdAndUp">
+        <template v-if="$vuetify.breakpoint.smAndUp">
             <navbar :value="drawer" @input="toggleDrawer"></navbar>
             <v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="el-float main-color" small>
                 <v-icon>menu</v-icon>
@@ -26,7 +26,7 @@
 <script>
 import Loader from "./Loader";
 
-import { VBtn, VIcon } from "vuetify/es5/components";
+import { VBtn, VIcon } from "vuetify";
 import { VContent, VContainer } from "vuetify/es5/components/VGrid";
 import { VSlideYTransition } from "vuetify/es5/components/transitions";
 import { mapGetters, mapActions } from "vuex";

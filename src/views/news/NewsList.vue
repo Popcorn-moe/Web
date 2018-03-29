@@ -20,7 +20,7 @@
 
 <script>
 import gql from "graphql-tag";
-import { VBtn, VIcon } from "vuetify/es5/components";
+import { VBtn, VIcon } from "vuetify";
 import { VCard, VCardTitle, VCardMedia } from "vuetify/es5/components/VCard";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 

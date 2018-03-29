@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import Loader from "../layout/Loader";
-import CoverList from "../cover/CoverList.vue";
-import { VBtn, VIcon } from "vuetify/es5/components";
+import Loader from "../components/layout/Loader";
+import CoverList from "../components/cover/CoverList.vue";
+import { VBtn, VIcon } from "vuetify";
 import { VCarousel, VCarouselItem } from "vuetify/es5/components/VCarousel";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main'
+  @import '../stylus/main'
 
   .banner {
     .link {

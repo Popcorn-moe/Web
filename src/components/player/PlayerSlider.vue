@@ -1,5 +1,5 @@
 <script>
-import VSlider from "vuetify/es5/components/VSlider/VSlider";
+import { VSlider } from "vuetify";
 
 export default {
 	name: "player-slider",
