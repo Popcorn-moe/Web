@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VList, VAvatar } from "vuetify/es5/components";
+import { VBtn, VIcon, VList, VAvatar } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
 

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon } from "vuetify/es5/components";
+import { VBtn, VIcon } from "vuetify";
 import { Touch } from "vuetify/es5/directives";
 import { mapGetters } from "vuex";
 import Cover from "./Cover";

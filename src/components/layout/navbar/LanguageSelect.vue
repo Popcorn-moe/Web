@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { VSelect, VAvatar } from "vuetify/es5/components";
+import { VSelect, VAvatar } from "vuetify";
 import {
 	VListTileAvatar,
 	VListTileContent,

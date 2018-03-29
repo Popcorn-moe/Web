@@ -44,7 +44,7 @@ import {
 	VListTileTitle
 } from "vuetify/es5/components/VList";
 import { mapActions } from "vuex";
-import { VIcon } from "vuetify/es5/components";
+import { VIcon } from "vuetify";
 import { logout } from "@/utils/auth";
 
 export default {

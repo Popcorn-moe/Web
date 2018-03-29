@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import { VIcon } from "vuetify/es5/components";
-import Rating from "../anime/Rating";
+import { VIcon } from "vuetify";
+import Rating from "../Rating";
 import PImg from "../ProgressiveImg";
 
 export default {

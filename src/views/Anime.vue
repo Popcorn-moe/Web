@@ -64,9 +64,9 @@
 
 <script>
 import Loader from "../components/layout/Loader";
-import { VBtn, VIcon } from "vuetify/es5/components";
+import { VBtn, VIcon } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
-import Rating from "../components/anime/Rating";
+import Rating from "../components/Rating";
 import MediaList from "../components/media/MediaList";
 import PImg from "../components/ProgressiveImg";
 import gql from "graphql-tag";

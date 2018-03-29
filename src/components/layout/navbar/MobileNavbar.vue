@@ -94,7 +94,7 @@ import {
 	VCard,
 	VMenu,
 	VSwitch
-} from "vuetify/es5/components";
+} from "vuetify";
 import { VSpacer } from "vuetify/es5/components/VGrid";
 import {
 	VList,

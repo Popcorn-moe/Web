@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { VIcon } from "vuetify/es5/components";
+import { VIcon } from "vuetify";
 
 export default {
 	name: "Rating",
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main.styl';
+  @import '../stylus/main.styl';
 
   .rating .star {
     cursor: pointer;
