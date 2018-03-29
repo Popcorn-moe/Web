@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs3>
         <div class="infos elevation-3">
-          <h6 class="text-xs-center" v-t="{ path: 'profile.about', args: { user: user.login } }"></h6>
+          <h3 class="text-xs-center" v-t="{ path: 'profile.about', args: { user: user.login } }"></h3>
           <v-divider></v-divider>
           <v-icon>cake</v-icon>
           <p>Date of Birth Bla bla bla</p>

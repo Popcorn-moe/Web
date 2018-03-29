@@ -96,6 +96,8 @@ export default {
 			"change",
 			this.onScreenChange
 		);
+
+		if ("mediaSession" in navigator) navigator.mediaSession.metadata = null;
 	},
 	methods: {
 		onKeyDown(event) {
