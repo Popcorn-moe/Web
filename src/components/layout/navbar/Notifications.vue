@@ -123,7 +123,6 @@ export default {
 					}
 				})
 				.then(data => {
-					console.log(data);
 					this.$apollo.queries.notifs.refetch();
 				});
 		},
@@ -142,7 +141,6 @@ export default {
 					}
 				})
 				.then(data => {
-					console.log(data);
 					this.$apollo.queries.notifs.refetch();
 				});
 		}

@@ -51,13 +51,7 @@
 </template>
 
 <script>
-import {
-	VExpansionPanel,
-	VBtn,
-	VIcon,
-	VTextField,
-	VDivider
-} from "vuetify/es5/components";
+import { VExpansionPanel, VBtn, VIcon, VTextField, VDivider } from "vuetify";
 import VExpansionPanelContent from "vuetify/es5/components/VExpansionPanel/VExpansionPanelContent";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";

@@ -56,7 +56,7 @@
 
 
 <script>
-import { VIcon, VBtn } from "vuetify/es5/components";
+import { VIcon, VBtn } from "vuetify";
 import {
 	VList,
 	VListGroup,
@@ -121,8 +121,7 @@ export default {
 					}
 				}
 			`,
-			update: function({ me }) {
-				console.log(me);
+			update({ me }) {
 				this.playlists = me.playlists;
 				this.currentPlaylist = this.playlists[0];
 				return me;

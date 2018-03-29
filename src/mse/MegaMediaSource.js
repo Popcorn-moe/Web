@@ -41,13 +41,11 @@ export default class MegaMediaSource {
 
 	sourceOpen() {
 		this.readInitSegment().then(([data, segment]) => {
-			console.log(data, segment.byteLength);
-			for (const seek of data.Segment.SeekHead) {
+			/*for (const seek of data.Segment.SeekHead) {
 				if (seek.SeekID && byteArrayToLong(seek.SeekID.data) == 0x1c53bb6b)
 					console.log("Cue Offset", seek);
-			}
+			}*/
 			this.cues = MegaMediaSource.getCues(data);
-			console.log(this.cues);
 			this.sourceBuffer = this.mediaSource.addSourceBuffer(
 				MegaMediaSource.getCodec(data)
 			);
@@ -66,7 +64,6 @@ export default class MegaMediaSource {
 		this.seekQueue = this.seekQueue.then(
 			_ =>
 				new Promise(resolve => {
-					console.log("Seeking");
 					let time = this.video.currentTime;
 					if (this.lastSeek == time) return resolve();
 					this.lastSeek = time;
@@ -82,7 +79,6 @@ export default class MegaMediaSource {
 					const next = this.cues.find(e => e.offset >= this.lastByte);
 
 					const seek = () => {
-						console.log("Seek");
 						const next = this.cues
 							.slice(0)
 							.reverse()
@@ -98,15 +94,6 @@ export default class MegaMediaSource {
 						});
 						stream.on("data", data => this.appendBuffer(data));
 						stream.once("end", seek);
-						console.log(
-							"Next",
-							next,
-							this.lastByte,
-							this.video.currentTime,
-							this.mediaSource.duration,
-							this.video.duration,
-							e
-						);
 					}
 				})
 		);

@@ -71,7 +71,6 @@ export default {
 	},
 	computed: {
 		musics() {
-			console.log(this.anime.medias);
 			return this.anime.medias.filter(
 				({ type }) => type === "OPENING" || type === "ENDING" || type === "OST"
 			);

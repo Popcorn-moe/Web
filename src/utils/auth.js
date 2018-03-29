@@ -77,8 +77,6 @@ export function login(username, password) {
 		.then(({ csrf, ...fields }) => {
 			localStorage.setItem("csrf", csrf);
 
-			console.log(fields);
-
 			if (window.PasswordCredential) {
 				const cred = new PasswordCredential({
 					id: fields.email,

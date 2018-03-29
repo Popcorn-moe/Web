@@ -12,7 +12,7 @@
           </v-toolbar>
           <v-list class="list-messages">
             <template>
-              <v-list-tile @click="">
+              <v-list-tile>
                 <v-list-tile-action>
                   <v-icon>info</v-icon>
                 </v-list-tile-action>
@@ -27,7 +27,7 @@
               </v-list-tile>
             </template>
             <template>
-              <v-list-tile @click="">
+              <v-list-tile>
                 <v-list-tile-action>
                   <v-icon>info</v-icon>
                 </v-list-tile-action>
@@ -42,7 +42,7 @@
               </v-list-tile>
             </template>
             <template>
-              <v-list-tile @click="">
+              <v-list-tile>
                 <v-list-tile-action>
                   <v-icon>info</v-icon>
                 </v-list-tile-action>
@@ -57,7 +57,7 @@
               </v-list-tile>
             </template>
             <template>
-              <v-list-tile @click="">
+              <v-list-tile>
                 <v-list-tile-action>
                   <v-icon>info</v-icon>
                 </v-list-tile-action>
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { VIcon, VBtn, VAvatar, VTextField } from "vuetify/es5/components";
+import { VIcon, VBtn, VAvatar, VTextField } from "vuetify";
 import { VToolbar, VToolbarSideIcon } from "vuetify/es5/components/VToolbar";
 import { VCard } from "vuetify/es5/components/VCard";
 import {

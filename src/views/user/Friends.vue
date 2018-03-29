@@ -130,7 +130,6 @@
 </template>
 
 <script>
-import { VTabsItems, VTabItem } from "vuetify/es5/components/VTabs";
 import {
 	VIcon,
 	VBtn,
@@ -139,7 +138,8 @@ import {
 	VSelect,
 	VChip,
 	VAvatar
-} from "vuetify/es5/components";
+} from "vuetify";
+import { VTabsItems, VTabItem } from "vuetify/es5/components/VTabs";
 import {
 	VList,
 	VListGroup,

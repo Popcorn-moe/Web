@@ -4,8 +4,8 @@ export function getCookiesMap(cookiesString) {
 	return cookiesString
 		.split(";")
 		.map(cookieString => cookieString.trim().split("="))
-		.reduce((acc, [name, value]) => {
-			acc[name] = value;
+		.reduce((acc, [name, ...values]) => {
+			acc[name] = values.join("=");
 			return acc;
 		}, {});
 }

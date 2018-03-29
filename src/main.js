@@ -1,12 +1,12 @@
 import Vue from "vue";
-import { Vuetify } from "vuetify/es5/components";
+import { Vuetify } from "vuetify";
+import colors from "vuetify/es5/util/colors";
+import VueHead from "vue-head";
 import App from "./App";
 import router from "./router";
 import store, { onLoad } from "./store";
 import apolloProvider from "./graphql";
 import i18n from "./i18n";
-import colors from "vuetify/es5/util/colors";
-import VueHead from "vue-head";
 import autoSignIn from "./credentials";
 
 const mainColor = "#f6416c";

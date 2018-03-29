@@ -11,7 +11,7 @@ export default Loader;
     height: 100vh;
     width: 10%;
     margin auto auto;
-    z-index: 9999;
+    z-index: 2;
 
     &.float {
       height: inherit;

@@ -36,9 +36,7 @@ export default {
 
 		if (!videoPlayer.instance) {
 			videoPlayer.instance = new Vue(VideoPlayer);
-			VIDEO_PROPS.forEach(prop =>
-				console.log((videoPlayer.instance[prop] = this[prop]))
-			);
+			VIDEO_PROPS.forEach(prop => (videoPlayer.instance[prop] = this[prop]));
 			videoPlayer.instance.$mount();
 			videoPlayer.destroyed = false;
 		}
