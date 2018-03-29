@@ -9,12 +9,15 @@ import colors from "vuetify/es5/util/colors";
 import VueHead from "vue-head";
 import autoSignIn from "./credentials";
 
+const mainColor = "#f6416c";
+const secondaryColor = "#fddd84";
+
 Vue.config.productionTip = false;
 Vue.use(Vuetify, {
 	theme: {
-		primary: "#f6416c",
-		accent: "#f6416c",
-		secondary: colors.grey.darken3,
+		primary: mainColor,
+		accent: mainColor,
+		secondary: secondaryColor,
 		info: colors.blue.base,
 		warning: colors.amber.base,
 		error: colors.red.accent2,

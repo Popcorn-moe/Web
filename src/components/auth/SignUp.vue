@@ -2,31 +2,31 @@
   <div class="elevation-2">
     <v-layout row wrap>
       <v-flex sm4 xs12 class="left-panel">
-        <div class="top-logo text-xs-center">
-          <object data="/static/logo-animated.svg" type="image/svg+xml" class="itop-logo"></object>
+        <div class="hidden-sm-and-up text-xs-center">
+          <object data="/static/logo-animated.svg" type="image/svg+xml" width="200"></object>
         </div>
-        <h1 class="buttons-title" v-t="'sign_up.sign_up_with'"></h1>
-        <div class="social-buttons">
-          <v-btn class="social-button google-color" large block @click.stop="signup('google')">
+        <h3 class="pt-4 text-xs-center" v-t="'sign_up.sign_up_with'"></h3>
+        <div class="social-buttons pa-2">
+          <v-btn color="google-color" depressed large block @click.stop="login('google')">
             <img src="/static/icons/google-icon.svg">
             Google
           </v-btn>
-          <v-btn class="social-button discord-color" large block @click.stop="signup('discord')">
+          <v-btn color="discord-color" depressed large block @click.stop="login('discord')">
             <img src="/static/icons/discord-icon.svg">
             Discord
           </v-btn>
-          <v-btn class="social-button twitter-color" large block @click.stop="signup('twitter')">
+          <v-btn color="twitter-color" depressed large block @click.stop="login('twitter')">
             <img src="/static/icons/twitter-icon.svg">
             Twitter
           </v-btn>
-          <v-btn class="social-button kitsu-color" large block @click.stop="signup('kitsu')">
+          <v-btn color="kitsu-color" depressed large block @click.stop="login('kitsu')">
             <img src="/static/icons/kitsu-icon.svg">
             Kitsu
           </v-btn>
         </div>
       </v-flex>
       <v-flex class="fields-container" sm8 xs12>
-        <div class="inputs">
+        <div class="px-5 pt-3">
           <v-text-field v-model="login" :label="$t('sign_up.login')"></v-text-field>
           <v-text-field v-model="email" :label="$t('sign_up.mail')"></v-text-field>
           <v-text-field :label="$t('sign_up.password')"
@@ -41,11 +41,11 @@
                         :type="hidePasswordConfirm ? 'password' : 'text'"></v-text-field>
           <v-checkbox :label="$t('sign_up.newsletter')" v-model="newsletter"></v-checkbox>
           <div class="text-xs-center">
-            <v-btn class="login-button secondary-color black--text" large @click.stop="signup()" v-t="'sign_up.sign_up'"></v-btn>
+            <v-btn class="pa-1" dark color="secondary" depressed large @click.stop="signup()" v-t="'sign_up.sign_up'"></v-btn>
           </div>
         </div>
-        <div class="link-container">
-          <router-link replace :to="{ name: 'Login' }" v-t="'sign_up.sign_in'"></router-link>
+        <div class="pa-3">
+          <router-link class="link" replace :to="{ name: 'Login' }" v-t="'sign_up.sign_in'"></router-link>
         </div>
       </v-flex>
     </v-layout>
@@ -134,36 +134,17 @@ export default {
       background-color: rgba(255, 255, 255, 0.71);
     }
 
-    .top-logo {
-      @media (min-width: 600px) {
-        display: none;
-      }
-
-      .itop-logo {
-        width: 200px;
-      }
-    }
-
-    .buttons-title {
-      padding-top: 30px;
-      text-align: center;
-      color: #212121 !important;
-      font-size: 20px;
-    }
     .social-buttons {
-      padding: 8px;
-
       @media (max-width: 600px) {
         padding: 10%;
       }
 
-      .social-button {
-        .btn__content img {
+      .btn {
+        img {
           position: absolute;
           left: 10px;
           height: 35px;
         }
-        box-shadow: none;
         border-radius: 10px;
         margin-top: 20px;
       }
@@ -171,28 +152,11 @@ export default {
   }
 
   .fields-container {
-    background-color: rgba(255, 255, 255, 0.71);
+    background-color: rgba(255, 255, 255, 0.70);
 
-    .inputs {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-
-    .link-container {
-      width: 100%;
-      padding: 15px;
-
-      a {
-        text-decoration: none;
-        color: #4b4b4b !important;
-      }
-    }
-
-    .login-button {
-      box-shadow: none;
-      margin: 0 !important;
+    .link {
+      text-decoration: none;
+      color: #4b4b4b !important;
     }
   }
 </style>

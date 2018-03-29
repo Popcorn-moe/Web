@@ -2,33 +2,33 @@
   <div class="elevation-2">
     <v-layout row wrap>
       <v-flex sm4 xs12 class="left-panel">
-        <div class="top-logo text-xs-center">
-          <object data="/static/logo-animated.svg" type="image/svg+xml" class="itop-logo"></object>
+        <div class="hidden-sm-and-up text-xs-center">
+          <object data="/static/logo-animated.svg" type="image/svg+xml" width="200"></object>
         </div>
-        <h1 class="buttons-title" v-t="'login.connect_with'"></h1>
-        <div class="social-buttons">
-          <v-btn class="social-button" color="google-color" large block @click.stop="login('google')">
+        <h3 class="pt-4 text-xs-center" v-t="'login.connect_with'"></h3>
+        <div class="social-buttons pa-2">
+          <v-btn color="google-color" depressed large block @click.stop="login('google')">
             <img src="/static/icons/google-icon.svg">
             Google
           </v-btn>
-          <v-btn class="social-button" color="discord-color" large block @click.stop="login('discord')">
+          <v-btn color="discord-color" depressed large block @click.stop="login('discord')">
             <img src="/static/icons/discord-icon.svg">
             Discord
           </v-btn>
-          <v-btn class="social-button" color="twitter-color" large block @click.stop="login('twitter')">
+          <v-btn color="twitter-color" depressed large block @click.stop="login('twitter')">
             <img src="/static/icons/twitter-icon.svg">
             Twitter
           </v-btn>
-          <v-btn class="social-button" color="kitsu-color" large block @click.stop="login('kitsu')">
+          <v-btn color="kitsu-color" depressed large block @click.stop="login('kitsu')">
             <img src="/static/icons/kitsu-icon.svg">
             Kitsu
           </v-btn>
         </div>
       </v-flex>
       <v-flex class="fields-container" sm8 xs12>
-        <div class="middle-icon inputs">
-          <div class="auth-logo text-xs-center">
-            <object data="/static/logo-animated.svg" type="image/svg+xml" class="iauth-logo"></object>
+        <div class="px-5">
+          <div class="hidden-xs-only text-xs-center">
+            <object data="/static/logo-animated.svg" type="image/svg+xml" width="160"></object>
           </div>
           <v-alert
             v-if="alert"
@@ -41,21 +41,23 @@
             @input="alert = null">
             {{ alert.text }}
           </v-alert>
-          <v-text-field :label="$t('login.login')"
+          <v-text-field
+            :label="$t('login.login')"
             v-model="username"
           />
-          <v-text-field :label="$t('login.password')"
+          <v-text-field
+            :label="$t('login.password')"
             v-model="password"
             :append-icon="hidePassword ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (hidePassword = !hidePassword)"
             :type="hidePassword ? 'password' : 'text'"
           />
           <div class="text-xs-right">
-            <v-btn class="login-button secondary-color black--text" large @click.stop="login()" v-t="'login.connect'"></v-btn>
+            <v-btn class="pa-1" dark color="secondary" depressed large @click.stop="login()" v-t="'login.connect'"></v-btn>
           </div>
         </div>
-        <div class="link-container">
-          <router-link replace :to="{ name: 'SignUp' }" v-t="'login.sign_up'"></router-link>
+        <div class="pa-3">
+          <router-link class="link" replace :to="{ name: 'SignUp' }" v-t="'login.sign_up'"></router-link>
         </div>
       </v-flex>
     </v-layout>
@@ -134,40 +136,20 @@ export default {
     background-color: white;
 
     @media (max-width: 600px) {
-      background-color: rgba(255, 255, 255, 0.71);
-    }
-
-    .top-logo {
-      @media (min-width: 600px) {
-        display: none;
-      }
-
-      .itop-logo {
-        width: 200px;
-      }
-    }
-
-    .buttons-title {
-      padding-top: 30px;
-      text-align: center;
-      color: #212121 !important;
-      font-size: 20px;
+      background-color: rgba(255, 255, 255, 0.70);
     }
 
     .social-buttons {
-      padding: 8px;
-
       @media (max-width: 600px) {
         padding: 10%;
       }
 
-      .social-button {
+      .btn {
         img {
           position: absolute;
           left: 10px;
           height: 35px;
         }
-        box-shadow: none;
         border-radius: 10px;
         margin-top: 20px;
       }
@@ -175,40 +157,11 @@ export default {
   }
 
   .fields-container {
-    background-color: rgba(255, 255, 255, 0.71);
+    background-color: rgba(255, 255, 255, 0.70);
 
-    .auth-logo {
-      @media (max-width: 600px) {
-        display: none;
-      }
-
-      .iauth-logo {
-        width: 160px;
-      }
-    }
-
-    .inputs {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      padding-left: 50px;
-      padding-right: 50px;
-    }
-
-    .link-container {
-      width: 100%;
-      padding: 15px;
-
-      a {
-        text-decoration: none;
-        color: #4b4b4b !important;
-      }
-    }
-
-    .login-button {
-      box-shadow: none;
-      margin: 0 !important;
-      padding-left 5px;
-      padding-right 5px;
+    .link {
+      text-decoration: none;
+      color: #4b4b4b !important;
     }
   }
 </style>
