@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <v-footer class="footer pt-3" absolute inset app height="auto">
         <v-container grid-list-md>
             <v-layout row wrap>
                 <v-flex sm6 lg4>
@@ -43,10 +43,11 @@
                 </ul>
             </div>
         </v-container>
-    </div>
+    </v-footer>
 </template>
 
 <script>
+import { VFooter } from 'vuetify'
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 
 export default {
@@ -54,7 +55,8 @@ export default {
 	components: {
 		VContainer,
 		VFlex,
-		VLayout
+		VLayout,
+        VFooter
 	}
 };
 </script>
@@ -62,9 +64,8 @@ export default {
 <style lang="stylus">
 
     .footer {
-        background-color: #f1f1f1
-        padding-top 15px
-        
+
+
         p {
             margin-top 15px
             text-align justify
@@ -102,12 +103,6 @@ export default {
         }
 
         
-    }
-
-    .application.theme--dark { 
-        .footer {
-            background-color: #161616 !important
-        }
     }
 
 </style>
