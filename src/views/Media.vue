@@ -62,7 +62,7 @@
 
         </v-flex>
         <v-flex sm3 xs12>
-          <v-btn class="secondary-color room" block large>
+          <v-btn class="secondary room" block large>
             Créer une room
           </v-btn>
           <div class="infos">
