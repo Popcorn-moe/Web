@@ -1,7 +1,7 @@
 <template>
-  <v-container class="profile-container">
-    <v-layout>
-      <v-flex xs3>
+  <v-container class="profile-container" fluid grid-list-md>
+    <v-layout row wrap>
+      <v-flex lg3 xs12>
         <div class="infos elevation-3">
           <h3 class="text-xs-center" v-t="{ path: 'profile.about', args: { user: user.login } }"></h3>
           <v-divider></v-divider>
@@ -12,22 +12,20 @@
           <p>Eddy Malou (E double D Y trait d'union M A L O U) dont la signification est imposer la force vers le valium[1], c'est à dire l'estime du savoir (les gens qui connaissent beaucoup de choses), est le premier savant de toute la République Démocratique du Congo.</p>
         </div>
       </v-flex>
-      <v-flex xs9>
-        <v-container v-if="isMe">
-          <v-layout>
-            <v-flex xs10>
-              <v-text-field
-                prepend-icon="message"
-                :placeholder="$t('profile.send_message')"
-                single-line
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs2>
-              <v-btn primary block top left class="white--text"> {{ $t('profile.send_message_btn') }} <v-icon right>send</v-icon></v-btn>
-            </v-flex>
-          </v-layout>
-          <p v-t="'profile.empty_events'" v-if="events.length === 0"></p>
-        </v-container>
+      <v-flex lg9 xs12>
+        <v-layout row wrap v-if="isMe">
+          <v-flex xs10>
+            <v-text-field
+              prepend-icon="message"
+              :placeholder="$t('profile.send_message')"
+              single-line
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs2>
+            <v-btn block top left class="primary white--text"> {{ $t('profile.send_message_btn') }} <v-icon right>send</v-icon></v-btn>
+          </v-flex>
+        </v-layout>
+        <p v-t="'profile.empty_events'" v-if="events.length === 0"></p>
         <div class="timeline">
           <div class="line"></div>
           <div v-for="(day, k) in timeline" :key="k" class="timeline-elem">

@@ -2,10 +2,10 @@
     <div>
       <div class="user-page-banner"></div>
       <v-layout>
-        <v-flex offset-xs1 xs2>
+        <v-flex hidden-xs-only offset-sm1 sm2>
           <img class="user-cover elevation-4" :src="user.avatar">
         </v-flex>
-        <v-flex xs9>
+        <v-flex xs12 lg9>
           <v-tabs class="user-top-nav" :value="page" @input="changeUrl">
             <v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
             <v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
