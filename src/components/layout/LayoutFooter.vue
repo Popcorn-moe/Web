@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { VFooter } from 'vuetify'
+import { VFooter } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 
 export default {
@@ -56,7 +56,7 @@ export default {
 		VContainer,
 		VFlex,
 		VLayout,
-        VFooter
+		VFooter
 	}
 };
 </script>

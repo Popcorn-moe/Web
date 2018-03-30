@@ -179,7 +179,13 @@ export default {
 						: "",
 					album: this.title,
 					artwork: [
-						{ src: this.media.anime.cover, sizes: "150x210", type: "image/png" }
+						{
+							src: this.media.anime.cover,
+							sizes: "180x250"
+						},
+						{
+							src: this.media.anime.background
+						}
 					]
 				});
 			}

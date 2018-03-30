@@ -80,13 +80,7 @@
 </template>
 
 <script>
-import {
-	VTextField,
-	VSelect,
-	VBtn,
-	VDialog,
-	VChip
-} from "vuetify";
+import { VTextField, VSelect, VBtn, VDialog, VChip } from "vuetify";
 import { VCard, VCardTitle } from "vuetify/es5/components/VCard";
 import {
 	VContainer,

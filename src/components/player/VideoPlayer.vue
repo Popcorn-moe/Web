@@ -162,7 +162,7 @@ export default {
 				const host = this.value.split("/")[2];
 				if (host.startsWith("mega")) {
 					import("../../mse/MegaMediaSource").then(
-						MegaMediaSource =>
+						({ default: MegaMediaSource }) =>
 							(this.mse = new MegaMediaSource(this.value, this.$refs.video))
 					);
 				} else video.src = this.value;
