@@ -112,7 +112,8 @@ const webpackConfig = merge(baseWebpackConfig, {
 			swDest: "sw.js"
 		}),
 		new BundleAnalyzerPlugin({
-			analyzerMode: "static"
+			analyzerMode: "static",
+			openAnalyzer: false
 		})
 	]
 });
