@@ -7,7 +7,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerNavigationRoute("/index.html", {
-	blacklist: [/static/]
+	blacklist: [/static/, /report\.html/]
 });
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest);

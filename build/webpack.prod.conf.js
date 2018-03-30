@@ -12,6 +12,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const workboxPlugin = require("workbox-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 const env = require("../config/prod.env");
 
@@ -109,6 +110,9 @@ const webpackConfig = merge(baseWebpackConfig, {
 		new workboxPlugin.InjectManifest({
 			swSrc: "./src/sw.js",
 			swDest: "sw.js"
+		}),
+		new BundleAnalyzerPlugin({
+			analyzerMode: "static"
 		})
 	]
 });
@@ -127,12 +131,6 @@ if (config.build.productionGzip) {
 			minRatio: 0.8
 		})
 	);
-}
-
-if (config.build.bundleAnalyzerReport) {
-	const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-		.BundleAnalyzerPlugin;
-	webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 
 module.exports = webpackConfig;
