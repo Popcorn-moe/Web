@@ -82,7 +82,7 @@ export default {
     background-size: cover;
 
     @media (max-width: 600px) {
-      height: auto;
+      height: 100vh;
     }
 
     .auth-center {
@@ -99,6 +99,7 @@ export default {
         transform: none;
         min-width: 0;
         width: 100%;
+        height: 100vh;
       }
 
     }

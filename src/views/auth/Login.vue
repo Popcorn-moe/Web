@@ -1,6 +1,6 @@
 <template>
   <div class="elevation-2">
-    <v-layout row wrap>
+    <v-layout row wrap fill-height>
       <v-flex sm4 xs12 class="left-panel">
         <div class="hidden-sm-and-up text-xs-center">
           <object data="/static/logo-animated.svg" type="image/svg+xml" width="200"></object>
