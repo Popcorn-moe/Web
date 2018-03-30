@@ -6,7 +6,7 @@
 			 avatar
 			 v-for="user in result.users"
 			 :key="user.id"
-			 :to="{ name: 'Account', params: { userLogin: user.login, page: 'profile' } }"
+			 :to="{ name: 'User', params: { userLogin: user.login, page: 'profile' } }"
 			 @click.stop="$emit('close')"
 			>
 			<v-list-tile-avatar>
