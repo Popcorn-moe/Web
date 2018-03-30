@@ -454,6 +454,11 @@ export default {
 				background-repeat: no-repeat;
 				background-position: center;
 			}
+
+			iframe {
+				padding: 0px;
+				height: 250px;
+			}
     }
   }
 
