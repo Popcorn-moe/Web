@@ -37,7 +37,6 @@ import { VBtn, VIcon, VSlider, VProgressCircular } from "vuetify";
 import { VFadeTransition } from "vuetify/es5/components/transitions";
 import PlayerSlider from "./PlayerSlider.vue";
 import "fullscreen-api-polyfill";
-import MegaMediaSource from "../../mse/MegaMediaSource";
 import isMobile from "ismobilejs";
 const inputs = ["input", "select", "button", "textarea"];
 
@@ -158,12 +157,17 @@ export default {
 			this.showControls();
 			if (!button && isMobile.any) return;
 			const { video } = this.$refs;
+
 			if (!this.hasPlayed) {
 				const host = this.value.split("/")[2];
-				if (host.startsWith("mega"))
-					this.mse = new MegaMediaSource(this.value, this.$refs.video);
-				else video.src = this.value;
+				if (host.startsWith("mega")) {
+					import("../../mse/MegaMediaSource").then(
+						MegaMediaSource =>
+							(this.mse = new MegaMediaSource(this.value, this.$refs.video))
+					);
+				} else video.src = this.value;
 			}
+
 			if (isMobile.any) video.volume = 1;
 			this.hasPlayed = true;
 			paused ? video.play() : video.pause();
