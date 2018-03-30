@@ -32,21 +32,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 		chunkFilename: utils.assetsPath("js/[id].[chunkhash].js")
 	},
 	optimization: {
-		minimize: false,
-		runtimeChunk: {
-			name: "vendor"
-		},
-		splitChunks: {
-			cacheGroups: {
-				default: false,
-				commons: {
-					test: /node_modules/,
-					name: "vendor",
-					chunks: "initial",
-					minSize: 1
-				}
-			}
-		}
+		minimize: false
 	},
 	plugins: [
 		// http://vuejs.github.io/vue-loader/en/workflow/production.html
