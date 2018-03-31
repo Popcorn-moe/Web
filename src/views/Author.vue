@@ -88,7 +88,7 @@ export default {
 							to: { name: "Anime", params: { id } },
 							...fields
 						})
-					)
+				  )
 				: [];
 		}
 	},

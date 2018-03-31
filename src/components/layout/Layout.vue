@@ -9,16 +9,13 @@
         </template>
         <mobile-navbar v-else></mobile-navbar>
 
-        <main>
-            <v-content class="mb-5">
-                <loader v-show="isLoading"></loader>
-                <div v-show="!isLoading">
-                    <v-slide-y-transition mode="out-in">
-                        <router-view></router-view>
-                    </v-slide-y-transition>
-                </div>
-            </v-content>
-        </main>
+        <v-content class="mb-5">
+            <loader v-show="isLoading"></loader>
+            <v-slide-y-transition v-show="!isLoading" mode="out-in">
+                <router-view></router-view>
+            </v-slide-y-transition>
+        </v-content>
+
         <layout-footer></layout-footer>
     </div>
 </template>
@@ -27,7 +24,7 @@
 import Loader from "./Loader";
 
 import { VBtn, VIcon } from "vuetify";
-import { VContent, VContainer } from "vuetify/es5/components/VGrid";
+import { VContent } from "vuetify/es5/components/VGrid";
 import { VSlideYTransition } from "vuetify/es5/components/transitions";
 import { mapGetters, mapActions } from "vuex";
 import Navbar from "./navbar/Navbar";

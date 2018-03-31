@@ -1,26 +1,24 @@
 <template>
-  <div>
+  <v-content class="auth-root" :style="{ 'background-image': `url(${this.moe})` }">
     <v-btn fab @click.stop="$router.go(-1)" class="button-float main-color" small>
       <v-icon>arrow_back</v-icon>
     </v-btn>
     <v-btn fab @click.stop="$apollo.queries.moe.refetch()" class="button-float button-right main-color" small>
       <v-icon>refresh</v-icon>
     </v-btn>
-    <main>
-      <div class="auth-root" :style="{ 'background-image': `url(${this.moe})` }">
-        <v-fade-transition mode="out-in">
-          <router-view class="auth-center"></router-view>
-        </v-fade-transition>
-      </div>
-    </main>
     <div class="button-float button-bottom">
       <language-select class="language" :transparent="false"></language-select>
     </div>
-  </div>
+
+    <v-fade-transition mode="out-in">
+      <router-view class="auth-center"></router-view>
+    </v-fade-transition>
+  </v-content>
 </template>
 
 <script>
 import { VBtn, VIcon } from "vuetify";
+import { VContent } from "vuetify/es5/components/VGrid";
 import { VFadeTransition } from "vuetify/es5/components/transitions";
 import LanguageSelect from "./navbar/LanguageSelect";
 import gql from "graphql-tag";
@@ -34,6 +32,7 @@ export default {
 	components: {
 		VBtn,
 		VIcon,
+		VContent,
 		VFadeTransition,
 		LanguageSelect
 	},
@@ -57,7 +56,7 @@ export default {
 
   .button-float {
     position: fixed !important;
-    z-index: 1000;
+    z-index: 2;
   }
 
   .button-bottom {
@@ -73,17 +72,13 @@ export default {
   }
 
   .auth-root {
-    position: absolute;
-    width: 100%;
     height: 100%;
+    min-height: 100vh;
+
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-
-    @media (max-width: 600px) {
-      height: 100vh;
-    }
 
     .auth-center {
       position: absolute;
@@ -93,13 +88,10 @@ export default {
       min-width: 600px;
 
       @media (max-width: 600px) {
-        position: relative;
-        left: 0;
-        top: 0;
+        position: inherit;
         transform: none;
         min-width: 0;
         width: 100%;
-        height: 100vh;
       }
 
     }
