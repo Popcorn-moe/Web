@@ -181,10 +181,11 @@ export default {
 					artwork: [
 						{
 							src: this.media.anime.cover,
-							sizes: "180x250"
+							sizes: "150x210"
 						},
 						{
-							src: this.media.anime.background
+							src: this.media.anime.cover.replace(/(\?.*)$|$/, "_big$1"),
+							sizes: "600x840"
 						}
 					]
 				});
