@@ -45,7 +45,6 @@ export default {
 	},
 	methods: {
 		showName(r) {
-			console.log(this.focus);
 			return r.rate == this.rate;
 		}
 	}
@@ -56,27 +55,27 @@ export default {
   @import '../stylus/main.styl';
 
   .rating {
-    position relative
-    text-align left
+    position: relative;
+    text-align: left;
 
     .slider {
-      padding 0 !important
-      z-index 1
+      padding: 0 !important
+      z-index: 1;
     }
 
     .tooltip {
       top: -10px !important;
-      width 1px;
+      width: 1px;
     }
 
     .point {
-      display inline-block
-      z-index 0
-      position relative
+      display: inline-block;
+      z-index: 0;
+      position: relative;
       top: -27px;
-      height 10px;
-      width 2px;
-      background-color black
+      height: 10px;
+      width: 2px;
+      background-color: black;
     }
   }
 </style>

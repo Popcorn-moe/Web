@@ -1,7 +1,7 @@
 <template>
   <v-container class="profile-container" fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex lg3 xs12>
+      <v-flex md3 xs12>
         <div class="infos elevation-3">
           <h3 class="text-xs-center" v-t="{ path: 'profile.about', args: { user: user.login } }"></h3>
           <v-divider></v-divider>
@@ -12,7 +12,7 @@
           <p>Eddy Malou (E double D Y trait d'union M A L O U) dont la signification est imposer la force vers le valium[1], c'est à dire l'estime du savoir (les gens qui connaissent beaucoup de choses), est le premier savant de toute la République Démocratique du Congo.</p>
         </div>
       </v-flex>
-      <v-flex lg9 xs12>
+      <v-flex md9 xs12>
         <v-layout row wrap v-if="isMe">
           <v-flex xs10>
             <v-text-field

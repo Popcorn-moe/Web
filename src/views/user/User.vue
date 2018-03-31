@@ -1,11 +1,16 @@
 <template>
     <div>
-      <div class="user-page-banner"></div>
-      <v-layout>
-        <v-flex hidden-xs-only offset-sm1 sm2>
-          <img class="user-cover elevation-4" :src="user.avatar">
-        </v-flex>
-        <v-flex xs12 lg9>
+      <div class="user-page-banner">
+        <div class="user-container">
+          <img class="user-cover" :src="user.avatar">
+          <div class="user-data text-xs-center">
+            <div class="login" v-html="user.login"></div>
+            <v-btn class="primary follow text--primary" outline>Follow</v-btn>
+          </div>
+        </div>
+      </div>
+      <v-layout wrap>
+        <v-flex xs12>
           <v-tabs class="user-top-nav" :value="page" @input="changeUrl">
             <v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
             <v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
@@ -45,6 +50,7 @@ import {
 	VTabsItems,
 	VTabItem
 } from "vuetify/es5/components/VTabs";
+import { VBtn } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
 
@@ -67,7 +73,8 @@ export default {
 		UserLibrary,
 		UserSettings,
 		UserFriends,
-		UserProfile
+		UserProfile,
+		VBtn
 	},
 	methods: {
 		changeUrl(value) {
@@ -95,6 +102,7 @@ export default {
 					user(name: $name) {
 						id
 						avatar
+						login
 					}
 				}
 			`,
@@ -130,6 +138,8 @@ export default {
 <style lang="stylus">
   @import "../../stylus/main.styl";
 
+  $profilePic = 150px;
+
   .user-page-banner {
     width: 100%;
     height: 300px;
@@ -137,16 +147,36 @@ export default {
     -moz-box-shadow: inset 0 -50px 75px 0px #000000;
     -webkit-box-shadow: inset 0 -50px 75px 0px #000000;
     box-shadow: inset 0 -50px 60px -35px #000000;
+    padding-left: 16px;
   }
 
-  .user-cover {
-    width: 100%;
-    height: auto;
-    margin-top: -55%;
-    border: 4px solid white;
-    float: left;
-    border-radius: 100%;
+  .user-container {
+    position: relative
+    left: "calc(25% / 2  - %s)" % ($profilePic / 2);
+    padding-top: ($profilePic / 2);
+    
+    .user-cover {
+      display: inline-block
+      float: left
+      width: $profilePic;
+      height: $profilePic;
+      border-radius: 100%;
+    }
+
+    .user-data {
+      display: inline-block
+      font-size: 25px;
+      padding-left: 20px;
+      padding-top: ($profilePic / 2 - 25px)
+      width: 150px;
+
+      .follow {
+        margin: 0 !important 
+      }
+    }
   }
+
+  
 
   .user-top-nav
   {
@@ -183,6 +213,20 @@ export default {
     }
     .user-cover {
       border-color: $grey.darken-3;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .user-page-banner {
+      height: 350px;  
+    }
+    .user-container {
+      left: "calc(50%  - %s)" % ($profilePic / 2);
+
+      .user-data {
+        padding-left: 0
+        display: block  
+      }
     }
   }
 </style>
