@@ -144,8 +144,8 @@ export default {
     height: auto;
     margin-top: -55%;
     border: 4px solid white;
-    border-radius: 3px;
     float: left;
+    border-radius: 100%;
   }
 
   .user-top-nav

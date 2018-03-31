@@ -18,8 +18,8 @@
                     </v-slide-y-transition>
                 </div>
             </v-content>
-            <layoutFooter></layoutFooter>
         </main>
+        <layout-footer></layout-footer>
     </div>
 </template>
 

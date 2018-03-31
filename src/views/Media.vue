@@ -165,18 +165,12 @@ export default {
 		}
 	},
 	watch: {
-		media() {
-			if (!this.media) {
-				this.$router.replace({ name: "404" });
-				return;
-			}
+		media(media) {
 			this.$emit("updateHead");
 			if ("mediaSession" in navigator) {
 				navigator.mediaSession.metadata = new MediaMetadata({
-					title: this.media.anime.names[0],
-					artist: this.media.anime.authors.length
-						? this.media.anime.authors[0].name
-						: "",
+					title: media.anime.names[0],
+					artist: media.anime.authors.length ? media.anime.authors[0].name : "",
 					album: this.title,
 					artwork: [
 						{
@@ -292,7 +286,13 @@ export default {
 					season: this.season - 1
 				};
 			},
-			update: ({ media }) => clone(media)
+			update({ media }) {
+				if (!media) {
+					this.$router.replace({ name: "404" });
+					return;
+				}
+				return clone(media);
+			}
 		}
 	},
 	components: {
