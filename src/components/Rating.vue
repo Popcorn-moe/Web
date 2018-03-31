@@ -1,33 +1,53 @@
 <template>
   <div class="rating">
-    <v-icon v-for="n in length"
-        :key="n"
-        :class="{ over: n <= over, active: n <= value, star: true }"
-        @mouseover="over = n"
-        @mouseout="over = -1"
-        @click="$emit('input', n)"
+     <v-slider class="slider" :value="value" v-model="rate" thumb-label hide-details step="1" min="0" max="100"></v-slider>
+     <div 
+      v-for="({rate}) in lastRates" 
+      :key="rate"
+      class="point"
+      :style="{ left: `calc(${rate}% - 2px)` }"
+    ></div>
+    <v-tooltip 
+      :value="showName(r)"  
+      v-for="(r, i) in lastRates" 
+      :key="i" 
+      top
     >
-    star
-    </v-icon>
+      <div 
+        class="tooltip" 
+        slot="activator"
+        :style="{ left: `${r.rate}%` }"
+      ></div>
+      <span>{{ r.name }}</span>
+    </v-tooltip>
   </div>
 </template>
 
 <script>
-import { VIcon } from "vuetify";
+import { VIcon, VSlider, VTooltip } from "vuetify";
 
 export default {
 	name: "Rating",
 	props: {
-		value: { type: Number },
-		length: { type: Number, default: 5 }
+		value: { type: Number, default: 50 },
+		lastRates: { type: Array }
 	},
 	data() {
 		return {
-			over: 0
+			rate: 50,
+			focus: false
 		};
 	},
 	components: {
-		VIcon
+		VIcon,
+		VSlider,
+		VTooltip
+	},
+	methods: {
+		showName(r) {
+			console.log(this.focus);
+			return r.rate == this.rate;
+		}
 	}
 };
 </script>
@@ -35,16 +55,28 @@ export default {
 <style lang="stylus">
   @import '../stylus/main.styl';
 
-  .rating .star {
-    cursor: pointer;
-    color: $grey.lighten-1;
+  .rating {
+    position relative
+    text-align left
 
-    &.active {
-      color: $yellow.base;
+    .slider {
+      padding 0 !important
+      z-index 1
     }
 
-    &.over {
-      color: $blue.base;
+    .tooltip {
+      top: -10px !important;
+      width 1px;
+    }
+
+    .point {
+      display inline-block
+      z-index 0
+      position relative
+      top: -27px;
+      height 10px;
+      width 2px;
+      background-color black
     }
   }
 </style>
