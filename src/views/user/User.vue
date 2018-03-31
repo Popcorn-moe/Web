@@ -4,7 +4,7 @@
         <div class="user-container">
           <img class="user-cover" :src="user.avatar">
           <div class="user-data text-xs-center">
-            <div class="login" v-html="user.login"></div>
+            <span class="login">{{ user.login }}</span>
             <v-btn class="primary follow text--primary" outline>Follow</v-btn>
           </div>
         </div>
