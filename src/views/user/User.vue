@@ -59,7 +59,8 @@ export default {
 	props: ["page", "userLogin"],
 	data() {
 		return {
-			user: {}
+			user: {},
+			me: null
 		};
 	},
 	components: {
