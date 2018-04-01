@@ -115,13 +115,6 @@ export default {
 								cover
 							}
 						}
-						... on NewFriendEvent {
-							friend {
-								id
-								login
-								avatar
-							}
-						}
 						... on MessageEvent {
 							message
 						}

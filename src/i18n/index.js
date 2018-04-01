@@ -16,7 +16,8 @@ const i18n = new VueI18n({
 				auth: {
 					profile: "Profile",
 					library: "Library",
-					friends: "Friends",
+					follows: "Follows",
+					followers: "Followers",
 					settings: "Settings",
 					logout: "Logout"
 				}
@@ -38,7 +39,8 @@ const i18n = new VueI18n({
 				auth: {
 					profile: "Profil",
 					library: "Librairie",
-					friends: "Amis",
+					follows: "Abonnements",
+					followers: "Abonnés",
 					settings: "Paramètres",
 					logout: "Se deconnecter"
 				}

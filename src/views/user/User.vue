@@ -5,7 +5,7 @@
           <img class="user-cover" :src="user.avatar">
           <div class="user-data text-xs-center">
             <span class="login">{{ user.login }}</span>
-            <v-btn class="primary follow text--primary" outline>Follow</v-btn>
+            <v-btn class="primary follow text--primary" :outline="user.isFollower" v-if="!isMe" @click.stop="toggleFollow">{{ user.isFollower ? "Unfollow" : "Follow"}}</v-btn>
           </div>
         </div>
       </div>
@@ -14,7 +14,8 @@
           <v-tabs class="user-top-nav" :value="page" @input="changeUrl">
             <v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
             <v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
-            <v-tab activeClass="active" href="#friends" >{{ $t('route.auth.friends') }}</v-tab>
+            <v-tab activeClass="active" href="#follows" >{{ $t('route.auth.follows') }}</v-tab>
+            <v-tab activeClass="active" href="#followers" >{{ $t('route.auth.followers') }}</v-tab>
             <v-tab activeClass="active" href="#settings" class="right" v-if="isMe">{{ $t('route.auth.settings') }}</v-tab>
           </v-tabs>
         </v-flex>
@@ -27,8 +28,8 @@
           <v-tab-item id="library">
             <!--<user-library></user-library>-->
           </v-tab-item>
-          <v-tab-item id="friends">
-            <user-friends :userId="user.id"></user-friends>
+          <v-tab-item id="follows">
+            <user-follows :userId="user.id"></user-follows>
           </v-tab-item>
           <v-tab-item id="settings" v-if="isMe">
             <user-settings></user-settings>
@@ -41,8 +42,9 @@
 <script>
 import UserSettings from "./Settings";
 import UserLibrary from "./Library";
-import UserFriends from "./Friends";
+import UserFollows from "./Follows";
 import UserProfile from "./Profile";
+import clone from "clone";
 
 import {
 	VTabs,
@@ -73,7 +75,7 @@ export default {
 		VLayout,
 		UserLibrary,
 		UserSettings,
-		UserFriends,
+		UserFollows,
 		UserProfile,
 		VBtn
 	},
@@ -89,6 +91,22 @@ export default {
 		},
 		goto404() {
 			this.$router.replace({ name: "404" });
+		},
+		toggleFollow() {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+          mutation toggleFollow($id: ID!) {
+            ${this.user.isFollower ? "unfollow" : "follow"}(id: $id)
+          }
+        `,
+					variables: {
+						id: this.user.id
+					}
+				})
+				.then(({ data: { follow, unfollow } }) => {
+					this.user.isFollower = !unfollow || follow;
+				});
 		}
 	},
 	computed: {
@@ -99,23 +117,25 @@ export default {
 	apollo: {
 		user: {
 			query: gql`
-				query user($name: String!) {
+				query user($name: String!, $me: ID!) {
 					user(name: $name) {
 						id
 						avatar
 						login
+						isFollower(id: $me)
 					}
 				}
 			`,
 			variables() {
 				return {
-					name: this.userLogin
+					name: this.userLogin,
+					me: this.me.id
 				};
 			},
 			skip() {
-				return !this.userLogin;
+				return !this.userLogin || !this.me;
 			},
-			update: ({ user }) => user
+			update: ({ user }) => clone(user)
 		},
 		me: {
 			query: gql`

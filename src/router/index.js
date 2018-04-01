@@ -79,7 +79,7 @@ export const routes = [
 	{
 		hide: true,
 		name: "User",
-		path: "/user/:userLogin/:page(profile|library|friends|settings)",
+		path: "/user/:userLogin/:page(profile|library|follows|settings)",
 		component: () => import("../views/user/User"),
 		props: true
 	},

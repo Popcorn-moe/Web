@@ -16,12 +16,12 @@
 				<v-list-tile-title v-t="'route.auth.library'"></v-list-tile-title>
 			</v-list-tile-content>
 		</v-list-tile>
-		<v-list-tile :to="{ name: 'User', params: { page: 'friends', userLogin: login }}" @click="$emit('close')">
+		<v-list-tile :to="{ name: 'User', params: { page: 'follows', userLogin: login }}" @click="$emit('close')">
 			<v-list-tile-action>
 			<v-icon>group</v-icon>
 			</v-list-tile-action>
 			<v-list-tile-content>
-			<v-list-tile-title v-t="'route.auth.friends'"></v-list-tile-title>
+			<v-list-tile-title v-t="'route.auth.follows'"></v-list-tile-title>
 			</v-list-tile-content>
 		</v-list-tile>
 		<v-list-tile :to="{ name: 'User', params: { page: 'settings', userLogin: login }}" @click="$emit('close')">
