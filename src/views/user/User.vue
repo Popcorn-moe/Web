@@ -152,7 +152,7 @@ export default {
   }
 
   .user-container {
-    position: relative
+    position absolute
     left: "calc(25% / 2  - %s)" % ($profilePic / 2);
     padding-top: ($profilePic / 2);
     
@@ -172,12 +172,10 @@ export default {
       width: 150px;
 
       .follow {
-        margin: 0 !important 
+        margin: 0 !important
       }
     }
   }
-
-  
 
   .user-top-nav
   {
@@ -219,14 +217,28 @@ export default {
 
   @media (max-width: 600px) {
     .user-page-banner {
-      height: 350px;  
+      height: 400px;
+      padding-left: 0;
     }
+
     .user-container {
+      width: 150px;
       left: "calc(50%  - %s)" % ($profilePic / 2);
+      display: block
+      margin 0;
+
+      .user-cover {
+        float none
+      }
 
       .user-data {
+        width: 100%;
+        padding-top: 0
         padding-left: 0
-        display: block  
+        display: block
+        .follow {
+          width 100%
+        }
       }
     }
   }
