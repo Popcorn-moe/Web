@@ -177,8 +177,8 @@ export default {
   }
 
   .user-container {
-    position absolute
-    left: "calc(25% / 2  - %s)" % ($profilePic / 2);
+    position: relative;
+    left: "calc(12.5% - %s)" % ($profilePic / 2);
     padding-top: ($profilePic / 2);
     
     .user-cover {
@@ -197,7 +197,7 @@ export default {
       width: 150px;
 
       .follow {
-        margin: 0 !important
+        margin: 0 !important;
       }
     }
   }
@@ -224,7 +224,7 @@ export default {
 
     .active {
       color: white !important;
-      font-weight bold;
+      font-weight: bold;
       background: linear-gradient(transparent, $main-color);
     }
   }
@@ -249,20 +249,20 @@ export default {
     .user-container {
       width: 150px;
       left: "calc(50%  - %s)" % ($profilePic / 2);
-      display: block
-      margin 0;
+      display: block;
+      margin: 0;
 
       .user-cover {
-        float none
+        float none;
       }
 
       .user-data {
         width: 100%;
-        padding-top: 0
-        padding-left: 0
-        display: block
+        padding-top: 0;
+        padding-left: 0;
+        display: block;
         .follow {
-          width 100%
+          width: 100%;
         }
       }
     }
