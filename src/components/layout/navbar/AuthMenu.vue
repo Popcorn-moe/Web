@@ -25,7 +25,6 @@ import {
 } from "vuetify/es5/components/VList";
 import AuthMenuLinks from "./AuthMenuLinks";
 import gql from "graphql-tag";
-import { mapGetters } from "vuex";
 
 export default {
 	data() {
@@ -42,14 +41,6 @@ export default {
 		VListTileContent,
 		AuthMenuLinks
 	},
-	computed: mapGetters({
-		isAuth: "isAuth"
-	}),
-	watch: {
-		isAuth() {
-			this.$apollo.queries.me.refetch();
-		}
-	},
 	apollo: {
 		me: {
 			query: gql`
@@ -61,7 +52,8 @@ export default {
 					}
 				}
 			`,
-			update: ({ me }) => me
+			update: ({ me }) => me,
+			fetchPolicy: "network-only"
 		}
 	}
 };
