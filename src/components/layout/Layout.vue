@@ -9,7 +9,7 @@
         </template>
         <mobile-navbar v-else></mobile-navbar>
 
-        <v-content class="mb-5">
+        <v-content style="min-height: 100vh;">
             <loader v-show="isLoading"></loader>
             <v-slide-y-transition v-show="!isLoading" mode="out-in">
                 <router-view></router-view>

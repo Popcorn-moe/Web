@@ -1,200 +1,88 @@
 <template>
-  <v-container class="settings-container">
-    <v-expansion-panel class="settings-panel">
-        <v-expansion-panel-content value="true">
-            <div slot="header">Profile</div>
-            <div class="settings-panel-content text-xs-left">
-                <div class="settings-image">
-                    <img class="settings-image" :src="avatar">
-                    <div class="text-xs-center">
-                        <label class="settings-avatar-btn">
-                            <v-btn small class="main-color" :loading="uploadingAvatar" :disabled="uploadingAvatar">
-                                <v-icon class="white--text">save</v-icon>
-                                Changer d'Avatar
-                            </v-btn>
-                            <input type="file" @change="changeAvatar">
-                        </label>
-                    </div>
-                </div>
-                <v-text-field
-                    class="settings-bio"
-                    label="Bio"
-                    multi-line
-                ></v-text-field>
-                <v-menu
-                    lazy
-                    :close-on-content-click="false"
-                    transition="scale-transition"
-                    offset-y
-                    :nudge-left="40"
-                    class="settings-born"
+  <v-container fluid class="settings-page">
+    <v-btn
+        v-if="$vuetify.breakpoint.xs && $route.name !== 'UserSettings'"
+        absolute
+        fab
+        small
+        color="primary"
+        class="ma-2"
+        style="z-index: 3"
+        @click.stop="$router.go(-1)"
+    >
+        <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-layout row wrap fill-height>
+        <v-flex sm2 v-if="$vuetify.breakpoint.smAndUp || $route.name === 'UserSettings'">
+            <v-list dense class="settings-nav elevation-2">
+                <v-subheader>User Settings</v-subheader>
+                <v-list-tile
+                    v-for="route in route.children"
+                    :key="route.name"
+                    :to="{ name: route.name, params: { page: 'settings' } }"
+                    active-class="primary white--text"
                 >
-                    <v-text-field
-                        slot="activator"
-                        label="Date de naissance"
-                        v-model="born"
-                        prepend-icon="event"
-                        readonly
-                    ></v-text-field>
-                    <v-date-picker v-model="born" no-title scrollable actions>
-                        <template slot-scope="{ save, cancel }">
-                        <div class="v-card__actions">
-                            <v-btn flat color="primary" @click.native="cancel()">Cancel</v-btn>
-                            <v-btn flat color="primary" @click.native="save()">Save</v-btn>
-                        </div>
-                        </template>
-                    </v-date-picker>
-                </v-menu>
-                <div class="text-xs-right">
-                    <v-btn class="main-color">
-                        Enregistrer
-                        <v-icon right class="white--text">save</v-icon>
-                    </v-btn>
-                </div>
-            </div>
-        </v-expansion-panel-content>
-        <v-expansion-panel-content>
-            <div slot="header">Amis</div>
-            Lol
-        </v-expansion-panel-content>
-        <v-expansion-panel-content>
-            <div slot="header">Autres</div>
-            Lol
-        </v-expansion-panel-content>
-    </v-expansion-panel>
+                    <v-list-tile-avatar>
+                        <v-icon v-text="route.icon"></v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                        <v-list-tile-title v-t="route.t"></v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-divider v-if="route.divider"></v-divider>
+            </v-list>
+        </v-flex>
+        <v-flex sm10 xs12 v-if="$vuetify.breakpoint.smAndUp || $route.name !== 'UserSettings'">
+            <router-view></router-view>
+        </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
 <script>
+import { VIcon, VBtn, VSubheader, VDivider } from "vuetify";
 import {
-	VExpansionPanel,
-	VBtn,
-	VIcon,
-	VTextField,
-	VDatePicker,
-	VMenu,
-	VProgressCircular
-} from "vuetify";
-import VExpansionPanelContent from "vuetify/es5/components/VExpansionPanel/VExpansionPanelContent";
+	VList,
+	VListTile,
+	VListTileTitle,
+	VListTileAvatar,
+	VListTileContent
+} from "vuetify/es5/components/VList";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
+import { routes } from "../../router";
 
 export default {
 	data() {
 		return {
-			born: "",
-			uploadingAvatar: false,
-			avatar: null
+			route: routes.find(({ name }) => name == "UserSettings")
 		};
 	},
 	components: {
-		VExpansionPanel,
-		VExpansionPanelContent,
-		VProgressCircular,
-		VBtn,
 		VIcon,
-		VTextField,
-		VDatePicker,
-		VMenu,
+		VBtn,
+		VSubheader,
+		VDivider,
+		VList,
+		VListTile,
+		VListTileTitle,
+		VListTileAvatar,
+		VListTileContent,
 		VContainer,
 		VFlex,
 		VLayout
-	},
-	methods: {
-		changeAvatar({ target: { files: [file] } }) {
-			this.uploadingAvatar = true;
-			this.$apollo
-				.mutate({
-					mutation: gql`
-						mutation($file: Upload!) {
-							setAvatar(file: $file) {
-								error
-							}
-						}
-					`,
-					variables: {
-						file
-					}
-				})
-				.then(data => {
-					this.$apollo.queries.avatar.refetch();
-				})
-				.catch(e => console.error(e))
-				.then(_ => (this.uploadingAvatar = false));
-		}
-	},
-	apollo: {
-		avatar: {
-			query: gql`
-				{
-					me {
-						id
-						avatar
-					}
-				}
-			`,
-			update: ({ me: { avatar } }) => avatar
-		}
 	}
 };
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main.styl'
-  .settings-image {
-      width: 175px;
+    @import '../../stylus/main.styl'
 
-      & > img {
-          height: 175px;
-          width: 175px;
-      }
-  }
+    .settings-page {
+        height: 100%;
 
-  .settings-panel {
-      &-content {
-          padding: 20px;
-      }
-  }
-
-  .settings-avatar-btn
-  {
-    display: inline-block;
-    position relative;
-
-    .btn {
-        margin: 0;
+        .settings-nav {
+            height: 100%;
+        }
     }
-
-    & > .btn__content {
-      font-size: 12px;
-      padding: 0 5px;
-    }
-
-    .icon {
-        font-size: 20px;
-        padding-right: 5px;
-        width: 20px;
-        height: 20px;
-    }
-
-    input[type=file] {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      outline: none;
-      cursor: inherit;
-      display: block;
-    }
-  }
-
-  .settings-bio {
-      width: 40% !important;
-  }
-
-  .settings-born {
-      width: 200px !important;
-  }
 </style>

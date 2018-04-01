@@ -24,7 +24,7 @@
 			<v-list-tile-title v-t="'route.auth.follows'"></v-list-tile-title>
 			</v-list-tile-content>
 		</v-list-tile>
-		<v-list-tile :to="{ name: 'User', params: { page: 'settings', userLogin: login }}" @click="$emit('close')">
+		<v-list-tile :to="{ name: 'UserSettings', params: { page: 'settings', userLogin: login }}" @click="$emit('close')">
 			<v-list-tile-action>
 				<v-icon>settings</v-icon>
 			</v-list-tile-action>

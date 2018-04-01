@@ -1,5 +1,5 @@
 <template>
-    <v-footer class="footer pt-3" absolute inset app height="auto">
+    <v-footer class="footer pt-3" absolute inset app height="auto" ref="footer">
         <v-container grid-list-md>
             <v-layout row wrap>
                 <v-flex sm6 lg4>
@@ -49,6 +49,7 @@
 <script>
 import { VFooter } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import { mapGetters } from "vuex";
 
 export default {
 	name: "Footer",
@@ -57,6 +58,33 @@ export default {
 		VFlex,
 		VLayout,
 		VFooter
+	},
+	computed: mapGetters({
+		drawer: "drawer"
+	}),
+	created() {
+		window.addEventListener("resize", this.onResize);
+	},
+	destroyed() {
+		window.removeEventListener("resize", this.onResize);
+	},
+	watch: {
+		drawer() {
+			const time = Date.now();
+			const update = () => {
+				requestAnimationFrame(() => {
+					if (Date.now() >= time + 200) return;
+					this.$refs.footer.callUpdate();
+					update();
+				});
+			};
+			update();
+		}
+	},
+	methods: {
+		onResize() {
+			this.$refs.footer.callUpdate();
+		}
 	}
 };
 </script>

@@ -20,6 +20,10 @@ const i18n = new VueI18n({
 					followers: "Followers",
 					settings: "Settings",
 					logout: "Logout"
+				},
+				user_settings: {
+					account: "My Account",
+					connections: "Connections"
 				}
 			},
 			anime_status: {

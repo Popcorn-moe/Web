@@ -1,5 +1,5 @@
 <template>
-  <v-container class="profile-container" fluid grid-list-md>
+  <v-container class="profile-container" fluid>
     <v-layout row wrap>
       <v-flex md3 xs12>
         <div class="infos elevation-3">
@@ -22,7 +22,7 @@
             ></v-text-field>
           </v-flex>
           <v-flex xs2>
-            <v-btn block top left class="primary white--text"> {{ $t('profile.send_message_btn') }} <v-icon right>send</v-icon></v-btn>
+            <v-btn block top class="primary white--text"> {{ $t('profile.send_message_btn') }} <v-icon right>send</v-icon></v-btn>
           </v-flex>
         </v-layout>
         <p v-t="'profile.empty_events'" v-if="events.length === 0"></p>

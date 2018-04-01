@@ -214,10 +214,6 @@ export default {
 <style lang="stylus">
   @import '../stylus/main.styl';
 
-  .uppercase {
-    text-transform: uppercase;
-  }
-
   .anime-page-banner {
     width: 100%;
     height: 405px;

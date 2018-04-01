@@ -79,9 +79,33 @@ export const routes = [
 	{
 		hide: true,
 		name: "User",
-		path: "/user/:userLogin/:page(profile|library|follows|followers|settings)",
+		path: "/user/:userLogin/:page(profile|library|follows|followers)",
 		component: () => import("../views/user/User"),
 		props: true
+	},
+	{
+		hide: true,
+		name: "UserSettings",
+		path: "/user/:userLogin/:page(settings)",
+		component: () => import("../views/user/User"),
+		props: true,
+		children: [
+			{
+				path: "account",
+				name: "UserSettingsAccount",
+				t: "route.user_settings.account",
+				icon: "face",
+				component: () => import("../views/user/settings/Account")
+			},
+			{
+				path: "connections",
+				name: "UserSettingsConnections",
+				t: "route.user_settings.connections",
+				icon: "supervisor_account",
+				component: () => import("../views/user/settings/Connections"),
+				divider: true
+			}
+		]
 	},
 	{
 		hide: true,
@@ -110,6 +134,8 @@ const router = new Router({
 			return savedPosition;
 		} else if (to.hash) {
 			return { selector: to.hash };
+		} else if (to.name.startsWith("User")) {
+			return null;
 		} else if (from.name != to.name) {
 			return new Promise(r => setTimeout(() => r({ x: 0, y: 0 }), 300)); // 300 ms = slide transition time
 		}

@@ -1,6 +1,6 @@
 <template>
-    <div>
-      <div class="user-page-banner">
+    <div class="user-page">
+      <div class="user-page-banner px-2">
         <div class="user-container">
           <img class="user-cover" :src="user.avatar">
           <div class="user-data text-xs-center">
@@ -8,21 +8,18 @@
             <v-btn class="primary follow text--primary" :outline="user.isFollower" v-if="!isMe" @click.stop="toggleFollow">{{ user.isFollower ? "Unfollow" : "Follow"}}</v-btn>
           </div>
         </div>
-      </div>
-      <v-layout wrap>
-        <v-flex xs12>
-          <v-tabs class="user-top-nav" :value="page" @input="changeUrl">
+        <div class="user-top-nav">
+          <v-tabs :value="page" @input="changeUrl">
             <v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
             <v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
             <v-tab activeClass="active" href="#follows" >{{ $t('route.auth.follows') }}</v-tab>
             <v-tab activeClass="active" href="#followers" >{{ $t('route.auth.followers') }}</v-tab>
             <v-tab activeClass="active" href="#settings" class="right" v-if="isMe">{{ $t('route.auth.settings') }}</v-tab>
           </v-tabs>
-        </v-flex>
-      </v-layout>
-      <v-container fluid>
-        <v-tabs-items :value="page">
-          <v-tab-item id="profile">
+        </div>
+      </div>
+      <v-tabs-items :value="page">
+        <v-tab-item id="profile">
             <user-profile :userId="user.id"></user-profile>
           </v-tab-item>
           <v-tab-item id="library">
@@ -37,8 +34,7 @@
           <v-tab-item id="settings" v-if="isMe">
             <user-settings></user-settings>
           </v-tab-item>
-        </v-tabs-items>
-      </v-container>
+      </v-tabs-items>
     </div>
 </template>
 
@@ -57,7 +53,6 @@ import {
 	VTabItem
 } from "vuetify/es5/components/VTabs";
 import { VBtn } from "vuetify";
-import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
 
 export default {
@@ -74,9 +69,6 @@ export default {
 		VTab,
 		VTabItem,
 		VTabsItems,
-		VContainer,
-		VFlex,
-		VLayout,
 		UserLibrary,
 		UserSettings,
 		UserFollows,
@@ -87,7 +79,7 @@ export default {
 	methods: {
 		changeUrl(value) {
 			this.$router.push({
-				name: this.$route.name,
+				name: value === "settings" ? "UserSettings" : "User",
 				params: Object.assign({}, this.$route.params, {
 					page: value,
 					userId: this.user.id
@@ -165,71 +157,114 @@ export default {
   @import "../../stylus/main.styl";
 
   $profilePic = 150px;
+  $bannerHeight = 300px;
 
-  .user-page-banner {
-    width: 100%;
-    height: 300px;
-    background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
-    -moz-box-shadow: inset 0 -50px 75px 0px #000000;
-    -webkit-box-shadow: inset 0 -50px 75px 0px #000000;
-    box-shadow: inset 0 -50px 60px -35px #000000;
-    padding-left: 16px;
-  }
+  .user-page {
+    height: 100%;
 
-  .user-container {
-    position: relative;
-    left: "calc(12.5% - %s)" % ($profilePic / 2);
-    padding-top: ($profilePic / 2);
-    
-    .user-cover {
-      display: inline-block
-      float: left
-      width: $profilePic;
-      height: $profilePic;
-      border-radius: 100%;
+    .user-page-banner {
+      width: 100%;
+      height: $bannerHeight;
+      background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
+      box-shadow: inset 0 -50px 60px -35px #000000;
+      position: relative;
+
+      .user-container {
+        position: relative;
+        left: "calc(12.5% - %s)" % ($profilePic / 2);
+        padding-top: ($profilePic / 2);
+
+        .user-cover {
+          display: inline-block;
+          float: left;
+          width: $profilePic;
+          height: $profilePic;
+          border-radius: 100%;
+        }
+
+        .user-data {
+          display: inline-block;
+          font-size: 25px;
+          padding-left: 20px;
+          padding-top: ($profilePic / 2 - 25px)
+          width: 150px;
+
+          .follow {
+            margin: 0 !important;
+          }
+        }
+      }
+
+      .user-top-nav {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
+        & > .tabs {
+          width: 100%;
+        }
+
+        a {
+          color: white !important;
+        }
+
+        .tabs__bar {
+          background-color: transparent !important;
+        }
+
+        .tabs__wrapper {
+          margin: 0 10px !important;
+        }
+
+        .right {
+          margin-left: auto;
+        }
+
+        .active {
+          color: white !important;
+          font-weight: bold;
+          background: linear-gradient(transparent, $main-color);
+        }
+      }
     }
 
-    .user-data {
-      display: inline-block
-      font-size: 25px;
-      padding-left: 20px;
-      padding-top: ($profilePic / 2 - 25px)
-      width: 150px;
+    .tabs__items {
+      height: "calc(100% - %s)" % $bannerHeight;
+      .tabs__content {
+        height: 100%;
+      }
+    }
 
-      .follow {
-        margin: 0 !important;
+    @media (max-width: 600px) {
+      .user-page-banner {
+        height: 400px;
+        padding-left: 0;
+
+        .user-container {
+          width: 150px;
+          left: "calc(50%  - %s)" % ($profilePic / 2);
+          display: block;
+          margin: 0;
+
+          .user-cover {
+            float none;
+          }
+
+          .user-data {
+            width: 100%;
+            padding-top: 0;
+            padding-left: 0;
+            display: block;
+            .follow {
+              width: 100%;
+            }
+          }
+        }
       }
     }
   }
 
-  .user-top-nav
-  {
-    transform: translateY(-100%);
-
-    a {
-      color: white !important;
-    }
-
-    .tabs__bar {
-      background-color: transparent !important;
-    }
-
-    .tabs__wrapper {
-      margin: 0 10px !important;
-    }
-
-    .right {
-      margin-left: auto;
-    }
-
-    .active {
-      color: white !important;
-      font-weight: bold;
-      background: linear-gradient(transparent, $main-color);
-    }
-  }
-
-  .application.theme--dark {
+  .application.theme--dark .user-page {
     .user-page-banner {
       -moz-box-shadow: none;
       -webkit-box-shadow: none;
@@ -237,34 +272,6 @@ export default {
     }
     .user-cover {
       border-color: $grey.darken-3;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .user-page-banner {
-      height: 400px;
-      padding-left: 0;
-    }
-
-    .user-container {
-      width: 150px;
-      left: "calc(50%  - %s)" % ($profilePic / 2);
-      display: block;
-      margin: 0;
-
-      .user-cover {
-        float none;
-      }
-
-      .user-data {
-        width: 100%;
-        padding-top: 0;
-        padding-left: 0;
-        display: block;
-        .follow {
-          width: 100%;
-        }
-      }
     }
   }
 </style>

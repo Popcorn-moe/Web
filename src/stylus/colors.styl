@@ -10,11 +10,20 @@ color-class(name, $color) {
   }
 }
 
+$discord-color = #8c9eff
+$google-color = #b8b8b8
+$kitsu-color = #f75239
+$twitter-color = #36a2e4
+
 color-class('main-color', $main-color)
-color-class('discord-color', #8c9eff)
-color-class('google-color', #b8b8b8)
-color-class('kitsu-color', #f75239)
-color-class('twitter-color', #36a2e4)
+color-class('discord-color', $discord-color)
+color-class('google-color', $google-color)
+color-class('kitsu-color', $kitsu-color)
+color-class('twitter-color', $twitter-color)
+color-class('discord-color--darken', darken($discord-color, 10))
+color-class('google-color--darken', darken($google-color, 10))
+color-class('kitsu-color--darken', darken($kitsu-color, 10))
+color-class('twitter-color--darken', darken($twitter-color, 10))
 
 
 
