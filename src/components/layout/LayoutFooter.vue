@@ -14,6 +14,7 @@
                         <a 
                             class="primary social elevation-3"
                             href="https://twitter.com/popcorn_moe"
+                            rel="noopener"
                             target="_blank"
                         >
                              <img src="/static/icons/twitter-icon.svg" height="35px">
@@ -21,6 +22,7 @@
                         <a 
                             class="primary social elevation-3"
                             href="https://discord.gg/FEvvcWW"
+                            rel="noopener"
                             target="_blank"
                         >
                              <img src="/static/icons/discord-icon.svg" height="35px">
@@ -28,6 +30,7 @@
                         <a 
                             class="primary social elevation-3"
                             href="https://github.com/Popcorn-moe"
+                            rel="noopener"
                             target="_blank"
                         >
                              <img src="/static/icons/github-icon.svg" height="35px">
