@@ -18,7 +18,7 @@
           </v-tabs>
         </div>
       </div>
-      <v-tabs-items :value="page">
+      <v-tabs-items :value="page" @input="changeUrl">
         <v-tab-item id="profile">
             <user-profile :userId="user.id"></user-profile>
           </v-tab-item>
