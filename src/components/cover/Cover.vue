@@ -2,7 +2,7 @@
     <div class="anime text-xs-center">
         <router-link :to="value.to">
             <div class="cover-container">
-                <p-img class="cover" alt="cover" :src="value.cover"/>
+                <p-img class="cover" alt="cover" :src="value.cover.normal"/>
                 <v-icon class="arrow">play_arrow</v-icon>
             </div>
         </router-link>

@@ -28,7 +28,7 @@
           <v-layout row wrap>
             <v-flex xs12>
               <router-link :to="{ name: 'Anime', params: { id: media.anime.id }}" class="link">
-                <p-img class="anime-cover" alt="cover" :src="media.anime.cover"/>
+                <p-img class="anime-cover" alt="cover" :src="media.anime.cover.normal"/>
                 <h3 class="uppercase">{{ media.anime.names[0] }}</h3>
               </router-link>
               <p class="sub">
@@ -174,11 +174,11 @@ export default {
 					album: this.title,
 					artwork: [
 						{
-							src: this.media.anime.cover,
+							src: this.media.anime.cover.normal,
 							sizes: "150x210"
 						},
 						{
-							src: this.media.anime.cover.replace(/(\?.*)$|$/, "_big$1"),
+							src: this.media.anime.cover.big,
 							sizes: "600x840"
 						}
 					]
@@ -203,7 +203,7 @@ export default {
 					},
 					{
 						property: "og:image",
-						content: this.media.anime.cover,
+						content: this.media.anime.cover.big,
 						id: "og:image"
 					}
 				];
@@ -272,7 +272,10 @@ export default {
 								}
 							}
 							id
-							cover
+							cover {
+								normal
+								big
+							}
 							background
 						}
 					}

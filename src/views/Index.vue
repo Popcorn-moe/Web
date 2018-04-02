@@ -65,7 +65,9 @@ export default {
 								id
 								name
 							}
-							cover
+							cover {
+								normal
+							}
 						}
 						... on Episode {
 							season
@@ -112,7 +114,9 @@ export default {
 								id
 								name
 							}
-							cover
+							cover {
+								normal
+							}
 						}
 					}
 				}

@@ -5,7 +5,7 @@
     <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-sm1 sm7 class="anime-infos">
-          <p-img class="anime-cover" alt="cover" :src="anime.cover"/>
+          <p-img class="anime-cover" alt="cover" :src="anime.cover.normal"/>
           <h3 class="uppercase">{{ anime.names[0] }}</h3>
             <ul>
               <li>
@@ -96,7 +96,10 @@ export default {
 					anime(id: $id) {
 						id
 						names
-						cover
+						cover {
+							normal
+							big
+						}
 						background
 						status
 						desc
@@ -164,7 +167,7 @@ export default {
 						content: this.anime.names[0],
 						id: "og:title"
 					},
-					{ property: "og:image", content: this.anime.cover, id: "og:image" },
+					{ property: "og:image", content: this.anime.big, id: "og:image" },
 					{
 						property: "og:description",
 						content: this.anime.desc,
