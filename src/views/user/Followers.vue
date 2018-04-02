@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex 
-        v-for="user in follows" 
+        v-for="user in followers" 
         :key="user.id"
         md4
         sm6
@@ -23,7 +23,7 @@ import User from "../../components/user/User.vue";
 import gql from "graphql-tag";
 
 export default {
-	name: "user-follows",
+	name: "user-followers",
 	props: ["userId"],
 	data() {
 		return {
@@ -31,8 +31,8 @@ export default {
 		};
 	},
 	computed: {
-		follows() {
-			return this.user && this.user.follows;
+		followers() {
+			return this.user && this.user.followers;
 		}
 	},
 	components: {
@@ -48,7 +48,7 @@ export default {
 				query($id: ID!) {
 					userById(id: $id) {
 						id
-						follows {
+						followers {
 							id
 							login
 							avatar
@@ -57,7 +57,6 @@ export default {
 				}
 			`,
 			variables() {
-				console.log(this.userId);
 				return {
 					id: this.userId
 				};

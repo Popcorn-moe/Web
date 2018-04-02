@@ -31,6 +31,9 @@
           <v-tab-item id="follows">
             <user-follows :userId="user.id"></user-follows>
           </v-tab-item>
+          <v-tab-item id="followers">
+            <user-followers :userId="user.id"></user-followers>
+          </v-tab-item>
           <v-tab-item id="settings" v-if="isMe">
             <user-settings></user-settings>
           </v-tab-item>
@@ -43,6 +46,7 @@
 import UserSettings from "./Settings";
 import UserLibrary from "./Library";
 import UserFollows from "./Follows";
+import UserFollowers from "./Followers";
 import UserProfile from "./Profile";
 import clone from "clone";
 
@@ -76,6 +80,7 @@ export default {
 		UserLibrary,
 		UserSettings,
 		UserFollows,
+		UserFollowers,
 		UserProfile,
 		VBtn
 	},
