@@ -226,7 +226,7 @@ export default {
       position: absolute;
       height: $bannerHeight;
       background: black;
-      opacity: 0.8;
+      opacity: 0.6;
       transition: opacity 300ms;
       z-index: 1;
 
@@ -235,6 +235,7 @@ export default {
       }
 
       .icon {
+        color: white;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -286,6 +287,7 @@ export default {
           z-index: 2;
 
           .icon {
+            color: white;
             border-radius: 100%;
             width: 100%;
             height: 100%;
@@ -296,7 +298,7 @@ export default {
             z-index: 1;
             font-size: 58px;
             background: black;
-            opacity: 0.8;
+            opacity: 0.6;
             transition: opacity 300ms;
 
             &:hover {
