@@ -1,7 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="followers">
     <v-layout row wrap>
-      <v-flex 
+			<v-flex xs12 class="text-xs-center nodata" v-if="followers.length == 0">
+				<p>Cet utilisateur n'as aucuns followers</p>
+			</v-flex>
+      <v-flex
+				v-else 
         v-for="user in followers" 
         :key="user.id"
         md4
@@ -32,7 +36,7 @@ export default {
 	},
 	computed: {
 		followers() {
-			return this.user && this.user.followers;
+			return (this.user && this.user.followers) || [];
 		}
 	},
 	components: {
@@ -69,3 +73,29 @@ export default {
 	}
 };
 </script>
+
+<style lang="stylus">
+  @import '../../stylus/main.styl'
+
+	.followers {
+		.nodata {
+			min-height: 340px !important;
+
+			p {
+				line-height: 340px !important;
+				font-size: 25px;
+			}
+		}
+	}
+
+
+	@media (max-width: 600px) {
+		.followers {
+			.nodata {
+				p {
+					font-size: 4vw
+				}
+			}
+		}
+	}
+</style>

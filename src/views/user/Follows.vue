@@ -1,7 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="follows">
     <v-layout row wrap>
+			<v-flex xs12 class="text-xs-center nodata" v-if="follows.length == 0">
+				<p>Cet utilisateur ne follow personne</p>
+			</v-flex>
       <v-flex 
+				v-else
         v-for="user in follows" 
         :key="user.id"
         md4
@@ -27,12 +31,13 @@ export default {
 	props: ["userId"],
 	data() {
 		return {
-			user: null
+			user: null,
+			me: null
 		};
 	},
 	computed: {
 		follows() {
-			return this.user && this.user.follows;
+			return (this.user && this.user.follows) || [];
 		}
 	},
 	components: {
@@ -42,16 +47,31 @@ export default {
 		VCard,
 		User
 	},
+	i18n: {
+		messages: {
+			en: {
+				follows: {
+					nodata: "This user follow anyone"
+				}
+			},
+			fr: {
+				follows: {
+					nodata: "Cet utilisateur ne suis personne"
+				}
+			}
+		}
+	},
 	apollo: {
 		user: {
 			query: gql`
-				query($id: ID!) {
+				query($id: ID!, $me: ID!) {
 					userById(id: $id) {
 						id
 						follows {
 							id
 							login
 							avatar
+							isFollower(id: $me)
 						}
 					}
 				}
@@ -59,14 +79,51 @@ export default {
 			variables() {
 				console.log(this.userId);
 				return {
-					id: this.userId
+					id: this.userId,
+					me: this.me.id
 				};
 			},
 			skip() {
-				return !this.userId;
+				return !this.userId || !this.me;
 			},
 			update: ({ userById }) => userById
+		},
+		me: {
+			query: gql`
+				{
+					me {
+						id
+					}
+				}
+			`,
+			update: ({ me }) => me
 		}
 	}
 };
 </script>
+
+<style lang="stylus">
+  @import '../../stylus/main.styl'
+
+	.follows {
+		.nodata {
+			min-height: 340px !important;
+
+			p {
+				line-height: 340px !important;
+				font-size: 25px;
+			}
+		}
+	}
+
+
+	@media (max-width: 600px) {
+		.follows {
+			.nodata {
+				p {
+					font-size: 4vw
+				}
+			}
+		}
+	}
+</style>
