@@ -1,5 +1,5 @@
 <template>
-    <div class="user-page">
+    <div class="user-page"  v-if="user">
       <div class="user-page-banner px-2">
         <div class="user-container">
           <img class="user-cover" :src="user.avatar">
@@ -26,10 +26,10 @@
             <!--<user-library></user-library>-->
           </v-tab-item>
           <v-tab-item id="follows">
-            <user-follows :userId="user.id"></user-follows>
+            <user-follows :user="user"></user-follows>
           </v-tab-item>
           <v-tab-item id="followers">
-            <user-followers :userId="user.id"></user-followers>
+            <user-followers :user="user"></user-followers>
           </v-tab-item>
           <v-tab-item id="settings" v-if="isMe">
             <user-settings></user-settings>
@@ -60,7 +60,7 @@ export default {
 	props: ["page", "userLogin"],
 	data() {
 		return {
-			user: {},
+			user: null,
 			me: null
 		};
 	},
@@ -100,8 +100,8 @@ export default {
 						id: this.user.id
 					}
 				})
-				.then(({ data: { follow, unfollow } }) => {
-					this.user.isFollower = !unfollow || follow;
+				.then(() => {
+					this.$apollo.queries.user.refetch();
 				});
 		}
 	},
@@ -119,9 +119,20 @@ export default {
 						avatar
 						login
 						isFollower(id: $me)
+						follows {
+							id
+							login
+							avatar
+						}
+						followers {
+							id
+							login
+							avatar
+						}
 					}
 				}
 			`,
+			fetchPolicy: "network-only",
 			variables() {
 				return {
 					name: this.userLogin,
@@ -131,7 +142,7 @@ export default {
 			skip() {
 				return !this.userLogin || !this.me;
 			},
-			update: ({ user }) => clone(user)
+			update: ({ user }) => user
 		},
 		me: {
 			query: gql`
@@ -146,6 +157,7 @@ export default {
 	},
 	watch: {
 		user(newUser) {
+			console.log(newUser);
 			if (!newUser) this.goto404();
 		}
 	}

@@ -103,6 +103,7 @@ export default {
 				query events($user: ID!) {
 					events(user: $user) {
 						user {
+							id
 							login
 						}
 						id
@@ -112,7 +113,9 @@ export default {
 							anime {
 								id
 								names
-								cover
+								cover {
+									normal
+								}
 							}
 						}
 						... on MessageEvent {

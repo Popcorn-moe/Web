@@ -6,13 +6,13 @@
 			</v-flex>
       <v-flex
 				v-else 
-        v-for="user in followers" 
-        :key="user.id"
+        v-for="u in followers" 
+        :key="u.id"
         md4
         sm6
         xs12
       >
-        <user :user="user"></user>
+        <user :user="u"></user>
       </v-flex>
     </v-layout>
   </v-container>
@@ -28,11 +28,9 @@ import gql from "graphql-tag";
 
 export default {
 	name: "user-followers",
-	props: ["userId"],
+	props: ["user"],
 	data() {
-		return {
-			user: null
-		};
+		return {};
 	},
 	computed: {
 		followers() {
@@ -45,31 +43,6 @@ export default {
 		VLayout,
 		VCard,
 		User
-	},
-	apollo: {
-		user: {
-			query: gql`
-				query($id: ID!) {
-					userById(id: $id) {
-						id
-						followers {
-							id
-							login
-							avatar
-						}
-					}
-				}
-			`,
-			variables() {
-				return {
-					id: this.userId
-				};
-			},
-			skip() {
-				return !this.userId;
-			},
-			update: ({ userById }) => userById
-		}
 	}
 };
 </script>

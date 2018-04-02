@@ -1,19 +1,19 @@
 <template>
   <v-container fluid class="follows">
-    <v-layout row wrap>
-			<v-flex xs12 class="text-xs-center nodata" v-if="follows.length == 0">
-				<p>Cet utilisateur ne follow personne</p>
-			</v-flex>
-      <v-flex 
-				v-else
-        v-for="user in follows" 
-        :key="user.id"
-        md4
-        sm6
-        xs12
-      >
-        <user :user="user"></user>
-      </v-flex>
+    <v-layout row wrap v-if="user">
+		<v-flex xs12 class="text-xs-center nodata" v-if="user.follows.length == 0">
+			<p>Cet utilisateur ne follow personne</p>
+		</v-flex>
+		<v-flex 
+			v-else
+			v-for="u in user.follows" 
+			:key="u.id"
+			md4
+			sm6
+			xs12
+		>
+			<user :user="u"></user>
+		</v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -28,16 +28,9 @@ import gql from "graphql-tag";
 
 export default {
 	name: "user-follows",
-	props: ["userId"],
+	props: ["user"],
 	data() {
-		return {
-			user: null
-		};
-	},
-	computed: {
-		follows() {
-			return (this.user && this.user.follows) || [];
-		}
+		return {};
 	},
 	components: {
 		VContainer,
@@ -58,31 +51,6 @@ export default {
 					nodata: "Cet utilisateur ne suis personne"
 				}
 			}
-		}
-	},
-	apollo: {
-		user: {
-			query: gql`
-				query($id: ID!) {
-					userById(id: $id) {
-						id
-						follows {
-							id
-							login
-							avatar
-						}
-					}
-				}
-			`,
-			variables() {
-				return {
-					id: this.userId
-				};
-			},
-			skip() {
-				return !this.userId;
-			},
-			update: ({ userById }) => userById
 		}
 	}
 };

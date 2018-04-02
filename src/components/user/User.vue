@@ -4,7 +4,7 @@
         <v-card-title primary-title>
             <img class="avatar" :src="user.avatar" height="100px" width="100px">
             <router-link :to="{ name: 'User', params: { userLogin: user.login, page: 'profile' }}">
-                <h3 class="headline">@{{ user.login }}</h3>
+                <h3 class="headline">{{ user.login }}</h3>
             </router-link>
             <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </div>
         </v-card-title>
