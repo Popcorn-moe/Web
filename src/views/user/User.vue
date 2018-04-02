@@ -1,8 +1,17 @@
 <template>
-    <div class="user-page"  v-if="user">
-      <div class="user-page-banner px-2">
+    <div class="user-page" v-if="user">
+      <upload v-if="page === 'settings'" class="background-upload" @input="setBackground">
+        <v-icon>file_upload</v-icon>
+      </upload>
+      <div class="user-page-banner px-2" :style="{ 'background-image': user.background && `url(${user.background})` }">
         <div class="user-container">
-          <img class="user-cover" :src="user.avatar">
+          <template v-if="page === 'settings'">
+            <upload class="avatar-upload" @input="setAvatar">
+              <v-icon>file_upload</v-icon>
+              <img class="user-avatar" :src="user.avatar">
+            </upload>
+          </template>
+          <img v-else class="user-avatar" :src="user.avatar">
           <div class="user-data text-xs-center">
             <span class="login">{{ user.login }}</span>
             <v-btn class="primary follow text--primary" :outline="user.isFollower" v-if="!isMe" @click.stop="toggleFollow">{{ user.isFollower ? "Unfollow" : "Follow"}}</v-btn>
@@ -44,6 +53,7 @@ import UserLibrary from "./Library";
 import UserFollows from "./Follows";
 import UserFollowers from "./Followers";
 import UserProfile from "./Profile";
+import Upload from "../../components/Upload";
 import clone from "clone";
 
 import {
@@ -52,7 +62,7 @@ import {
 	VTabsItems,
 	VTabItem
 } from "vuetify/es5/components/VTabs";
-import { VBtn } from "vuetify";
+import { VBtn, VIcon } from "vuetify";
 import gql from "graphql-tag";
 
 export default {
@@ -74,7 +84,9 @@ export default {
 		UserFollows,
 		UserFollowers,
 		UserProfile,
-		VBtn
+		Upload,
+		VBtn,
+		VIcon
 	},
 	methods: {
 		changeUrl(value) {
@@ -103,6 +115,42 @@ export default {
 				.then(() => {
 					this.$apollo.queries.user.refetch();
 				});
+		},
+		setAvatar([file]) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation($file: Upload!) {
+							setAvatar(file: $file) {
+								error
+							}
+						}
+					`,
+					variables: {
+						file
+					}
+				})
+				.then(data => {
+					this.$apollo.queries.user.refetch();
+				});
+		},
+		setBackground([file]) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation($file: Upload!) {
+							setBackground(file: $file) {
+								error
+							}
+						}
+					`,
+					variables: {
+						file
+					}
+				})
+				.then(data => {
+					this.$apollo.queries.user.refetch();
+				});
 		}
 	},
 	computed: {
@@ -117,6 +165,7 @@ export default {
 					user(name: $name) {
 						id
 						avatar
+						background
 						login
 						isFollower(id: $me)
 						follows {
@@ -173,10 +222,35 @@ export default {
   .user-page {
     height: 100%;
 
+    .background-upload {
+      position: absolute;
+      height: $bannerHeight;
+      background: black;
+      opacity: 0.8;
+      transition: opacity 300ms;
+      z-index: 1;
+
+      &:hover {
+        opacity: 0.4;
+      }
+
+      .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 58px;
+      }
+    }
+
     .user-page-banner {
       width: 100%;
       height: $bannerHeight;
-      background: black url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg) center;
+      background-image: url(https://images6.alphacoders.com/505/thumb-1920-505441.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #2f2f2f;
       box-shadow: inset 0 -50px 60px -35px #000000;
       position: relative;
 
@@ -185,7 +259,7 @@ export default {
         left: "calc(12.5% - %s)" % ($profilePic / 2);
         padding-top: ($profilePic / 2);
 
-        .user-cover {
+        .user-avatar {
           display: inline-block;
           float: left;
           width: $profilePic;
@@ -194,6 +268,7 @@ export default {
         }
 
         .user-data {
+          position: absolute;
           display: inline-block;
           font-size: 25px;
           padding-left: 20px;
@@ -204,12 +279,38 @@ export default {
             margin: 0 !important;
           }
         }
+
+        .avatar-upload {
+          width: $profilePic;
+          height: $profilePic;
+          z-index: 2;
+
+          .icon {
+            border-radius: 100%;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            font-size: 58px;
+            background: black;
+            opacity: 0.8;
+            transition: opacity 300ms;
+
+            &:hover {
+              opacity: 0.4;
+            }
+          }
+        }
       }
 
       .user-top-nav {
         position: absolute;
         bottom: 0;
         width: 100%;
+        z-index: 2;
 
         & > .tabs {
           width: 100%;
@@ -257,7 +358,7 @@ export default {
           display: block;
           margin: 0;
 
-          .user-cover {
+          .user-avatar {
             float none;
           }
 
@@ -270,6 +371,14 @@ export default {
               width: 100%;
             }
           }
+        }
+      }
+
+      .background-upload {
+        height: 400px;
+
+        .icon {
+          top: 75%;
         }
       }
     }
