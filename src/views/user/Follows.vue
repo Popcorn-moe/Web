@@ -31,8 +31,7 @@ export default {
 	props: ["userId"],
 	data() {
 		return {
-			user: null,
-			me: null
+			user: null
 		};
 	},
 	computed: {
@@ -64,39 +63,26 @@ export default {
 	apollo: {
 		user: {
 			query: gql`
-				query($id: ID!, $me: ID!) {
+				query($id: ID!) {
 					userById(id: $id) {
 						id
 						follows {
 							id
 							login
 							avatar
-							isFollower(id: $me)
 						}
 					}
 				}
 			`,
 			variables() {
-				console.log(this.userId);
 				return {
-					id: this.userId,
-					me: this.me.id
+					id: this.userId
 				};
 			},
 			skip() {
-				return !this.userId || !this.me;
+				return !this.userId;
 			},
 			update: ({ userById }) => userById
-		},
-		me: {
-			query: gql`
-				{
-					me {
-						id
-					}
-				}
-			`,
-			update: ({ me }) => me
 		}
 	}
 };

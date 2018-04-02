@@ -81,8 +81,7 @@ export default {
 			this.$router.push({
 				name: value === "settings" ? "UserSettings" : "User",
 				params: Object.assign({}, this.$route.params, {
-					page: value,
-					userId: this.user.id
+					page: value
 				})
 			});
 		},
