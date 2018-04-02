@@ -23,7 +23,7 @@
 			<v-subheader inset>Animes</v-subheader>
 			<v-list-tile v-for="anime in result.animes" :key="anime.id" :to="{ name: 'Anime', params: { id: anime.id }}"  @click.stop="$emit('close')" avatar>
 			<v-list-tile-avatar>
-				<img :src="anime.cover">
+				<img :src="anime.cover.normal">
 			</v-list-tile-avatar>
 			<v-list-tile-content>
 				<v-list-tile-title>{{ anime.names[0] }}</v-list-tile-title>
@@ -80,7 +80,9 @@ export default {
 					animes: searchAnime(name: $name, limit: 2) {
 						id
 						names
-						cover
+						cover {
+							normal
+						}
 						release_date
 					}
 				}

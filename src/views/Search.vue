@@ -176,7 +176,9 @@ export default {
 						authors {
 							name
 						}
-						cover
+						cover {
+							normal
+						}
 					}
 				}
 			`,

@@ -1,6 +1,20 @@
 <template>
   <v-container>
 	  	<v-layout row wrap>
+			<v-flex xs12>
+				<v-btn color="google-color" small fab @click.stop="ssoLogin('google')">
+					<img src="/static/icons/google-icon.svg" height="28px">
+				</v-btn>
+				<v-btn color="discord-color" small fab @click.stop="ssoLogin('discord')">
+					<img src="/static/icons/discord-icon.svg" height="28px">
+				</v-btn>
+				<v-btn color="twitter-color" small fab @click.stop="ssoLogin('twitter')">
+					<img src="/static/icons/twitter-icon.svg" height="28px">
+				</v-btn>
+				<v-btn color="kitsu-color" small fab @click.stop="ssoLogin('kitsu')">
+					<img src="/static/icons/kitsu-icon.svg" height="28px">
+				</v-btn>
+			</v-flex>
 			<v-flex
 				v-for="account in accounts"
 				:key="account.name"
@@ -15,7 +29,12 @@
 						card
 					>
 						<img height="24px" :src="account.icon">
-						<v-toolbar-title class="white--text">{{ account.name }}: DeltaEvo</v-toolbar-title>
+						<v-toolbar-title>
+							<div>
+								<h4 class="white--text">{{ account.format() }}</h4>
+								<h6 class="white--text social-name">{{ account.name }}</h6>
+							</div>
+						</v-toolbar-title>
 						<v-spacer></v-spacer>
 						<v-btn icon class="white--text">
 							<v-icon>close</v-icon>
@@ -23,7 +42,7 @@
 					</v-toolbar>
 					<v-divider></v-divider>
 					<v-card-text>
-						<v-switch class="display-switch" hide-details label="Show on profile"></v-switch>
+						<v-switch :inputValue="account.show" light :color="`${account.color}--darken`" class="display-switch" hide-details label="Show on profile"></v-switch>
 					</v-card-text>
 				</v-card>
 			</v-flex>
@@ -41,34 +60,44 @@ import {
 } from "vuetify/es5/components/VGrid";
 import { VToolbar, VToolbarTitle } from "vuetify/es5/components/VToolbar";
 import { VCard, VCardText, VCardActions } from "vuetify/es5/components/VCard";
+import gql from "graphql-tag";
+import { ssoLogin } from "../../../utils/auth";
 
 const INFOS = {
 	twitter: {
 		icon: "/static/icons/twitter-icon.svg",
 		color: "twitter-color",
-		name: "Twitter"
+		name: "Twitter",
+		format() {
+			return this.username;
+		}
 	},
 	google: {
 		icon: "/static/icons/google-icon.svg",
 		color: "google-color",
-		name: "Google"
+		name: "Google",
+		format() {
+			return this.username;
+		}
+	},
+	discord: {
+		icon: "/static/icons/discord-icon.svg",
+		color: "discord-color",
+		name: "Discord",
+		format() {
+			return `${this.username}#${this.discriminator}`;
+		}
 	}
 };
 
 export default {
 	data() {
 		return {
-			accounts: [
-				{
-					type: "twitter",
-					...INFOS["twitter"]
-				},
-				{
-					type: "google",
-					...INFOS["google"]
-				}
-			]
+			accounts: []
 		};
+	},
+	methods: {
+		ssoLogin
 	},
 	components: {
 		VIcon,
@@ -84,6 +113,35 @@ export default {
 		VCard,
 		VCardText,
 		VCardActions
+	},
+	apollo: {
+		accounts: {
+			query: gql`
+				{
+					me {
+						id
+						discord {
+							id
+							username
+							discriminator
+						}
+						twitter {
+							id
+							username
+						}
+					}
+				}
+			`,
+			update: ({ me: { discord, twitter } }) =>
+				Object.entries({ discord, twitter })
+					.filter(([, value]) => value)
+					.map(([type, value]) => ({
+						type,
+						...value,
+						...INFOS[type],
+						show: true
+					}))
+		}
 	}
 };
 </script>
@@ -91,5 +149,9 @@ export default {
 <style>
 .display-switch label {
 	color: white !important;
+}
+
+.social-name {
+	font-weight: 200;
 }
 </style>
