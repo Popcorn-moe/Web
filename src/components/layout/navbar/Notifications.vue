@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-layout row wrap class="text-xs-center no-margin">
+        <v-layout row wrap class="text-xs-center">
         <v-flex xs3>
             <v-btn icon @click.stop="$emit('input', false)">
               <v-icon>menu</v-icon>

@@ -10,8 +10,8 @@
       <div class="nav-content">
         <v-slide-x-transition mode="out-in">
           <notifications @close="notifications = false" @input="value => $emit('input', value)"  v-if="notifications"></notifications>
-          <div v-else key="menu" style="">
-            <v-layout row wrap class="text-xs-center no-margin">
+          <div v-else key="menu">
+            <v-layout row wrap class="text-xs-center">
               <v-flex xs3>
                 <v-btn icon @click.stop="$emit('input', !value)">
                   <v-icon>menu</v-icon>
@@ -32,7 +32,7 @@
             </v-layout>
 
             <auth-menu v-if="isAuth"></auth-menu>
-            <v-layout v-else row wrap class="text-xs-center no-margin">
+            <v-layout v-else row wrap class="text-xs-center">
               <v-flex xs6>
                 <v-btn class="px-2" outline small :to="{ name: 'Login' }" v-t="'navbar.login'"></v-btn>
               </v-flex>
