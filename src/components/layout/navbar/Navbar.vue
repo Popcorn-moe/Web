@@ -1,72 +1,72 @@
 <template>
-    <v-navigation-drawer
-      persistent
-      :value="value"
-      @input="value => $emit('input', value)"
-      class="elevation-2"
-      disable-route-watcher
-      app
-    >
-      <div class="nav-content">
-        <v-slide-x-transition mode="out-in">
-          <notifications @close="notifications = false" @input="value => $emit('input', value)"  v-if="notifications"></notifications>
-          <div v-else key="menu">
-            <v-layout row wrap class="text-xs-center">
-              <v-flex xs3>
-                <v-btn icon @click.stop="$emit('input', !value)">
-                  <v-icon>menu</v-icon>
-                </v-btn>
-              </v-flex>
-              <v-flex xs6>
-                <object data="/static/logo-animated.svg" type="image/svg+xml">Logo</object>
-              </v-flex>
-              <v-flex xs3>
-                <v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">
-                  <v-badge overlay v-if="notifs_count > 0">
-                    <span slot="badge" v-html="notifs_count"></span>
-                    <v-icon>notifications</v-icon>
-                  </v-badge>
-                  <v-icon v-if="notifs_count == 0">notifications</v-icon>
-                </v-btn>
-              </v-flex>
-            </v-layout>
+		<v-navigation-drawer
+			persistent
+			:value="value"
+			@input="value => $emit('input', value)"
+			class="elevation-2"
+			disable-route-watcher
+			app
+		>
+			<div class="nav-content">
+				<v-slide-x-transition mode="out-in">
+					<notifications @close="notifications = false" @input="value => $emit('input', value)"  v-if="notifications"></notifications>
+					<div v-else key="menu">
+						<v-layout row wrap class="text-xs-center">
+							<v-flex xs3>
+								<v-btn icon @click.stop="$emit('input', !value)">
+									<v-icon>menu</v-icon>
+								</v-btn>
+							</v-flex>
+							<v-flex xs6>
+								<object data="/static/logo-animated.svg" type="image/svg+xml">Logo</object>
+							</v-flex>
+							<v-flex xs3>
+								<v-btn icon @click.stop="notifications = !notifications && notifs_count > 0" v-if="isAuth" :disabled="notifs_count == 0">
+									<v-badge overlay v-if="notifs_count > 0">
+										<span slot="badge" v-html="notifs_count"></span>
+										<v-icon>notifications</v-icon>
+									</v-badge>
+									<v-icon v-if="notifs_count == 0">notifications</v-icon>
+								</v-btn>
+							</v-flex>
+						</v-layout>
 
-            <auth-menu v-if="isAuth"></auth-menu>
-            <v-layout v-else row wrap class="text-xs-center">
-              <v-flex xs6>
-                <v-btn class="px-2" outline small :to="{ name: 'Login' }" v-t="'navbar.login'"></v-btn>
-              </v-flex>
-              <v-flex xs6>
-                <v-btn class="px-2 main-color--text" outline small :to="{ name: 'SignUp' }" v-t="'navbar.signup'"></v-btn>
-              </v-flex>
-            </v-layout>
-            <v-list>
-              <v-list-tile
-                v-for="(route, i) in routes.filter(r => !r.hide)"
-                :key="i"
-                :to="route.path"
-              >
-                <v-list-tile-action>
-                  <v-icon v-html="route.icon"></v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content v-t="route.t"></v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </div>
-        </v-slide-x-transition>
-      </div>
-      <div class="bottom">
-        <v-divider></v-divider>
-        <v-layout row>
-          <v-flex xs4 offset-xs1>
-            <language-select></language-select>
-          </v-flex>
-          <v-flex xs4 offset-xs2>
-            <v-switch :label="$t('navbar.dark')" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
-          </v-flex>
-        </v-layout>
-      </div>
-    </v-navigation-drawer>
+						<auth-menu v-if="isAuth"></auth-menu>
+						<v-layout v-else row wrap class="text-xs-center">
+							<v-flex xs6>
+								<v-btn class="px-2" outline small :to="{ name: 'Login' }" v-t="'navbar.login'"></v-btn>
+							</v-flex>
+							<v-flex xs6>
+								<v-btn class="px-2 main-color--text" outline small :to="{ name: 'SignUp' }" v-t="'navbar.signup'"></v-btn>
+							</v-flex>
+						</v-layout>
+						<v-list>
+							<v-list-tile
+								v-for="(route, i) in routes.filter(r => !r.hide)"
+								:key="i"
+								:to="route.path"
+							>
+								<v-list-tile-action>
+									<v-icon v-html="route.icon"></v-icon>
+								</v-list-tile-action>
+								<v-list-tile-content v-t="route.t"></v-list-tile-content>
+							</v-list-tile>
+						</v-list>
+					</div>
+				</v-slide-x-transition>
+			</div>
+			<div class="bottom">
+				<v-divider></v-divider>
+				<v-layout row>
+					<v-flex xs4 offset-xs1>
+						<language-select></language-select>
+					</v-flex>
+					<v-flex xs4 offset-xs2>
+						<v-switch :label="$t('navbar.dark')" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
+					</v-flex>
+				</v-layout>
+			</div>
+		</v-navigation-drawer>
 </template>
 
 <script>
@@ -170,40 +170,40 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../../stylus/main.styl';
+	@import '../../../stylus/main.styl';
 
-  .nav-content {
-    min-height: calc(100% - 57px) !important;
-    overflow-y: auto;
-  }
-  .navigation-drawer {
-    padding-bottom: 0 !important;
-  }
+	.nav-content {
+		min-height: calc(100% - 57px) !important;
+		overflow-y: auto;
+	}
+	.navigation-drawer {
+		padding-bottom: 0 !important;
+	}
 
-  .badge__badge {
-    right: -10px !important;
-    top: -7px
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-  }
+	.badge__badge {
+		right: -10px !important;
+		top: -7px
+		width: 18px;
+		height: 18px;
+		line-height: 18px;
+	}
 
-  .bottom {
-    bottom: 5px;
-    width: 100%;
-    .input-group__details {
-      min-height: 0px !important;
-    }
-    .input-group {
-      padding: 9px 0 !important;
-    }
-  }
+	.bottom {
+		bottom: 5px;
+		width: 100%;
+		.input-group__details {
+			min-height: 0px !important;
+		}
+		.input-group {
+			padding: 9px 0 !important;
+		}
+	}
 
-  .application--dark {
-    .notif-container {
-      .content {
-        color: #888888 !important;
-      }
-    }
-  }
+	.application--dark {
+		.notif-container {
+			.content {
+				color: #888888 !important;
+			}
+		}
+	}
 </style>

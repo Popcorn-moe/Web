@@ -1,17 +1,17 @@
 <template>
-    <v-list>
-        <v-list-group v-if="me">
-            <v-list-tile slot="activator">
-                <v-list-tile-action>
-                    <img class="user-logo" :src="me.avatar">
-                </v-list-tile-action>
-                <v-list-tile-content>
-                    <v-list-tile-title>{{ me.login }}</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <auth-menu-links :login="me.login"></auth-menu-links>
-        </v-list-group>
-    </v-list>
+	<v-list>
+		<v-list-group v-if="me">
+			<v-list-tile slot="activator">
+				<v-list-tile-action>
+					<img class="user-logo" :src="me.avatar">
+				</v-list-tile-action>
+				<v-list-tile-content>
+					<v-list-tile-title>{{ me.login }}</v-list-tile-title>
+				</v-list-tile-content>
+			</v-list-tile>
+			<auth-menu-links :login="me.login"></auth-menu-links>
+		</v-list-group>
+	</v-list>
 </template>
 
 <script>
@@ -63,7 +63,7 @@ export default {
   @import '../../../stylus/main.styl';
 
   .user-logo {
-    height: 35px;
-    border-radius: 50%;
+	height: 35px;
+	border-radius: 50%;
   }
 </style>

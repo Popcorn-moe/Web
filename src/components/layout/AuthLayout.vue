@@ -1,19 +1,19 @@
 <template>
-  <v-content class="auth-root" :style="{ 'background-image': `url(${this.moe})` }">
-    <v-btn fab @click.stop="$router.go(-1)" class="button-float main-color" small>
-      <v-icon>arrow_back</v-icon>
-    </v-btn>
-    <v-btn fab @click.stop="$apollo.queries.moe.refetch()" class="button-float button-right main-color" small>
-      <v-icon>refresh</v-icon>
-    </v-btn>
-    <div class="button-float button-bottom">
-      <language-select class="language" :transparent="false"></language-select>
-    </div>
+	<v-content class="auth-root" :style="{ 'background-image': `url(${this.moe})` }">
+		<v-btn fab @click.stop="$router.go(-1)" class="button-float main-color" small>
+			<v-icon>arrow_back</v-icon>
+		</v-btn>
+		<v-btn fab @click.stop="$apollo.queries.moe.refetch()" class="button-float button-right main-color" small>
+			<v-icon>refresh</v-icon>
+		</v-btn>
+		<div class="button-float button-bottom">
+			<language-select class="language" :transparent="false"></language-select>
+		</div>
 
-    <v-fade-transition mode="out-in">
-      <router-view class="auth-center"></router-view>
-    </v-fade-transition>
-  </v-content>
+		<v-fade-transition mode="out-in">
+			<router-view class="auth-center"></router-view>
+		</v-fade-transition>
+	</v-content>
 </template>
 
 <script>
@@ -52,48 +52,48 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main'
+	@import '../../stylus/main'
 
-  .button-float {
-    position: fixed !important;
-    z-index: 2;
-  }
+	.button-float {
+		position: fixed !important;
+		z-index: 2;
+	}
 
-  .button-bottom {
-    bottom 0;
-  }
+	.button-bottom {
+		bottom 0;
+	}
 
-  .button-right {
-    right: 0;
-  }
+	.button-right {
+		right: 0;
+	}
 
-  .language {
-    margin 8px;
-  }
+	.language {
+		margin 8px;
+	}
 
-  .auth-root {
-    height: 100%;
-    min-height: 100vh;
+	.auth-root {
+		height: 100%;
+		min-height: 100vh;
 
-    background-attachment: fixed;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+		background-attachment: fixed;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
 
-    .auth-center {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      min-width: 600px;
+		.auth-center {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			min-width: 600px;
 
-      @media (max-width: 600px) {
-        position: inherit;
-        transform: none;
-        min-width: 0;
-        width: 100%;
-      }
+			@media (max-width: 600px) {
+				position: inherit;
+				transform: none;
+				min-width: 0;
+				width: 100%;
+			}
 
-    }
-  }
+		}
+	}
 </style>

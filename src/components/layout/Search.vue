@@ -1,27 +1,27 @@
 <template>
-  <v-slide-x-transition>
-    <div v-if="toggled" class="search">
-      <v-toolbar
-        floating
-        dense
-      >
-        <v-btn @click.stop="toggled = false" flat icon>
-            <v-icon>arrow_back</v-icon>
-        </v-btn>
-        <v-text-field
-          :label="$t('quick_search.search')"
-          prepend-icon="search"
-          hide-details
-          single-line
-          v-model="query"
-        ></v-text-field>
-      </v-toolbar>
-      <search-results class="result" :query="query" @close="toggled = false"></search-results>
-    </div>
-    <v-btn v-else @click.stop="toggled = true" fab class="main-color" small>
-        <v-icon>search</v-icon>
-    </v-btn>
-  </v-slide-x-transition>
+	<v-slide-x-transition>
+		<div v-if="toggled" class="search">
+			<v-toolbar
+				floating
+				dense
+			>
+				<v-btn @click.stop="toggled = false" flat icon>
+						<v-icon>arrow_back</v-icon>
+				</v-btn>
+				<v-text-field
+					:label="$t('quick_search.search')"
+					prepend-icon="search"
+					hide-details
+					single-line
+					v-model="query"
+				></v-text-field>
+			</v-toolbar>
+			<search-results class="result" :query="query" @close="toggled = false"></search-results>
+		</div>
+		<v-btn v-else @click.stop="toggled = true" fab class="main-color" small>
+				<v-icon>search</v-icon>
+		</v-btn>
+	</v-slide-x-transition>
 </template>
 
 <script>
@@ -71,13 +71,13 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main'
+	@import '../../stylus/main'
 
 	.search {
 		margin: 8px 8px 0 0;
-  	.toolbar {
-    	margin: 0;
-  	}
+		.toolbar {
+			margin: 0;
+		}
 		.result {
 			width: 303px;
 		}

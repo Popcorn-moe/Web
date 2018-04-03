@@ -22,14 +22,14 @@
 					<v-dialog 
 					 v-if="isAuth && me"
 					 fullscreen
-        			 transition="dialog-bottom-transition"
-        			 :overlay="false"
-        			 scrollable
+					 transition="dialog-bottom-transition"
+					 :overlay="false"
+					 scrollable
 					 v-model="dialog"
 					>
 						<v-avatar size="36px" slot="activator">
-              				<img :src="me.avatar">
-            			</v-avatar>
+			  				<img :src="me.avatar">
+						</v-avatar>
 						<v-card tile>
 							<v-toolbar dense card color="primary">
 								<v-btn icon @click.native="dialog = false" dark>
@@ -201,7 +201,7 @@ export default {
 
   .language {
 	.input-group__details {
-      min-height: 0px !important;
-    }
+	  min-height: 0px !important;
+	}
   }
 </style>

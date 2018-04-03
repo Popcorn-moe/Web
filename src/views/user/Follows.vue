@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="follows">
-    <v-layout row wrap v-if="user">
+	<v-layout row wrap v-if="user">
 		<v-flex xs12 class="text-xs-center nodata" v-if="user.follows.length == 0">
 			<p>Cet utilisateur ne follow personne</p>
 		</v-flex>
@@ -14,7 +14,7 @@
 		>
 			<user :user="u"></user>
 		</v-flex>
-    </v-layout>
+	</v-layout>
   </v-container>
 </template>
 

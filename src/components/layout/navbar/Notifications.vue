@@ -1,58 +1,58 @@
 <template>
-    <div>
-        <v-layout row wrap class="text-xs-center">
-        <v-flex xs3>
-            <v-btn icon @click.stop="$emit('input', false)">
-              <v-icon>menu</v-icon>
-            </v-btn>
-        </v-flex>
-        <v-flex offset-xs6 xs3>
-            <v-btn icon @click.stop="$emit('close')">
-              <v-icon>clear</v-icon>
-            </v-btn>
-        </v-flex>
-        </v-layout>
-        <v-list>
-          <div
-              v-for="notif in notifs"
-              :key="notif.id"
-              to="index"
-          >
-            <v-layout row>
-              <v-flex xs12 class="notif-container">
-                <v-layout row>
-                  <v-flex xs2>
-                    <div v-if="notif.type === 'MESSAGE'"><v-icon>messages</v-icon></div>
-                    <div v-if="notif.type === 'FOLLOW'">
-                      <v-avatar size="40px" class="notif-img">
-                        <img :src="notif.anime.cover" :alt="notif.anime.id">
-                      </v-avatar>
-                    </div>
-                    <div v-if="notif.type === 'FRIEND_REQUEST'">
-                      <v-avatar size="40px" class="notif-img">
-                        <img :src="notif._from.avatar" :alt="notif._from.login">
-                      </v-avatar>
-                    </div>
-                  </v-flex>
-                  <v-flex xs10>
-                    <div class="content">
-                      <div v-if="notif.type === 'MESSAGE'">{{ notif.message }}</div>
-                      <div v-else-if="notif.type === 'FOLLOW'">
-                        <div class="content" v-t="{ path: 'notifications.follow', args: { episode: 1, saison: 1, anime: anime.names[0] } }"></div>
-                      </div>
-                      <div v-else-if="notif.type === 'FRIEND_REQUEST'">
-                        <div class="content" v-t="{ path: 'notifications.friends.friend_request', args: { from: notif._from.login } }"></div>
-                        <v-btn inline small primary v-t="'notifications.friends.accept'" @click.stop="acceptFriendRequest(notif.id)"></v-btn>
-                        <v-btn inline small v-t="'notifications.friends.refuse'" @click.stop="refuseFriendRequest(notif.id)"></v-btn>
-                      </div>
-                    </div>
-                  </v-flex>
-                </v-layout>
-              </v-flex>
-            </v-layout>
-          </div>
-        </v-list>
-    </div>
+		<div>
+				<v-layout row wrap class="text-xs-center">
+				<v-flex xs3>
+						<v-btn icon @click.stop="$emit('input', false)">
+							<v-icon>menu</v-icon>
+						</v-btn>
+				</v-flex>
+				<v-flex offset-xs6 xs3>
+						<v-btn icon @click.stop="$emit('close')">
+							<v-icon>clear</v-icon>
+						</v-btn>
+				</v-flex>
+				</v-layout>
+				<v-list>
+					<div
+							v-for="notif in notifs"
+							:key="notif.id"
+							to="index"
+					>
+						<v-layout row>
+							<v-flex xs12 class="notif-container">
+								<v-layout row>
+									<v-flex xs2>
+										<div v-if="notif.type === 'MESSAGE'"><v-icon>messages</v-icon></div>
+										<div v-if="notif.type === 'FOLLOW'">
+											<v-avatar size="40px" class="notif-img">
+												<img :src="notif.anime.cover" :alt="notif.anime.id">
+											</v-avatar>
+										</div>
+										<div v-if="notif.type === 'FRIEND_REQUEST'">
+											<v-avatar size="40px" class="notif-img">
+												<img :src="notif._from.avatar" :alt="notif._from.login">
+											</v-avatar>
+										</div>
+									</v-flex>
+									<v-flex xs10>
+										<div class="content">
+											<div v-if="notif.type === 'MESSAGE'">{{ notif.message }}</div>
+											<div v-else-if="notif.type === 'FOLLOW'">
+												<div class="content" v-t="{ path: 'notifications.follow', args: { episode: 1, saison: 1, anime: anime.names[0] } }"></div>
+											</div>
+											<div v-else-if="notif.type === 'FRIEND_REQUEST'">
+												<div class="content" v-t="{ path: 'notifications.friends.friend_request', args: { from: notif._from.login } }"></div>
+												<v-btn inline small primary v-t="'notifications.friends.accept'" @click.stop="acceptFriendRequest(notif.id)"></v-btn>
+												<v-btn inline small v-t="'notifications.friends.refuse'" @click.stop="refuseFriendRequest(notif.id)"></v-btn>
+											</div>
+										</div>
+									</v-flex>
+								</v-layout>
+							</v-flex>
+						</v-layout>
+					</div>
+				</v-list>
+		</div>
 </template>
 
 <script>
@@ -174,25 +174,25 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../../stylus/main.styl';
+	@import '../../../stylus/main.styl';
 
-  .notif-container:hover {
-    background-color: rgba(0,0,0,0.15);
-  }
+	.notif-container:hover {
+		background-color: rgba(0,0,0,0.15);
+	}
 
-  .notif-container {
-      padding: 6px !important;
-      .notif-img {
-        padding-left: 10px;
-        width: 50px;
-        height: auto;
-      }
+	.notif-container {
+			padding: 6px !important;
+			.notif-img {
+				padding-left: 10px;
+				width: 50px;
+				height: auto;
+			}
 
-      .content {
-        text-align: justify;
-        padding-left: 10px;
-        padding-right: 10px;
-        color: #4b4b4b !important;
-      }
-  }
+			.content {
+				text-align: justify;
+				padding-left: 10px;
+				padding-right: 10px;
+				color: #4b4b4b !important;
+			}
+	}
 </style>

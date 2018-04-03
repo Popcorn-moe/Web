@@ -1,27 +1,27 @@
 <template>
   <div class="cover-list" v-touch="{ right: prev, left: next }">
-        <div
-            :class="{ animate, covers: true }"
-            :style="{ right: animeSize * elemsPerLine * moveDirection + 'px'}"
-        >
-            <div
-                class="cover-el"
-                v-for="(cover, i) in value"
-                :style="{ left: animeSize * positions[i] + 'px'}"
-                :key="cover.id"
-                >
-                    <cover :value="cover"/>
-                </div>
-        </div>
-        <div class="shadow"></div>
-        <v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
-            <v-icon large>keyboard_arrow_left</v-icon>
-        </v-btn>
-        <v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
-            <v-icon large>keyboard_arrow_right</v-icon>
-        </v-btn>
-        <slot/>
-    </div>
+		<div
+			:class="{ animate, covers: true }"
+			:style="{ right: animeSize * elemsPerLine * moveDirection + 'px'}"
+		>
+			<div
+				class="cover-el"
+				v-for="(cover, i) in value"
+				:style="{ left: animeSize * positions[i] + 'px'}"
+				:key="cover.id"
+				>
+					<cover :value="cover"/>
+				</div>
+		</div>
+		<div class="shadow"></div>
+		<v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
+			<v-icon large>keyboard_arrow_left</v-icon>
+		</v-btn>
+		<v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
+			<v-icon large>keyboard_arrow_right</v-icon>
+		</v-btn>
+		<slot/>
+	</div>
 </template>
 
 <script>
@@ -142,59 +142,59 @@ export default {
   @import '../../stylus/main'
 
   .cover-list {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    padding: 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+	padding: 10px;
 
-    .covers {
-        height: $anime-height;
-        position: relative;
+	.covers {
+		height: $anime-height;
+		position: relative;
 
-        &.animate {
-            transition: right 500ms;
-        }
+		&.animate {
+			transition: right 500ms;
+		}
 
-        & > .cover-el {
-            position: absolute;
-        }
-    }
+		& > .cover-el {
+			position: absolute;
+		}
+	}
 
-    .nav-button {
-        position: absolute;
-        top: $anime.img-height * 0.5 - $anime.img-border;
-        transform: translateX(-50%);
-        z-index: 2;
+	.nav-button {
+		position: absolute;
+		top: $anime.img-height * 0.5 - $anime.img-border;
+		transform: translateX(-50%);
+		z-index: 2;
 
-        &.nav-left {
-            left: 28px;
-        }
+		&.nav-left {
+			left: 28px;
+		}
 
-        &.nav-right {
-            right: -28px;
-        }
-    }
+		&.nav-right {
+			right: -28px;
+		}
+	}
 
-    .shadow {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        pointer-events: none;
-    }
+	.shadow {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		right: 0px;
+		bottom: 0px;
+		pointer-events: none;
+	}
   }
 
   .application.theme--dark .cover-list {
-    .shadow {
-        background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-dark.background 100%);
-    }
+	.shadow {
+		background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-dark.background 100%);
+	}
   }
 
   .application.theme--light .cover-list {
-    .shadow {
-        background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-light.background 100%);
-    }
+	.shadow {
+		background: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0) 7px, $material-light.background 100%);
+	}
   }
 
 </style>

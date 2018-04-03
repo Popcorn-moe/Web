@@ -1,23 +1,23 @@
 <template>
-    <div>
-        <template v-if="$vuetify.breakpoint.smAndUp">
-            <navbar :value="drawer" @input="toggleDrawer"></navbar>
-            <v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="el-float main-color" small>
-                <v-icon>menu</v-icon>
-            </v-btn>
-            <search class="el-float el-right"></search>
-        </template>
-        <mobile-navbar v-else></mobile-navbar>
+	<div>
+		<template v-if="$vuetify.breakpoint.smAndUp">
+			<navbar :value="drawer" @input="toggleDrawer"></navbar>
+			<v-btn v-if="!drawer" fab @click.stop="toggleDrawer(!drawer)" class="el-float main-color" small>
+				<v-icon>menu</v-icon>
+			</v-btn>
+			<search class="el-float el-right"></search>
+		</template>
+		<mobile-navbar v-else></mobile-navbar>
 
-        <v-content style="min-height: 100vh;">
-            <loader v-show="isLoading"></loader>
-            <v-slide-y-transition v-show="!isLoading" mode="out-in">
-                <router-view></router-view>
-            </v-slide-y-transition>
-        </v-content>
+		<v-content style="min-height: 100vh;">
+			<loader v-show="isLoading"></loader>
+			<v-slide-y-transition v-show="!isLoading" mode="out-in">
+				<router-view></router-view>
+			</v-slide-y-transition>
+		</v-content>
 
-        <layout-footer></layout-footer>
-    </div>
+		<layout-footer></layout-footer>
+	</div>
 </template>
 
 <script>
@@ -58,11 +58,11 @@ export default {
   @import '../../stylus/main'
 
   .el-float {
-    position: fixed !important;
-    z-index: 1000;
+	position: fixed !important;
+	z-index: 1000;
   }
 
   .el-right {
-      right: 0;
+	  right: 0;
   }
 </style>

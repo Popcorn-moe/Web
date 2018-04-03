@@ -74,9 +74,9 @@ export default {
   @import '../../../stylus/main.styl';
 
   .user-logout {
-    padding: 15px;
-    color: #4b4b4b !important;
-    text-decoration: none;
-    cursor: pointer;3
+	padding: 15px;
+	color: #4b4b4b !important;
+	text-decoration: none;
+	cursor: pointer;
   }
 </style>

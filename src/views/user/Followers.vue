@@ -1,21 +1,21 @@
 <template>
-  <v-container fluid class="followers">
-    <v-layout row wrap>
+	<v-container fluid class="followers">
+		<v-layout row wrap>
 			<v-flex xs12 class="text-xs-center nodata" v-if="followers.length == 0">
 				<p>Cet utilisateur n'as aucuns followers</p>
 			</v-flex>
-      <v-flex
+			<v-flex
 				v-else 
-        v-for="u in followers" 
-        :key="u.id"
-        md4
-        sm6
-        xs12
-      >
-        <user :user="u"></user>
-      </v-flex>
-    </v-layout>
-  </v-container>
+				v-for="u in followers"
+				:key="u.id"
+				md4
+				sm6
+				xs12
+			>
+				<user :user="u"></user>
+			</v-flex>
+		</v-layout>
+	</v-container>
 </template>
 
 
@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style lang="stylus">
-  @import '../../stylus/main.styl'
+	@import '../../stylus/main.styl'
 
 	.followers {
 		.nodata {
