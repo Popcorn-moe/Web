@@ -31,9 +31,9 @@
         <v-tab-item id="profile">
             <user-profile :userId="user.id"></user-profile>
           </v-tab-item>
-          <v-tab-item id="library">
-            <!--<user-library></user-library>-->
-          </v-tab-item>
+          <!--v-tab-item id="library">
+            <user-library></user-library>
+          </v-tab-item-->
           <v-tab-item id="follows">
             <user-follows :user="user"></user-follows>
           </v-tab-item>
