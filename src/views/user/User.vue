@@ -352,7 +352,7 @@ export default {
     @media (max-width: 600px) {
       .user-page-banner {
         height: 400px;
-        padding-left: 0;
+        padding: 0 !important;
 
         .user-container {
           width: 150px;
