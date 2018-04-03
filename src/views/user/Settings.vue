@@ -78,11 +78,13 @@ export default {
 <style lang="stylus">
     @import '../../stylus/main.styl'
 
-    .settings-page {
-        height: 100%;
-
-        .settings-nav {
+    @media (min-width: 600px) {
+        .settings-page {
             height: 100%;
+
+            .settings-nav {
+                height: 100%;
+            }
         }
     }
 </style>
