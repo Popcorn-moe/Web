@@ -83,6 +83,7 @@
 		"faker": "^4.1.0",
 		"file-loader": "^1.1.11",
 		"friendly-errors-webpack-plugin": "^1.6.1",
+		"git-revision-webpack-plugin": "^2.5.1",
 		"graphql": "^0.13.2",
 		"graphql-tools": "^2.23.1",
 		"html-loader": "^0.5.5",
