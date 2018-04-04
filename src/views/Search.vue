@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-container class="page-container" grid-list-md>
+  <div class="page-container">
+    <v-container grid-list-md>
       <v-layout row wrap>
         <v-flex offset-sm3 sm6 xs12>
           <v-text-field v-model="search" :label="$t('search.search')" hide-details single-line append-icon="search"></v-text-field>
@@ -16,67 +16,65 @@
           </div>
         </v-flex>
       </v-layout>
-      <div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
-        <v-layout row wrap>
-          <v-flex offset-sm1 xs12 sm2>
-            <v-btn color="primary" dark @click.native.stop="dialog_tags = true" small block top v-t="'search.add_tags'"></v-btn>
-            <v-dialog v-model="dialog_tags" max-width="50%">
-              <v-card>
-                <v-card-title class="headline" v-t="'search.add_tags'"></v-card-title>
-                <div class="v-card__text">
-                  <v-chip v-for="tag in tags" :key="tag.id"
-                    :class="{ 'white--text': tag.value }"
-                    :style="{ 'background-color': tag.value ? tag.color : null }"
-                    @click.stop="tag.value = !tag.value">{{ tag.name }}
-                  </v-chip>
-                </div>
-                <div class="v-card__actions">
-                  <v-spacer></v-spacer>
-                  <v-btn class="green--text darken-1" flat="flat" @click.native="dialog_tags = false" v-t="'search.finish'"></v-btn>
-                </div>
-              </v-card>
-            </v-dialog>
-          </v-flex>
-          <v-flex xs12 sm2>
-            <v-select :label="$t('search.sort_by')" bottom></v-select>
-          </v-flex>
-          <v-flex xs12 sm2>
-            <v-select :label="$t('search.status')" v-model="status" :items="animesStatus" clearable bottom></v-select>
-          </v-flex>
-          <v-flex xs12 sm2>
-            <v-select :label="$t('search.type')" v-model="type" :items="animesTypes" clearable bottom></v-select>
-          </v-flex>
-          <v-flex xs12 sm2>
-            <v-select :label="$t('search.author')"
-                autocomplete
-                multiple
-                :no-data-text="$t('search.nothing_found')"
-                :search-input.sync="searchAuthor"
-                :items="authorsResults"
-                item-text="name"
-                item-value="id"
-                v-model="selectedAuthors"
-                return-object
-                bottom
-            ></v-select>
-          </v-flex>
-        </v-layout>
-        <v-layout row wrap>
-          <v-flex offset-sm4 sm4 xs12>
-            <v-text-field :label="$t('search.year')" single-line></v-text-field>
-          </v-flex>
-        </v-layout>
-      </div>
-      <v-layout row wrap>
-        <v-flex v-for="result in searchResults" :key="result.id" class="text-xs-center" :xs6="$vuetify.breakpoint.xsOnly">
-          <cover :value="result"></cover>
-        </v-flex>
-        <v-flex v-for="i in 24" :key="i"><div class="filler"></div></v-flex>
-      </v-layout>
+			<div :class="{ 'search-options-body': true, 'search-options-body-hidden': !showMore }">
+				<v-layout row wrap>
+					<v-flex offset-sm1 xs12 sm2>
+						<v-btn color="primary" dark @click.native.stop="dialog_tags = true" small block top v-t="'search.add_tags'"></v-btn>
+						<v-dialog v-model="dialog_tags" max-width="50%">
+							<v-card>
+								<v-card-title class="headline" v-t="'search.add_tags'"></v-card-title>
+								<div class="v-card__text">
+									<v-chip v-for="tag in tags" :key="tag.id"
+										:class="{ 'white--text': tag.value }"
+										:style="{ 'background-color': tag.value ? tag.color : null }"
+										@click.stop="tag.value = !tag.value">{{ tag.name }}
+									</v-chip>
+								</div>
+								<div class="v-card__actions">
+									<v-spacer></v-spacer>
+									<v-btn class="green--text darken-1" flat="flat" @click.native="dialog_tags = false" v-t="'search.finish'"></v-btn>
+								</div>
+							</v-card>
+						</v-dialog>
+					</v-flex>
+					<v-flex xs12 sm2>
+						<v-select :label="$t('search.sort_by')" bottom></v-select>
+					</v-flex>
+					<v-flex xs12 sm2>
+						<v-select :label="$t('search.status')" v-model="status" :items="animesStatus" clearable bottom></v-select>
+					</v-flex>
+					<v-flex xs12 sm2>
+						<v-select :label="$t('search.type')" v-model="type" :items="animesTypes" clearable bottom></v-select>
+					</v-flex>
+					<v-flex xs12 sm2>
+						<v-select :label="$t('search.author')"
+								autocomplete
+								multiple
+								:no-data-text="$t('search.nothing_found')"
+								:search-input.sync="searchAuthor"
+								:items="authorsResults"
+								item-text="name"
+								item-value="id"
+								v-model="selectedAuthors"
+								return-object
+								bottom
+						></v-select>
+					</v-flex>
+				</v-layout>
+				<v-layout row wrap>
+					<v-flex offset-sm4 sm4 xs12>
+						<v-text-field :label="$t('search.year')" single-line></v-text-field>
+					</v-flex>
+				</v-layout>
+			</div>
     </v-container>
+		<v-layout row wrap>
+			<v-flex v-for="result in searchResults" :key="result.id" class="text-xs-center">
+				<cover :value="result"></cover>
+			</v-flex>
+			<v-flex v-for="i in 24" :key="i"><div class="filler"></div></v-flex>
+		</v-layout>
   </div>
-
-
 </template>
 
 <script>
