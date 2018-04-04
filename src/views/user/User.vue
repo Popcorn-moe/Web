@@ -1,50 +1,51 @@
 <template>
-		<div class="user-page" v-if="user">
-			<upload v-if="page === 'settings'" class="background-upload" @input="setBackground">
-				<v-icon>file_upload</v-icon>
-			</upload>
-			<div class="user-page-banner px-2" :style="{ 'background-image': user.background && `url(${user.background})` }">
-				<div class="user-container">
-					<template v-if="page === 'settings'">
-						<upload class="avatar-upload" @input="setAvatar">
-							<v-icon>file_upload</v-icon>
-							<img class="user-avatar" :src="user.avatar">
-						</upload>
-					</template>
-					<img v-else class="user-avatar" :src="user.avatar">
-					<div class="user-data text-xs-center">
-						<span class="login">{{ user.login }}</span>
-						<v-btn class="primary follow text--primary" :outline="user.isFollower" v-if="!isMe" @click.stop="toggleFollow">{{ user.isFollower ? "Unfollow" : "Follow"}}</v-btn>
-					</div>
-				</div>
-				<div class="user-top-nav">
-					<v-tabs :value="page" @input="changeUrl">
-						<v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
-						<v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
-						<v-tab activeClass="active" href="#follows" >{{ $t('route.auth.follows') }}</v-tab>
-						<v-tab activeClass="active" href="#followers" >{{ $t('route.auth.followers') }}</v-tab>
-						<v-tab activeClass="active" href="#settings" class="right" v-if="isMe">{{ $t('route.auth.settings') }}</v-tab>
-					</v-tabs>
+	<loader v-if="!user"></loader>
+	<div class="user-page" v-else>
+		<upload v-if="page === 'settings'" class="background-upload" @input="setBackground">
+			<v-icon>file_upload</v-icon>
+		</upload>
+		<div class="user-page-banner px-2" :style="{ 'background-image': user.background && `url(${user.background})` }">
+			<div class="user-container">
+				<template v-if="page === 'settings'">
+					<upload class="avatar-upload" @input="setAvatar">
+						<v-icon>file_upload</v-icon>
+						<img class="user-avatar" :src="user.avatar">
+					</upload>
+				</template>
+				<img v-else class="user-avatar" :src="user.avatar">
+				<div class="user-data text-xs-center">
+					<span class="login">{{ user.login }}</span>
+					<v-btn class="primary follow text--primary" :outline="user.isFollower" v-if="!isMe" @click.stop="toggleFollow">{{ user.isFollower ? "Unfollow" : "Follow"}}</v-btn>
 				</div>
 			</div>
-			<v-tabs-items :value="page" @input="changeUrl">
-				<v-tab-item id="profile">
-						<user-profile :userId="user.id"></user-profile>
-					</v-tab-item>
-					<!--v-tab-item id="library">
-						<user-library></user-library>
-					</v-tab-item-->
-					<v-tab-item id="follows">
-						<user-follows :user="user"></user-follows>
-					</v-tab-item>
-					<v-tab-item id="followers">
-						<user-followers :user="user"></user-followers>
-					</v-tab-item>
-					<v-tab-item id="settings" v-if="isMe">
-						<user-settings></user-settings>
-					</v-tab-item>
-			</v-tabs-items>
+			<div class="user-top-nav">
+				<v-tabs :value="page" @input="changeUrl">
+					<v-tab activeClass="active" href="#profile" >{{ $t('route.auth.profile') }}</v-tab>
+					<v-tab activeClass="active" href="#library" >{{ $t('route.auth.library') }}</v-tab>
+					<v-tab activeClass="active" href="#follows" >{{ $t('route.auth.follows') }}</v-tab>
+					<v-tab activeClass="active" href="#followers" >{{ $t('route.auth.followers') }}</v-tab>
+					<v-tab activeClass="active" href="#settings" class="right" v-if="isMe">{{ $t('route.auth.settings') }}</v-tab>
+				</v-tabs>
+			</div>
 		</div>
+		<v-tabs-items :value="page" @input="changeUrl">
+			<v-tab-item id="profile">
+					<user-profile :userId="user.id"></user-profile>
+				</v-tab-item>
+				<!--v-tab-item id="library">
+					<user-library></user-library>
+				</v-tab-item-->
+				<v-tab-item id="follows">
+					<user-follows :user="user"></user-follows>
+				</v-tab-item>
+				<v-tab-item id="followers">
+					<user-followers :user="user"></user-followers>
+				</v-tab-item>
+				<v-tab-item id="settings" v-if="isMe">
+					<user-settings></user-settings>
+				</v-tab-item>
+		</v-tabs-items>
+	</div>
 </template>
 
 <script>
@@ -54,6 +55,7 @@ import UserFollows from "./Follows";
 import UserFollowers from "./Followers";
 import UserProfile from "./Profile";
 import Upload from "../../components/Upload";
+import Loader from "../../components/layout/Loader";
 import clone from "clone";
 
 import {
@@ -85,6 +87,7 @@ export default {
 		UserFollowers,
 		UserProfile,
 		Upload,
+		Loader,
 		VBtn,
 		VIcon
 	},
@@ -210,7 +213,6 @@ export default {
 	},
 	watch: {
 		user(newUser) {
-			console.log(newUser);
 			if (!newUser) this.goto404();
 		}
 	}
