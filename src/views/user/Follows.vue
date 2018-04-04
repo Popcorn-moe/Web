@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="follows">
+  <v-container fluid class="follows" grid-list-md>
 	<v-layout row wrap v-if="user">
 		<v-flex xs12 class="text-xs-center nodata" v-if="user.follows.length == 0">
 			<p>Cet utilisateur ne follow personne</p>

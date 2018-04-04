@@ -173,11 +173,13 @@ export default {
 								id
 								login
 								avatar
+                background
 							}
 							followers {
 								id
 								login
 								avatar
+                background
 							}
 						}
 					}

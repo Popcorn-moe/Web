@@ -1,5 +1,5 @@
 <template>
-	<v-container fluid class="followers">
+	<v-container fluid class="followers" grid-list-md>
 		<v-layout row wrap>
 			<v-flex xs12 class="text-xs-center nodata" v-if="followers.length == 0">
 				<p>Cet utilisateur n'as aucuns followers</p>

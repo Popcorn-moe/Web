@@ -1,6 +1,6 @@
 <template>
     <v-card class="user">
-        <v-card-media src="https://images6.alphacoders.com/505/thumb-1920-505441.jpg" height="120px"></v-card-media>
+        <v-card-media :src="user.background || 'https://images6.alphacoders.com/505/thumb-1920-505441.jpg'" height="120px"></v-card-media>
         <v-card-title primary-title>
             <img class="avatar" :src="user.avatar" height="100px" width="100px">
             <router-link :to="{ name: 'User', params: { userLogin: user.login, page: 'profile' }}">
