@@ -1,5 +1,5 @@
 <template>
-	<v-container class="profile-container" fluid>
+	<v-container class="profile-container" fluid grid-list-md>
 		<v-layout row wrap>
 			<v-flex md3 xs12>
 				<div class="infos elevation-3">
@@ -30,11 +30,19 @@
 					<div class="line"></div>
 					<div v-for="(day, k) in timeline" :key="k" class="timeline-elem">
 						<div class="date-content">
-							<div v-for="event in day" :key="event.id" :class="{ content: true, 'elevation-1': true, 'content-img': event.type == 'NEW_FRIEND'}">
+							<div 
+								v-for="event in day" 
+								:key="event.id"
+								:class="{ 
+									content: true, 
+									'elevation-1': true,
+									'content-img': event.type == 'USER_FOLLOW' || event.type == 'USER_UNFOLLOW'
+								}"
+							>
 								<p v-if="event.type == 'MESSAGE' ">{{ event.message }}</p>
-								<div v-if="event.type == 'NEW_FRIEND'">
-									<img class="elevation-5" :src="event.friend.avatar">
-									<p v-t="{ path: 'profile.new_friend_event', args: { user: event.user.login, friend: event.friend.login } }"></p>
+								<div v-if="event.type == 'USER_FOLLOW'">
+									<img class="elevation-5" :src="event.follow.avatar">
+									<p v-t="{ path: 'profile.user_follow_event', args: { user: event.user.login, friend: event.follow.login } }"></p>
 								</div>
 							</div>
 						</div>
@@ -121,6 +129,13 @@ export default {
 						... on MessageEvent {
 							message
 						}
+						... on UserFollowEvent {
+							follow {
+								id
+								login
+								avatar
+							}
+						}
 					}
 				}
 			`,
@@ -143,7 +158,7 @@ export default {
 					send_message_btn: "Envoyer",
 					about: "A propos de {user}",
 					empty_events: "Aucuns evènements",
-					new_friend_event: "{user} et {friend} sont devenus amis !"
+					user_follow_event: "{user} suis maintenant {friend} !"
 				}
 			},
 			en: {
@@ -152,7 +167,7 @@ export default {
 					send_message_btn: "Send",
 					about: "About {user}",
 					empty_events: "No events",
-					new_friend_event: "{user} and {friend} became friends !"
+					user_follow_event: "{user} now follow {friend} !"
 				}
 			}
 		}
@@ -172,7 +187,6 @@ export default {
 			this.events.forEach(
 				({ date }) => days.indexOf(date) === -1 && days.push(date)
 			);
-			days.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
 			days.forEach(
 				d => (out[d] = this.events.filter(({ date }) => date === d))
 			);
