@@ -7,8 +7,8 @@
           <v-list-tile-content>
             <v-list-tile-title>
               {{ anime.names[0] }}
-              <v-btn icon small><v-icon>remove_red_eye</v-icon></v-btn>
-              <v-btn icon small right><v-icon>clear</v-icon></v-btn>
+              <v-btn icon small :to="{ name: 'Anime', params: { id: anime.id }}"><v-icon>remove_red_eye</v-icon></v-btn>
+              <v-btn icon small right @click.stop="unfollow(anime)"><v-icon>clear</v-icon></v-btn>
             </v-list-tile-title>
             <v-list-tile-sub-title v-html="anime.desc"></v-list-tile-sub-title>
           </v-list-tile-content>
