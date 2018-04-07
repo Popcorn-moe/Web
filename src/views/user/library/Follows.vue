@@ -62,6 +62,24 @@ export default {
 			return this.user.animeFollows;
 		}
 	},
+	methods: {
+		unfollow({ id: anime }) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation($anime: ID!) {
+							unfollowAnime(anime: $anime)
+						}
+					`,
+					variables: {
+						anime
+					}
+				})
+				.then(r => {
+					this.$apollo.queries.user.refetch();
+				});
+		}
+	},
 	apollo: {
 		user: {
 			query() {
