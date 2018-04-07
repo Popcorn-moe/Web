@@ -14,10 +14,10 @@
 				</div>
 		</div>
 		<div class="shadow"></div>
-		<v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
+		<v-btn class="nav-button nav-left main-color--text" fab @click="prev" v-if="$vuetify.breakpoint.smAndUp && needArrow">
 			<v-icon large>keyboard_arrow_left</v-icon>
 		</v-btn>
-		<v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.mdAndUp && needArrow">
+		<v-btn class="nav-button nav-right main-color--text" fab @click="next" v-if="$vuetify.breakpoint.smAndUp && needArrow">
 			<v-icon large>keyboard_arrow_right</v-icon>
 		</v-btn>
 		<slot/>
@@ -68,10 +68,8 @@ export default {
 	},
 	methods: {
 		update() {
-			const width =
-				document.body.offsetWidth -
-				(this.$vuetify.breakpoint.mdAndUp && this.drawer ? 280 : 0) -
-				2 * PADDING;
+			console.log(this.elemsPerLine, this.$el);
+			const width = this.$el.offsetWidth - 2 * PADDING;
 			this.elemsPerLine = Math.floor(width / this.animeSize);
 		},
 		nextAnimationTick(fn) {

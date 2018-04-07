@@ -137,7 +137,7 @@ export default {
 		}
 	}
 
-	.application.theme--dark .anime {
+	.application.theme--dark .anime-cover {
 		.title {
 			color: white;
 		}
@@ -151,7 +151,7 @@ export default {
 		}
 	}
 
-	.application.theme--light .anime {
+	.application.theme--light .anime-cover {
 		.description {
 			background-color: $grey.lighten-3;
 		}
