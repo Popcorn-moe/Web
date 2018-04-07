@@ -100,7 +100,7 @@ export default {
 					name = "UserSettings";
 					break;
 				case "library":
-					name = "UserLibrary";
+					name = "UserLibraryFollows";
 					break;
 				default:
 					name = "User";
