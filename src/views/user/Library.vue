@@ -40,7 +40,12 @@
 						></v-text-field>
 						<v-btn icon @click.stop="addPlaylist"><v-icon>save</v-icon></v-btn>
 					</v-list-tile>
-					<v-list-tile v-for="playlist in playlists" :key="playlist.id">
+					<v-list-tile 
+						v-for="playlist in playlists" 
+						:key="playlist.id"
+						:to="{ name: 'UserLibraryPlaylist', params: { page: 'library', id: playlist.id } }"
+						active-class="primary white--text"
+					>
 						<v-list-tile-content>
 							<v-list-tile-title>{{ playlist.name }}</v-list-tile-title>
 						</v-list-tile-content>
