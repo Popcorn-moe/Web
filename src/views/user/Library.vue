@@ -45,20 +45,31 @@
 							<v-list-tile-title>{{ playlist.name }}</v-list-tile-title>
 						</v-list-tile-content>
 						<v-list-tile-action>
-							<v-btn icon ripple>
-								<v-icon color="grey lighten-1" @click.stop="del = true">delete</v-icon>
+							<v-btn icon ripple @click.native.stop="deletePlaylist(playlist)">
+								<v-icon color="grey lighten-1">delete</v-icon>
 							</v-btn>
 						</v-list-tile-action>
 					</v-list-tile>
 				</v-list>
 			</v-flex>
 		</v-layout>
+		<v-dialog v-model="del" max-width="320">
+			<v-card v-if="delPlaylist">
+				<v-card-title class="headline">Supprimer cette playlist ?</v-card-title>
+				<v-card-text>Voulez vous vraiment supprimer la playlist "{{ delPlaylist.name || 'noname' }}"</v-card-text>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn color="darken-1" flat @click.native="del = false">Annuler</v-btn>
+					<v-btn color="primary darken-1" flat @click.native="deletePlaylist(delPlaylist)">Supprimer</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
 	</v-container>
 </template>
 
 
 <script>
-import { VIcon, VBtn, VSubheader, VTextField } from "vuetify";
+import { VIcon, VBtn, VSubheader, VTextField, VDialog } from "vuetify";
 import {
 	VList,
 	VListGroup,
@@ -67,8 +78,18 @@ import {
 	VListTileContent,
 	VListTileTitle
 } from "vuetify/es5/components/VList";
-
-import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
+import {
+	VCard,
+	VCardTitle,
+	VCardActions,
+	VCardText
+} from "vuetify/es5/components/VCard";
+import {
+	VContainer,
+	VFlex,
+	VLayout,
+	VSpacer
+} from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
 
 export default {
@@ -81,7 +102,8 @@ export default {
 			me: null,
 			user: null,
 			add: false,
-			del: true,
+			del: false,
+			delPlaylist: null,
 			playlistName: null
 		};
 	},
@@ -98,7 +120,13 @@ export default {
 		VSubheader,
 		VIcon,
 		VBtn,
-		VTextField
+		VTextField,
+		VCard,
+		VSpacer,
+		VDialog,
+		VCardTitle,
+		VCardActions,
+		VCardText
 	},
 	computed: {
 		isMe() {
@@ -125,6 +153,30 @@ export default {
 					this.$apollo.queries.user.refetch();
 					this.add = false;
 					this.playlistName = null;
+				});
+		},
+		deletePlaylist(playlist) {
+			if (!this.del) {
+				this.del = true;
+				this.delPlaylist = playlist;
+				return;
+			}
+
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation($id: ID!) {
+							remPlaylist(id: $id)
+						}
+					`,
+					variables: {
+						id: playlist.id
+					}
+				})
+				.then(() => {
+					this.$apollo.queries.user.refetch();
+					this.del = false;
+					this.delPlaylist = null;
 				});
 		}
 	},
