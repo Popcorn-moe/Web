@@ -24,6 +24,9 @@ const i18n = new VueI18n({
 				user_settings: {
 					account: "My Account",
 					connections: "Connections"
+				},
+				user_library: {
+					follows: "Follows"
 				}
 			},
 			anime_status: {
@@ -47,6 +50,13 @@ const i18n = new VueI18n({
 					followers: "Abonnés",
 					settings: "Paramètres",
 					logout: "Se deconnecter"
+				},
+				user_settings: {
+					account: "Mon Compte",
+					connections: "Comptes"
+				},
+				user_library: {
+					follows: "Follows"
 				}
 			},
 			anime_status: {

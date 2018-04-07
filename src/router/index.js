@@ -79,9 +79,30 @@ export const routes = [
 	{
 		hide: true,
 		name: "User",
-		path: "/user/:userLogin/:page(profile|library|follows|followers)",
+		path: "/user/:userLogin/:page(profile|follows|followers)",
 		component: () => import("../views/user/User"),
 		props: true
+	},
+	{
+		hide: true,
+		name: "UserLibrary",
+		path: "/user/:userLogin/:page(library)",
+		component: () => import("../views/user/User"),
+		props: true,
+		children: [
+			{
+				path: "follows",
+				name: "UserLibraryFollows",
+				props: true,
+				component: () => import("../views/user/library/Follows")
+			},
+			{
+				path: "playlist/:id",
+				name: "UserLibraryPlaylist",
+				props: true,
+				component: () => import("../views/user/library/Playlist")
+			}
+		]
 	},
 	{
 		hide: true,

@@ -9,7 +9,7 @@
 					<p>Date of Birth Bla bla bla</p>
 					<v-divider></v-divider>
 					<v-icon>subject</v-icon>
-					<p>Eddy Malou (E double D Y trait d'union M A L O U) dont la signification est imposer la force vers le valium[1], c'est à dire l'estime du savoir (les gens qui connaissent beaucoup de choses), est le premier savant de toute la République Démocratique du Congo.</p>
+					<p>Eddy Malou dont la signification est imposer la force vers le valium, c'est à dire l'estime du savoir, est le premier savant de toute la République Démocratique du Congo.</p>
 				</div>
 			</v-flex>
 			<v-flex md9 xs12>
