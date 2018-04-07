@@ -36,10 +36,14 @@
 								:class="{ 
 									content: true, 
 									'elevation-1': true,
-									'content-img': event.type == 'USER_FOLLOW' || event.type == 'USER_UNFOLLOW'
+									'content-img': event.type == 'USER_FOLLOW' || event.type == 'ANIME_FOLLOW'
 								}"
 							>
 								<p v-if="event.type == 'MESSAGE' ">{{ event.message }}</p>
+								<div v-if="event.type == 'ANIME_FOLLOW'">
+									<img class="elevation-5" :src="event.anime.cover.normal">
+									<p v-t="{ path: 'profile.anime_follow_event', args: { user: event.user.login, anime: event.anime.names[0] } }"></p>
+								</div>
 								<div v-if="event.type == 'USER_FOLLOW'">
 									<img class="elevation-5" :src="event.follow.avatar">
 									<p v-t="{ path: 'profile.user_follow_event', args: { user: event.user.login, friend: event.follow.login } }"></p>
@@ -158,7 +162,8 @@ export default {
 					send_message_btn: "Envoyer",
 					about: "A propos de {user}",
 					empty_events: "Aucuns evènements",
-					user_follow_event: "{user} suis maintenant {friend} !"
+					user_follow_event: "{user} suis maintenant {friend} !",
+					anime_follow_event: "{user} suis maintenant {anime} !"
 				}
 			},
 			en: {
@@ -167,7 +172,8 @@ export default {
 					send_message_btn: "Send",
 					about: "About {user}",
 					empty_events: "No events",
-					user_follow_event: "{user} now follow {friend} !"
+					user_follow_event: "{user} now follow {friend} !",
+					anime_follow_event: "{user} now follow {anime} !"
 				}
 			}
 		}
