@@ -1,14 +1,15 @@
 <template>
   <div class="library-follows" v-if="user">
     <v-list class="animes elevation-2">
-      <div v-for="anime in animeFollows" :key="anime.id">
+      <p v-if="animeFollows.length == 0" class="text-xs-center">Cet utilisateur ne follow aucun anime</p>
+      <div v-else v-for="anime in animeFollows" :key="anime.id">
         <v-list-tile class="anime">
           <img :src="anime.cover.normal">
           <v-list-tile-content>
             <v-list-tile-title>
               {{ anime.names[0] }}
               <v-btn icon small :to="{ name: 'Anime', params: { id: anime.id }}"><v-icon>remove_red_eye</v-icon></v-btn>
-              <v-btn icon small right @click.stop="unfollow(anime)"><v-icon>clear</v-icon></v-btn>
+              <v-btn icon small right @click.stop="unfollow(anime)" v-if="isMe"><v-icon>clear</v-icon></v-btn>
             </v-list-tile-title>
             <v-list-tile-sub-title v-html="anime.desc"></v-list-tile-sub-title>
           </v-list-tile-content>
