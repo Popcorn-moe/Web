@@ -1,10 +1,22 @@
 <template>
 		<v-container fluid grid-list-md>
+			<v-btn
+				v-if="$vuetify.breakpoint.xs && $route.name !== 'UserLibrary'"
+				absolute
+				fab
+				small
+				color="primary"
+				class="ma-2"
+				style="z-index: 3"
+				:to="{ name: 'UserLibrary' }"
+			>
+				<v-icon>arrow_back</v-icon>
+			</v-btn>
 			<v-layout row wrap fill-height>
-				<v-flex sm9>
+				<v-flex sm9 xs12 v-if="$vuetify.breakpoint.smAndUp || $route.name !== 'UserLibrary'">
 					<router-view></router-view>
 				</v-flex>
-				<v-flex sm3>
+				<v-flex sm3 xs12 v-if="$vuetify.breakpoint.smAndUp || $route.name === 'UserLibrary'">
 					<v-list dense class="settings-nav elevation-2">
 						<v-list-tile
 							:to="{ name: 'UserLibraryFollows', params: { page: 'library' } }"

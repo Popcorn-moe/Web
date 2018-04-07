@@ -1,5 +1,5 @@
 <template>
-	<div class="anime text-xs-center">
+	<div class="anime-cover text-xs-center">
 		<router-link :to="value.to">
 			<div class="cover-container">
 				<p-img class="cover" alt="cover" :src="value.cover.normal"/>
@@ -44,7 +44,7 @@ export default {
 <style lang="stylus">
   @import '../../stylus/main'
 
-	.anime {
+	.anime-cover {
 		width: $anime.width + $anime.padding * 2;
 		padding: $anime.padding;
 		display: inline-block;

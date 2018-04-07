@@ -100,7 +100,7 @@ export default {
 					name = "UserSettings";
 					break;
 				case "library":
-					name = "UserLibraryFollows";
+					name = `UserLibrary${this.$vuetify.breakpoint.xs ? "" : "Follows"}`;
 					break;
 				default:
 					name = "User";

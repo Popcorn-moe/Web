@@ -131,34 +131,33 @@ export default {
   .library-follows {
     .animes {
       padding-bottom 0px
-    }
-
-    .anime  {
-      padding-bottom: 8px;
-      .list__tile {
-        height auto !important
-        align-items initial !important;
-        
-        img {
-          padding-top 8px;
-          height 120px;
+      .anime  {
+        padding-bottom: 8px;
+        .list__tile {
+          height auto !important
+          align-items initial !important;
+          
+          img {
+            padding-top 8px;
+            height 120px;
+          }
         }
-      }
 
-      .list__tile__title {
-        height auto;
-        font-size 22px
-      }
+        .list__tile__title {
+          height auto;
+          font-size 22px
+        }
 
-      .list__tile__content {
-        padding-left: 15px;
-      }
+        .list__tile__content {
+          padding-left: 15px;
+        }
 
-      .list__tile__sub-title {
-        white-space: normal !important
-        display -webkit-box 
-        -webkit-line-clamp 3
-        -webkit-box-orient vertical
+        .list__tile__sub-title {
+          white-space: normal !important
+          display -webkit-box 
+          -webkit-line-clamp 3
+          -webkit-box-orient vertical
+        }
       }
     }
   }
