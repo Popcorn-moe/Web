@@ -28,7 +28,7 @@
           <v-layout row wrap>
             <v-flex xs12>
               <router-link :to="{ name: 'Anime', params: { id: media.anime.id }}" class="link">
-                <p-img class="anime-cover" alt="cover" :src="media.anime.cover.normal"/>
+                <p-img class="media-cover" alt="cover" :src="media.anime.cover.normal"/>
                 <h3 class="uppercase">{{ media.anime.names[0] }}</h3>
               </router-link>
               <p class="sub">
@@ -409,7 +409,7 @@ export default {
       padding: 30px;
     }
 
-    .anime-cover {
+    .media-cover {
       margin-right: 18px;
       margin-bottom: 15px;
       width: 180px;

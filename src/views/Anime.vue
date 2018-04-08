@@ -5,7 +5,7 @@
     <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-sm1 sm7 class="anime-infos">
-          <p-img class="anime-cover" alt="cover" :src="anime.cover.normal"/>
+          <p-img class="anime-page-cover" alt="cover" :src="anime.cover.normal"/>
           <h3 class="uppercase">{{ anime.names[0] }}</h3>
             <ul>
               <li>
@@ -275,7 +275,7 @@ export default {
       }
     }
 
-    .anime-cover {
+    .anime-page-cover {
       margin-right: 18px;
       margin-bottom: 15px;
       width: 180px;
