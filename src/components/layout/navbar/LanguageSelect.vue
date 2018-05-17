@@ -12,14 +12,14 @@
 			<v-avatar size="25px">
 				<img :src="`https://cdn.rawgit.com/lipis/flag-icon-css/fe79c175/flags/1x1/${MAP[data.item] || data.item }.svg`"/>
 			</v-avatar>
-			<span style="margin-left: 10px">{{ data.item }}</span>
+			<span style="margin-left: 10px" v-text="$t('language_select.name')"></span>
 		</template>
 		<template slot="item" slot-scope="data">
 			<v-list-tile-avatar>
 				<img class="language-flag" :src="`https://cdn.rawgit.com/lipis/flag-icon-css/fe79c175/flags/1x1/${MAP[data.item] || data.item }.svg`"/>
 			</v-list-tile-avatar>
 			<v-list-tile-content>
-				<v-list-tile-title v-html="data.item" ></v-list-tile-title>
+				<v-list-tile-title v-html="$t('language_select.name', data.item)"></v-list-tile-title>
 			</v-list-tile-content>
 		</template>
 	</v-select>
@@ -67,6 +67,20 @@ export default {
 		VListTileAvatar,
 		VListTileContent,
 		VListTileTitle
+	},
+	i18n: {
+		messages: {
+			fr: {
+				language_select: {
+					name: "Français"
+				}
+			},
+			en: {
+				language_select: {
+					name: "English"
+				}
+			}
+		}
 	}
 };
 </script>

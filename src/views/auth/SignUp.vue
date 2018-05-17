@@ -1,25 +1,25 @@
 <template>
 	<div class="elevation-2">
 		<v-layout row wrap fill-height>
-			<v-flex sm4 xs12 class="left-panel">
+            <v-flex sm4 xs12 class="left-panel">
 				<div class="hidden-sm-and-up text-xs-center">
 					<object data="/static/logo-animated.svg" type="image/svg+xml" width="200"></object>
 				</div>
 				<h3 class="pt-4 text-xs-center" v-t="'sign_up.sign_up_with'"></h3>
 				<div class="social-buttons pa-2">
-					<v-btn color="google-color" depressed large block @click.stop="login('google')">
+					<v-btn color="google-color" depressed large block @click.stop="signup('google')">
 						<img src="/static/icons/google-icon.svg">
 						Google
 					</v-btn>
-					<v-btn color="discord-color" depressed large block @click.stop="login('discord')">
+					<v-btn color="discord-color" depressed large block @click.stop="signup('discord')">
 						<img src="/static/icons/discord-icon.svg">
 						Discord
 					</v-btn>
-					<v-btn color="twitter-color" depressed large block @click.stop="login('twitter')">
+					<v-btn color="twitter-color" depressed large block @click.stop="signup('twitter')">
 						<img src="/static/icons/twitter-icon.svg">
 						Twitter
 					</v-btn>
-					<v-btn color="kitsu-color" depressed large block @click.stop="login('kitsu')">
+					<v-btn color="kitsu-color" depressed large block @click.stop="signup('kitsu')">
 						<img src="/static/icons/kitsu-icon.svg">
 						Kitsu
 					</v-btn>
