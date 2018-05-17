@@ -92,6 +92,9 @@ const webpackConfig = merge(baseWebpackConfig, {
 				ignore: [".*"]
 			}
 		]),
+		new CopyWebpackPlugin(
+			["_redirects"].map(n => path.resolve(__dirname, "..", n))
+		),
 		new workboxPlugin.InjectManifest({
 			swSrc: "./src/sw.js",
 			swDest: "sw.js",
