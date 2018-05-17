@@ -99,6 +99,7 @@ export default {
 				document.activeElement &&
 				inputs.indexOf(document.activeElement.tagName.toLowerCase()) !== -1;
 			if (focused) return;
+            console.log(event.key.toUpperCase())
 			switch (event.key.toUpperCase()) {
 				case " ": {
 					// Space
@@ -118,12 +119,12 @@ export default {
 					event.preventDefault();
 					break;
 				}
-				case "ArrowRight": {
+				case "ARROWRIGHT": {
 					this.skipTime(10);
 					event.preventDefault();
 					break;
 				}
-				case "ArrowLeft": {
+				case "ARROWLEFT": {
 					this.skipTime(-10);
 					event.preventDefault();
 					break;
