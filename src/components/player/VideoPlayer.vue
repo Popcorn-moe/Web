@@ -99,7 +99,6 @@ export default {
 				document.activeElement &&
 				inputs.indexOf(document.activeElement.tagName.toLowerCase()) !== -1;
 			if (focused) return;
-            console.log(event.key.toUpperCase())
 			switch (event.key.toUpperCase()) {
 				case " ": {
 					// Space
