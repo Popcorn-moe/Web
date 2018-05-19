@@ -1,42 +1,10 @@
 import Vue from "vue";
-import { ApolloClient } from "apollo-client";
-import { createUploadLink } from "apollo-upload-client";
-import {
-	InMemoryCache,
-	IntrospectionFragmentMatcher
-} from "apollo-cache-inmemory";
 import VueApollo from "vue-apollo";
-/*import {
-	SubscriptionClient
-} from "subscriptions-transport-sse";*/
-import introspectionQueryResultData from "./fragmentTypes.json";
+import createClient from "@popcorn.moe/apollo";
 
 Vue.use(VueApollo);
 
-const fragmentMatcher = new IntrospectionFragmentMatcher({
-	introspectionQueryResultData
-});
-
-const cache = new InMemoryCache({
-	addTypename: true,
-	dataIdFromObject: ({ id }) => id,
-	fragmentMatcher
-});
-
-const link = createUploadLink({
-	uri: `${process.env.API_URL}/graphql`,
-	credentials: "include"
-});
-
-/*const sseClient = new SubscriptionClient(
-	`${process.env.API_URL}/subscriptions`,
-	{ reconnect: true }
-);*/
-
-export const client = new ApolloClient({
-	link,
-	cache
-});
+export const client = createClient();
 
 export default new VueApollo({
 	defaultClient: client
