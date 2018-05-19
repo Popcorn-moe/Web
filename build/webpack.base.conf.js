@@ -6,6 +6,7 @@ const config = require("../config");
 const vueLoaderConfig = require("./vue-loader.conf");
 const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const gitRevisionPlugin = new GitRevisionPlugin();
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 
 function resolve(dir) {
 	return path.join(__dirname, "..", dir);
@@ -96,7 +97,8 @@ module.exports = {
 		new webpack.DefinePlugin({
 			VERSION: JSON.stringify(gitRevisionPlugin.version()),
 			COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash())
-		})
+		}),
+		new VueLoaderPlugin()
 	],
 	node: {
 		// prevent webpack from injecting useless setImmediate polyfill because Vue
