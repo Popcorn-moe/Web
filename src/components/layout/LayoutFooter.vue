@@ -81,26 +81,16 @@ export default {
 		VFooter,
 		VBtn
 	},
-	computed: mapGetters({
-		drawer: "drawer"
-	}),
-	created() {
+	mounted() {
+		this.onResize();
 		window.addEventListener("resize", this.onResize);
 	},
 	destroyed() {
 		window.removeEventListener("resize", this.onResize);
 	},
 	watch: {
-		drawer() {
-			const time = Date.now();
-			const update = () => {
-				requestAnimationFrame(() => {
-					if (Date.now() >= time + 200) return;
-					this.$refs.footer.callUpdate();
-					update();
-				});
-			};
-			update();
+		["$vuetify.application.left"]() {
+			this.onResize();
 		}
 	},
 	methods: {

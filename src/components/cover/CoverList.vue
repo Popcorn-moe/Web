@@ -68,7 +68,6 @@ export default {
 	},
 	methods: {
 		update() {
-			console.log(this.elemsPerLine, this.$el);
 			const width = this.$el.offsetWidth - 2 * PADDING;
 			this.elemsPerLine = Math.floor(width / this.animeSize);
 		},
