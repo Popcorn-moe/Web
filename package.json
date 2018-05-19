@@ -1,17 +1,17 @@
 {
-	"name": "popcorn.moe-frontend",
+	"name": "@popcorn.moe/web",
 	"version": "1.0.0",
 	"description": "",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Popcorn-moe/Popcorn.moe-Frontend.git"
+		"url": "git+https://github.com/Popcorn-moe/Web.git"
 	},
 	"author": "Popcorn-moe",
 	"license": "GPL-3.0",
 	"bugs": {
-		"url": "https://github.com/Popcorn-moe/Popcorn.moe-Frontend/issues"
+		"url": "https://github.com/Popcorn-moe/Web/issues"
 	},
-	"homepage": "https://github.com/Popcorn-moe/Popcorn.moe-Frontend#readme",
+	"homepage": "https://github.com/Popcorn-moe/Web#readme",
 	"scripts": {
 		"dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
 		"start": "npm run dev",
