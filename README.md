@@ -47,7 +47,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 * **Lucas Lelièvre** - *Initial work* - [loucass003](https://github.com/loucass003)
 * **SkyBeast** - *Some commits to show us that he is working* - [SkyBeastMC](https://github.com/SkyBeastMC)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Popcorn-moe/Web/contributors) who participated in this project.
 
 ## License
 
