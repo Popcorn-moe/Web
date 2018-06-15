@@ -81,7 +81,12 @@ export default {
 					({
 						id,
 						name: subname,
-						anime: { id: animeId, cover, authors: [author], names: [name] },
+						anime: {
+							id: animeId,
+							cover,
+							authors: [author],
+							names: [name]
+						},
 						season,
 						episode,
 						type
@@ -126,7 +131,12 @@ export default {
 					({
 						id: mediaId,
 						name: subname,
-						anime: { id, cover, authors: [author], names: [name] },
+						anime: {
+							id,
+							cover,
+							authors: [author],
+							names: [name]
+						},
 						type
 					}) => ({
 						id: mediaId,

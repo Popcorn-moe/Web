@@ -12,7 +12,7 @@
 		<v-content style="min-height: 100vh;">
 			<loader v-show="isLoading"></loader>
 			<v-slide-y-transition v-show="!isLoading" mode="out-in">
-				<router-view></router-view>
+				<router-view @okHead="okHead"></router-view>
 			</v-slide-y-transition>
 		</v-content>
 
@@ -48,9 +48,14 @@ export default {
 		drawer: "drawer",
 		isLoading: "isLoading"
 	}),
-	methods: mapActions({
-		toggleDrawer: "toggleDrawer"
-	})
+	methods: {
+		...mapActions({
+			toggleDrawer: "toggleDrawer"
+		}),
+		okHead() {
+			window.prerenderReady = true;
+		}
+	}
 };
 </script>
 

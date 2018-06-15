@@ -207,7 +207,13 @@ export default class MegaMediaSource {
 		else if (aCodec) return `audio/webm;codecs="${aCodec}"`;
 	}
 
-	static getCues({ Segment: { dataOffset, Cues, Info: { TimecodeScale } } }) {
+	static getCues({
+		Segment: {
+			dataOffset,
+			Cues,
+			Info: { TimecodeScale }
+		}
+	}) {
 		if (Cues === undefined) return;
 		const timeBase = TimecodeScale
 			? byteArrayToLong(TimecodeScale.data) / 1000000
