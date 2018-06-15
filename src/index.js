@@ -1,4 +1,4 @@
-import("./main.js").catch(console.error); // Async load
+import "./main.js"; //.catch(console.error); // Async load
 
 if ("serviceWorker" in navigator && navigator.serviceWorker.controller) {
 	Promise.all([
