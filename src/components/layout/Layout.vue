@@ -12,7 +12,7 @@
 		<v-content style="min-height: 100vh;">
 			<loader v-show="isLoading"></loader>
 			<v-slide-y-transition v-show="!isLoading" mode="out-in">
-				<router-view @okHead="okHead"></router-view>
+				<router-view ref="router" @okHead="okHead"></router-view>
 			</v-slide-y-transition>
 		</v-content>
 
@@ -53,7 +53,9 @@ export default {
 			toggleDrawer: "toggleDrawer"
 		}),
 		okHead() {
-			window.prerenderReady = true;
+			if (!this.$refs.router.loading) {
+				window.prerenderReady = true;
+			}
 		}
 	}
 };

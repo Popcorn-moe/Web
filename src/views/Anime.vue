@@ -1,5 +1,5 @@
 <template>
-  <loader v-if="!anime"></loader>
+  <loader v-if="loading"></loader>
   <div v-else>
     <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }"></div>
     <v-container class="anime-page-container">
@@ -87,6 +87,9 @@ export default {
 	computed: {
 		trailers() {
 			return this.anime.medias.filter(({ type }) => type === "TRAILER");
+		},
+		loading() {
+			return !this.anime;
 		}
 	},
 	apollo: {

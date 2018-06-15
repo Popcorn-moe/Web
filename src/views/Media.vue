@@ -1,5 +1,5 @@
 <template>
-  <loader v-if="!media"></loader>
+  <loader v-if="loading"></loader>
   <div v-else>
     <div class="media-banner" :style="{ 'background-image': `url(${media.anime.background})` }">
 			<template v-if="host.startsWith('www.youtube')">
@@ -221,6 +221,9 @@ export default {
 		},
 		host() {
 			return this.media.content.split("/")[2];
+		},
+		loading() {
+			return !this.media;
 		}
 	},
 	apollo: {
