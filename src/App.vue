@@ -6,7 +6,6 @@
     </v-fade-transition>
 	<floating
         v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
-        width="400px"
         :initial="{ 'bottom': '5px', 'right': '5px' }"
         @close="videoPlayer.destroy()"
     >

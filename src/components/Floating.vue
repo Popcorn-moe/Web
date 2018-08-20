@@ -22,22 +22,11 @@ export default {
 		};
 	},
 	props: {
-		width: String,
 		initial: Object
 	},
 	computed: {
 		computedStyle() {
-			if (this.position) {
-				return {
-					width: this.width,
-					...this.position
-				};
-			} else {
-				return {
-					width: this.width,
-					...this.initial
-				};
-			}
+			return this.position || this.initial;
 		}
 	},
 	methods: {
@@ -110,6 +99,11 @@ export default {
     position: fixed;
     z-index: 100;
     cursor: move;
+		width: 480px;
+
+		@media only screen and (max-width: 768px) {
+			width: 45%;
+		}
 
     & *:fullscreen {
       cursor: auto;
