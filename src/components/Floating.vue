@@ -3,6 +3,7 @@
     class="floating elevation-4"
     :style="computedStyle"
     @mousedown="onMouseDown"
+		@touchstart="({ target, touches: [{ clientX, clientY }]}) => onMouseDown({ target, clientX, clientY })"
   >
     <v-btn icon small class="close-button main-color--text" @click.stop="$emit('close')">
       <v-icon>close</v-icon>
@@ -34,8 +35,8 @@ export default {
 			if (this.dragged && this.moved) e.stopPropagation();
 			this.dragged = false;
 		},
-		onMouseDown(e) {
-			let el = e.target;
+		onMouseDown({ target, clientX, clientY }) {
+			let el = target;
 			while (el && el != this.$el) {
 				if (el.classList && el.classList.contains("floating-cancel")) return;
 				el = el.parentElement;
@@ -43,8 +44,8 @@ export default {
 			this.dragged = true;
 			this.moved = false;
 			this.offset = {
-				x: e.clientX - this.$el.offsetLeft,
-				y: e.clientY - this.$el.offsetTop
+				x: clientX - this.$el.offsetLeft,
+				y: clientY - this.$el.offsetTop
 			};
 		},
 		setPosition(x, y) {
@@ -59,17 +60,23 @@ export default {
 				top: y + "px"
 			};
 		},
-		onMouseMove(e) {
+		onMouseMove({ clientX, clientY }) {
 			if (this.dragged && document.fullscreenElement === null) {
-				this.setPosition(e.clientX - this.offset.x, e.clientY - this.offset.y);
+				this.setPosition(
+					Math.round(clientX - this.offset.x),
+					Math.round(clientY - this.offset.y)
+				);
 				this.moved = true;
 			}
+		},
+		onTouchMove({ changedTouches: [touch] }) {
+			this.onMouseMove(touch);
 		},
 		onResize() {
 			if (this.position)
 				this.setPosition(
-					parseInt(this.position.left),
-					parseInt(this.position.top)
+					Math.round(this.position.left),
+					Math.round(this.position.top)
 				);
 		}
 	},
@@ -80,11 +87,15 @@ export default {
 	created() {
 		document.addEventListener("click", this.onMouseUp, true); //Use click to cancel it
 		document.addEventListener("mousemove", this.onMouseMove);
+		document.addEventListener("touchmove", this.onTouchMove);
+		document.addEventListener("touchend", this.onMouseUp);
 		window.addEventListener("resize", this.onResize);
 	},
 	destroyed() {
 		document.removeEventListener("click", this.onMouseUp, true);
 		document.removeEventListener("mousemove", this.onMouseMove);
+		document.removeEventListener("touchmove", this.onTouchMove);
+		document.removeEventListener("touchend", this.onMouseUp);
 		window.removeEventListener("resize", this.onResize);
 	}
 };
