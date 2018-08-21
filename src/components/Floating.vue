@@ -8,12 +8,16 @@
     <v-btn icon small class="close-button main-color--text" @click.stop="$emit('close')">
       <v-icon>close</v-icon>
     </v-btn>
+    <v-btn icon small class="return-button main-color--text" @click.stop="$emit('return')">
+      <v-icon>keyboard_tab</v-icon>
+    </v-btn>
     <slot></slot>
   </div>
 </template>
 
 <script>
 import { VBtn, VIcon } from "vuetify";
+
 export default {
 	data() {
 		return {
@@ -124,6 +128,12 @@ export default {
       position: absolute;
       z-index: 100;
       right: 0;
+    }
+
+    .return-button {
+      position: absolute;
+      z-index: 100;
+      left: 0;
     }
   }
 </style>

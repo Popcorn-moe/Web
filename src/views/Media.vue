@@ -16,6 +16,7 @@
 					owner="media"
 					class="media-player"
 					v-if="media.content"
+					:media="media"
 					:value="media.content"
 					:key="media.content"
 					:background-image="$vuetify.breakpoint.xs && media.anime.background"
@@ -239,6 +240,11 @@ export default {
 						id
 						content
 						type
+						# used for return to media button in floating player
+						... on Episode {
+							episode
+							season
+						}
 						name
 						comments {
 							id
