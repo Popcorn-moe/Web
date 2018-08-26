@@ -15,16 +15,21 @@
 			<v-flex md9 xs12>
 				<v-layout row wrap v-if="isMe">
 					<v-flex xs12>
-						<v-text-field
-							v-model="message"
-							:append-icon="message ? 'mdi-map-marker' : 'mdi-map-marker-off'"
-							:append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
-							solo
-							clear-icon="mdi-close-circle"
-							clearable
-							label="Message"
-							type="text"
-						></v-text-field>
+						<v-toolbar dense>
+							<v-text-field
+								v-model="message"
+								solo
+								prepend-icon="message"
+								clear-icon="close"
+								clearable
+								label="Message"
+								type="text"
+								hide-details
+							></v-text-field>
+							<v-btn fab flat small>
+								<v-icon>send</v-icon>
+							</v-btn>
+						</v-toolbar>
 					</v-flex>
 				</v-layout>
 				<p v-t="'profile.empty_events'" v-if="events.length === 0"></p>
@@ -38,10 +43,10 @@
 								:class="{ 
 									content: true, 
 									'elevation-1': true,
-									'content-img': event.type == 'USER_FOLLOW' || event.type == 'ANIME_FOLLOW'
+									'content-img': event.type == 'USER_FOLLOW' || event.type == 'ANIME_FOLLOW'
 								}"
 							>
-								<p v-if="event.type == 'MESSAGE' ">{{ event.message }}</p>
+								<p v-if="event.type == 'MESSAGE' ">{{ event.message }}</p>
 								<div v-if="event.type == 'ANIME_FOLLOW'">
 									<img class="elevation-5" :src="event.anime.cover.normal">
 									<p v-t="{ path: 'profile.anime_follow_event', args: { user: event.user.login, anime: event.anime.names[0] } }"></p>
@@ -63,7 +68,14 @@
 </template>
 
 <script>
-import { VExpansionPanel, VBtn, VIcon, VTextField, VDivider } from "vuetify";
+import {
+	VExpansionPanel,
+	VBtn,
+	VIcon,
+	VTextField,
+	VDivider,
+	VToolbar
+} from "vuetify";
 import VExpansionPanelContent from "vuetify/es5/components/VExpansionPanel/VExpansionPanelContent";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import gql from "graphql-tag";
@@ -214,7 +226,8 @@ export default {
 		VIcon,
 		VContainer,
 		VFlex,
-		VLayout
+		VLayout,
+		VToolbar
 	}
 };
 </script>

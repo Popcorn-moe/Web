@@ -3,24 +3,25 @@
   <div v-else>
     <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }">
 			<v-container>
-				<v-layout row wrap>
+				<v-layout row>
         	<v-flex offset-sm1 sm10>
 						<v-speed-dial
 							v-model="fab"
 							direction="left"
 							transition="slide-x-reverse-transition"
+							open-on-hover
 							top
 							left
 						>
 							<v-tooltip slot="activator" top>
 								<v-btn
+									class="main"
 									slot="activator"
 									v-model="fab"
-									:color="statusButtons[animeStatus] && statusButtons[animeStatus].color || 'primary'"
-									dark
+									:color="statusButtons[animeStatus] && statusButtons[animeStatus].color || 'primary'"
 									fab
 								>
-									<v-icon>{{ statusButtons[animeStatus] && statusButtons[animeStatus].icon || 'library_books' }}</v-icon>
+									<v-icon>{{ statusButtons[animeStatus] && statusButtons[animeStatus].icon || 'library_books' }}</v-icon>
 									<v-icon>close</v-icon>
 								</v-btn>
 								<span>Library</span>
@@ -29,10 +30,9 @@
 								<v-tooltip top>
 									<v-btn
 										fab
-										dark
 										small
 										slot="activator" 
-										:color="animeStatus !== status && btn.color || 'grey'"
+										:color="animeStatus !== status && btn.color || 'grey'"
 										@click="animeStatus !== status && setAnimeStatus(status)"
 									>
 										<v-icon>{{ btn.icon }}</v-icon>
@@ -349,8 +349,13 @@ export default {
     background-position: center;
     background-color: #2f2f2f;
 
-		.speed-dial {
+		.v-speed-dial {
 			float: right
+			.main{
+				.v-icon {
+					margin-top: -11px	
+				}
+			}
 		}
   }
 
