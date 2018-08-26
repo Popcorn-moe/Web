@@ -6,6 +6,7 @@
 			class="elevation-2"
 			disable-route-watcher
 			app
+			style="max-height: 100%"
 		>
 			<div class="nav-content">
 				<v-slide-x-transition mode="out-in">
@@ -62,7 +63,7 @@
 						<language-select></language-select>
 					</v-flex>
 					<v-flex xs4 offset-xs1>
-						<v-switch :label="$t('navbar.dark')" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
+						<v-switch hide-details :label="$t('navbar.dark')" :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
 					</v-flex>
 				</v-layout>
 			</div>

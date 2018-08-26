@@ -47,7 +47,7 @@
 						<v-select :label="$t('search.type')" v-model="type" :items="animesTypes" clearable bottom></v-select>
 					</v-flex>
 					<v-flex xs12 sm2>
-						<v-select :label="$t('search.author')"
+						<v-autocomplete :label="$t('search.author')"
 								autocomplete
 								multiple
 								:no-data-text="$t('search.nothing_found')"
@@ -58,7 +58,7 @@
 								v-model="selectedAuthors"
 								return-object
 								bottom
-						></v-select>
+						></v-autocomplete>
 					</v-flex>
 				</v-layout>
 				<v-layout row wrap>
@@ -78,7 +78,14 @@
 </template>
 
 <script>
-import { VTextField, VSelect, VBtn, VDialog, VChip } from "vuetify";
+import {
+	VTextField,
+	VSelect,
+	VAutocomplete,
+	VBtn,
+	VDialog,
+	VChip
+} from "vuetify";
 import { VCard, VCardTitle } from "vuetify/es5/components/VCard";
 import {
 	VContainer,
@@ -220,6 +227,7 @@ export default {
 		VSpacer,
 		VTextField,
 		VSelect,
+		VAutocomplete,
 		VDialog,
 		VCard,
 		VCardTitle,

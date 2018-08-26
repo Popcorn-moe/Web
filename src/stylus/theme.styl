@@ -42,13 +42,16 @@ $material-light := {
 		theme: #fff,
 		primary: rgba(#000, .87),
 		secondary: rgba(#000, .54),
-		disabled: rgba(#000, .38)
+		disabled: rgba(#000, .38),
+		link: $blue.darken-2,
+		link-hover: $grey.darken-3
 	},
 	icons: {
 		active: rgba(#000, .54),
 		inactive: rgba(#000, .38)
 	},
 	inputs: {
+		box: rgba(#000, .04),
 		solo-inverted: rgba(#000, .16),
 		solo-inverted-focused: #424242,
 		solo-inverted-focused-text: #fff
@@ -62,8 +65,11 @@ $material-light := {
 	expansion-panels: {
 		focus: #EEEEEE
 	},
+	list-tile: {
+		hover: rgba(#000, .04)
+	},
 	selection-controls: {
-		active: $main-color,
+		active: $main-color
 		thumb: {
 			inactive: $grey.lighten-5,
 			disabled: $grey.lighten-1
@@ -80,8 +86,12 @@ $material-light := {
 		discrete: #000
 	},
 	tabs: {
-		active: $theme.primary,
-		inactive: rgba(#000, .70)
+		active: rgba(#000, .87),
+		inactive: rgba(#000, .7)
+	},
+	text-fields: {
+		box: rgba(#000, .06),
+		box-hover: rgba(#000, .12)
 	},
 	input-bottom-line: rgba(#000, .42),
 	stepper: {
@@ -94,7 +104,10 @@ $material-light := {
 		hover: $grey.lighten-3
 	},
 	picker: {
-		background: $theme.primary
+		body: $theme.primary,
+		clock: $grey.lighten-2,
+		indeterminateTime: $grey.lighten-1,
+		title: $grey.lighten-2
 	},
 	bg-color: #fff
 	fg-color: #000
@@ -124,16 +137,22 @@ $material-dark := {
 		theme: #fff,
 		primary: #fff,
 		secondary: rgba(#fff, .70),
-		disabled: rgba(#fff, .50)
+		disabled: rgba(#fff, .50),
+		link: $blue.accent-1,
+		link-hover: $grey.lighten-3
 	},
 	icons: {
 		active: #fff,
 		inactive: rgba(#fff, .5)
 	},
 	inputs: {
+		box: #fff,
 		solo-inverted: rgba(#fff, .16),
 		solo-inverted-focused: #fff,
 		solo-inverted-focused-text: $material-light.text.primary
+	},
+	list-tile: {
+		hover: rgba(#fff, .08)
 	},
 	buttons: {
 		disabled: rgba(#fff, .3),
@@ -142,7 +161,7 @@ $material-dark := {
 		pressed: rgba(#ccc, .25)
 	},
 	expansion-panels: {
-		focus: rgba(#000, .70)
+		focus: rgba(#000, .7)
 	},
 	selection-controls: {
 		active: $main-color,
@@ -162,8 +181,13 @@ $material-dark := {
 		discrete: #fff
 	},
 	tabs: {
-		active: #fff,
+		active: #fff
 		inactive: rgba(#fff, .7)
+	},
+	text-fields: {
+		box: rgba(#000, .1),
+		box-hover: rgba(#000, .2),
+		box-focus: rgba(#000, .3)
 	},
 	input-bottom-line: rgba(#fff, .7),
 
@@ -177,9 +201,11 @@ $material-dark := {
 		hover: $grey.darken-2
 	},
 	picker: {
-		background: $theme.accent
+		body: ,
+		clock: $grey.darken-2,
+		indeterminateTime: $grey.darken-1,
+		title: $grey.darken-2
 	},
-
 	bg-color: #303030
 	fg-color: #fff
 	text-color: #fff

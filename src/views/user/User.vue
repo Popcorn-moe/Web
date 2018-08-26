@@ -192,13 +192,13 @@ export default {
 								id
 								login
 								avatar
-                background
+                				background
 							}
 							followers {
 								id
 								login
 								avatar
-                background
+                				background
 							}
 							metas {
 								anime { 
@@ -270,7 +270,7 @@ export default {
 				opacity: 0.4;
 			}
 
-			.icon {
+			.v-icon {
 				color: white;
 				position: absolute;
 				top: 50%;
@@ -322,7 +322,7 @@ export default {
 					height: $profilePic;
 					z-index: 2;
 
-					.icon {
+					.v-icon {
 						color: white;
 						border-radius: 100%;
 						width: 100%;
@@ -330,12 +330,14 @@ export default {
 						position: absolute;
 						top: 50%;
 						left: 50%;
-						transform: translate(-50%, -50%);
+						transform: translate(-50%, -50%) !important;
 						z-index: 1;
 						font-size: 58px;
 						background: black;
 						opacity: 0.6;
 						transition: opacity 300ms;
+						text-align: center;
+						line-height: 150px;
 
 						&:hover {
 							opacity: 0.4;
@@ -358,16 +360,17 @@ export default {
 					color: white !important;
 				}
 
-				.tabs__bar {
+				.v-tabs__bar {
 					background-color: transparent !important;
 				}
 
-				.tabs__wrapper {
+				.v-tabs__wrapper {
 					margin: 0 10px !important;
 				}
 
 				.right {
 					margin-left: auto;
+					margin-right 10px;
 				}
 
 				.active {
@@ -415,7 +418,7 @@ export default {
 			.background-upload {
 				height: 400px;
 
-				.icon {
+				.v-icon {
 					top: 75%;
 				}
 			}
