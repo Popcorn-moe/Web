@@ -2,7 +2,7 @@
   <loader v-if="loading"></loader>
   <div v-else>
     <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }">
-			<v-container>
+			<v-container v-if="animeStatus !== null">
 				<v-layout row>
         	<v-flex offset-sm1 sm10>
 						<v-speed-dial

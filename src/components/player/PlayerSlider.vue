@@ -44,15 +44,17 @@ export default {
 				ticks
 			);
 		}
-	},
-	render(h) {
+	}
+	/*render(h) {
+		console.log(h);
+		return this;
 		return VSlider.render.call(this, (tag, attrs, children) => {
 			if (attrs.staticClass === "slider") {
 				if (this.buffer) children.splice(0, 0, this.genBuffers(h));
 			}
 			return h(tag, attrs, children);
 		});
-	}
+	}*/
 };
 </script>
 
