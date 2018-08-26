@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-layout>
-      <v-flex xs8 offset-xs2>
-        <div class="vertical-align">
+    <v-layout align-center justify-center row fill-height>
+      <v-flex sm8 xs12>
+        <div class="not-found">
           <v-card>
             <img v-if="gif.type === 'img'" :src="gif.src">
             <iframe v-else-if="gif.type === 'video'" :src="gif.src" frameborder="0"></iframe>
@@ -106,9 +106,7 @@ export default {
 <style lang="stylus">
   @import "../stylus/main.styl";
 
-  .vertical-align {
-    transform: translateY(calc(50vh - 50%));
-    height: 100%;
+  .not-found {
     img {
       width: 100%;
       height: auto;

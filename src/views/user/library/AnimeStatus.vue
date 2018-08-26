@@ -1,5 +1,5 @@
 <template>
-    <div style="padding-top: 15px">
+    <div>
         <v-layout row wrap>
 			<div v-if="!animes || animes.length == 0">
 				Ajoutez des animes a votre librairie

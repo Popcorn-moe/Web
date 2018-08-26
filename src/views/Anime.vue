@@ -76,7 +76,7 @@
           <p>{{ anime.desc }}</p>
           <div class="text-xs-center" v-if="trailers.length">
             <h4 class="uppercase" v-t="'anime.trailer'"></h4>
-						​<div class="videoWrapper">
+						<div class="videoWrapper">
 							<iframe 
 								width="100%" 
 								:src="trailers[0].content" 

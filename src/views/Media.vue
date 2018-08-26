@@ -372,7 +372,7 @@ export default {
       text-decoration none
     }
 
-    .divider {
+    .v-divider {
       margin-top: 30px;
       margin-bottom: 30px;
     }
@@ -429,10 +429,6 @@ export default {
 
 		.title {
 			margin-bottom: 30px;
-		}
-
-		.comment-btn {
-			margin-top: 10px;
 		}
   }
 

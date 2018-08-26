@@ -24,6 +24,7 @@ Vue.use(Vuetify, {
 		success: colors.green.base
 	}
 });
+
 Vue.use(VueHead, {
 	separator: "-",
 	complement: "Popcorn.moe"
