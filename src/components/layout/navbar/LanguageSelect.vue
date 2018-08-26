@@ -52,12 +52,14 @@ export default {
 	},
 	methods: {
 		setLocale(locale) {
+			this.$emit("change");
 			i18n.locale = locale;
 			localStorage.setItem("locale", locale);
 			const update = elem => {
 				elem.$forceUpdate();
 				elem.$children.forEach(update);
 			};
+
 			update(this.$root);
 		}
 	},

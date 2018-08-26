@@ -13,13 +13,13 @@
 					 v-model="query"
 					></v-text-field>
 				</div>
-				<div v-else key="toolbar" class="toolbar__content" style="width: 100%;"> 
+				<div v-else key="toolbar" class="v-toolbar__content" style="width: 100%; padding-left: 0; padding-right: 0"> 
 					<object height="40px" data="/static/logo-animated.svg" type="image/svg+xml">Logo</object>
 					<v-spacer></v-spacer>
 					<v-btn icon @click.stop="search = true">
 						<v-icon>search</v-icon>
 					</v-btn>
-					<v-dialog 
+					<v-dialog
 					 v-if="isAuth && me"
 					 fullscreen
 					 transition="dialog-bottom-transition"
@@ -45,20 +45,20 @@
 					<v-btn v-else icon :to="{ name: 'Login' }">
 						<v-icon>account_circle</v-icon>
 					</v-btn>
-					<v-menu offset-y auto>
-						<v-btn icon flat slot="activator">
+					<v-menu  v-model="open" :close-on-content-click="false" offset-y auto :nudge-width="150">
+						<v-btn icon flat slot="activator" >
 							<v-icon>more_vert</v-icon>
 						</v-btn>
 						<v-list>
 							<v-list-tile>
 								<v-list-tile-action>
-									<v-switch :inputValue="darkTheme" @change="setDarkTheme"></v-switch>
+									<v-switch :inputValue="darkTheme" @change="setTheme"></v-switch>
 								</v-list-tile-action>
 								<v-list-tile-title v-t="'navbar.dark'"></v-list-tile-title>
 							</v-list-tile>
 							<v-list-tile>
 								<v-list-tile-action>
-									<language-select class="language"></language-select>
+									<language-select class="language" @change="open = false"></language-select>
 								</v-list-tile-action>
 							</v-list-tile>
 						</v-list>
@@ -114,6 +114,7 @@ import gql from "graphql-tag";
 export default {
 	data() {
 		return {
+			open: false,
 			routes,
 			query: null,
 			search: false,
@@ -147,9 +148,15 @@ export default {
 		darkTheme: "darkTheme",
 		isAuth: "isAuth"
 	}),
-	methods: mapActions({
-		setDarkTheme: "setDarkTheme"
-	}),
+	methods: {
+		setTheme(e) {
+			this.open = false;
+			this.setDarkTheme(e);
+		},
+		...mapActions({
+			setDarkTheme: "setDarkTheme"
+		})
+	},
 	watch: {
 		isAuth() {
 			this.$apollo.queries.me.refetch();
@@ -200,7 +207,7 @@ export default {
   }
 
   .language {
-	.input-group__details {
+	.v-input-group__details {
 	  min-height: 0px !important;
 	}
   }

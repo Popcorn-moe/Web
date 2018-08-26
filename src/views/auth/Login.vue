@@ -49,11 +49,11 @@
 						:label="$t('login.password')"
 						v-model="password"
 						:append-icon="hidePassword ? 'visibility' : 'visibility_off'"
-						:append-icon-cb="() => (hidePassword = !hidePassword)"
+						@click:append="hidePassword = !hidePassword"
 						:type="hidePassword ? 'password' : 'text'"
 					/>
 					<div class="text-xs-right">
-						<v-btn class="pa-1" dark color="secondary" depressed large @click.stop="login()" v-t="'login.connect'"></v-btn>
+						<v-btn class="pa-1" dark color="secondary black--text" depressed large @click.stop="login()" v-t="'login.connect'"></v-btn>
 					</div>
 				</div>
 				<div class="pa-3">
@@ -144,10 +144,10 @@ export default {
 				padding: 10%;
 			}
 
-			.btn {
+			.v-btn {
 				img {
 					position: absolute;
-					left: 10px;
+					left: -10px;
 					height: 35px;
 				}
 				border-radius: 10px;

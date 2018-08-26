@@ -31,7 +31,7 @@
               </div>
               <div v-else>
                 <div v-if="preview" v-html="markdownResponse"></div>
-                <v-text-field
+                <v-textarea
                   v-else
                   v-model="responseText"
                   @focus="needAuth()"
@@ -40,7 +40,7 @@
                   rows="1"
                   hideDetails
                 >
-                </v-text-field>
+                </v-textarea>
                 <v-layout row>
                   <v-flex xs1>
                     <v-btn flat icon :class="{'main-color--text': preview}" @click.stop="preview = !preview">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { VBtn, VDivider, VTextField, VIcon, VProgressLinear } from "vuetify";
+import { VBtn, VDivider, VTextarea, VIcon, VProgressLinear } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import marked from "marked";
 import gql from "graphql-tag";
@@ -180,7 +180,7 @@ export default {
 		VLayout,
 		VDivider,
 		VBtn,
-		VTextField,
+		VTextarea,
 		VIcon,
 		VProgressLinear
 	}
@@ -222,7 +222,7 @@ export default {
           }
         }
 
-        .divider {
+        .v-divider {
           margin: 3px;
         }
       }

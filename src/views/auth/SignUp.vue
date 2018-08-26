@@ -32,16 +32,16 @@
 					<v-text-field :label="$t('sign_up.password')"
 												v-model="password"
 												:append-icon="hidePassword ? 'visibility' : 'visibility_off'"
-												:append-icon-cb="() => (hidePassword = !hidePassword)"
+												@click:append="() => (hidePassword = !hidePassword)"
 												:type="hidePassword ? 'password' : 'text'"></v-text-field>
 					<v-text-field :label="$t('sign_up.password')"
 												v-model="passwordConfirm"
 												:append-icon="hidePasswordConfirm ? 'visibility' : 'visibility_off'"
-												:append-icon-cb="() => (hidePasswordConfirm = !hidePasswordConfirm)"
+												@click:append="() => (hidePasswordConfirm = !hidePasswordConfirm)"
 												:type="hidePasswordConfirm ? 'password' : 'text'"></v-text-field>
 					<v-checkbox :label="$t('sign_up.newsletter')" v-model="newsletter"></v-checkbox>
 					<div class="text-xs-center">
-						<v-btn class="pa-1" dark color="secondary" depressed large @click.stop="signup()" v-t="'sign_up.sign_up'"></v-btn>
+						<v-btn class="pa-1" dark color="secondary black--text" depressed large @click.stop="signup()" v-t="'sign_up.sign_up'"></v-btn>
 					</div>
 				</div>
 				<div class="pa-3">
@@ -139,10 +139,10 @@ export default {
 				padding: 10%;
 			}
 
-			.btn {
+			.v-btn {
 				img {
 					position: absolute;
-					left: 10px;
+					left: -10px;
 					height: 35px;
 				}
 				border-radius: 10px;

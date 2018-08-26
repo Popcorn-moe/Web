@@ -75,7 +75,7 @@
         </v-flex>
         <v-flex sm12 offset-lg1 lg10>
             <v-divider></v-divider>
-						<v-text-field
+						<v-textarea
 							v-model="commentText"
               multi-line
               auto-grow
@@ -84,7 +84,7 @@
 							solo
 							@focus="needAuth()"
             >
-            </v-text-field>
+            </v-textarea>
 						<v-flex class="text-xs-right">
 							<v-btn small class="main-color comment-btn" @click.stop="comment()">Commenter</v-btn>
 						</v-flex>
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { VBtn, VIcon, VDivider, VTextField } from "vuetify";
+import { VBtn, VIcon, VDivider, VTextarea } from "vuetify";
 import {
 	VList,
 	VListGroup,
@@ -308,7 +308,7 @@ export default {
 		}
 	},
 	components: {
-		VTextField,
+		VTextarea,
 		VContainer,
 		VFlex,
 		VLayout,

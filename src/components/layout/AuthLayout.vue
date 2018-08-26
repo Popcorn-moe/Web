@@ -60,7 +60,9 @@ export default {
 	}
 
 	.button-bottom {
-		bottom 0;
+		bottom 5px;
+		left: 5px;
+		width 200px;
 	}
 
 	.button-right {
