@@ -6,9 +6,9 @@
     </v-fade-transition>
 	<floating
         v-if="!videoPlayer.destroyed && (videoPlayer.owner === null || videoPlayer.owner === 'floating' ) && !$route.meta.hasPlayer"
-        width="400px"
         :initial="{ 'bottom': '5px', 'right': '5px' }"
         @close="videoPlayer.destroy()"
+				@return="returnToMedia()"
     >
         <video-player owner='floating'></video-player>
     </floating>
@@ -49,6 +49,21 @@ export default {
 		}),
 		isAuth() {
 			return this.$route.path.match("auth/");
+		}
+	},
+	methods: {
+		returnToMedia() {
+			const {
+				id: mediaId,
+				type,
+				anime: { id },
+				season: s,
+				episode: e
+			} = videoPlayer.media;
+			this.$router.push({
+				name: type === "EPISODE" ? "Episode" : "Media",
+				params: { mediaId, id, season: s + 1, episode: e + 1 }
+			});
 		}
 	},
 	head: {

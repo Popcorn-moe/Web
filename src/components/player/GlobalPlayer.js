@@ -7,6 +7,7 @@ const VIDEO_PROPS = Array.isArray(VideoPlayer.props)
 
 export const videoPlayer = {
 	owner: null,
+	media: null,
 	destroyed: true,
 	paused: true,
 	destroy() {
@@ -15,7 +16,7 @@ export const videoPlayer = {
 };
 
 export default {
-	props: ["owner"].concat(VIDEO_PROPS),
+	props: ["owner", "media"].concat(VIDEO_PROPS),
 	render(h) {
 		return h("div");
 	},
@@ -39,6 +40,7 @@ export default {
 			VIDEO_PROPS.forEach(prop => (videoPlayer.instance[prop] = this[prop]));
 			videoPlayer.instance.$mount();
 			videoPlayer.destroyed = false;
+			videoPlayer.media = this.media;
 		}
 
 		this.$el.appendChild(videoPlayer.instance.$el);

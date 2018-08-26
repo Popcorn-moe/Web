@@ -32,7 +32,7 @@
 								</div>
 								<div class="v-card__actions">
 									<v-spacer></v-spacer>
-									<v-btn class="green--text darken-1" flat="flat" @click.native="dialog_tags = false" v-t="'search.finish'"></v-btn>
+									<v-btn color="primary" class="darken-1" flat="flat" @click.native="dialog_tags = false" v-t="'search.finish'"></v-btn>
 								</div>
 							</v-card>
 						</v-dialog>
@@ -250,7 +250,7 @@ export default {
 					less_options: "Less options",
 					nothing_found: "Nothing found",
 					add_tags: "Add tags",
-					finish: "Ok",
+					finish: "Done",
 					search: "Search",
 					sort_by: "Sort by",
 					status: "Status",
