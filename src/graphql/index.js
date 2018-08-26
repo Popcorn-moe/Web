@@ -6,6 +6,8 @@ Vue.use(VueApollo);
 
 export const client = createClient();
 
+window.graphql = client;
+
 export default new VueApollo({
 	defaultClient: client
 });

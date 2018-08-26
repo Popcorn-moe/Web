@@ -14,15 +14,17 @@
 			</v-flex>
 			<v-flex md9 xs12>
 				<v-layout row wrap v-if="isMe">
-					<v-flex xs10>
+					<v-flex xs12>
 						<v-text-field
-							prepend-icon="message"
-							:placeholder="$t('profile.send_message')"
-							single-line
+							v-model="message"
+							:append-icon="message ? 'mdi-map-marker' : 'mdi-map-marker-off'"
+							:append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
+							solo
+							clear-icon="mdi-close-circle"
+							clearable
+							label="Message"
+							type="text"
 						></v-text-field>
-					</v-flex>
-					<v-flex xs2>
-						<v-btn block top class="primary white--text"> {{ $t('profile.send_message_btn') }} <v-icon right>send</v-icon></v-btn>
 					</v-flex>
 				</v-layout>
 				<p v-t="'profile.empty_events'" v-if="events.length === 0"></p>
@@ -76,7 +78,8 @@ export default {
 		return {
 			user: { login: "UNKNOWN" },
 			me: {},
-			events: []
+			events: [],
+			message: ""
 		};
 	},
 	apollo: {

@@ -1,7 +1,50 @@
 <template>
   <loader v-if="loading"></loader>
   <div v-else>
-    <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }"></div>
+    <div class="anime-page-banner" :style="{ 'background-image': `url(${anime.background})` }">
+			<v-container>
+				<v-layout row wrap>
+        	<v-flex offset-sm1 sm10>
+						<v-speed-dial
+							v-model="fab"
+							direction="left"
+							transition="slide-x-reverse-transition"
+							top
+							left
+						>
+							<v-tooltip slot="activator" top>
+								<v-btn
+									slot="activator"
+									v-model="fab"
+									:color="statusButtons[animeStatus] && statusButtons[animeStatus].color || 'primary'"
+									dark
+									fab
+								>
+									<v-icon>{{ statusButtons[animeStatus] && statusButtons[animeStatus].icon || 'library_books' }}</v-icon>
+									<v-icon>close</v-icon>
+								</v-btn>
+								<span>Library</span>
+							</v-tooltip>
+							<div v-for="(btn, status) in statusButtons" :key="status">
+								<v-tooltip top>
+									<v-btn
+										fab
+										dark
+										small
+										slot="activator" 
+										:color="animeStatus !== status && btn.color || 'grey'"
+										@click="animeStatus !== status && setAnimeStatus(status)"
+									>
+										<v-icon>{{ btn.icon }}</v-icon>
+									</v-btn>
+									<span>{{ btn.tooltip }}</span>
+								</v-tooltip>
+							</div>
+						</v-speed-dial>
+        	</v-flex>
+				</v-layout>
+			</v-container>
+		</div>
     <v-container class="anime-page-container">
       <v-layout row wrap>
         <v-flex offset-sm1 sm7 class="anime-infos">
@@ -45,10 +88,6 @@
           </div>
         </v-flex>
         <v-flex sm3 xs12>
-          <v-btn class="main-color" block large light>
-            <v-icon class="white--text">favorite</v-icon>
-            {{ $t('anime.subscribe') }}
-          </v-btn>
           <div class="rate-container">
             <div class="text-xs-center">
               <h4 v-t="'anime.rating'"></h4>
@@ -64,7 +103,7 @@
 
 <script>
 import Loader from "../components/layout/Loader";
-import { VBtn, VIcon } from "vuetify";
+import { VBtn, VIcon, VSpeedDial, VTooltip } from "vuetify";
 import { VContainer, VFlex, VLayout } from "vuetify/es5/components/VGrid";
 import Rating from "../components/Rating";
 import MediaList from "../components/media/MediaList";
@@ -72,11 +111,42 @@ import PImg from "../components/ProgressiveImg";
 import gql from "graphql-tag";
 import { client } from "../graphql";
 
+const statusButtons = {
+	WANT_TO_WATCH: {
+		icon: "watch_later",
+		color: "blue",
+		tooltip: "Want to watch"
+	},
+	COMPLETED: {
+		icon: "check",
+		color: "green",
+		tooltip: "Completed"
+	},
+	ON_HOLD: {
+		icon: "pause",
+		color: "orange",
+		tooltip: "On Hold"
+	},
+	DROPPED: {
+		icon: "delete",
+		color: "red",
+		tooltip: "Dropped"
+	},
+	WATCHING: {
+		icon: "play_arrow",
+		color: "purple",
+		tooltip: "Watching"
+	}
+};
+
 export default {
 	props: ["id"],
 	data() {
 		return {
-			anime: null
+			anime: null,
+			fab: false,
+			statusButtons,
+			animeStatus: null
 		};
 	},
 	watch: {
@@ -90,6 +160,31 @@ export default {
 		},
 		loading() {
 			return !this.anime;
+		}
+	},
+	methods: {
+		setAnimeStatus(status) {
+			this.$apollo
+				.mutate({
+					mutation: gql`
+						mutation($anime: ID!, $meta: MetaInput!) {
+							updateMeta(anime: $anime, meta: $meta) {
+								status
+							}
+						}
+					`,
+					variables: {
+						anime: this.id,
+						meta: { status }
+					}
+				})
+				.then(
+					({
+						data: {
+							updateMeta: { status }
+						}
+					}) => (this.animeStatus = status)
+				);
 		}
 	},
 	apollo: {
@@ -142,6 +237,29 @@ export default {
 				}
 				return anime;
 			}
+		},
+		animeStatus: {
+			query: gql`
+				query($id: ID!) {
+					me {
+						id
+						meta(anime: $id) {
+							status
+						}
+					}
+				}
+			`,
+			fetchPolicy: "network-only",
+			variables() {
+				return {
+					id: this.id
+				};
+			},
+			update: ({
+				me: {
+					meta: { status }
+				}
+			}) => status
 		}
 	},
 	components: {
@@ -153,7 +271,9 @@ export default {
 		VIcon,
 		Rating,
 		MediaList,
-		PImg
+		PImg,
+		VSpeedDial,
+		VTooltip
 	},
 	head: {
 		title() {
@@ -223,11 +343,18 @@ export default {
   .anime-page-banner {
     width: 100%;
     height: 405px;
+		padding-top: 330px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #2f2f2f;
+
+		.speed-dial {
+			float: right
+		}
   }
+
+	
 
   .anime-page-container {
     padding-top:30px;
@@ -290,7 +417,7 @@ export default {
 
     .rate-container {
       background-color: #dcdcdc;
-      margin-top: 15px;
+      margin-top: 30px;
       padding: 30px;
     }
   }

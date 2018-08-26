@@ -91,16 +91,16 @@ export const routes = [
 		props: true,
 		children: [
 			{
-				path: "follows",
-				name: "UserLibraryFollows",
+				path: ":status(watching|want-to-watch|completed|on-hold|dropped)",
+				name: "LibraryAnimeStatus",
 				props: true,
-				component: () => import("../views/user/library/Follows")
+				component: () => import("../views/user/library/AnimeStatus")
 			},
 			{
-				path: "playlist/:id",
-				name: "UserLibraryPlaylist",
+				path: "search/:search",
+				name: "LibrarySearch",
 				props: true,
-				component: () => import("../views/user/library/Playlist")
+				component: () => import("../views/user/library/Search")
 			}
 		]
 	},

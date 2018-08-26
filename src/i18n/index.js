@@ -26,7 +26,11 @@ const i18n = new VueI18n({
 					connections: "Connections"
 				},
 				user_library: {
-					follows: "Follows"
+					watching: "Currently Watching",
+					want_to_watch: "Want to watch",
+					completed: "Completed",
+					on_hold: "On Hold",
+					dropped: "Dropped"
 				}
 			},
 			anime_status: {
@@ -56,7 +60,11 @@ const i18n = new VueI18n({
 					connections: "Comptes"
 				},
 				user_library: {
-					follows: "Follows"
+					watching: "En cours",
+					want_to_watch: "Want to watch",
+					completed: "Completed",
+					on_hold: "On Hold",
+					dropped: "Dropped"
 				}
 			},
 			anime_status: {

@@ -30,20 +30,20 @@
 		</div>
 		<v-tabs-items :value="page" @input="changeUrl">
 			<v-tab-item id="profile">
-					<user-profile :userId="user.id"></user-profile>
-				</v-tab-item>
-				<v-tab-item id="library">
-					<user-library :userId="user.id"></user-library>
-				</v-tab-item>
-				<v-tab-item id="follows">
-					<user-follows :user="user"></user-follows>
-				</v-tab-item>
-				<v-tab-item id="followers">
-					<user-followers :user="user"></user-followers>
-				</v-tab-item>
-				<v-tab-item id="settings" v-if="isMe">
-					<user-settings></user-settings>
-				</v-tab-item>
+				<user-profile :userId="user.id"></user-profile>
+			</v-tab-item>
+			<v-tab-item id="library">
+				<user-library :user="user"></user-library>
+			</v-tab-item>
+			<v-tab-item id="follows">
+				<user-follows :user="user"></user-follows>
+			</v-tab-item>
+			<v-tab-item id="followers">
+				<user-followers :user="user"></user-followers>
+			</v-tab-item>
+			<v-tab-item id="settings" v-if="isMe">
+				<user-settings></user-settings>
+			</v-tab-item>
 		</v-tabs-items>
 	</div>
 </template>
@@ -95,12 +95,14 @@ export default {
 	methods: {
 		changeUrl(value) {
 			let name;
+			let params = {};
 			switch (value) {
 				case "settings":
 					name = "UserSettings";
 					break;
 				case "library":
-					name = `UserLibrary${this.$vuetify.breakpoint.xs ? "" : "Follows"}`;
+					name = `LibraryAnimeStatus`;
+					params = { status: "want-to-watch" };
 					break;
 				default:
 					name = "User";
@@ -109,7 +111,8 @@ export default {
 			this.$router.push({
 				name,
 				params: Object.assign({}, this.$route.params, {
-					page: value
+					page: value,
+					...params
 				})
 			});
 		},
@@ -197,7 +200,21 @@ export default {
 								avatar
                 background
 							}
+							metas {
+								anime { 
+									id
+									names
+									cover {
+										normal
+									}
+									authors {
+										name
+									}
+								}
+								status
+							}
 						}
+						
 					}
 				`;
 			},

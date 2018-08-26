@@ -8,7 +8,7 @@
 				<v-list-tile-title v-t="'route.auth.profile'"></v-list-tile-title>
 			</v-list-tile-content>
 		</v-list-tile>
-		<v-list-tile :to="{ name: `UserLibrary${$vuetify.breakpoint.xs ? '' : 'Follows'}`, params: { page: 'library', userLogin: login }}" @click="$emit('close')">
+		<v-list-tile :to="{ name: 'UserLibrary', params: { page: 'library', status: 'watching', userLogin: login }}" @click="$emit('close')">
 			<v-list-tile-action>
 				<v-icon>local_library</v-icon>
 			</v-list-tile-action>
