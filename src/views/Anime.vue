@@ -6,7 +6,7 @@
 				<v-layout row>
         	<v-flex offset-sm1 sm10>
 						<v-speed-dial
-							v-if="animeStatus != null"
+							v-if="user.id != null"
 							v-model="fab"
 							direction="left"
 							transition="slide-x-reverse-transition"
@@ -145,6 +145,7 @@ export default {
 	data() {
 		return {
 			anime: null,
+			user: {},
 			fab: false,
 			statusButtons,
 			animeStatus: null
@@ -239,7 +240,7 @@ export default {
 				return anime;
 			}
 		},
-		animeStatus: {
+		user: {
 			query: gql`
 				query($id: ID!) {
 					me {
@@ -256,11 +257,10 @@ export default {
 					id: this.id
 				};
 			},
-			update: ({
-				me: {
-					meta: { status }
-				}
-			}) => status
+			update({ me }) {
+				this.animeStatus = me.meta && me.meta.status;
+				return me;
+			}
 		}
 	},
 	components: {
