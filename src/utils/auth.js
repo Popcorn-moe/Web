@@ -25,41 +25,44 @@ export const PROVIDERS = {
 	kitsu: "https://kitsu.io"
 };
 
-export function exchangeSSOToken(token) {
-	return fetch(`${process.env.AUTH_URL}/ssoExchange`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({
-			token
-		}),
-		credentials: "include"
-	})
-		.then(res => res.json())
-		.then(({ csrf, ...fields }) => {
-			localStorage.setItem("csrf", csrf);
+export async function exchangeSSOToken(token) {
+	const { csrf, ...fields } = await fetch(
+		`${process.env.AUTH_URL}/ssoExchange`,
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				token
+			}),
+			credentials: "include"
+		}
+	).then(res => res.json());
 
-			if (window.FederatedCredential) {
-				const cred = new FederatedCredential({
-					id: fields.email,
-					name: fields.login,
-					iconURL: fields.avatar.startsWith("https://")
-						? fields.avatar
-						: undefined,
-					provider: PROVIDERS[fields.provider]
-				});
+	localStorage.setItem("csrf", csrf);
 
-				navigator.credentials.store(cred);
+	if (window.FederatedCredential) {
+		const cred = navigator.credentials.create({
+			federated: {
+				id: fields.email,
+				name: fields.login,
+				iconURL: fields.avatar.startsWith("https://")
+					? fields.avatar
+					: undefined,
+				provider: PROVIDERS[fields.provider]
 			}
-
-			store.dispatch("setIsAuth", true);
-			return fields;
 		});
+
+		await navigator.credentials.store(cred);
+	}
+
+	store.dispatch("setIsAuth", true);
+	return fields;
 }
 
-export function login(username, password) {
-	return fetch(`${process.env.AUTH_URL}/login`, {
+export async function login(username, password) {
+	const { csrf, ...fields } = fetch(`${process.env.AUTH_URL}/login`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json"
@@ -69,30 +72,30 @@ export function login(username, password) {
 			password
 		}),
 		credentials: "include"
-	})
-		.then(res => {
-			if (res.status === 200) return res.json();
-			else return res.json().then(alert => Promise.reject({ alert }));
-		})
-		.then(({ csrf, ...fields }) => {
-			localStorage.setItem("csrf", csrf);
+	}).then(res => {
+		if (res.status === 200) return res.json();
+		else return res.json().then(alert => Promise.reject({ alert }));
+	});
 
-			if (window.PasswordCredential) {
-				const cred = new PasswordCredential({
-					id: fields.email,
-					password,
-					name: fields.login,
-					iconURL: fields.avatar.startsWith("https://")
-						? fields.avatar
-						: undefined
-				});
+	localStorage.setItem("csrf", csrf);
 
-				navigator.credentials.store(cred);
+	if (window.PasswordCredential) {
+		const cred = navigator.credentials.create({
+			password: {
+				id: fields.email,
+				password,
+				name: fields.login,
+				iconURL: fields.avatar.startsWith("https://")
+					? fields.avatar
+					: undefined
 			}
-
-			store.dispatch("setIsAuth", true);
-			return fields;
 		});
+
+		navigator.credentials.store(cred);
+	}
+
+	store.dispatch("setIsAuth", true);
+	return fields;
 }
 
 export function ssoLogin(provider, callback = window.location.href) {
