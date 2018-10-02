@@ -34,7 +34,11 @@ Vue.use(VueHead, {
 // vue-timeago
 Vue.use(VueTimeago, {
 	name: "timeago",
-	locale: "en"
+	locale: "en",
+	locales: {
+		fr: require("date-fns/locale/fr"),
+		en: require("date-fns/locale/en")
+	}
 });
 
 /* eslint-disable no-new */
