@@ -9,7 +9,7 @@
           <div class="comment-content">
               <div class="username">
               {{ value.user.login }}
-              <h6 class="date">{{ value.posted }}</h6>
+              <h6 class="date"><timeago :datetime="value.posted"/></h6>
             </div>
             <p v-html="value.content"></p>
             <div v-if="!isReply">
