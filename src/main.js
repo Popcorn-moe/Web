@@ -8,6 +8,7 @@ import store, { onLoad } from "./store";
 import apolloProvider from "./graphql";
 import i18n from "./i18n";
 import autoSignIn from "./credentials";
+import VueTimeago from "vue-timeago";
 
 const mainColor = "#f6416c";
 const secondaryColor = "#fddd84";
@@ -28,6 +29,16 @@ Vue.use(Vuetify, {
 Vue.use(VueHead, {
 	separator: "-",
 	complement: "Popcorn.moe"
+});
+
+// vue-timeago
+Vue.use(VueTimeago, {
+	name: "timeago",
+	locale: "en",
+	locales: {
+		fr: require("date-fns/locale/fr"),
+		en: require("date-fns/locale/en")
+	}
 });
 
 /* eslint-disable no-new */
